@@ -1,0 +1,17 @@
+node_modules
+dist
+.wrangler
+.dev.vars
+
+# Change them to your taste:
+package-lock.json
+yarn.lock
+pnpm-lock.yaml
+bun.lockb
+node_modules
+tags
+.dev*
+.wrangler
+.undodir
+Session.vim
+settings.json
