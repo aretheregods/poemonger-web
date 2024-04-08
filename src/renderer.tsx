@@ -1,4 +1,5 @@
-import { jsxRenderer } from 'hono/jsx-renderer'
+import { jsxRenderer } from 'hono/jsx-renderer';
+import mailChannelsPlugin from "@cloudflare/pages-plugin-mailchannels";
 
 export const renderer = jsxRenderer(({ children, title }) => {
   return (
