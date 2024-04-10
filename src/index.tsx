@@ -2,8 +2,6 @@ import { Hono } from "hono";
 import { Base } from "./Base";
 import SignUp from "./components/signup";
 
-import mailChannelsPlugin from "@cloudflare/pages-plugin-mailchannels";
-
 type Bindings = {
   USERS_KV: KVNamespace;
   DKIM_PRIVATE_KEY: string;
@@ -66,9 +64,14 @@ app.post("/signup", async (c) => {
       }),
       { metadata: { hash: password } }
     )
-      .then(() =>
-        mailChannelsPlugin({
-          personalizations: [
+      .then(async () => {
+        const e = new Request("https://api.mailchannels.net/tx/v1/send", {
+          method: "POST",
+          headers: {
+            "content-type": "application/json",
+          },
+          body: JSON.stringify(
+          {personalizations: [
             {
               to: [
                 {
@@ -85,11 +88,18 @@ app.post("/signup", async (c) => {
             name: "Poemonger | Welcome",
             email: "welcome@poemonger.com",
           },
-          respondWith() {
-            return new Response(message + ` ${email}`);
-          },
-        })
-      )
+          subject: "Finish signing up",
+          content: () => [
+            {
+              type: "text/html",
+              value: "<h1>Finish signing up now.</h1>",
+            },
+              ]
+            })
+        });
+        const e_res = await fetch(e);
+        return new Response(`${message} ${e_res.ok}`)
+      })
       .catch((e) => {
         message = `${messages.error} ${e}`;
         c.status(500);
