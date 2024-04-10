@@ -86,7 +86,7 @@ app.post("/signup", async (c) => {
             email: "welcome@poemonger.com",
           },
           respondWith() {
-            return c.json({ message: message + ` ${email}` });
+            return new Response(message + ` ${email}`);
           },
         })
       )
