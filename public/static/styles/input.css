@@ -23,7 +23,7 @@ input.standard-input:user-invalid {
 
 @media (min-width: 768px) {
     input.standard-input {
-        width: 30ch;
+        width: 45ch;
         line-height: 1rem;
         height: 2.25rem;
     }
