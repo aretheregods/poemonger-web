@@ -1,0 +1,7 @@
+{
+  "name": "Poemonger",
+  "icons": [
+    { "src": "./public/logos/logo.svg", "type": "image/svg+xml", "sizes": "512x512" },
+    { "src": "./public/logos/logo_small-512.png", "type": "image/png", "sizes": "512x512" }
+  ]
+}
