@@ -38,11 +38,11 @@ app.post("/signup", async (c) => {
 
   c.status(201);
 
+  var message = messages.success;
   if (!f) {
     message = messages.failure;
     c.status(406);
   }
-  var message = messages.success;
 
   var d = await c.req.formData();
 
@@ -87,7 +87,7 @@ app.post("/signup", async (c) => {
           email: "welcome@poemonger.com",
         },
         respondWith() {
-          return new Response(message);
+          return c.json({ message });
         },
       });
     } catch (e) {
