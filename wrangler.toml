@@ -1,4 +1,4 @@
-name = "poemonger-hono-test"
+name = "poemonger-web"
 compatibility_flags = [ "nodejs_compat"  ]
 
 [dev]
