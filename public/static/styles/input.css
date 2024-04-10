@@ -1,0 +1,31 @@
+input.standard-input {
+    font-family: inherit;
+    width: 80vw;
+    padding: 0.25em 0.5em;
+    background-color: #fff;
+    border: 1px solid var(--input-border);
+    border-radius: 0.5rem;
+    transition: 180ms box-shadow ease-in-out;
+    line-height: 1.25rem;
+    height: 3rem;
+}
+
+input.standard-input:focus {
+    border-color: hsl(var(--input-focus));
+    box-shadow: 0 0 0 2px hsla(var(--input-focus), 0.5);
+    outline: 3px solid transparent;
+}
+
+input.standard-input:user-invalid {
+    border-color: hsl(var(--input-invalid));
+    box-shadow: 0 0 0 2px hsla(var(--input-invalid), 0.8);
+}
+
+@media (min-width: 768px) {
+    input.standard-input {
+        width: 30ch;
+        line-height: 1rem;
+        height: 2.25rem;
+    }
+}
+

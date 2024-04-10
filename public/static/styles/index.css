@@ -1,0 +1,28 @@
+* {
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+        Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue",
+        sans-serif;
+}
+
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+:root {
+    --input-border: #8b8a8b;
+    --input-focus: 245, 100%, 42%;
+    --input-invalid: 348, 100%, 48%;
+    --button-color: 244, 84%;
+    --button-color-l: 79%;
+    --button-text-color: 267, 100%, 15%;
+}
+
+button.button {
+    font-size: medium;
+    padding: 0.5rem 1rem;
+    border: none;
+    border-radius: 0.5rem;
+}
+
