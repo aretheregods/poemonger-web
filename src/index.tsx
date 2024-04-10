@@ -56,44 +56,44 @@ app.post("/signup", async (c) => {
     message = `${messages.exists} ${JSON.stringify(l)}`;
     c.status(409);
   } else {
-    try {
-      await c.env.USERS_KV.put(
-        `user=${email};created_at=${n}`,
-        JSON.stringify({
-          email: email,
-          password: password,
-          first_name: first_name,
-          last_name: last_name,
-        }),
-        { metadata: { hash: password } }
-      );
-
-      mailChannelsPlugin({
-        personalizations: [
-          {
-            to: [
-              {
-                name: `${first_name} ${last_name}`,
-                email: email,
-              },
-            ],
-            dkim_domain: "poemonger.com",
-            dkim_selector: "mailchannels",
-            dkim_private_key: c.env.DKIM_PRIVATE_KEY,
+    await c.env.USERS_KV.put(
+      `user=${email};created_at=${n}`,
+      JSON.stringify({
+        email: email,
+        password: password,
+        first_name: first_name,
+        last_name: last_name,
+      }),
+      { metadata: { hash: password } }
+    )
+      .then(() =>
+        mailChannelsPlugin({
+          personalizations: [
+            {
+              to: [
+                {
+                  name: `${first_name} ${last_name}`,
+                  email: email,
+                },
+              ],
+              dkim_domain: "poemonger.com",
+              dkim_selector: "mailchannels",
+              dkim_private_key: c.env.DKIM_PRIVATE_KEY,
+            },
+          ],
+          from: {
+            name: "Poemonger | Welcome",
+            email: "welcome@poemonger.com",
           },
-        ],
-        from: {
-          name: "Poemonger | Welcome",
-          email: "welcome@poemonger.com",
-        },
-        respondWith() {
-          return c.json({ message });
-        },
+          respondWith() {
+            return c.json({ message: message + ` ${email}` });
+          },
+        })
+      )
+      .catch((e) => {
+        message = `${messages.error} ${e}`;
+        c.status(500);
       });
-    } catch (e) {
-      message = `${messages.error} ${e}`;
-      c.status(500);
-    }
   }
 
   return c.json({ message });
