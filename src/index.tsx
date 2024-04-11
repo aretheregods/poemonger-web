@@ -90,7 +90,7 @@ app.post("/signup", async (c) => {
               email: "welcome@poemonger.com",
             },
             subject: "Finish signing up",
-            content: () => [
+            content: [
               {
                 type: "text/html",
                 value: "<h1>Finish signing up now.</h1>",
