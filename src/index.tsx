@@ -54,56 +54,56 @@ app.post("/signup", async (c) => {
     message = `${messages.exists} ${JSON.stringify(l)}`;
     c.status(409);
   } else {
-    await c.env.USERS_KV.put(
-      `user=${email};created_at=${n}`,
-      JSON.stringify({
-        email: email,
-        password: password,
-        first_name: first_name,
-        last_name: last_name,
-      }),
-      { metadata: { hash: password } }
-    )
-      .then(async () => {
-        const e = new Request("https://api.mailchannels.net/tx/v1/send", {
-          method: "POST",
-          headers: {
-            "content-type": "application/json",
-          },
-          body: JSON.stringify(
-          {personalizations: [
-            {
-              to: [
-                {
-                  name: `${first_name} ${last_name}`,
-                  email: email,
-                },
-              ],
-              dkim_domain: "poemonger.com",
-              dkim_selector: "mailchannels",
-              dkim_private_key: c.env.DKIM_PRIVATE_KEY,
+    try {
+      await c.env.USERS_KV.put(
+        `user=${email};created_at=${n}`,
+        JSON.stringify({
+          email: email,
+          password: password,
+          first_name: first_name,
+          last_name: last_name,
+        }),
+        { metadata: { hash: password } }
+      )
+      const res = new Request("https://api.mailchannels.net/tx/v1/send", {
+        method: "POST",
+        headers: {
+          "content-type": "application/json",
+        },
+        body: JSON.stringify(
+          {
+            personalizations: [
+              {
+                to: [
+                  {
+                    name: `${first_name} ${last_name}`,
+                    email: email,
+                  },
+                ],
+                dkim_domain: "poemonger.com",
+                dkim_selector: "mailchannels",
+                dkim_private_key: c.env.DKIM_PRIVATE_KEY,
+              },
+            ],
+            from: {
+              name: "Poemonger | Welcome",
+              email: "welcome@poemonger.com",
             },
-          ],
-          from: {
-            name: "Poemonger | Welcome",
-            email: "welcome@poemonger.com",
-          },
-          subject: "Finish signing up",
-          content: () => [
-            {
-              type: "text/html",
-              value: "<h1>Finish signing up now.</h1>",
-            },
-              ]
-            })
-        });
-        const e_res = await fetch(e);
-        return new Response(`${message} ${e_res.ok}`)
-      })
-      .catch((e) => {
-        message = `${messages.error} ${e}`;
-        c.status(500);
+            subject: "Finish signing up",
+            content: () => [
+              {
+                type: "text/html",
+                value: "<h1>Finish signing up now.</h1>",
+              },
+            ]
+          })
       });
+      const e_res = await fetch(res);
+      return new Response(`${message} ${await e_res.ok}`)
+    } catch (e) {
+      message = `${messages.error} ${e}`;
+      c.status(500);
+    }
   }
 
   return c.json({ message });
