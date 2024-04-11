@@ -156,13 +156,10 @@ app.get("/activate", async (c) => {
     var error = false;
     if (!e || !t) error = true;
     try {
-        const {
-            value,
-            metadata: { token },
-        } = await c.env.USERS_KV.getWithMetadata<{
-            metadata: { token: string };
+        const { value, metadata } = await c.env.USERS_KV.getWithMetadata<{
+            token: string;
         }>(`user=${e}`);
-        if (token != t) error = true;
+        if (metadata?.token != t) error = true;
         else {
             const v = JSON.parse(value as string);
             await c.env.USERS_KV.put(
