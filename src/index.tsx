@@ -100,13 +100,15 @@ app.post("/signup", async (c) => {
       });
       const res = await fetch(req);
       var m = {};
-      if (res.status === 202)
+      if (res.status === 202 || /accepted/i.test(res.statusText)) {
         m = { success: true };
-      try {
-        const { errors } = await res.clone().json();
-        m = { success: false, errors };
-      } catch {
-        m = { success: false, errors: [res.statusText] };
+      } else {
+        try {
+          const { errors } = await res.clone().json();
+          m = { success: false, errors };
+        } catch {
+          m = { success: false, errors: [res.statusText] };
+        }
       }
 
       return c.json(m);
