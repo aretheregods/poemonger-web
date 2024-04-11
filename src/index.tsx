@@ -109,7 +109,7 @@ app.post("/signup", async (c) => {
         m = { success: false, errors: [res.statusText] };
       }
 
-      return new Response(message)
+      return c.json(m);
     } catch (e) {
       message = `${messages.error} ${e}`;
       c.status(500);
