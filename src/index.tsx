@@ -65,7 +65,7 @@ app.post("/signup", async (c) => {
         }),
         { metadata: { hash: password } }
       )
-      const res = new Request("https://api.mailchannels.net/tx/v1/send", {
+      const req = new Request("https://api.mailchannels.net/tx/v1/send", {
         method: "POST",
         headers: {
           "content-type": "application/json",
@@ -98,8 +98,18 @@ app.post("/signup", async (c) => {
             ]
           })
       });
-      const e_res = await fetch(res);
-      return new Response(`${message} ${await e_res.ok}`)
+      const res = await fetch(req);
+      var m = {};
+      if (res.status === 202)
+        m = { success: true };
+      try {
+        const { errors } = await res.clone().json();
+        m = { success: false, errors };
+      } catch {
+        m = { success: false, errors: [res.statusText] };
+      }
+
+      return new Response(message)
     } catch (e) {
       message = `${messages.error} ${e}`;
       c.status(500);
