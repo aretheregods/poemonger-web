@@ -2,8 +2,6 @@ import { Hono } from "hono";
 import { Base } from "./Base";
 import SignUp from "./components/signup";
 
-import mailChannelsPlugin from "@cloudflare/pages-plugin-mailchannels";
-
 type Bindings = {
   USERS_KV: KVNamespace;
   DKIM_PRIVATE_KEY: string;
@@ -66,30 +64,52 @@ app.post("/signup", async (c) => {
           last_name: last_name,
         }),
         { metadata: { hash: password } }
-      );
-
-      mailChannelsPlugin({
-        personalizations: [
+      )
+      const req = new Request("https://api.mailchannels.net/tx/v1/send", {
+        method: "POST",
+        headers: {
+          "content-type": "application/json",
+        },
+        body: JSON.stringify(
           {
-            to: [
+            personalizations: [
               {
-                name: `${first_name} ${last_name}`,
-                email: email,
+                to: [
+                  {
+                    name: `${first_name} ${last_name}`,
+                    email: email,
+                  },
+                ],
+                dkim_domain: "poemonger.com",
+                dkim_selector: "mailchannels",
+                dkim_private_key: c.env.DKIM_PRIVATE_KEY,
               },
             ],
-            dkim_domain: "poemonger.com",
-            dkim_selector: "mailchannels",
-            dkim_private_key: c.env.DKIM_PRIVATE_KEY,
-          },
-        ],
-        from: {
-          name: "Poemonger | Welcome",
-          email: "welcome@poemonger.com",
-        },
-        respondWith() {
-          return c.json({ message });
-        },
+            from: {
+              name: "Poemonger | Welcome",
+              email: "welcome@poemonger.com",
+            },
+            subject: "Finish signing up",
+            content: [
+              {
+                type: "text/html",
+                value: "<h1>Finish signing up now.</h1>",
+              },
+            ]
+          })
       });
+      const res = await fetch(req);
+      var m = {};
+      if (res.status === 202)
+        m = { success: true };
+      try {
+        const { errors } = await res.clone().json();
+        m = { success: false, errors };
+      } catch {
+        m = { success: false, errors: [res.statusText] };
+      }
+
+      return c.json(m);
     } catch (e) {
       message = `${messages.error} ${e}`;
       c.status(500);
