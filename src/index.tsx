@@ -2,6 +2,7 @@ import { Hono } from "hono";
 import { html } from "hono/html";
 import { Base } from "./Base";
 import { Activate } from "./components/emails";
+import ActivatePage from "./components/signup/ActivatePage";
 import SignUp from "./components/signup";
 import Hashes from "./utils/hash";
 
@@ -149,10 +150,32 @@ app.post("/signup", async (c) => {
     return c.json({ message });
 });
 
-app.get("/activate", (c) => {
+app.get("/activate", async (c) => {
     const e = c.req.query("email");
     const t = c.req.query("token");
-    return c.html(<h1>Activate</h1>);
+    var error = false;
+    if (!e || !t) error = true;
+    try {
+        const {
+            value,
+            metadata: { token },
+        } = await c.env.USERS_KV.getWithMetadata<{
+            metadata: { token: string };
+        }>(`user=${e}`);
+        if (token != t) error = true;
+        else {
+            const v = JSON.parse(value as string);
+            await c.env.USERS_KV.put(
+                `user=${e}`,
+                JSON.stringify({ ...v, active: true })
+            );
+            error = false;
+        }
+    } catch {
+        error = true;
+    }
+
+    return c.html(<ActivatePage error={error} />);
 });
 
 app.get("/", (c) => {
