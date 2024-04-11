@@ -1,7 +1,7 @@
 import { Hono } from "hono";
 import { html } from "hono/html";
 import { Base } from "./Base";
-import { Activate } from './components/emails';
+import { Activate } from "./components/emails";
 import SignUp from "./components/signup";
 import Hashes from "./utils/hash";
 
@@ -58,7 +58,7 @@ app.post("/signup", async (c) => {
     var password = d.get("password");
     var first_name = d.get("first_name");
     var last_name = d.get("last_name");
-    var salt = d.get('salt');
+    var salt = d.get("salt");
 
     var l = await c.env.USERS_KV.list({ prefix: `user=${email}` });
     if (l.keys.length) {
@@ -75,7 +75,15 @@ app.post("/signup", async (c) => {
                     first_name: first_name,
                     last_name: last_name,
                 }),
-                { metadata: { hash: password, created_at: n, active: false, token, salt } }
+                {
+                    metadata: {
+                        hash: password,
+                        created_at: n,
+                        active: false,
+                        token,
+                        salt,
+                    },
+                }
             );
             const req = new Request("https://api.mailchannels.net/tx/v1/send", {
                 method: "POST",
@@ -100,11 +108,18 @@ app.post("/signup", async (c) => {
                         name: "Poemonger | Welcome",
                         email: "welcome@poemonger.com",
                     },
-                    subject: "Poetry is waiting. Finish activating your account.",
+                    subject:
+                        "Poetry is waiting. Finish activating your account.",
                     content: [
                         {
                             type: "text/html",
-                            value: <Activate email={email} token={token} url={c.req.url} />,
+                            value: (
+                                <Activate
+                                    email={email}
+                                    token={token}
+                                    url={c.req.url}
+                                />
+                            ),
                         },
                     ],
                 }),
@@ -115,7 +130,9 @@ app.post("/signup", async (c) => {
                 m = { success: true };
             } else {
                 try {
-                    const { errors } = await res.clone().json() as { errors: Array<object> };
+                    const { errors } = (await res.clone().json()) as {
+                        errors: Array<object>;
+                    };
                     m = { success: false, errors };
                 } catch {
                     m = { success: false, errors: [res.statusText] };
@@ -133,7 +150,9 @@ app.post("/signup", async (c) => {
 });
 
 app.get("/activate", (c) => {
-    return c.html(<h1>Activate</h1>)
+    const e = c.req.query("email");
+    const t = c.req.query("token");
+    return c.html(<h1>Activate</h1>);
 });
 
 app.get("/", (c) => {
