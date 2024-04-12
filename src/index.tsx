@@ -182,11 +182,13 @@ app.get("/activate", async (c) => {
   const e = c.req.query("email");
   const t = c.req.query("token");
   var error = false;
+  var v = {};
   if (!e || !t) error = true;
   try {
     const value = await c.env.USERS_KV.get<{
       token: string;
     }>(`user=${e}`, { type: "json" });
+    v = value || {};
 
     if (!value || value?.token != t) error = true;
     else {
@@ -204,7 +206,7 @@ app.get("/activate", async (c) => {
     error = true;
   }
 
-  return c.html(<ActivatePage error={error} />);
+  return c.html(<ActivatePage error={error} value={v} />);
 });
 
 app.get("/login", (c) => {

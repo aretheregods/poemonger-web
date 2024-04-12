@@ -1,9 +1,10 @@
-export default function ActivatePage({ error }: { error: boolean }) {
+export default function ActivatePage({ error, value }: { error: boolean; value: object; }) {
     if (error) {
         return (
             <h2>
                 Please check your email for the correct link to activate your
                 account.
+                {JSON.stringify(value)}
             </h2>
         );
     }
