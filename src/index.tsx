@@ -212,13 +212,13 @@ app.post("/login/check-email", async (c) => {
             active: boolean;
             salt: string;
         }>(`user=${body.email}`);
-        if (active) salt = metadata?.salt;
+        if (metadata?.active) salt = metadata?.salt;
         else {
             error = "Activate your account first. Click our link in your email";
             status = 404;
         }
     } catch (e) {
-        error = e;
+        error = `This email doesn't exist in our system - ${e}`;
         status = 404;
     }
     return c.json({ salt, error }, { status });
