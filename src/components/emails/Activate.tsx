@@ -1,4 +1,4 @@
-import Email from ".";
+import { html } from 'hono/html';
 
 export default function Activate({
     email,
@@ -12,8 +12,7 @@ export default function Activate({
     const location = new URL(url);
     const host = location.hostname;
 
-    return (
-        <Email>
+    return html`
             <table>
                 <thead>
                     <tr>
@@ -28,7 +27,7 @@ export default function Activate({
                             Finish signing up.{" "}
                             <span>
                                 <a
-                                    href={`https://${host}/activate?user=${email}&token=${token}`}
+                                    href="${`https://${host}/activate?user=${email}&token=${token}`}"
                                 >
                                     Activate your account
                                 </a>
@@ -37,6 +36,5 @@ export default function Activate({
                     </tr>
                 </tbody>
             </table>
-        </Email>
-    );
+        `;
 }
