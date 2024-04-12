@@ -28,6 +28,10 @@ export default function Login() {
                         }}
                     />
                 </li>
+                <li id="reveal-password-container">
+                    <input type="checkbox" id="reveal-password" />
+                    <label for="reveal-password">Show password</label>
+                </li>
             </ul>
             <button type="submit" class="button">
                 Submit

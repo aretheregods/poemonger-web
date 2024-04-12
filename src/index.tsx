@@ -6,9 +6,9 @@ import ActivatePage from "./components/signup/ActivatePage";
 import SignUp from "./components/signup";
 import Hashes from "./utils/hash";
 import Login from "./components/login";
-import Logout from './components/logout';
-import Reset from './components/reset';
-import Delete from './components/reset';
+import Logout from "./components/logout";
+import Reset from "./components/reset";
+import Delete from "./components/reset";
 
 type Bindings = {
     USERS_KV: KVNamespace;
@@ -179,7 +179,7 @@ app.get("/activate", async (c) => {
     return c.html(<ActivatePage error={error} />);
 });
 
-app.get('/login', (c) => {
+app.get("/login", (c) => {
     return c.html(
         <Base
             title="Poemonger | Login"
@@ -187,37 +187,70 @@ app.get('/login', (c) => {
                 <link
                     rel="stylesheet"
                     href="/static/styles/credentialsForm.css"
-                />
+                />,
+                <script
+                    type="module"
+                    src="/static/js/login/index.js"
+                    defer
+                ></script>,
             ]}
         >
             <Login />
         </Base>
-    )
-})
+    );
+});
 
-app.get('/logout', (c) => {
+app.post("/login/check-email", async (c) => {
+    var salt;
+    var error;
+    var status = 201;
+    var body = await c.req.json();
+    if (!body.email)
+        return c.json({ error: "No email in request", salt }, { status: 404 });
+    try {
+        const { metadata } = await c.env.USERS_KV.getWithMetadata<{
+            active: boolean;
+            salt: string;
+        }>(`user=${body.email}`);
+        if (active) salt = metadata?.salt;
+        else {
+            error = "Activate your account first. Click our link in your email";
+            status = 404;
+        }
+    } catch (e) {
+        error = e;
+        status = 404;
+    }
+    return c.json({ salt, error }, { status });
+});
+
+app.post("/login", (c) => {
+    return c.json({});
+});
+
+app.get("/logout", (c) => {
     return c.html(
         <Base title="Poemonger | Logout">
             <Logout />
         </Base>
-    )
-})
+    );
+});
 
-app.get('/reset', (c) => {
+app.get("/reset", (c) => {
     return c.html(
         <Base title="Poemonger | Reset">
             <Reset />
         </Base>
-    )
-})
+    );
+});
 
-app.get('/delete', (c) => {
+app.get("/delete", (c) => {
     return c.html(
         <Base title="Poemonger | Delete">
             <Delete />
         </Base>
-    )
-})
+    );
+});
 
 app.get("/", (c) => {
     const props = {
