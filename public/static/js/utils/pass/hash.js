@@ -1,13 +1,14 @@
 export default function hashPasswordWithSalt(salt) {
+    var s = salt || window.crypto.getRandomValues(new Uint8Array(64));
     return (formMap, [key, value]) => {
         if (key === "password" || key === "confirm_password") {
             return hash(
                 value,
-                salt || window.crypto.getRandomValues(new Uint8Array(64)),
+                s,    
                 6e5
             ).then((h) => {
                 formMap.set(key, `${bitsToHex(new Uint8Array(h))}`);
-                formMap.set("salt", salt);
+                formMap.set("salt", s);
 
                 return formMap;
             });
