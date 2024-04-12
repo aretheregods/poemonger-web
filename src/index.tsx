@@ -6,6 +6,9 @@ import ActivatePage from "./components/signup/ActivatePage";
 import SignUp from "./components/signup";
 import Hashes from "./utils/hash";
 import Login from "./components/login";
+import Logout from './components/logout';
+import Reset from './components/reset';
+import Delete from './components/reset';
 
 type Bindings = {
     USERS_KV: KVNamespace;
@@ -188,6 +191,30 @@ app.get('/login', (c) => {
             ]}
         >
             <Login />
+        </Base>
+    )
+})
+
+app.get('/logout', (c) => {
+    return c.html(
+        <Base title="Poemonger | Logout">
+            <Logout />
+        </Base>
+    )
+})
+
+app.get('/reset', (c) => {
+    return c.html(
+        <Base title="Poemonger | Reset">
+            <Reset />
+        </Base>
+    )
+})
+
+app.get('/delete', (c) => {
+    return c.html(
+        <Base title="Poemonger | Delete">
+            <Delete />
         </Base>
     )
 })
