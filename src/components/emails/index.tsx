@@ -1,7 +1,5 @@
-import { html } from "hono/html";
-
-export default function Email({ children }: { children?: JSX.Element }) {
-    return html` <!DOCTYPE html>
+export default function Email({ children }: { children?: string }) {
+    return `<!DOCTYPE html>
         <html lang="en">
             <head>
                 <meta

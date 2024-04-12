@@ -1,5 +1,3 @@
-import { html } from "hono/html";
-
 export default function Activate({
   email,
   token,
@@ -12,7 +10,7 @@ export default function Activate({
   const location = new URL(url);
   const host = location.hostname;
 
-  return html`
+  return `
     <table>
       <thead>
         <tr>
