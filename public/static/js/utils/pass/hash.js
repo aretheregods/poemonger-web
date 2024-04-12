@@ -5,7 +5,7 @@ export default function hashPasswordWithSalt(salt) {
     if (key === "password" || key === "confirm_password") {
       return hash(value, s, 6e5).then((h) => {
         formMap.set(key, `${bitsToHex(new Uint8Array(h))}`);
-        if (!salt) formMap.set("salt", s);
+        formMap.set("salt", s);
 
         return formMap;
       });
