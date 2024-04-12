@@ -79,6 +79,7 @@ app.post("/signup", async (c) => {
                     password: password,
                     first_name: first_name,
                     last_name: last_name,
+                    salt,
                 }),
                 {
                     metadata: {
@@ -86,7 +87,6 @@ app.post("/signup", async (c) => {
                         created_at: n,
                         active: false,
                         token,
-                        salt,
                     },
                 }
             );
@@ -208,11 +208,12 @@ app.post("/login/check-email", async (c) => {
     if (!body.email)
         return c.json({ error: "No email in request", salt }, { status: 404 });
     try {
-        const { metadata } = await c.env.USERS_KV.getWithMetadata<{
+        const { metadata, value } = await c.env.USERS_KV.getWithMetadata<{
             active: boolean;
-            salt: string;
         }>(`user=${body.email}`);
-        if (metadata?.active) salt = metadata?.salt;
+        var m = JSON.parse(metadata);
+        var v = JSON.parse(value);
+        if (m?.active) salt = v?.salt;
         else {
             error = "Activate your account first. Click our link in your email";
             status = 404;
