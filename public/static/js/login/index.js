@@ -13,7 +13,7 @@ f.addEventListener("submit", async (e) => {
         headers: { "Content-Type": "application/json" },
     });
     if (error) {
-        var email = document.getElementById("email");
+        var email = document.getElementById("email-input");
         return email.setAttribute("invalid", true);
     }
     request
