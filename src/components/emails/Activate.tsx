@@ -21,13 +21,11 @@ export default function Activate({
       </thead>
       <tbody>
         <tr>
-          <td>Finish signing up.</td>
-          <td>
-            <a
+          <td>Finish signing up. <span><a
               href="${`https://${host}/activate?user=${email}&token=${token}`}"
             >
               Activate your account
-            </a>
+            </a></span>
           </td>
         </tr>
       </tbody>
