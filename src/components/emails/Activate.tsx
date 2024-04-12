@@ -1,40 +1,38 @@
-import { html } from 'hono/html';
+import { html } from "hono/html";
 
 export default function Activate({
-    email,
-    token,
-    url,
+  email,
+  token,
+  url,
 }: {
-    email: string | null;
-    token: string;
-    url: string;
+  email: string | null;
+  token: string;
+  url: string;
 }) {
-    const location = new URL(url);
-    const host = location.hostname;
+  const location = new URL(url);
+  const host = location.hostname;
 
-    return html`
-            <table>
-                <thead>
-                    <tr>
-                        <td>
-                            <h1>Welcome to POEMONGER</h1>
-                        </td>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>
-                            Finish signing up.{" "}
-                            <span>
-                                <a
-                                    href="${`https://${host}/activate?user=${email}&token=${token}`}"
-                                >
-                                    Activate your account
-                                </a>
-                            </span>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-        `;
+  return html`
+    <table>
+      <thead>
+        <tr>
+          <td>
+            <h1>Welcome to POEMONGER</h1>
+          </td>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Finish signing up.</td>
+          <td>
+            <a
+              href="${`https://${host}/activate?user=${email}&token=${token}`}"
+            >
+              Activate your account
+            </a>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  `;
 }
