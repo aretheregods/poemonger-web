@@ -1,7 +1,7 @@
 import { Hono } from "hono";
 import { html } from "hono/html";
 import { Base } from "./Base";
-import { Activate } from "./components/emails";
+import Email, { Activate } from "./components/emails";
 import ActivatePage from "./components/signup/ActivatePage";
 import SignUp from "./components/signup";
 import Hashes from "./utils/hash";
@@ -86,8 +86,7 @@ app.post("/signup", async (c) => {
                     salt,
                 })
             );
-            const location = new URL(c.req.url);
-            const host = location.hostname;
+            
             const req = new Request("https://api.mailchannels.net/tx/v1/send", {
                 method: "POST",
                 headers: {
@@ -116,46 +115,7 @@ app.post("/signup", async (c) => {
                     content: [
                         {
                             type: "text/html",
-                            value: `<!DOCTYPE html>
-                <html lang="en">
-                    <head>
-                        <meta
-                            name="viewport"
-                            content="width=device-width, initial-scale=1.0"
-                        />
-                        <meta
-                            http-equiv="Content-Type"
-                            content="text/html; charset=UTF-8"
-                        />
-                    </head>
-
-                    <body>
-                        <main>
-                        <table>
-                            <thead>
-                                <tr>
-                                <td>
-                                    <h1>Welcome to POEMONGER</h1>
-                                </td>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                <td>Finish signing up.</td>
-                                <td>
-                                    <a
-                                    href="${`https://${host}/activate?user=${email}&token=${token}`}"
-                                    >
-                                    Activate your account
-                                    </a>
-                                </td>
-                                </tr>
-                            </tbody>
-                            </table>
-                        </main>
-                    </body>
-                </html>
-                `,
+                            value: Email({ children: Activate({ email, token, url: c.req.url })}),
                         },
                     ],
                 }),
