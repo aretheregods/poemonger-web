@@ -186,15 +186,19 @@ app.get("/activate", async (c) => {
   try {
     const value = await c.env.USERS_KV.get<{
       token: string;
-    }>(`user=${e}`, { type: 'json' });
-    
+    }>(`user=${e}`, { type: "json" });
+
     if (!value || value?.token != t) error = true;
     else {
-      await c.env.USERS_KV.put(
-        `user=${e}`,
-        JSON.stringify({ ...value, active: true })
-      );
-      error = false;
+      try {
+        await c.env.USERS_KV.put(
+          `user=${e}`,
+          JSON.stringify({ ...value, active: true })
+        );
+        error = false;
+      } catch (err) {
+        error = true;
+      }
     }
   } catch {
     error = true;
@@ -226,10 +230,10 @@ app.post("/login/check-email", async (c) => {
     return c.json({ error: "No email in request", salt }, { status: 404 });
   try {
     const value = await c.env.USERS_KV.get<{
-        active: boolean;
-        salt: string;
-    }>(`user=${body.email}`, { type: 'json' });
-    
+      active: boolean;
+      salt: string;
+    }>(`user=${body.email}`, { type: "json" });
+
     if (value?.active) salt = value?.salt;
     else {
       error = "Activate your account first. Click our link in your email";
