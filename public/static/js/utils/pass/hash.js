@@ -1,7 +1,6 @@
 export default function hashPasswordWithSalt(salt) {
   var s =
-    new TextEncoder().encode(salt) ||
-    window.crypto.getRandomValues(new Uint8Array(64));
+    stringToUint8(salt) || window.crypto.getRandomValues(new Uint8Array(64));
   return (formMap, [key, value]) => {
     if (key === "password" || key === "confirm_password") {
       return hash(value, s, 6e5).then((h) => {
@@ -48,4 +47,10 @@ function bitsToHex(uint8Array) {
     hex.push((uint8Array[i] & 0xf).toString(16));
   }
   return hex.join("");
+}
+
+function stringToUint8(s = "") {
+  var a = s.split(",");
+  var b = a.map((v) => parseInt(v));
+  return Uint8Array.from(b);
 }
