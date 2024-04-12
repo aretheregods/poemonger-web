@@ -108,47 +108,46 @@ app.post("/signup", async (c) => {
           content: [
             {
               type: "text/html",
-              value: ` <!DOCTYPE html>
-        <html lang="en">
-            <head>
-                <meta
-                    name="viewport"
-                    content="width=device-width, initial-scale=1.0"
-                />
-                <meta
-                    http-equiv="Content-Type"
-                    content="text/html; charset=UTF-8"
-                />
-            </head>
+              value: `<!DOCTYPE html>
+                <html lang="en">
+                    <head>
+                        <meta
+                            name="viewport"
+                            content="width=device-width, initial-scale=1.0"
+                        />
+                        <meta
+                            http-equiv="Content-Type"
+                            content="text/html; charset=UTF-8"
+                        />
+                    </head>
 
-            <body>
-                <main>
-                <table>
-                <thead>
-                    <tr>
-                        <td>
-                            <h1>Welcome to POEMONGER</h1>
-                        </td>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>
-                            Finish signing up.{" "}
-                            <span>
-                                <a
+                    <body>
+                        <main>
+                        <table>
+                            <thead>
+                                <tr>
+                                <td>
+                                    <h1>Welcome to POEMONGER</h1>
+                                </td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                <td>Finish signing up.</td>
+                                <td>
+                                    <a
                                     href="${`https://${host}/activate?user=${email}&token=${token}`}"
-                                >
+                                    >
                                     Activate your account
-                                </a>
-                            </span>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-                </main>
-            </body>
-        </html>`,
+                                    </a>
+                                </td>
+                                </tr>
+                            </tbody>
+                            </table>
+                        </main>
+                    </body>
+                </html>
+                `,
             },
           ],
         }),
@@ -204,7 +203,7 @@ app.get("/activate", async (c) => {
     error = true;
   }
 
-    return c.html(<ActivatePage error={error} />);
+  return c.html(<ActivatePage error={error} />);
 });
 
 app.get("/login", (c) => {
