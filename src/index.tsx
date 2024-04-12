@@ -72,16 +72,12 @@ app.post("/signup", async (c) => {
           password: password,
           first_name: first_name,
           last_name: last_name,
+          hash: password,
+          created_at: n,
+          active: false,
+          token,
           salt,
-        }),
-        {
-          metadata: {
-            hash: password,
-            created_at: n,
-            active: false,
-            token,
-          },
-        }
+        })
       );
       const location = new URL(c.req.url);
       const host = location.hostname;
@@ -188,12 +184,12 @@ app.get("/activate", async (c) => {
   var error = false;
   if (!e || !t) error = true;
   try {
-    const { value, metadata } = await c.env.USERS_KV.getWithMetadata<{
+    const { value } = await c.env.USERS_KV.getWithMetadata<{
       token: string;
     }>(`user=${e}`);
-    if (metadata?.token != t) error = true;
+    const v = JSON.parse(value || '');
+    if (v?.token != t) error = true;
     else {
-      const v = JSON.parse(value as string);
       await c.env.USERS_KV.put(
         `user=${e}`,
         JSON.stringify({ ...v, active: true })
@@ -229,12 +225,12 @@ app.post("/login/check-email", async (c) => {
   if (!body.email)
     return c.json({ error: "No email in request", salt }, { status: 404 });
   try {
-    const { metadata, value } = await c.env.USERS_KV.getWithMetadata<{
-      active: boolean;
+    const { value } = await c.env.USERS_KV.getWithMetadata<{
+        active: boolean;
+        salt: string;
     }>(`user=${body.email}`);
-    var m = JSON.parse(metadata);
-    var v = JSON.parse(value);
-    if (m?.active) salt = v?.salt;
+    var v = JSON.parse(value || '');
+    if (v?.active) salt = v?.salt;
     else {
       error = "Activate your account first. Click our link in your email";
       status = 404;
