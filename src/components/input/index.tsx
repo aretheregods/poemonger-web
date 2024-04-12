@@ -3,7 +3,7 @@ type inputProps = {
   type: "email" | "text" | "password" | "name";
   name: string;
   placeholder: string;
-  autocomplete: "" | "given-name" | "family-name" | "email" | "new-password";
+  autocomplete: "" | "given-name" | "family-name" | "email" | "new-password" | "current-password";
   required: boolean;
   pattern?: string;
   minLength?: number;

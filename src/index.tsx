@@ -5,6 +5,7 @@ import { Activate } from "./components/emails";
 import ActivatePage from "./components/signup/ActivatePage";
 import SignUp from "./components/signup";
 import Hashes from "./utils/hash";
+import Login from "./components/login";
 
 type Bindings = {
     USERS_KV: KVNamespace;
@@ -174,6 +175,22 @@ app.get("/activate", async (c) => {
 
     return c.html(<ActivatePage error={error} />);
 });
+
+app.get('/login', (c) => {
+    return c.html(
+        <Base
+            title="Poemonger | Login"
+            assets={[
+                <link
+                    rel="stylesheet"
+                    href="/static/styles/credentialsForm.css"
+                />
+            ]}
+        >
+            <Login />
+        </Base>
+    )
+})
 
 app.get("/", (c) => {
     const props = {
