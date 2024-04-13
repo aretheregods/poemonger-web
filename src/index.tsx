@@ -64,7 +64,9 @@ app.post("/signup", async (c) => {
         c.status(409);
     } else {
         try {
-            const token = await Hashes.Hash256(email as string);
+            const H = new Hashes();
+            const token = await H.Hash256(email as string);
+            const hash = await H.HashPasswordWithSalt(password as string, n);
             await c.env.USERS_KV.put(
                 `user=${email}`,
                 JSON.stringify({
@@ -72,9 +74,9 @@ app.post("/signup", async (c) => {
                     password: password,
                     first_name: first_name,
                     last_name: last_name,
-                    hash: password,
                     created_at: n,
                     active: false,
+                    hash,
                     token,
                     salt,
                 })
@@ -213,8 +215,48 @@ app.post("/login/check-email", async (c) => {
     return c.json({ salt, error }, { status });
 });
 
-app.post("/login", (c) => {
-    return c.json({});
+app.post("/login", async (c) => {
+    var ct = c.req.header("Content-Type");
+    var f = /multipart\/form-data/g.test(ct || "");
+    var error = true;
+    var messages = {
+        success: `Successfully processed your login request.`,
+        failure: `Could not process your request. Please send a form.`,
+        error: "There was a problem saving your information. Please try again.",
+        exists: "There is not an account with this email address or password.",
+    };
+
+    c.status(201);
+
+    var message = messages.success;
+    if (!f) {
+        message = messages.failure;
+        c.status(406);
+    }
+
+    var d = await c.req.formData();
+
+    var email = d.get("email");
+    var password = d.get("password");
+
+    var u = await c.env.USERS_KV.get<{ created_at: number; hash: string; }>(`user=${email}`, { type: 'json' });
+    if (!u) {
+        message = messages.exists;
+        c.status(409);
+    } else {
+        try {
+            const n = u.created_at;
+            const hash = u.hash;
+            const H = new Hashes();
+            const h = await H.HashPasswordWithSalt(password as string, n);
+            if (h === hash) error = false;
+        } catch {
+            message = messages.exists;
+            c.status(409);
+        }
+    }
+    
+    return c.json({ error, message });
 });
 
 app.get("/logout", (c) => {
