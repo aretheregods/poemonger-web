@@ -14,7 +14,7 @@ f.addEventListener("submit", (e) => {
             submitter: e.submitter,
             reducer: hashPassword(),
         })
-        .then((body) => request.post({ path: "/signup", body }))
+        .then((body) => request.post({ path: "/signup", headers: { 'X-Poemonger-Form': 'signup '},  body }))
         .then((response) => console.log({ response }))
         .catch((e) => console.log({ e }));
 });

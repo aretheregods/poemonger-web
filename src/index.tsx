@@ -35,6 +35,8 @@ app.post("/signup", async (c) => {
     var n = Date.now();
     var ct = c.req.header("Content-Type");
     var f = /multipart\/form-data/g.test(ct || "");
+    var xpf = c.req.header("X-Poemonger-Form");
+    var pf = /signup/i.test(xpf || '');
     var messages = {
         success: `Successfully processed your.`,
         failure: `Could not process your request. Please send a form.`,
@@ -45,7 +47,7 @@ app.post("/signup", async (c) => {
     c.status(201);
 
     var message = messages.success;
-    if (!f) {
+    if (!f || !pf) {
         message = messages.failure;
         c.status(406);
     }
@@ -191,9 +193,20 @@ app.get("/login", (c) => {
 });
 
 app.post("/login/check-email", async (c) => {
+    var ct = c.req.header("Content-Type");
+    var f = /multipart\/form-data/g.test(ct || "");
+    var xpf = c.req.header("X-Poemonger-Form");
+    var pf = /login/i.test(xpf || '');
     var salt;
     var error;
     var status = 201;
+
+    if (!f || !pf) {
+        error = 'Error';
+        c.status(406);
+        return c.json({ error, salt })
+    }
+
     var body = await c.req.json();
     if (!body.email)
         return c.json({ error: "No email in request", salt }, { status: 404 });
@@ -221,6 +234,8 @@ app.post("/login/check-email", async (c) => {
 app.post("/login", async (c) => {
     var ct = c.req.header("Content-Type");
     var f = /multipart\/form-data/g.test(ct || "");
+    var xpf = c.req.header("X-Poemonger-Form");
+    var pf = /login/i.test(xpf || '');
     var error = true;
     var messages = {
         success: `Successfully processed your login request.`,
@@ -232,7 +247,7 @@ app.post("/login", async (c) => {
     c.status(201);
 
     var message = messages.success;
-    if (!f) {
+    if (!f || !pf) {
         message = messages.failure;
         c.status(406);
     }
