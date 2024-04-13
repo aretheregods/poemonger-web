@@ -203,7 +203,10 @@ app.post("/login/check-email", async (c) => {
             salt: string;
         }>(`user=${body.email}`, { type: "json" });
 
-        if (value?.active) salt = value?.salt;
+        if (!value) {
+            error = "There is not an account with this email address or password.";
+            status = 404;
+        } else if (value?.active) salt = value?.salt;
         else {
             error = "Activate your account first. Click our link in your email";
             status = 404;
@@ -255,7 +258,7 @@ app.post("/login", async (c) => {
             c.status(409);
         }
     }
-    
+
     return c.json({ error, message });
 });
 
