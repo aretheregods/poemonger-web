@@ -1,4 +1,4 @@
-import Input from "../input";
+import Input from '../input'
 
 export default function SignUp() {
     return (
@@ -11,11 +11,11 @@ export default function SignUp() {
                 <li>
                     <Input
                         {...{
-                            name: "first_name",
-                            label: "First name",
-                            type: "name",
-                            placeholder: "Enter your first name",
-                            autocomplete: "given-name",
+                            name: 'first_name',
+                            label: 'First name',
+                            type: 'name',
+                            placeholder: 'Enter your first name',
+                            autocomplete: 'given-name',
                             required: true,
                         }}
                     />
@@ -23,11 +23,11 @@ export default function SignUp() {
                 <li>
                     <Input
                         {...{
-                            name: "last_name",
-                            label: "Last name",
-                            type: "name",
-                            placeholder: "Enter your last name",
-                            autocomplete: "family-name",
+                            name: 'last_name',
+                            label: 'Last name',
+                            type: 'name',
+                            placeholder: 'Enter your last name',
+                            autocomplete: 'family-name',
                             required: true,
                         }}
                     />
@@ -35,11 +35,11 @@ export default function SignUp() {
                 <li>
                     <Input
                         {...{
-                            name: "email",
-                            label: "Email address",
-                            type: "email",
-                            placeholder: "Enter your email address",
-                            autocomplete: "email",
+                            name: 'email',
+                            label: 'Email address',
+                            type: 'email',
+                            placeholder: 'Enter your email address',
+                            autocomplete: 'email',
                             required: true,
                         }}
                     />
@@ -47,11 +47,11 @@ export default function SignUp() {
                 <li>
                     <Input
                         {...{
-                            name: "password",
-                            label: "Password (Ex. abcABC123)",
-                            type: "password",
-                            placeholder: "Password (Ex. abcABC123)",
-                            autocomplete: "new-password",
+                            name: 'password',
+                            label: 'Password (Ex. abcABC123)',
+                            type: 'password',
+                            placeholder: 'Password (Ex. abcABC123)',
+                            autocomplete: 'new-password',
                             required: true,
                         }}
                     />
@@ -59,12 +59,12 @@ export default function SignUp() {
                 <li>
                     <Input
                         {...{
-                            name: "confirm_password",
-                            id: "password-confirm-input",
-                            label: "Confirm Password",
-                            type: "password",
-                            placeholder: "Confirm your password",
-                            autocomplete: "new-password",
+                            name: 'confirm_password',
+                            id: 'password-confirm-input',
+                            label: 'Confirm Password',
+                            type: 'password',
+                            placeholder: 'Confirm your password',
+                            autocomplete: 'new-password',
                             required: true,
                         }}
                     />
@@ -78,5 +78,5 @@ export default function SignUp() {
                 Submit
             </button>
         </form>
-    );
+    )
 }

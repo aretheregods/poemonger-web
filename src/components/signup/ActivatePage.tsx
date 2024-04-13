@@ -2,9 +2,10 @@ export default function ActivatePage({ error }: { error: boolean }) {
     if (error) {
         return (
             <h2>
-                Please check your email for the correct link to activate your account.
+                Please check your email for the correct link to activate your
+                account.
             </h2>
-        );
+        )
     }
 
     return (
@@ -14,5 +15,5 @@ export default function ActivatePage({ error }: { error: boolean }) {
                 <a href="/login">Log in to read poetry, now.</a>
             </span>
         </h2>
-    );
+    )
 }

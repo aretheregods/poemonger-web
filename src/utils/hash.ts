@@ -34,7 +34,7 @@ export default class Hashes {
     }
 
     #stringToUint8(s: string | number = '') {
-        var a = typeof s === 'string' ? s.split(',') : `${s}`.split('');
+        var a = typeof s === 'string' ? s.split(',') : `${s}`.split('')
         var b = a.map((v) => parseInt(v))
         return Uint8Array.from(b)
     }
@@ -51,6 +51,8 @@ export default class Hashes {
 
     HashPasswordWithSalt(value: string, salt: string | number) {
         var s = this.#stringToUint8(salt)
-        return this.#hash(value, s, 1e3).then((h) => this.#bitsToHex(new Uint8Array(h as ArrayBuffer)));
+        return this.#hash(value, s, 1e3).then((h) =>
+            this.#bitsToHex(new Uint8Array(h as ArrayBuffer))
+        )
     }
 }

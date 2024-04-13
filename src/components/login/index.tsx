@@ -1,4 +1,4 @@
-import Input from "../input";
+import Input from '../input'
 
 export default function Login() {
     return (
@@ -7,11 +7,11 @@ export default function Login() {
                 <li>
                     <Input
                         {...{
-                            name: "email",
-                            label: "Email address",
-                            type: "email",
-                            placeholder: "Enter your email address",
-                            autocomplete: "email",
+                            name: 'email',
+                            label: 'Email address',
+                            type: 'email',
+                            placeholder: 'Enter your email address',
+                            autocomplete: 'email',
                             required: true,
                         }}
                     />
@@ -19,11 +19,11 @@ export default function Login() {
                 <li>
                     <Input
                         {...{
-                            name: "password",
-                            label: "Password",
-                            type: "password",
-                            placeholder: "Enter your password",
-                            autocomplete: "current-password",
+                            name: 'password',
+                            label: 'Password',
+                            type: 'password',
+                            placeholder: 'Enter your password',
+                            autocomplete: 'current-password',
                             required: true,
                         }}
                     />
@@ -37,5 +37,5 @@ export default function Login() {
                 Submit
             </button>
         </form>
-    );
+    )
 }

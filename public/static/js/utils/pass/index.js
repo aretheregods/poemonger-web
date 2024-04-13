@@ -1,1 +1,1 @@
-export { default as hashPassword } from "./hash.js";
+export { default as hashPassword } from './hash.js'

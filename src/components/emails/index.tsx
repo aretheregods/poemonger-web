@@ -15,7 +15,7 @@ export default function Email({ children }: { children?: string }) {
             <body>
                 <main>${children}</main>
             </body>
-        </html>`;
+        </html>`
 }
 
-export { default as Activate } from "./Activate";
+export { default as Activate } from './Activate'
