@@ -22,4 +22,12 @@ id = "6d2850c6f82845fb999681e01a251f99"
 name = "POEMONGER_SESSIONS"
 class_name = "PoemongerSessions"
 
+[[env.preview.durable_objects.bindings]]
+name = "POEMONGER_SESSIONS"
+class_name = "PoemongerSessions"
+
+[[env.production.durable_objects.bindings]]
+name = "POEMONGER_SESSIONS"
+class_name = "PoemongerSessions"
+
 migrations = [{ tag = "v1", new_classes = ["PoemongerSessions"] }]
