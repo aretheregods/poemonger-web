@@ -18,23 +18,14 @@ id = "88b79b5380e24a6e8cd9d29080556a0d"
 binding = "USERS_KV"
 id = "6d2850c6f82845fb999681e01a251f99"
 
-[[durable_objects.bindings]]
-name = "POEMONGER_SESSIONS"
-class_name = "PoemongerSessions"
+[env.preview]
+durable_objects.bindings = [
+    { name = "POEMONGER_SESSIONS", class_name = "PoemongerSessions" }
+]
+durable_objects.migrations = [{ tag = "v1", new_classes = ["PoemongerSessions"] }]
 
-[[env.preview.durable_objects.bindings]]
-name = "POEMONGER_SESSIONS"
-class_name = "PoemongerSessions"
-
-[[env.production.durable_objects.bindings]]
-name = "POEMONGER_SESSIONS"
-class_name = "PoemongerSessions"
-
-[[migrations]]
-migrations = [{ tag = "v1", new_classes = ["PoemongerSessions"] }]
-
-[[env.preview.migrations]]
-migrations = [{ tag = "v1", new_classes = ["PoemongerSessions"] }]
-
-[[env.production.migrations]]
-migrations = [{ tag = "v1", new_classes = ["PoemongerSessions"] }]
+[env.production]
+durable_objects.bindings = [
+    { name = "POEMONGER_SESSIONS", class_name = "PoemongerSessions" }
+]
+durable_objects.migrations = [{ tag = "v1", new_classes = ["PoemongerSessions"] }]
