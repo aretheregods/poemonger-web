@@ -30,4 +30,11 @@ class_name = "PoemongerSessions"
 name = "POEMONGER_SESSIONS"
 class_name = "PoemongerSessions"
 
+[[migrations]]
+migrations = [{ tag = "v1", new_classes = ["PoemongerSessions"] }]
+
+[[env.preview.migrations]]
+migrations = [{ tag = "v1", new_classes = ["PoemongerSessions"] }]
+
+[[env.production.migrations]]
 migrations = [{ tag = "v1", new_classes = ["PoemongerSessions"] }]
