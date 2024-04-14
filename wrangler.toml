@@ -10,6 +10,10 @@ port = 8787
 binding = "USERS_KV"
 id = "ec2910a743624059bcdb7b0ab67710c7"
 
+[durable_objects]
+bindings = [{ name = "POEMONGER_SESSIONS", class_name = "PoemongerSessions" }]
+migrations = [{ tag = "v1", new_classes = ["PoemongerSessions"] }]
+
 [[env.preview.kv_namespaces]]
 binding = "USERS_KV"
 id = "88b79b5380e24a6e8cd9d29080556a0d"
