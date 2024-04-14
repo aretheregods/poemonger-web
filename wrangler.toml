@@ -17,3 +17,11 @@ id = "88b79b5380e24a6e8cd9d29080556a0d"
 [[env.production.kv_namespaces]]
 binding = "USERS_KV"
 id = "6d2850c6f82845fb999681e01a251f99"
+
+[[durable_objects.bindings]]
+name = "POEMONGER_SESSIONS"
+class_name = "PoemongerSessions"
+
+[[migrations]]
+tag = "v1"
+new_classes = ["PoemongerSessions"]
