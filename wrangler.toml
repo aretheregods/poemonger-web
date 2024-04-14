@@ -22,6 +22,4 @@ id = "6d2850c6f82845fb999681e01a251f99"
 name = "POEMONGER_SESSIONS"
 class_name = "PoemongerSessions"
 
-[migrations]
-tag = "v1"
-new_classes = ["PoemongerSessions"]
+migrations = [{ tag = "v1", new_classes = ["PoemongerSessions"] }]
