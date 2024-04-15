@@ -196,6 +196,9 @@ app.get('/activate', async (c) => {
 })
 
 app.get('/login', (c) => {
+    const hasCookie = getCookie(c, 'poemonger_session', 'secure')
+    if (hasCookie) return c.redirect('/');
+
     return c.html(
         <Base
             title="Poemonger | Login"
@@ -257,9 +260,6 @@ app.post('/login/check-email', async (c) => {
 })
 
 app.post('/login', async (c) => {
-    const hasCookie = getCookie(c, 'poemonger_session', 'secure')
-    if (hasCookie) return c.redirect('/');
-
     var ct = c.req.header('Content-Type')
     var f = /multipart\/form-data/g.test(ct || '')
     var user = {}
