@@ -308,7 +308,7 @@ app.post('/login', async (c) => {
                             email: u.email,
                         })
                     )
-                    setCookie(c, 'poemonger_session', 'sessionId', {
+                    setCookie(c, 'poemonger_session', sessionId, {
                         path: '/',
                         secure: true,
                         httpOnly: true,
