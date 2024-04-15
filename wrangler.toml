@@ -14,7 +14,7 @@ kv_namespaces = [
 [env.preview]
 kv_namespaces = [
   { binding = "USERS_KV", id = "88b79b5380e24a6e8cd9d29080556a0d" },
-  { binding = "USERS_SESSIONS", preview_id = "3a37eaaa99564c3db294b7e9bc721086" }
+  { binding = "USERS_SESSIONS", id = "86193c1c2f9c4808b16f3e1f3bdd104f" }
 ]
 
 [env.production]
