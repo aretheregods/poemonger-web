@@ -3,9 +3,6 @@ pages_build_output_dir = "./dist"
 compatibility_date = "2024-04-10"
 compatibility_flags = ["nodejs_compat"]
 
-[dev]
-port = 8787
-
 kv_namespaces = [
   { binding = "USERS_KV", id = "ec2910a743624059bcdb7b0ab67710c7" },
   { binding = "USERS_SESSIONS", id = "bad74c3118c841179e7419dd8afba71f" }
@@ -22,3 +19,6 @@ kv_namespaces = [
   { binding = "USERS_KV", id = "6d2850c6f82845fb999681e01a251f99" },
   { binding = "USERS_SESSIONS", id = "d827aa390bc14c969ec72fc06af62ff7" }
 ]
+
+[dev]
+port = 8787
