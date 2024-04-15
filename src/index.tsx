@@ -229,14 +229,16 @@ app.post('/login/check-email', async (c) => {
         return c.json({ error, salt })
     }
 
-    var body = await c.req.json()
-    if (!body.email)
+    var body = await c.req.formData();
+    var email = body.get("email");
+
+    if (!email)
         return c.json({ error: 'No email in request', salt }, { status: 404 })
     try {
         const value = await c.env.USERS_KV.get<{
             active: boolean
             salt: string
-        }>(`user=${body.email}`, { type: 'json' })
+        }>(`user=${email}`, { type: 'json' })
 
         if (!value) {
             error =

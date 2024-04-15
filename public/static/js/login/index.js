@@ -9,11 +9,7 @@ f.addEventListener('submit', async (e) => {
     var formData = new FormData(f)
     var { salt, error } = await request.post({
         path: '/login/check-email',
-        body: JSON.stringify({ email: formData.get('email') }),
-        headers: {
-            'Content-Type': 'application/json',
-            'X-Poemonger-Form': 'login',
-        },
+        body: formData,
     })
     if (error) {
         var email = document.getElementById('email-input')
@@ -26,7 +22,7 @@ f.addEventListener('submit', async (e) => {
             reducer: hashPassword(salt),
         })
         .then((body) =>
-            request.post({ path: '/login', 'X-Poemonger-Form': 'login', body })
+            request.post({ path: '/login', body })
         )
         .then((response) => console.log({ response }))
         .catch((e) => console.log({ e }))
