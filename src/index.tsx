@@ -301,7 +301,7 @@ app.post('/login', async (c) => {
                     const sessionId = await crypto.randomUUID()
                     error = false
                     await c.env.USERS_SESSIONS.put(
-                        `user=${email}|session=${sessionId}`,
+                        `session=${sessionId}`,
                         JSON.stringify({
                             first_name: u.first_name,
                             last_name: u.last_name,
