@@ -1,4 +1,5 @@
 import { Hono } from 'hono'
+import { setCookie } from 'hono/cookie'
 import { csrf } from 'hono/csrf'
 import { secureHeaders } from 'hono/secure-headers'
 
@@ -283,10 +284,13 @@ app.post('/login', async (c) => {
     var email = d.get('email')
     var password = d.get('password')
 
-    var u = await c.env.USERS_KV.get<{ created_at: number; hash: string }>(
-        `user=${email}`,
-        { type: 'json' }
-    )
+    var u = await c.env.USERS_KV.get<{
+        first_name: string
+        last_name: string
+        email: string
+        created_at: number
+        hash: string
+    }>(`user=${email}`, { type: 'json' })
     if (!u) {
         message = messages.exists
         c.status(409)
@@ -296,10 +300,38 @@ app.post('/login', async (c) => {
             const hash = u.hash
             const H = new Hashes()
             const h = await H.HashPasswordWithSalt(password as string, n)
-            if (h === hash) error = false
+            if (h === hash) {
+                try {
+                    const sessionId = await crypto.randomUUID()
+                    error = false
+                    await c.env.USER_SESSIONS.put(
+                        `user=${email}|session=${sessionId}`,
+                        JSON.stringify({
+                            first_name: u.first_name,
+                            last_name: u.last_name,
+                            email: u.email,
+                        })
+                    )
+                    setCookie(c, 'poemonger_session', 'sessionId', {
+                        path: '/',
+                        secure: true,
+                        httpOnly: true,
+                        maxAge: 1000 * 60 * 60 * 24 * 60,
+                        expires: new Date(
+                            Date.now() + 1000 * 60 * 60 * 24 * 60
+                        ),
+                        sameSite: 'Lax',
+                    })
+                    c.status(200)
+                } catch {
+                    error = true
+                    message = messages.error
+                    c.status(409)
+                }
+            }
         } catch {
             message = messages.exists
-            c.status(409)
+            c.status(401)
         }
     }
 
