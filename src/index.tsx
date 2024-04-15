@@ -49,8 +49,6 @@ app.post('/signup', async (c) => {
     var n = Date.now()
     var ct = c.req.header('Content-Type')
     var f = /multipart\/form-data/g.test(ct || '')
-    var xpf = c.req.header('X-Poemonger-Form')
-    var pf = /signup/i.test(xpf || '')
     var messages = {
         success: `Successfully processed your.`,
         failure: `Could not process your request. Please send a form.`,
@@ -61,7 +59,7 @@ app.post('/signup', async (c) => {
     c.status(201)
 
     var message = messages.success
-    if (!f || !pf) {
+    if (!f) {
         message = messages.failure
         c.status(406)
     }
