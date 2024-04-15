@@ -319,9 +319,9 @@ app.post('/login', async (c) => {
                         sameSite: 'Lax',
                     })
                     c.status(200)
-                } catch {
+                } catch(e) {
                     error = true
-                    message = messages.error
+                    message = `${messages.error} ${e}`
                     c.status(409)
                 }
             }
