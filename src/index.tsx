@@ -15,7 +15,7 @@ import Delete from './components/reset'
 
 type Bindings = {
     USERS_KV: KVNamespace
-    USER_SESSIONS: KVNamespace
+    USERS_SESSIONS: KVNamespace
     DKIM_PRIVATE_KEY: string
 }
 
@@ -300,7 +300,7 @@ app.post('/login', async (c) => {
                 try {
                     const sessionId = await crypto.randomUUID()
                     error = false
-                    await c.env.USER_SESSIONS.put(
+                    await c.env.USERS_SESSIONS.put(
                         `user=${email}|session=${sessionId}`,
                         JSON.stringify({
                             first_name: u.first_name,
