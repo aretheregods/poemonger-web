@@ -1,5 +1,5 @@
 import { Hono } from 'hono'
-import { setCookie } from 'hono/cookie'
+import { getCookie, setCookie } from 'hono/cookie'
 import { csrf } from 'hono/csrf'
 import { secureHeaders } from 'hono/secure-headers'
 
@@ -23,6 +23,12 @@ const app = new Hono<{ Bindings: Bindings }>()
 
 app.use(csrf())
 app.use(secureHeaders())
+app.use('/login', async (c, next) => {
+    const hasCookie = getCookie(c, 'poemonger_session')
+    if (hasCookie) {
+        c.redirect('/', 301)
+    } else await next()
+})
 
 app.get('/signup', (c) => {
     return c.html(
@@ -259,6 +265,7 @@ app.post('/login/check-email', async (c) => {
 app.post('/login', async (c) => {
     var ct = c.req.header('Content-Type')
     var f = /multipart\/form-data/g.test(ct || '')
+    var user = {}
     var error = true
     var messages = {
         success: `Successfully processed your login request.`,
@@ -299,14 +306,15 @@ app.post('/login', async (c) => {
             if (h === hash) {
                 try {
                     const sessionId = await crypto.randomUUID()
+                    const userData = {
+                        first_name: u.first_name,
+                        last_name: u.last_name,
+                        email: u.email,
+                    }
                     error = false
                     await c.env.USERS_SESSIONS.put(
                         `session=${sessionId}`,
-                        JSON.stringify({
-                            first_name: u.first_name,
-                            last_name: u.last_name,
-                            email: u.email,
-                        })
+                        JSON.stringify(userData)
                     )
                     setCookie(c, 'poemonger_session', sessionId, {
                         path: '/',
@@ -320,6 +328,7 @@ app.post('/login', async (c) => {
                         sameSite: 'Lax',
                     })
                     c.status(200)
+                    user = userData;
                 } catch(e) {
                     error = true
                     message = `${messages.error} ${e}`
@@ -332,7 +341,7 @@ app.post('/login', async (c) => {
         }
     }
 
-    return c.json({ error, message })
+    return c.json({ error, message, user })
 })
 
 app.get('/logout', (c) => {
