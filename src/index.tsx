@@ -310,6 +310,7 @@ app.post('/login', async (c) => {
                     )
                     setCookie(c, 'poemonger_session', sessionId, {
                         path: '/',
+                        prefix: 'secure',
                         secure: true,
                         httpOnly: true,
                         maxAge: 1000 * 60 * 60 * 24 * 60,
