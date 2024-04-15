@@ -23,7 +23,7 @@ const app = new Hono<{ Bindings: Bindings }>()
 
 app.use(csrf())
 app.use(secureHeaders())
-app.use('/login', async (c, next) => {
+app.use('/login/*', async (c, next) => {
     const hasCookie = getCookie(c, 'poemonger_session', 'secure')
     if (hasCookie) {
         c.redirect('/', 301)
