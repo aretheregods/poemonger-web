@@ -26,7 +26,7 @@ app.use(secureHeaders())
 app.use('/login/*', async (c, next) => {
     const hasCookie = getCookie(c, 'poemonger_session', 'secure')
     if (hasCookie) {
-        c.redirect('/', 301)
+        c.redirect('/')
     } else await next()
 })
 
