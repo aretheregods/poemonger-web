@@ -1,5 +1,7 @@
 import { Hono } from 'hono'
-import { html } from 'hono/html'
+import { csrf } from 'hono/csrf'
+import { secureHeaders } from 'hono/secure-headers'
+
 import { Base } from './Base'
 import Email, { Activate } from './components/emails'
 import ActivatePage from './components/signup/ActivatePage'
@@ -12,10 +14,14 @@ import Delete from './components/reset'
 
 type Bindings = {
     USERS_KV: KVNamespace
+    USER_SESSIONS: KVNamespace
     DKIM_PRIVATE_KEY: string
 }
 
 const app = new Hono<{ Bindings: Bindings }>()
+
+app.use(csrf())
+app.use(secureHeaders())
 
 app.get('/signup', (c) => {
     return c.html(
