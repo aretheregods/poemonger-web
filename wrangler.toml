@@ -23,7 +23,7 @@ bindings = [
   { name = "USER_SESSIONS", class_name = "PoemongerSessions", script_name = "sessions" },
 ]
 
-[enev.preview.durable_objects]
+[env.preview.durable_objects]
 bindings = [
   { name = "USER_SESSIONS", class_name = "PoemongerSessions", script_name = "sessions" },
 ]
