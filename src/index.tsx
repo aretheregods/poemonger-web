@@ -221,13 +221,11 @@ app.get('/login', (c) => {
 app.post('/login/check-email', async (c) => {
     var ct = c.req.header('Content-Type')
     var f = /multipart\/form-data/g.test(ct || '')
-    var xpf = c.req.header('X-Poemonger-Form')
-    var pf = /login/i.test(xpf || '')
     var salt
     var error
     var status = 201
 
-    if (!f || !pf) {
+    if (!f) {
         error = 'Error'
         c.status(406)
         return c.json({ error, salt })
@@ -261,8 +259,6 @@ app.post('/login/check-email', async (c) => {
 app.post('/login', async (c) => {
     var ct = c.req.header('Content-Type')
     var f = /multipart\/form-data/g.test(ct || '')
-    var xpf = c.req.header('X-Poemonger-Form')
-    var pf = /login/i.test(xpf || '')
     var error = true
     var messages = {
         success: `Successfully processed your login request.`,
@@ -274,7 +270,7 @@ app.post('/login', async (c) => {
     c.status(201)
 
     var message = messages.success
-    if (!f || !pf) {
+    if (!f) {
         message = messages.failure
         c.status(406)
     }
