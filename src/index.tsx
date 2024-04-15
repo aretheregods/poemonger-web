@@ -23,12 +23,6 @@ const app = new Hono<{ Bindings: Bindings }>()
 
 app.use(csrf())
 app.use(secureHeaders())
-app.use('/login/*', async (c, next) => {
-    const hasCookie = getCookie(c, 'poemonger_session', 'secure')
-    if (hasCookie) {
-        c.redirect('/')
-    } else await next()
-})
 
 app.get('/signup', (c) => {
     return c.html(
@@ -263,6 +257,9 @@ app.post('/login/check-email', async (c) => {
 })
 
 app.post('/login', async (c) => {
+    const hasCookie = getCookie(c, 'poemonger_session', 'secure')
+    if (hasCookie) return c.redirect('/');
+
     var ct = c.req.header('Content-Type')
     var f = /multipart\/form-data/g.test(ct || '')
     var user = {}
