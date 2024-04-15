@@ -22,13 +22,3 @@ id = "6d2850c6f82845fb999681e01a251f99"
 bindings = [
   { name = "USER_SESSIONS", class_name = "PoemongerSessions", script_name = "sessions" },
 ]
-
-[env.preview.durable_objects]
-bindings = [
-  { name = "USER_SESSIONS", class_name = "PoemongerSessions", script_name = "sessions" },
-]
-
-[env.production.durable_objects]
-bindings = [
-  { name = "USER_SESSIONS", class_name = "PoemongerSessions", script_name = "sessions" },
-]
