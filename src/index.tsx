@@ -361,9 +361,14 @@ app.post('/login', async (c) => {
 })
 
 app.get('/logout', (c) => {
-    const url = new URL(c.req.url)
-    deleteCookie(c, 'poemonger_session', { path: '/', secure: true, domain: url.hostname })
-    return c.redirect('/')
+    return c.html(
+        <Base 
+            title="Poemonger | Logout"
+            assets={[<script type="module" src="staic/js/logout/index.js"></script>]}
+        >
+            <Logout />
+        </Base>
+    )
 })
 
 app.get('/reset', (c) => {
