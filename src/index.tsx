@@ -195,7 +195,7 @@ app.get('/activate', async (c) => {
     )
 })
 
-app.get('/login', (c) => {
+app.get('/login', async (c) => {
     const hasCookie = getCookie(c, 'poemonger_session', 'secure')
     if (hasCookie) {
         try {
