@@ -302,7 +302,7 @@ app.post('/login', async (c) => {
             const h = await H.HashPasswordWithSalt(password as string, n)
             if (h === hash) {
                 try {
-                    const sessionId = await crypto.randomUUID()
+                    const sessionId = crypto.randomUUID()
                     const userData = {
                         first_name: u.first_name,
                         last_name: u.last_name,
@@ -363,6 +363,14 @@ app.get('/delete', (c) => {
             <Delete />
         </Base>
     )
+})
+
+app.get('/admin', (c) => {
+    const props = {
+        title: 'Poemonger | Admin',
+        children: <h1>Hello, Poemonger Admin</h1>,
+    }
+    return c.html(<Base {...props} />)
 })
 
 app.get('/', (c) => {
