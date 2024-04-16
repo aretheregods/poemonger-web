@@ -380,16 +380,16 @@ app.post('/logout', async (c) => {
     const hasCookie = getCookie(c, 'poemonger_session', 'secure')
     if(hasCookie) {
         try {
-            await c.env.USERS_SESSIONS.delete(hasCookie)
+            await c.env.USERS_SESSIONS.delete(`session=${hasCookie}`)
             c.status(204)
-            return c.json({ success: true, cookie: '' })
+            return c.json({ success: true })
         } catch {
             c.status(500)
-            return c.json({ success: false, cookie: hasCookie })
+            return c.json({ success: false })
         }
     } else {
         c.status(404)
-        return c.json({ success: false, cookie: hasCookie })
+        return c.json({ success: false })
     }
 })
 
