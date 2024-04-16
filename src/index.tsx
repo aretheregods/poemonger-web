@@ -361,7 +361,8 @@ app.post('/login', async (c) => {
 })
 
 app.get('/logout', (c) => {
-    deleteCookie(c, 'poemonger_session', { path: '/', secure: true })
+    const url = new URL(c.req.url)
+    deleteCookie(c, 'poemonger_session', { path: '/', secure: true, domain: url.hostname })
     return c.redirect('/')
 })
 
