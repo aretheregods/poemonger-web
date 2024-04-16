@@ -1,4 +1,6 @@
-import { deleteCookie } from '../utils/cookies/index.js';
+import HTTP from '../utils/http/index.js';
 
-deleteCookie('poemonger_session')
-setTimeout(() => location.href = "/", 100)
+const request = new HTTP();
+request.post({ path: '/logout' }).then(res => {
+    if(res.success) location.href = '/'
+}).catch(e => console.error('Something went wrong', { e }))

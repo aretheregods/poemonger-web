@@ -197,7 +197,12 @@ app.get('/activate', async (c) => {
 
 app.get('/login', (c) => {
     const hasCookie = getCookie(c, 'poemonger_session', 'secure')
-    if (hasCookie) return c.redirect('/');
+    if (hasCookie) {
+        try {
+            const currentSession = await c.env.USERS_SESSIONS.get(`session=${hasCookie}`)
+            if (currentSession) return c.redirect('/')
+        } catch { console.log('no session') }
+    }
 
     return c.html(
         <Base
@@ -305,7 +310,7 @@ app.post('/login', async (c) => {
                     const sessionId = crypto.randomUUID()
                     const currentSession = await c.env.USERS_SESSIONS.get<{ session_id: string }>(`user=${email}`, { type: 'json' })
                     var userData = {
-                        session_id: sessionId,
+                        created_at: Date.now(),
                         first_name: u.first_name,
                         last_name: u.last_name,
                         email: u.email,
@@ -317,7 +322,7 @@ app.post('/login', async (c) => {
                     error = false
                         
                     await c.env.USERS_SESSIONS.put(
-                        `user=${email}`,
+                        `session=${sessionId}`,
                         JSON.stringify(userData)
                     )
 
@@ -369,6 +374,23 @@ app.get('/logout', (c) => {
             <Logout />
         </Base>
     )
+})
+
+app.post('/logout', async (c) => {
+    const hasCookie = getCookie(c, 'poemonger_session', 'secure')
+    if(hasCookie) {
+        try {
+            await c.env.USERS_SESSIONS.delete(hasCookie)
+            c.status(204)
+            return c.json({ success: true })
+        } catch {
+            c.status(500)
+            return c.json({ success: false })
+        }
+    } else {
+        c.status(404)
+        return c.json({ success: false })
+    }
 })
 
 app.get('/reset', (c) => {
