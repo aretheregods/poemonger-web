@@ -1,5 +1,5 @@
 import { Hono } from 'hono'
-import { getCookie, setCookie } from 'hono/cookie'
+import { deleteCookie, getCookie, setCookie } from 'hono/cookie'
 import { csrf } from 'hono/csrf'
 import { secureHeaders } from 'hono/secure-headers'
 
@@ -303,16 +303,24 @@ app.post('/login', async (c) => {
             if (h === hash) {
                 try {
                     const sessionId = crypto.randomUUID()
-                    const userData = {
+                    const currentSession = await c.env.USERS_SESSIONS.get<{ session_id: string }>(`user=${email}`, { type: 'json' })
+                    var userData = {
+                        session_id: sessionId,
                         first_name: u.first_name,
                         last_name: u.last_name,
                         email: u.email,
                     }
+                    if (currentSession) {
+                        currentSession.session_id = sessionId;
+                        userData = currentSession;
+                    }
                     error = false
+                        
                     await c.env.USERS_SESSIONS.put(
-                        `session=${sessionId}`,
+                        `user=${email}`,
                         JSON.stringify(userData)
                     )
+
                     setCookie(c, 'poemonger_session', sessionId, {
                         path: '/',
                         prefix: 'secure',
@@ -324,8 +332,19 @@ app.post('/login', async (c) => {
                         ),
                         sameSite: 'Lax',
                     })
-                    c.status(200)
+                    setCookie(c, 'user_email', email, {
+                        path: '/',
+                        prefix: 'secure',
+                        secure: true,
+                        httpOnly: true,
+                        maxAge: 86400 * 366,
+                        expires: new Date(
+                            Date.now() + 1000 * 60 * 60 * 24 * 366
+                        ),
+                        sameSite: 'Lax',
+                    })
                     user = userData;
+                    delete user.session_id;
                 } catch(e) {
                     error = true
                     message = `${messages.error} ${e}`
@@ -342,11 +361,8 @@ app.post('/login', async (c) => {
 })
 
 app.get('/logout', (c) => {
-    return c.html(
-        <Base title="Poemonger | Logout">
-            <Logout />
-        </Base>
-    )
+    deleteCookie(c, 'poemonger_session', { path: '/', secure: true })
+    return c.redirect('/')
 })
 
 app.get('/reset', (c) => {
