@@ -364,7 +364,7 @@ app.get('/logout', (c) => {
     return c.html(
         <Base 
             title="Poemonger | Logout"
-            assets={[<script type="module" src="staic/js/logout/index.js"></script>]}
+            assets={[<script type="module" src="/static/js/logout/index.js"></script>]}
         >
             <Logout />
         </Base>
