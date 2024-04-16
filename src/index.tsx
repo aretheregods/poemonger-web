@@ -381,7 +381,7 @@ app.post('/logout', async (c) => {
     if(hasCookie) {
         try {
             await c.env.USERS_SESSIONS.delete(`session=${hasCookie}`)
-            c.status(204)
+            c.status(200)
             return c.json({ success: true })
         } catch {
             c.status(500)
