@@ -308,22 +308,18 @@ app.post('/login', async (c) => {
             if (h === hash) {
                 try {
                     const sessionId = crypto.randomUUID()
-                    const currentSession = await c.env.USERS_SESSIONS.get<{ session_id: string }>(`user=${email}`, { type: 'json' })
                     var userData = {
                         created_at: Date.now(),
                         first_name: u.first_name,
                         last_name: u.last_name,
                         email: u.email,
                     }
-                    if (currentSession) {
-                        currentSession.session_id = sessionId;
-                        userData = currentSession;
-                    }
                     error = false
-                        
+
                     await c.env.USERS_SESSIONS.put(
                         `session=${sessionId}`,
-                        JSON.stringify(userData)
+                        JSON.stringify(userData),
+                        { expirationTtl: 86400 * 60 },
                     )
 
                     setCookie(c, 'poemonger_session', sessionId, {
@@ -337,19 +333,7 @@ app.post('/login', async (c) => {
                         ),
                         sameSite: 'Lax',
                     })
-                    setCookie(c, 'user_email', email, {
-                        path: '/',
-                        prefix: 'secure',
-                        secure: true,
-                        httpOnly: true,
-                        maxAge: 86400 * 366,
-                        expires: new Date(
-                            Date.now() + 1000 * 60 * 60 * 24 * 366
-                        ),
-                        sameSite: 'Lax',
-                    })
                     user = userData;
-                    delete user.session_id;
                 } catch(e) {
                     error = true
                     message = `${messages.error} ${e}`
