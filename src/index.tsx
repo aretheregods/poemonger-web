@@ -381,6 +381,17 @@ app.post('/logout', async (c) => {
     if(hasCookie) {
         try {
             await c.env.USERS_SESSIONS.delete(`session=${hasCookie}`)
+            setCookie(c, 'poemonger_session', hasCookie, {
+                path: '/',
+                prefix: 'secure',
+                secure: true,
+                httpOnly: true,
+                maxAge: 86400 * -1,
+                expires: new Date(
+                    Date.now() + 1000 * 60 * 60 * 24 * -1
+                ),
+                sameSite: 'Lax',
+            })
             c.status(200)
             return c.json({ success: true })
         } catch {
