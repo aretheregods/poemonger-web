@@ -1,5 +1,5 @@
 import { Hono } from 'hono'
-import { deleteCookie, getCookie, setCookie } from 'hono/cookie'
+import { getCookie, setCookie } from 'hono/cookie'
 import { csrf } from 'hono/csrf'
 import { secureHeaders } from 'hono/secure-headers'
 
@@ -199,9 +199,13 @@ app.get('/login', async (c) => {
     const hasCookie = getCookie(c, 'poemonger_session', 'secure')
     if (hasCookie) {
         try {
-            const currentSession = await c.env.USERS_SESSIONS.get(`session=${hasCookie}`)
+            const currentSession = await c.env.USERS_SESSIONS.get(
+                `session=${hasCookie}`
+            )
             if (currentSession) return c.redirect('/')
-        } catch { console.log('no session') }
+        } catch {
+            console.log('no session')
+        }
     }
 
     return c.html(
@@ -237,8 +241,8 @@ app.post('/login/check-email', async (c) => {
         return c.json({ error, salt })
     }
 
-    var body = await c.req.formData();
-    var email = body.get("email");
+    var body = await c.req.formData()
+    var email = body.get('email')
 
     if (!email)
         return c.json({ error: 'No email in request', salt }, { status: 404 })
@@ -319,7 +323,7 @@ app.post('/login', async (c) => {
                     await c.env.USERS_SESSIONS.put(
                         `session=${sessionId}`,
                         JSON.stringify(userData),
-                        { expirationTtl: 86400 * 60 },
+                        { expirationTtl: 86400 * 60 }
                     )
 
                     setCookie(c, 'poemonger_session', sessionId, {
@@ -333,8 +337,8 @@ app.post('/login', async (c) => {
                         ),
                         sameSite: 'Lax',
                     })
-                    user = userData;
-                } catch(e) {
+                    user = userData
+                } catch (e) {
                     error = true
                     message = `${messages.error} ${e}`
                     c.status(409)
@@ -351,9 +355,14 @@ app.post('/login', async (c) => {
 
 app.get('/logout', (c) => {
     return c.html(
-        <Base 
+        <Base
             title="Poemonger | Logout"
-            assets={[<script type="module" src="/static/js/logout/index.js"></script>]}
+            assets={[
+                <script
+                    type="module"
+                    src="/static/js/logout/index.js"
+                ></script>,
+            ]}
         >
             <Logout />
         </Base>
@@ -362,7 +371,7 @@ app.get('/logout', (c) => {
 
 app.post('/logout', async (c) => {
     const hasCookie = getCookie(c, 'poemonger_session', 'secure')
-    if(hasCookie) {
+    if (hasCookie) {
         try {
             await c.env.USERS_SESSIONS.delete(`session=${hasCookie}`)
             setCookie(c, 'poemonger_session', hasCookie, {
@@ -371,9 +380,7 @@ app.post('/logout', async (c) => {
                 secure: true,
                 httpOnly: true,
                 maxAge: 86400 * -1,
-                expires: new Date(
-                    Date.now() + 1000 * 60 * 60 * 24 * -1
-                ),
+                expires: new Date(Date.now() + 1000 * 60 * 60 * 24 * -1),
                 sameSite: 'Lax',
             })
             c.status(200)
