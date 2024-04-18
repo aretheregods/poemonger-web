@@ -12,14 +12,16 @@ kv_namespaces = [
 kv_namespaces = [
   { binding = "USERS_KV", id = "88b79b5380e24a6e8cd9d29080556a0d" },
   { binding = "USERS_SESSIONS", id = "3a37eaaa99564c3db294b7e9bc721086" },
-  { binding = "POEMONGER_ADMIN", id = "819472c2beab419593170915b60cdfe8"  }
+  { binding = "POEMONGER_ADMIN", id = "819472c2beab419593170915b60cdfe8"  },
+  { binding = "ADMIN_SESSIONS", id = "11e3d3d2a0ec4438998411cb0465c227"  }
 ]
 
 [env.production]
 kv_namespaces = [
   { binding = "USERS_KV", id = "6d2850c6f82845fb999681e01a251f99" },
   { binding = "USERS_SESSIONS", id = "d827aa390bc14c969ec72fc06af62ff7" },
-  { binding = "POEMONGER_ADMIN", id = "800b5839cd4c42d28a8d215cd52e27c8"  }
+  { binding = "POEMONGER_ADMIN", id = "800b5839cd4c42d28a8d215cd52e27c8"  },
+  { binding = "ADMIN_SESSIONS", id = "def3f60c657b4d3aa564dc1bc3ccf991"  }
 ]
 
 [dev]
