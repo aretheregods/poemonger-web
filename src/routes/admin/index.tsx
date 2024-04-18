@@ -1,8 +1,14 @@
 import { Hono } from 'hono'
+import { getCookie } from 'hono/cookie'
+
 import { Base } from '../../Base'
 import Login from '../../components/login'
 
-const admin = new Hono()
+type Bindings = {
+    POEMONGER_ADMIN: KVNamespace
+}
+
+const admin = new Hono<{ Bindings: Bindings }>()
 
 admin.get('/', (c) => {
     return c.html(
@@ -26,6 +32,21 @@ admin.get('/', (c) => {
             </>
         </Base>
     )
+})
+
+admin.post('/', async (c) => {
+    const hasCookie = getCookie(c, 'poemonger_admin_session', 'secure')
+    if (hasCookie) {
+        try {
+            const currentSession = await c.env.POEMONGER_ADMIN.get(
+                `session=${hasCookie}`
+            )
+            if (currentSession) return c.redirect('/')
+        } catch {
+            console.log('no session')
+        }
+    }
+    return c.json({})
 })
 
 export default admin
