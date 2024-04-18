@@ -3,6 +3,10 @@ import { getCookie, setCookie } from 'hono/cookie'
 import { csrf } from 'hono/csrf'
 import { secureHeaders } from 'hono/secure-headers'
 
+// routes
+import { admin } from './routes'
+
+// components
 import { Base } from './Base'
 import Email, { Activate } from './components/emails'
 import ActivatePage from './components/signup/ActivatePage'
@@ -23,6 +27,8 @@ const app = new Hono<{ Bindings: Bindings }>()
 
 app.use(csrf())
 app.use(secureHeaders())
+
+app.route('/admin', admin)
 
 app.get('/signup', (c) => {
     return c.html(
@@ -409,14 +415,6 @@ app.get('/delete', (c) => {
             <Delete />
         </Base>
     )
-})
-
-app.get('/admin', (c) => {
-    const props = {
-        title: 'Poemonger | Admin',
-        children: <h1>Hello, Poemonger Admin</h1>,
-    }
-    return c.html(<Base {...props} />)
 })
 
 app.get('/', (c) => {
