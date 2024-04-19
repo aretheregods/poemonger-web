@@ -16,5 +16,6 @@ tags
 Session.vim
 settings.json
 
-# vim swap files
+# vim
+.vim
 *.swp
