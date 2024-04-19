@@ -1,5 +1,7 @@
 import { argon2id } from 'argon2'
 
+import { stringToUint8 } from '../pass/hash.js'
+
 export default function hashAdminPassword(s = '') {
     var salt = stringToUint8(s)
     return (formMap, [key, value]) => {
@@ -19,10 +21,4 @@ export default function hashAdminPassword(s = '') {
         }
         return formMap
     }
-}
-
-function stringToUint8(s = '') {
-    var a = s.split(',')
-    var b = a.map((v) => parseInt(v))
-    return Uint8Array.from(b)
 }

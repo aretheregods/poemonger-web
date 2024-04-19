@@ -16,6 +16,12 @@ export default function hashPasswordWithSalt(salt) {
     }
 }
 
+export function stringToUint8(s = '') {
+    var a = s.split(',')
+    var b = a.map((v) => parseInt(v))
+    return Uint8Array.from(b)
+}
+
 function getPasswordKey(pw) {
     var t = new TextEncoder()
     return window.crypto.subtle.importKey(
@@ -51,10 +57,4 @@ function bitsToHex(uint8Array) {
         hex.push((uint8Array[i] & 0xf).toString(16))
     }
     return hex.join('')
-}
-
-function stringToUint8(s = '') {
-    var a = s.split(',')
-    var b = a.map((v) => parseInt(v))
-    return Uint8Array.from(b)
 }
