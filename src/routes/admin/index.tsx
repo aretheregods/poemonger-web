@@ -22,7 +22,12 @@ admin.get('/', (c) => {
                 />,
                 <script
                     type="module"
-                    src="/static/js/login/index.js"
+                    src="/static/js/admin/index.js"
+                    defer
+                ></script>,
+                <script
+                    type="module"
+                    src="/static/js/utils/adminHash.js"
                     defer
                 ></script>,
             ]}

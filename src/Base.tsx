@@ -35,6 +35,13 @@ export const Base = ({
                 />
                 <link rel="manifest" href="/static/manifest.webmanifest" />
                 <link href="/static/styles/index.css" rel="stylesheet" />
+                <script type="importmap">
+                    {
+                        "imports": {
+                            "argon2": "https://cdn.jsdelivr.net/npm/hash-wasm/dist/argon2.umd.min.js/+esm"
+                        }
+                    }
+                </script>
                 <title>${title}</title>
                 ${assets}
             </head>
@@ -46,4 +53,3 @@ export const Base = ({
         </html>
     `
 }
-
