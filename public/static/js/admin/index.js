@@ -21,9 +21,7 @@ f.addEventListener('submit', async (e) => {
             submitter: e.submitter,
             reducer: hashPassword(salt),
         })
-        .then((body) =>
-            request.post({ path: '/login', body })
-        )
+        .then((body) => request.post({ path: '/admin', body }))
         .then((response) => console.log({ response }))
         .catch((e) => console.log({ e }))
 })

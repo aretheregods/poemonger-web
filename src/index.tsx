@@ -30,23 +30,26 @@ app.use(secureHeaders())
 
 app.route('/admin', admin)
 
-app.get('/signup', (c) => c.html(
-    <Base
-        title="Poemonger | Sign Up"
-        assets={[
-            <link
-                rel="stylesheet"
-                href="/static/styles/credentialsForm.css" />,
-            <script
-                type="module"
-                src="/static/js/signup/index.js"
-                defer
-            ></script>,
-        ]}
-    >
-        <SignUp />
-    </Base>
-))
+app.get('/signup', (c) =>
+    c.html(
+        <Base
+            title="Poemonger | Sign Up"
+            assets={[
+                <link
+                    rel="stylesheet"
+                    href="/static/styles/credentialsForm.css"
+                />,
+                <script
+                    type="module"
+                    src="/static/js/signup/index.js"
+                    defer
+                ></script>,
+            ]}
+        >
+            <SignUp />
+        </Base>
+    )
+)
 
 app.post('/signup', async (c) => {
     var n = Date.now()
@@ -356,19 +359,21 @@ app.post('/login', async (c) => {
     return c.json({ error, message, user })
 })
 
-app.get('/logout', (c) => c.html(
-    <Base
-        title="Poemonger | Logout"
-        assets={[
-            <script
-                type="module"
-                src="/static/js/logout/index.js"
-            ></script>,
-        ]}
-    >
-        <Logout />
-    </Base>
-))
+app.get('/logout', (c) =>
+    c.html(
+        <Base
+            title="Poemonger | Logout"
+            assets={[
+                <script
+                    type="module"
+                    src="/static/js/logout/index.js"
+                ></script>,
+            ]}
+        >
+            <Logout />
+        </Base>
+    )
+)
 
 app.post('/logout', async (c) => {
     const hasCookie = getCookie(c, 'poemonger_session', 'secure')
@@ -396,17 +401,21 @@ app.post('/logout', async (c) => {
     }
 })
 
-app.get('/reset', (c) => c.html(
-    <Base title="Poemonger | Reset">
-        <Reset />
-    </Base>
-))
+app.get('/reset', (c) =>
+    c.html(
+        <Base title="Poemonger | Reset">
+            <Reset />
+        </Base>
+    )
+)
 
-app.get('/delete', (c) => c.html(
-    <Base title="Poemonger | Delete">
-        <Delete />
-    </Base>
-))
+app.get('/delete', (c) =>
+    c.html(
+        <Base title="Poemonger | Delete">
+            <Delete />
+        </Base>
+    )
+)
 
 app.get('/', (c) => {
     const props = {
