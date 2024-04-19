@@ -5,7 +5,9 @@ compatibility_flags = ["nodejs_compat"]
 
 kv_namespaces = [
   { binding = "USERS_KV", id = "ec2910a743624059bcdb7b0ab67710c7" },
-  { binding = "USERS_SESSIONS", id = "bad74c3118c841179e7419dd8afba71f" }
+  { binding = "USERS_SESSIONS", id = "bad74c3118c841179e7419dd8afba71f" },
+  { binding = "POEMONGER_ADMIN", id = "9d52b5d6473d4c1bb9c612aa7bed6a8d"  },
+  { binding = "ADMIN_SESSIONS", id = "9eef557daf824064b3d348b5fce5c327"  }
 ]
 
 [env.preview]
