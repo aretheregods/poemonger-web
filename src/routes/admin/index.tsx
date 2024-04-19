@@ -27,7 +27,7 @@ admin.get('/', (c) => {
                 ></script>,
                 <script
                     type="module"
-                    src="/static/js/utils/adminHash.js"
+                    src="/static/js/utils/pass/adminHash.js"
                     defer
                 ></script>,
             ]}
