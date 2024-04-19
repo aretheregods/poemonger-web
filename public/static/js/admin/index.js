@@ -1,4 +1,4 @@
-import { hashPassword, HTTP } from '../utils/index.js'
+import { hashAdminPassword, HTTP } from '../utils/index.js'
 
 var f = document.getElementById('login')
 var r = document.getElementById('reveal-password-container')
@@ -19,7 +19,7 @@ f.addEventListener('submit', async (e) => {
         .parseForm({
             formElement: e.target,
             submitter: e.submitter,
-            reducer: hashPassword(salt),
+            reducer: hashAdminPassword(salt),
         })
         .then((body) => request.post({ path: '/admin', body }))
         .then((response) => console.log({ response }))
