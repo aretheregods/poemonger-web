@@ -35,7 +35,7 @@ admin.get('/', (c) => {
     )
 })
 
-admin.post('/login/check-email', async (c) => {
+admin.post('/check-email', async (c) => {
     var ct = c.req.header('Content-Type')
     var f = /multipart\/form-data/g.test(ct || '')
     var salt
