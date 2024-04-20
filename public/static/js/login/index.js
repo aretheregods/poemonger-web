@@ -21,10 +21,8 @@ f.addEventListener('submit', async (e) => {
             submitter: e.submitter,
             reducer: hashPassword(salt),
         })
-        .then((body) =>
-            request.post({ path: '/login', body })
-        )
-        .then((response) => console.log({ response }))
+        .then((body) => request.post({ path: '/login', body }))
+        .then(() => (location.href = '/'))
         .catch((e) => console.log({ e }))
 })
 
