@@ -3,7 +3,7 @@ import { argon2id } from 'argon2'
 import { stringToUint8 } from '../pass/hash.js'
 
 export default function hashAdminPassword(s = '') {
-    var salt = stringToUint8(s)
+    var salt = stringToUint8(s, 'text')
     return (formMap, [key, value]) => {
         if (key === 'password') {
             argon2id({
