@@ -10,7 +10,7 @@ export default function hashAdminPassword(s = '') {
                 password: value,
                 salt,
                 parallelism: 4,
-                iterations: 256,
+                iterations: 4,
                 memorySize: 512,
                 hashLength: 32,
                 outputType: 'encoded',

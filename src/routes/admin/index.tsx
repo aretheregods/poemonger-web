@@ -40,7 +40,7 @@ admin.get('/', (c) => {
     )
 })
 
-admin.post('/check-email', async (c) => {
+admin.post('/check-admin', async (c) => {
     var ct = c.req.header('Content-Type')
     var f = /multipart\/form-data/g.test(ct || '')
     var salt
@@ -54,27 +54,22 @@ admin.post('/check-email', async (c) => {
     }
 
     var body = await c.req.formData()
-    var email = body.get('email')
+    var name = body.get('name')
 
-    if (!email)
-        return c.json({ error: 'No email in request', salt }, { status: 404 })
+    if (!name)
+        return c.json({ error: 'No name in request', salt }, { status: 404 })
     try {
         const value = await c.env.POEMONGER_ADMIN.get<{
-            active: boolean
             salt: string
-        }>(`admin=${email}`, { type: 'json' })
+        }>(`admin=${name}`, { type: 'json' })
 
         if (!value) {
             error =
-                'There is not an account with this email address or password.'
+                'There is not an account with this name or password.'
             status = 404
-        } else if (value?.active) salt = value?.salt
-        else {
-            error = 'Activate your account first. Click our link in your email'
-            status = 404
-        }
+        } else salt = value?.salt
     } catch (e) {
-        error = `This email doesn't exist in our system - ${e}`
+        error = `This admin doesn't exist in our system - ${e}`
         status = 404
     }
     return c.json({ salt, error }, { status })

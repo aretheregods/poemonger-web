@@ -8,7 +8,7 @@ f.addEventListener('submit', async (e) => {
     e.preventDefault()
     var formData = new FormData(f)
     var { salt, error } = await request.post({
-        path: '/admin/check-email',
+        path: '/admin/check-admin',
         body: formData,
     })
     if (error) {
