@@ -175,7 +175,7 @@ admin.get('/logout', (c) =>
             assets={[
                 <script
                     type="module"
-                    src="/static/js/logout/index.js"
+                    src="/static/js/admin/logout.js"
                 ></script>,
             ]}
         >
