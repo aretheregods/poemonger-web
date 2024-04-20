@@ -6,7 +6,7 @@ export default function hashAdminPassword(s = '') {
     var salt = stringToUint8(s, 'text')
     return (formMap, [key, value]) => {
         if (key === 'password') {
-            argon2id({
+            return argon2id({
                 password: value,
                 salt,
                 parallelism: 4,
