@@ -167,4 +167,30 @@ admin.post('/', async (c) => {
     return c.json({ error, message, admin })
 })
 
+admin.post('/logout', async (c) => {
+    const hasCookie = getCookie(c, 'poemonger_admin_session', 'secure')
+    if (hasCookie) {
+        try {
+            await c.env.ADMIN_SESSIONS.delete(`session=${hasCookie}`)
+            setCookie(c, 'poemonger_admin_session', hasCookie, {
+                path: '/admin',
+                prefix: 'secure',
+                secure: true,
+                httpOnly: true,
+                maxAge: 86400 * -1,
+                expires: new Date(Date.now() + 1000 * 60 * 60 * 24 * -1),
+                sameSite: 'Lax',
+            })
+            c.status(200)
+            return c.json({ success: true })
+        } catch {
+            c.status(500)
+            return c.json({ success: false })
+        }
+    } else {
+        c.status(404)
+        return c.json({ success: false })
+    }
+})
+
 export default admin
