@@ -67,12 +67,11 @@ admin.post('/check-admin', async (c) => {
         }>(`admin=${name}`, { type: 'json' })
 
         if (!value) {
-            error =
-                'There is not an account with this name or password.'
+            error = messages.login.error
             status = 404
         } else salt = value?.salt
     } catch (e) {
-        error = `This admin doesn't exist in our system - ${e}`
+        error = messages.login.error
         status = 404
     }
     return c.json({ salt, error }, { status })
@@ -97,9 +96,9 @@ admin.post('/', async (c) => {
 
     c.status(201)
 
-    var message = messages.signup.success
+    var message = messages.login.success
     if (!f) {
-        message = messages.signup.failure
+        message = messages.login.failure
         c.status(406)
     }
 
@@ -114,7 +113,7 @@ admin.post('/', async (c) => {
         hash: string
     }>(`admin=${name}`, { type: 'json' })
     if (!a) {
-        message = messages.signup.exists
+        message = messages.login.error
         c.status(409)
     } else {
         try {
@@ -150,17 +149,17 @@ admin.post('/', async (c) => {
                     })
                     admin = adminData
                 } catch (e) {
-                    error = e
-                    message = `${messages.signup.error} ${e}`
+                    error = true
+                    message = messages.login.error
                     c.status(409)
                 }
             } else {
                 error = true
-                message = 'Name or password incorrect'
+                message = messages.login.error
                 c.status(409)
             }
         } catch {
-            message = messages.signup.exists
+            message = messages.login.error
             c.status(401)
         }
     }
