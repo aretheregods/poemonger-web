@@ -34,7 +34,7 @@ admin.get('/', (c) => {
         >
             <>
                 <h2>Admin Login</h2>
-                <Login />
+                <Login userType="admin" />
             </>
         </Base>
     )
@@ -87,7 +87,7 @@ admin.post('/', async (c) => {
             console.log('no session')
         }
     }
-    return c.json({})
+    return c.json({ success: 'Maybe' })
 })
 
 export default admin
