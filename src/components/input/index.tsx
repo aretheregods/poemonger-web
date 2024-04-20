@@ -1,9 +1,9 @@
 type inputProps = {
     id?: string
-    type: 'email' | 'text' | 'password' | 'name'
+    type: 'email' | 'text' | 'password' | 'name' | 'user'
     name: string
     placeholder: string
-    autocomplete:
+    autocomplete?:
         | ''
         | 'given-name'
         | 'family-name'

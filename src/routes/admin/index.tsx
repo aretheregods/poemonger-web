@@ -4,6 +4,7 @@ import { getCookie, setCookie } from 'hono/cookie'
 import { Base } from '../../Base'
 import Login from '../../components/login'
 import Logout from '../../components/logout'
+import Admin from '../../components/admin'
 
 import Hashes from '../../utils/hash'
 import messages from '../../constants'
@@ -43,6 +44,14 @@ admin.get('/', (c) => {
         </Base>
     )
 })
+
+admin.get('/dashboard', (c) =>
+    c.html(
+        <Base title="Poemonger | Admin Dashboard">
+            <Admin />
+        </Base>
+    )
+)
 
 admin.post('/check-admin', async (c) => {
     var ct = c.req.header('Content-Type')
@@ -143,9 +152,7 @@ admin.post('/', async (c) => {
                         secure: true,
                         httpOnly: true,
                         maxAge: 86400,
-                        expires: new Date(
-                            Date.now() + 1000 * 60 * 60 * 24
-                        ),
+                        expires: new Date(Date.now() + 1000 * 60 * 60 * 24),
                         sameSite: 'Lax',
                     })
                     admin = adminData

@@ -17,16 +17,16 @@ export default function hashPasswordWithSalt(salt) {
 }
 
 export function stringToUint8(s = '', type = 'int') {
-    var response;
+    var response
     if (type === 'int') {
         var a = s.split(',')
         var b = a.map((v) => parseInt(v))
         response = Uint8Array.from(b)
     } else {
-        var t = new TextEncoder();
-        response = t.encode(s);
+        var t = new TextEncoder()
+        response = t.encode(s)
     }
-    return response;
+    return response
 }
 
 function getPasswordKey(pw) {

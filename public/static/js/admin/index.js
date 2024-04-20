@@ -22,7 +22,7 @@ f.addEventListener('submit', async (e) => {
             reducer: hashAdminPassword(salt),
         })
         .then((body) => request.post({ path: '/admin', body }))
-        .then((response) => console.log({ response }))
+        .then(() => (location.href = '/admin/dashboard'))
         .catch((e) => console.log({ e }))
 })
 
