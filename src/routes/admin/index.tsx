@@ -1,8 +1,11 @@
 import { Hono } from 'hono'
-import { getCookie } from 'hono/cookie'
+import { getCookie, setCookie } from 'hono/cookie'
 
 import { Base } from '../../Base'
 import Login from '../../components/login'
+
+import Hashes from '../../utils/hash'
+import messages from '../../constants'
 
 type Bindings = {
     ADMIN_SESSIONS: KVNamespace
@@ -82,12 +85,83 @@ admin.post('/', async (c) => {
             const currentSession = await c.env.ADMIN_SESSIONS.get(
                 `session=${hasCookie}`
             )
-            if (currentSession) return c.redirect('/')
+            if (currentSession) return c.redirect('/dashboard')
         } catch {
             console.log('no session')
         }
     }
-    return c.json({ success: 'Maybe' })
+    var ct = c.req.header('Content-Type')
+    var f = /multipart\/form-data/g.test(ct || '')
+    var admin = {}
+    var error = true
+
+    c.status(201)
+
+    var message = messages.signup.success
+    if (!f) {
+        message = messages.signup.failure
+        c.status(406)
+    }
+
+    var d = await c.req.formData()
+
+    var name = d.get('name')
+    var password = d.get('password')
+
+    var a = await c.env.POEMONGER_ADMIN.get<{
+        name: string
+        created_at: number
+        hash: string
+    }>(`admin=${name}`, { type: 'json' })
+    if (!a) {
+        message = messages.signup.exists
+        c.status(409)
+    } else {
+        try {
+            const n = a.created_at
+            const hash = a.hash
+            const H = new Hashes()
+            const h = await H.HashPasswordWithSalt(password as string, n)
+            if (h === hash) {
+                try {
+                    const sessionId = crypto.randomUUID()
+                    var adminData = {
+                        created_at: n,
+                        name: a.name,
+                    }
+                    error = false
+
+                    await c.env.ADMIN_SESSIONS.put(
+                        `session=${sessionId}`,
+                        JSON.stringify(adminData),
+                        { expirationTtl: 86400 }
+                    )
+
+                    setCookie(c, 'poemonger_admin_session', sessionId, {
+                        path: '/admin',
+                        prefix: 'secure',
+                        secure: true,
+                        httpOnly: true,
+                        maxAge: 86400,
+                        expires: new Date(
+                            Date.now() + 1000 * 60 * 60 * 24
+                        ),
+                        sameSite: 'Lax',
+                    })
+                    admin = adminData
+                } catch (e) {
+                    error = true
+                    message = `${messages.signup.error} ${e}`
+                    c.status(409)
+                }
+            }
+        } catch {
+            message = messages.signup.exists
+            c.status(401)
+        }
+    }
+
+    return c.json({ error, message, admin })
 })
 
 export default admin
