@@ -15,6 +15,7 @@ export default function hashAdminPassword(s = '') {
                 hashLength: 32,
                 outputType: 'encoded',
             }).then((hash) => {
+                console.log({ hash })
                 formMap.set(key, hash)
                 return formMap
             })

@@ -150,10 +150,14 @@ admin.post('/', async (c) => {
                     })
                     admin = adminData
                 } catch (e) {
-                    error = true
+                    error = e
                     message = `${messages.signup.error} ${e}`
                     c.status(409)
                 }
+            } else {
+                error = true
+                message = 'Name or password incorrect'
+                c.status(409)
             }
         } catch {
             message = messages.signup.exists
