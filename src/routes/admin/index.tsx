@@ -3,6 +3,7 @@ import { getCookie, setCookie } from 'hono/cookie'
 
 import { Base } from '../../Base'
 import Login from '../../components/login'
+import Logout from '../../components/logout'
 
 import Hashes from '../../utils/hash'
 import messages from '../../constants'
@@ -166,6 +167,22 @@ admin.post('/', async (c) => {
 
     return c.json({ error, message, admin })
 })
+
+admin.get('/logout', (c) =>
+    c.html(
+        <Base
+            title="Poemonger | Logout"
+            assets={[
+                <script
+                    type="module"
+                    src="/static/js/logout/index.js"
+                ></script>,
+            ]}
+        >
+            <Logout />
+        </Base>
+    )
+)
 
 admin.post('/logout', async (c) => {
     const hasCookie = getCookie(c, 'poemonger_admin_session', 'secure')

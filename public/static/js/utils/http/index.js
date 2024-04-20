@@ -27,6 +27,12 @@ export default class HTTP {
 
     put() {}
 
+    logout({ path = '/logout', redirect = '/' }) {
+        this.post({ path }).then(res => {
+            if(res.success) location.href = redirect;
+        }).catch(e => console.error('Something went wrong', { e }))
+    }
+
     parseForm({
         formElement,
         submitter,
