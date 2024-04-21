@@ -9,7 +9,7 @@ yarn.lock
 pnpm-lock.yaml
 bun.lockb
 node_modules
-tags
+tags*
 .dev*
 .wrangler
 .undodir
