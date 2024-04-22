@@ -1,7 +1,7 @@
 name = "poemonger-web"
 pages_build_output_dir = "./dist"
 compatibility_date = "2024-04-10"
-compatibility_flags = ["nodejs_compat", "rpc"]
+compatibility_flags = ["nodejs_compat"]
 
 kv_namespaces = [
   { binding = "USERS_KV", id = "ec2910a743624059bcdb7b0ab67710c7" },
