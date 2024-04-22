@@ -4,7 +4,7 @@ import { csrf } from 'hono/csrf'
 import { secureHeaders } from 'hono/secure-headers'
 
 // routes
-import { admin } from './routes'
+import { admin, read } from './routes'
 
 // components
 import { Base } from './Base'
@@ -29,6 +29,7 @@ app.use(csrf())
 app.use(secureHeaders())
 
 app.route('/admin', admin)
+app.route('/read', read)
 
 app.get('/signup', (c) =>
     c.html(
