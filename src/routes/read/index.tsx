@@ -1,5 +1,5 @@
 import { Hono } from 'hono'
 
-type Bindings = {}
+type Bindings = { POEMONGER_READER_SESSIONS: DurableObjectNamespace }
 
-const read = new Hono()
+const read = new Hono<{ Bindings: Bindings }>()
