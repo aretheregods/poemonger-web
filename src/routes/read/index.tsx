@@ -12,18 +12,15 @@ const read = new Hono<{ Bindings: Bindings }>()
 read.get('/', async (c) => {
     try {
         const r = await c.env.READER_SESSIONS_SERVICE.basicFetch(c.req.raw)
-        return c.html(
-            <Base title="Poemonger | Read">
-                <h2>{r.message}</h2>
-            </Base>
-        )
+        response += await r.json()
     } catch (e) {
-        return c.html(
-            <Base title="Poemonger | Read">
-                <h2>There was an error</h2>
-            </Base>
-        )
+        response.message += ` ${e}`
     }
+    return c.html(
+        <Base title="Poemonger | Read">
+            <h2>{response.message}</h2>
+        </Base>
+    )
 })
 
 export default read
