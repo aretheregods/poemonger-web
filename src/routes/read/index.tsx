@@ -10,14 +10,20 @@ type Bindings = {
 const read = new Hono<{ Bindings: Bindings }>()
 
 read.get('/', async (c) => {
-    let response = { message: 'There was an error' }
     try {
         const r = await c.env.READER_SESSIONS_SERVICE.basicFetch(c.req.raw)
-        response = r
+        return c.html(
+            <Base title="Poemonger | Read">
+                <h2>{r.message}</h2>
+            </Base>
+        )
     } catch (e) {
-        response.message += ` ${e}`
+        return c.html(
+            <Base title="Poemonger | Read">
+                <h2>There was an error</h2>
+            </Base>
+        )
     }
-    return await c.env.READER_SESSIONS_SERVICE.basicFetch(c.req.raw)
 })
 
 export default read
