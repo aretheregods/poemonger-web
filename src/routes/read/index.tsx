@@ -20,7 +20,7 @@ read.get('/', async (c) => {
     let response = { message: 'There was an error:' }
 
     try {
-        const r = await c.var.READER_SESSIONS.basicFetch(c.req.raw)
+        const r = await c.var.READER_SESSIONS.fetch(c.req.raw)
         response = await r.json()
     } catch (e) {
         response.message += ` ${e}`
