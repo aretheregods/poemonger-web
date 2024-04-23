@@ -7,7 +7,7 @@ type Bindings = {
 const read = new Hono<{ Bindings: Bindings }>()
 
 read.get('/', async (c) => {
-    return await c.env.READER_SESSIONS_SERVICE.fetch(c.req)
+    return await c.env.READER_SESSIONS_SERVICE.basicFetch(c.req)
 })
 
 export default read
