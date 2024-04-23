@@ -11,7 +11,8 @@ const read = new Hono<{ Bindings: Bindings }>()
 read.get('/', async (c) => {
     let response = { message: 'There was an error' }
     try {
-        response = await c.env.READER_SESSIONS_SERVICE.basicFetch(c.req.raw)
+        const r = await c.env.READER_SESSIONS_SERVICE.basicFetch(c.req.raw)
+        response = JSON.parse(r)
     } catch (e) {
         response.message += ` ${e}`
     }
