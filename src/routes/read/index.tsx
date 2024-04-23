@@ -10,7 +10,7 @@ read.get('/', async (c) => {
 
     const r = await stub.fetch(c.req.url)
 
-    return c.json(r)
+    return r
 })
 
 export default read
