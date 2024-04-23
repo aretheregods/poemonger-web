@@ -9,7 +9,7 @@ type Bindings = {
 
 const read = new Hono<{ Bindings: Bindings }>()
 
-read.use((c, next) => {
+read.use(async (c, next) => {
     const id = c.env.POEMONGER_READER_SESSIONS.newUniqueId()
     const stub = c.env.POEMONGER_READER_SESSIONS.get(id)
     c.set('READER_SESSIONS', stub)
