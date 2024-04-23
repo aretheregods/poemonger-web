@@ -17,11 +17,7 @@ read.get('/', async (c) => {
     } catch (e) {
         response.message += ` ${e}`
     }
-    return c.html(
-        <Base title="Poemonger | Read">
-            <h2>{response.message}</h2>
-        </Base>
-    )
+    return response
 })
 
 export default read
