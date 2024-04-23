@@ -9,7 +9,7 @@ type Bindings = {
 
 const read = new Hono<{ Bindings: Bindings }>()
 
-read.get('/', (c) => {
+read.get('/', async (c) => {
     let response = { message: 'There was an error:' }
     try {
         const r = await c.env.READER_SESSIONS_SERVICE.basicFetch(c.req.raw)
