@@ -1,6 +1,7 @@
 import { Hono } from 'hono'
+import { html } from 'hono/html'
 
-import { Base } from '../../Base.tsx'
+import { Base } from '../../Base'
 
 type Bindings = {
     POEMONGER_READER_SESSIONS: DurableObjectNamespace
