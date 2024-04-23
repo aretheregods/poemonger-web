@@ -30,7 +30,7 @@ read.get('/test', async (c) => {
     const stub = c.env.POEMONGER_READER_SESSIONS.get(id)
 
     try {
-        const r = await stub.fetch(c.req.raw)
+        const r = await stub.reply()
         response = await r.json()
     } catch (e) {
         response.message += ` ${e}`
