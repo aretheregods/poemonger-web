@@ -9,7 +9,12 @@ type Bindings = {
 const read = new Hono<{ Bindings: Bindings }>()
 
 read.get('/', async (c) => {
-    return await c.env.READER_SESSIONS_SERVICE.basicFetch(c.req.raw)
+    const id = c.env.POEMONGER_READER_SESSIONS.newUniqueId()
+    const stub = c.env.POEMONGER_READER_SESSIONS.get(id)
+
+    const r = await stub.fetch(c.req.raw)
+
+    return r
 })
 
 export default read
