@@ -9,14 +9,15 @@ type Bindings = {
 
 const read = new Hono<{ Bindings: Bindings }>()
 
-read.get('/', async (c) => {
+read.get('/', (c) => {
     let response = { message: 'There was an error:' }
-    try {
-        const r = await c.env.READER_SESSIONS_SERVICE.basicFetch(c.req.raw)
-        response = await r.json()
-    } catch (e) {
-        response.message += ` ${e}`
-    }
+
+    c.env.READER_SESSIONS_SERVICE.basicFetch(c.req.raw)
+        .then((r) => r.json())
+        .then((r) => (response = r))
+        .catch((e) => {
+            response.message += ` ${e}`
+        })
     return c.html(
         <Base title="Poemonger | Read">
             <h2>{response.message}</h2>
