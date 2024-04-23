@@ -9,10 +9,18 @@ type Bindings = {
 
 const read = new Hono<{ Bindings: Bindings }>()
 
+read.use((c) => {
+    const id = c.env.POEMONGER_READER_SESSIONS.newUniqueId()
+    const stub = c.env.POEMONGER_READER_SESSIONS.get(id)
+    c.set('READER_SESSIONS', stub)
+})
+
 read.get('/', async (c) => {
     let response = { message: 'There was an error:' }
+    const READER_SESSIONS = c.get('READER_SESSIONS')
+
     try {
-        const r = await c.env.READER_SESSIONS_SERVICE.basicFetch(c.req.raw)
+        const r = await READER_SESSIONS.basicFetch(c.req.raw)
         response = await r.json()
     } catch (e) {
         response.message += ` ${e}`
