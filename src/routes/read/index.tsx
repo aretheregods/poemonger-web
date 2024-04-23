@@ -8,9 +8,7 @@ read.get('/', async (c) => {
     const id = c.env.POEMONGER_READER_SESSIONS.newUniqueId()
     const stub = c.env.POEMONGER_READER_SESSIONS.get(id)
 
-    const r = await stub.fetch(c.req)
-
-    return r
+    return stub.fetch(c.req)
 })
 
 export default read
