@@ -24,4 +24,22 @@ read.get('/', async (c) => {
     )
 })
 
+read.get('/test', async (c) => {
+    let response = { message: 'There was an error:' }
+    const id = c.env.POEMONGER_READER_SESSIONS.newUniqueId()
+    const stub = c.env.POEMONGER_READER_SESSIONS.get(id)
+
+    try {
+        const r = await stub.fetch(c.req.raw)
+        response = await r.json()
+    } catch (e) {
+        response.message += ` ${e}`
+    }
+    return c.html(
+        <Base title="Poemonger | Read - Test">
+            <h2>{response.message}</h2>
+        </Base>
+    )
+})
+
 export default read
