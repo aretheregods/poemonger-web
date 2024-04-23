@@ -34,11 +34,9 @@ read.get('/', async (c) => {
 
 read.get('/test', async (c) => {
     let response = { message: 'There was an error:' }
-    const id = c.env.POEMONGER_READER_SESSIONS.newUniqueId()
-    const stub = c.env.POEMONGER_READER_SESSIONS.get(id)
 
     try {
-        const r = await stub.reply()
+        const r = await c.var.READER_SESSIONS.reply()
         response = await r.json()
     } catch (e) {
         response.message += ` ${e}`
