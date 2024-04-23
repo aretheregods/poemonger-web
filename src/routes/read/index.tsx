@@ -8,7 +8,7 @@ read.get('/', async (c) => {
     const id = c.env.POEMONGER_READER_SESSIONS.newUniqueId()
     const stub = c.env.POEMONGER_READER_SESSIONS.get(id)
 
-    const r = await stub.fetch(c.req.url)
+    const r = await stub.fetch(c.req)
 
     return r
 })
