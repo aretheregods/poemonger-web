@@ -19,6 +19,13 @@
     --button-text-color: 267, 100%, 15%;
 }
 
+button,
+input,
+select,
+textarea {
+    font: inherit;
+}
+
 button.button {
     font-size: medium;
     padding: 0.5rem 1rem;
