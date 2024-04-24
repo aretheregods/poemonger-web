@@ -1,9 +1,3 @@
-* {
-    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI',
-        Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue',
-        sans-serif;
-}
-
 *,
 *::before,
 *::after {
@@ -17,6 +11,10 @@
     --button-color: 244, 84%;
     --button-color-l: 79%;
     --button-text-color: 267, 100%, 15%;
+}
+
+body {
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
 }
 
 button,
