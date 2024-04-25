@@ -81,7 +81,15 @@ admin.get('/', (c) => {
 
 admin.get('/dashboard', (c) =>
     c.html(
-        <Base title="Poemonger | Admin Dashboard">
+        <Base
+            title="Poemonger | Admin Dashboard"
+            assets={[
+                <link
+                    rel="stylesheet"
+                    href="/static/styles/admin/dashboard.css"
+                />,
+            ]}
+        >
             <Admin />
         </Base>
     )

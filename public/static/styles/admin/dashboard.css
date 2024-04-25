@@ -1,0 +1,8 @@
+.dashboard-container {
+    display: grid;
+    justify-content: center;
+}
+
+.admin-dashboard-list {
+    list-style-type: none;
+}
