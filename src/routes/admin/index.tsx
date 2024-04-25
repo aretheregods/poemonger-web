@@ -41,7 +41,7 @@ export async function adminCookieAuth(
             )
             c.set('currentSession' as never, currentSession)
         } catch {
-            c.set('currentSession' as never, {
+            c.set('currentSessionError' as never, {
                 error: true,
                 message: 'Error getting session data',
             })
@@ -130,16 +130,10 @@ admin.post('/check-admin', async (c) => {
 })
 
 admin.post('/', async (c) => {
-    const hasCookie = getCookie(c, 'poemonger_admin_session', 'secure')
-    if (hasCookie) {
-        try {
-            const currentSession = await c.env.ADMIN_SESSIONS.get(
-                `session=${hasCookie}`
-            )
-            if (currentSession) return c.redirect('/dashboard')
-        } catch {
-            console.log('no session')
-        }
+    const currentSession = c.get('currentSession')
+    const currentSessionError = c.get('currentSessionError')
+    if (currentSession && !currentSessionError) {
+        return c.redirect('/dashboard')
     }
     var ct = c.req.header('Content-Type')
     var f = /multipart\/form-data/g.test(ct || '')
