@@ -1,5 +1,9 @@
-import { Hono } from 'hono'
+import { Context, Hono, Next } from 'hono'
 import { getCookie, setCookie } from 'hono/cookie'
+
+import categories from './categories'
+import poetry from './poetry'
+import works from './works'
 
 import { Base } from '../../Base'
 import Login from '../../components/login'
@@ -15,6 +19,36 @@ type Bindings = {
 }
 
 const admin = new Hono<{ Bindings: Bindings }>()
+
+admin.use('/categories', adminCookieAuth)
+admin.use('/poetry', adminCookieAuth)
+admin.use('/works', adminCookieAuth)
+
+admin.route('/categories', categories)
+admin.route('/poetry', poetry)
+admin.route('/works', works)
+
+export async function adminCookieAuth(
+    c: Context<{ Bindings: Bindings }>,
+    next: Next
+): Promise<void> {
+    const hasCookie = getCookie(c, 'poemonger_admin_session', 'secure')
+    if (hasCookie) {
+        try {
+            const currentSession = await c.env.ADMIN_SESSIONS.get(
+                `session=${hasCookie}`,
+                { type: 'json' }
+            )
+            c.set('currentSession' as never, currentSession)
+        } catch {
+            c.set('currentSession' as never, {
+                error: true,
+                message: 'Error getting session data',
+            })
+        }
+    }
+    await next()
+}
 
 admin.get('/', (c) => {
     return c.html(
