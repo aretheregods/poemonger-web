@@ -220,7 +220,7 @@ admin.post('/', async (c) => {
 })
 
 admin.get('/logout', (c) => {
-    if (c.var.currentSession && !c.var.currentSessionError) {
+    if (!c.var.currentSession && c.var.currentSessionError) {
         return c.redirect('/admin')
     }
     return c.html(
