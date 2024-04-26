@@ -20,9 +20,7 @@ type Bindings = {
 
 const admin = new Hono<{ Bindings: Bindings }>()
 
-admin.use('/categories', adminCookieAuth)
-admin.use('/poetry', adminCookieAuth)
-admin.use('/works', adminCookieAuth)
+admin.use(adminCookieAuth)
 
 admin.route('/categories', categories)
 admin.route('/poetry', poetry)
