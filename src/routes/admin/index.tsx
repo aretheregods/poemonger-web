@@ -208,6 +208,7 @@ admin.post('/', async (c) => {
                 c.status(409)
             }
         } catch {
+            error = true
             message = messages.login.error
             c.status(401)
         }
