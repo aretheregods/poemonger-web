@@ -84,8 +84,11 @@ admin.get('/', (c) => {
     )
 })
 
-admin.get('/dashboard', (c) =>
-    c.html(
+admin.get('/dashboard', (c) => {
+    if (!c.var.currentSession || c.var.currentSessionError) {
+        return c.redirect('/admin')
+    }
+    return c.html(
         <Base
             title="Poemonger | Admin Dashboard"
             assets={[
@@ -98,7 +101,7 @@ admin.get('/dashboard', (c) =>
             <Admin />
         </Base>
     )
-)
+})
 
 admin.post('/check-admin', async (c) => {
     var ct = c.req.header('Content-Type')
