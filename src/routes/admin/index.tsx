@@ -134,7 +134,7 @@ admin.post('/', async (c) => {
             const currentSession = await c.env.ADMIN_SESSIONS.get(
                 `session=${hasCookie}`
             )
-            if (currentSession) return c.redirect('/dashboard')
+            if (currentSession) return c.redirect('/admin//dashboard')
         } catch {
             console.log('no session')
         }
