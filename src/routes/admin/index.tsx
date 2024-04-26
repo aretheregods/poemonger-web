@@ -129,7 +129,7 @@ admin.post('/check-admin', async (c) => {
 
 admin.post('/', async (c) => {
     if (c.var.currentSession && !c.var.currentSessionError) {
-        return c.redirect('/dashboard')
+        return c.redirect('/admin/dashboard')
     }
     var ct = c.req.header('Content-Type')
     var f = /multipart\/form-data/g.test(ct || '')
