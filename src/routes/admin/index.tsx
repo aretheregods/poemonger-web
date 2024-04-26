@@ -37,7 +37,7 @@ export async function adminCookieAuth(
                 `session=${hasCookie}`,
                 { type: 'json' }
             )
-            c.set('currentSession' as never, currentSession)
+            currentSession && c.set('currentSession' as never, currentSession)
         } catch {
             c.set('currentSessionError' as never, {
                 error: true,
