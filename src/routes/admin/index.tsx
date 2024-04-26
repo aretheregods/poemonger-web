@@ -18,7 +18,11 @@ type Bindings = {
     POEMONGER_ADMIN: KVNamespace
 }
 
-const admin = new Hono<{ Bindings: Bindings }>()
+type variables = {
+    currentSession?: { cookie: string }
+}
+
+const admin = new Hono<{ Bindings: Bindings; var: variables }>()
 
 admin.use(adminCookieAuth)
 
@@ -232,19 +236,25 @@ admin.get('/logout', (c) =>
 )
 
 admin.post('/logout', async (c) => {
-    const hasCookie = getCookie(c, 'poemonger_admin_session', 'secure')
-    if (hasCookie) {
+    if (c.var.currentSession && !c.var.currentSessionError) {
         try {
-            await c.env.ADMIN_SESSIONS.delete(`session=${hasCookie}`)
-            setCookie(c, 'poemonger_admin_session', hasCookie, {
-                path: '/admin',
-                prefix: 'secure',
-                secure: true,
-                httpOnly: true,
-                maxAge: 86400 * -1,
-                expires: new Date(Date.now() + 1000 * 60 * 60 * 24 * -1),
-                sameSite: 'Lax',
-            })
+            await c.env.ADMIN_SESSIONS.delete(
+                `session=${c.var.currentSession.cookie}`
+            )
+            setCookie(
+                c,
+                'poemonger_admin_session',
+                c.var.currentSession.cookie,
+                {
+                    path: '/admin',
+                    prefix: 'secure',
+                    secure: true,
+                    httpOnly: true,
+                    maxAge: 86400 * -1,
+                    expires: new Date(Date.now() + 1000 * 60 * 60 * 24 * -1),
+                    sameSite: 'Lax',
+                }
+            )
             c.status(200)
             return c.json({ success: true })
         } catch {
