@@ -181,7 +181,7 @@ admin.post('/', async (c) => {
                     )
 
                     setCookie(c, 'poemonger_admin_session', sessionId, {
-                        path: '/admin',
+                        path: c.req.path,
                         prefix: 'secure',
                         secure: true,
                         httpOnly: true,
