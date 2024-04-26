@@ -37,7 +37,11 @@ export async function adminCookieAuth(
                 `session=${hasCookie}`,
                 { type: 'json' }
             )
-            currentSession && c.set('currentSession' as never, currentSession)
+            currentSession &&
+                c.set('currentSession' as never, {
+                    cookie: hasCookie,
+                    currentSession,
+                })
         } catch {
             c.set('currentSessionError' as never, {
                 error: true,
