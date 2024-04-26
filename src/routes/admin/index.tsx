@@ -130,9 +130,7 @@ admin.post('/check-admin', async (c) => {
 })
 
 admin.post('/', async (c) => {
-    const currentSession = c.get('currentSession')
-    const currentSessionError = c.get('currentSessionError')
-    if (currentSession && !currentSessionError) {
+    if (c.var.currentSession && !c.var.currentSessionError) {
         return c.redirect('/dashboard')
     }
     var ct = c.req.header('Content-Type')
