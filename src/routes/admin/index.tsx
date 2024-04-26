@@ -219,8 +219,11 @@ admin.post('/', async (c) => {
     return c.json({ error, message, admin })
 })
 
-admin.get('/logout', (c) =>
-    c.html(
+admin.get('/logout', (c) => {
+    if (c.var.currentSession && !c.var.currentSessionError) {
+        return c.redirect('/admin')
+    }
+    return c.html(
         <Base
             title="Poemonger | Logout"
             assets={[
@@ -233,7 +236,7 @@ admin.get('/logout', (c) =>
             <Logout />
         </Base>
     )
-)
+})
 
 admin.post('/logout', async (c) => {
     if (c.var.currentSession && !c.var.currentSessionError) {
