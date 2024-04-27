@@ -98,9 +98,6 @@ admin.get('/', (c) => {
 })
 
 admin.get('/dashboard', adminRedirect, (c) => {
-    // if (!c.var.currentSession || c.var.currentSessionError) {
-    //     return c.redirect('/admin')
-    // }
     return c.html(
         <Base
             title="Poemonger | Admin Dashboard"
@@ -229,9 +226,6 @@ admin.post('/', async (c) => {
 })
 
 admin.get('/logout', adminRedirect, (c) => {
-    // if (!c.var.currentSession || c.var.currentSessionError) {
-    //     return c.redirect('/admin')
-    // }
     return c.html(
         <Base
             title="Poemonger | Logout"
