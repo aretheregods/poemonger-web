@@ -60,7 +60,7 @@ export async function adminRedirect(
     c: Context<{ Bindings: Bindings }>,
     next: Next
 ): Promise<void> {
-    if (c.var.currentSession || c.var.currentSessionError) {
+    if (!c.var.currentSession || c.var.currentSessionError) {
         return c.redirect('/admin')
     } else await next()
 }
