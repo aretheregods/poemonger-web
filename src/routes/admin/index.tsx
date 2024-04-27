@@ -56,6 +56,15 @@ export async function adminCookieAuth(
     await next()
 }
 
+export async function adminRedirect(
+    c: Context<{ Bindings: Bindings }>,
+    next: Next
+): Promise<void> {
+    if (c.var.currentSession || c.var.currentSessionError) {
+        return c.redirect('/admin')
+    } else await next()
+}
+
 admin.get('/', (c) => {
     if (c.var.currentSession && !c.var.currentSessionError) {
         return c.redirect('/admin/dashboard')
@@ -88,10 +97,10 @@ admin.get('/', (c) => {
     )
 })
 
-admin.get('/dashboard', (c) => {
-    if (!c.var.currentSession || c.var.currentSessionError) {
-        return c.redirect('/admin')
-    }
+admin.get('/dashboard', adminRedirect, (c) => {
+    // if (!c.var.currentSession || c.var.currentSessionError) {
+    //     return c.redirect('/admin')
+    // }
     return c.html(
         <Base
             title="Poemonger | Admin Dashboard"
@@ -219,10 +228,10 @@ admin.post('/', async (c) => {
     return c.json({ error, message, admin })
 })
 
-admin.get('/logout', (c) => {
-    if (!c.var.currentSession && c.var.currentSessionError) {
-        return c.redirect('/admin')
-    }
+admin.get('/logout', adminRedirect, (c) => {
+    // if (!c.var.currentSession || c.var.currentSessionError) {
+    //     return c.redirect('/admin')
+    // }
     return c.html(
         <Base
             title="Poemonger | Logout"
