@@ -258,7 +258,7 @@ admin.post('/logout', async (c) => {
                 'poemonger_admin_session',
                 c.var.currentSession.cookie,
                 {
-                    path: '/admin',
+                    path: '/',
                     prefix: 'secure',
                     secure: true,
                     httpOnly: true,
