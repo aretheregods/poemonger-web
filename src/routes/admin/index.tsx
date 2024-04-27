@@ -25,6 +25,9 @@ type variables = {
 const admin = new Hono<{ Bindings: Bindings; var: variables }>()
 
 admin.use(adminCookieAuth)
+admin.use('/categories', adminRedirect)
+admin.use('/poetry', adminRedirect)
+admin.use('/works', adminRedirect)
 
 admin.route('/categories', categories)
 admin.route('/poetry', poetry)
