@@ -19,10 +19,11 @@ type Bindings = {
 }
 
 type variables = {
-    currentSession?: { cookie: string }
+    currentSession?: { cookie: string; currentSession: { created_at: string } }
+    currentSessionError?: { error: boolean; message: string }
 }
 
-const admin = new Hono<{ Bindings: Bindings; var: variables }>()
+const admin = new Hono<{ Bindings: Bindings; Variables: variables }>()
 
 admin.use(adminCookieAuth)
 admin.use('/categories', adminRedirect)
@@ -60,9 +61,9 @@ export async function adminCookieAuth(
 }
 
 export async function adminRedirect(
-    c: Context<{ Bindings: Bindings }>,
+    c: Context<{ Bindings: Bindings; Variables: variables }>,
     next: Next
-): Promise<void> {
+): Promise<Response | void> {
     if (!c.var.currentSession || c.var.currentSessionError) {
         return c.redirect('/admin')
     } else await next()
