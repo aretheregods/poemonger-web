@@ -1,0 +1,55 @@
+@import './input.css';
+
+form {
+    display: grid;
+    grid-auto-flow: row;
+    justify-content: center;
+    padding-top: 2rem;
+}
+
+form > ul {
+    display: grid;
+    gap: 1rem;
+    list-style: none;
+    padding-left: 0px;
+    width: fit-content;
+}
+
+ul > li {
+    display: grid;
+    gap: 0.25rem;
+}
+
+form button {
+    background-color: hsl(var(--button-color), var(--button-color-l));
+    color: hsl(var(--button-text-color));
+    border: none;
+    width: min-content;
+    justify-self: end;
+}
+
+form button:hover {
+    background-color: hsl(
+        var(--button-color),
+        calc(var(--button-color-l) - 20%)
+    );
+    color: white;
+    transition: all 180ms ease-in-out;
+}
+
+form:invalid button[type='submit'] {
+    opacity: 0.3;
+    pointer-events: none;
+}
+
+form:valid button[type='submit'] {
+    opacity: 1;
+    pointer-events: all;
+}
+
+@media (width >= 320px) and (width <= 480px) {
+    form button {
+        width: 33vw;
+        padding: 0.75rem;
+    }
+}
