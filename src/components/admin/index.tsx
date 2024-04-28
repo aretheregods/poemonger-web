@@ -1,3 +1,5 @@
+export { default as Categories } from './categories'
+
 export default function Admin() {
     return (
         <div class="dashboard-container">
