@@ -31,7 +31,7 @@ export default function Categories() {
                     />
                 </li>
             </ul>
-            <button id="submit" type="submit">
+            <button id="submit" type="submit" class="button">
                 Submit
             </button>
         </form>
