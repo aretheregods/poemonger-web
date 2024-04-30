@@ -39,6 +39,7 @@ categories.get('/new', (c) =>
                     rel="stylesheet"
                     href="/static/styles/admin/poetryForm.css"
                 />,
+                <script type="module" src="/static/js/admin/categoriesNew.js" defer></script>,
             ]}
         >
             <Categories />
