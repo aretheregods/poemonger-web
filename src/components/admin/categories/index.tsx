@@ -13,7 +13,7 @@ export default function Categories() {
                 <li>
                     <Input
                         id="category-name"
-                        name="category"
+                        name="name"
                         type="text"
                         placeholder="A globally unique category name"
                         label="Category name"
