@@ -17,7 +17,6 @@ categories.get('/', async (c) => {
             <Base title="Poemonger | Categories - List">
                 <>
                     <h2>Categories List</h2>
-                    {categoriesList.keys.map(({ name }) => <a href={`/admin/categories/${name}`}>{name}</a>)}
                 </>
             </Base>
         )
