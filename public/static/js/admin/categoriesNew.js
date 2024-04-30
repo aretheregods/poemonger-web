@@ -7,6 +7,6 @@ f.addEventListener('submit', (e) => {
     e.preventDefault();
 
     request.post({ path: '/admin/categories/new', body: new FormData(e.target, e.submitter) })
-        .then(res => location.href = '/admin/categories')
+        .then(res => console.log({ res: res.json() }))
         .catch(e => console.error(e))
 })
