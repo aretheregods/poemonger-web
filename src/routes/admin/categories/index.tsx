@@ -23,7 +23,7 @@ categories.get('/', async (c) => {
                 <>
                     <h2>Categories List</h2>
                     {categoriesList.keys.map(({ metadata }) => {
-                        const m: Meta = JSON.parse(metadata as string)
+                        const m: Meta = metadata.json();
                         return <p><a href={`/admin/categories/${m.name}`}>{m.name}</a></p>
                     })}
                 </>
