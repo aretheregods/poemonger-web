@@ -22,8 +22,8 @@ categories.get('/', async (c) => {
             <Base title="Poemonger | Categories - List">
                 <>
                     <h2>Categories List</h2>
-                    {categoriesList.keys.map(({ metadata }) => {
-                        const m: Meta = metadata.json();
+                    {categoriesList.keys.map(async ({ metadata }) => {
+                        const m: Meta = await metadata.json();
                         return <p><a href={`/admin/categories/${m.name}`}>{m.name}</a></p>
                     })}
                 </>
