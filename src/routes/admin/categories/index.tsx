@@ -64,21 +64,22 @@ categories.post('/new', async (c) => {
     var description = body.get('description')
 
     if (!name || !description)
-        return c.json({ error: 'No name or description in request' }, { status: 404 })
+        return c.json({ success: false, error: 'No name or description in request' }, { status: 404 })
 
     try {
         const currentCategory = await c.env.POEMONGER_POEMS.get(`category=${name}`)
         if (currentCategory !== null) {
-            return c.json({ error: 'This category already exists' }, { status: 404 })
+            return c.json({ success: false, error: 'This category already exists' }, { status: 404 })
         } else {
             try {
                 await c.env.POEMONGER_POEMS.put(`category=${name}`, '', { metadata: { description } })
+                return c.json({ success: true, error })
             } catch {
-                return c.json({ error: 'Something went wrong while trying to save your new category' }, { status: 500 })
+                return c.json({ success: false, error: 'Something went wrong while trying to save your new category' }, { status: 500 })
             }
         }
     } catch {
-        return c.json({ error: 'Something went wrong while searching for this category' }, { status: 500 })
+        return c.json({ success: false, error: 'Something went wrong while searching for this category' }, { status: 500 })
     }
 
     return c.json({ error }, { status })
