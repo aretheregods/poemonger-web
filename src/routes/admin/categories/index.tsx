@@ -22,7 +22,10 @@ categories.get('/', async (c) => {
             <Base title="Poemonger | Categories - List">
                 <>
                     <h2>Categories List</h2>
-                    {categoriesList.keys.map(({ metadata }) => <a href={`/admin/categories/${metadata.name}`}>{metadata.name}</a>)}
+                    {categoriesList.keys.map(({ metadata }) => {
+                        const m: Meta = JSON.parse(metadata as string)
+                        return <p><a href={`/admin/categories/${m.name}`}>{m.name}</a></p>
+                    })}
                 </>
             </Base>
         )
