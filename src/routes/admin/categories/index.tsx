@@ -8,6 +8,11 @@ type Bindings = {
     POEMONGER_POEMS: KVNamespace
 }
 
+type Meta = {
+    name: string;
+    description: string;
+}
+
 const categories = new Hono<{ Bindings: Bindings }>()
 
 categories.get('/', async (c) => {
@@ -17,7 +22,7 @@ categories.get('/', async (c) => {
             <Base title="Poemonger | Categories - List">
                 <>
                     <h2>Categories List</h2>
-                    {categoriesList.keys.map(({ name }) => <a href={`/admin/categories/${name}`}>{name}</a>)}
+                    {categoriesList.keys.map(({ metadata }) => <a href={`/admin/categories/${metadata.name}`}>{metadata.name}</a>)}
                 </>
             </Base>
         )
@@ -72,7 +77,7 @@ categories.post('/new', async (c) => {
             return c.json({ success: false, error: 'This category already exists' }, { status: 404 })
         } else {
             try {
-                await c.env.POEMONGER_POEMS.put(`category=${name}`, '', { metadata: { description } })
+                await c.env.POEMONGER_POEMS.put(`category=${name}`, '', { metadata: { name, description } })
                 return c.json({ success: true, error })
             } catch {
                 return c.json({ success: false, error: 'Something went wrong while trying to save your new category' }, { status: 500 })
