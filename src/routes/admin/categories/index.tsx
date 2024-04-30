@@ -13,10 +13,11 @@ const categories = new Hono<{ Bindings: Bindings }>()
 categories.get('/', async (c) => {
     try {
         const categoriesList = await c.env.POEMONGER_POEMS.list()
-        c.html(
+        return c.html(
             <Base title="Poemonger | Categories - List">
                 <>
                     <h2>Categories List</h2>
+                    {categoriesList.keys.map(({ name }) => <a href={`/admin/categories/${name}`}>{name}</a>)}
                 </>
             </Base>
         )
