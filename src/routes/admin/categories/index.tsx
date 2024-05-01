@@ -16,8 +16,8 @@ categories.get('/', async (c) => {
             <Base title="Poemonger | Categories - List">
                 <>
                     <h2>Categories List</h2>
-                    {categoriesList.results.map(({ name }) => {
-                        return <p><a href={`/admin/categories/${name}`}>{name}</a></p>
+                    {categoriesList.results.map(({ name, path }) => {
+                        return <p><a href={`/admin/categories/${path}`}>{name}</a></p>
                     })}
                 </>
             </Base>
@@ -78,7 +78,9 @@ categories.post('/new', async (c) => {
         return c.json({ success: false, error: 'No name or description in request' }, { status: 404 })
 
     try {
-        const { success } = await c.env.POEMONGER_POEMS.prepare('insert into categories(name, description) values(?, ?);').bind(name, description).all()
+        const { success } = await c.env.POEMONGER_POEMS.prepare('insert into categories(name, description, path) values(?, ?, ?);')
+            .bind(name, description, name.split(' ').join('_'))
+            .all()
         if (success) return c.json({ success: true, error }, { status })
         else {
             return c.json({ success: false, error: `Something went wrong while trying to save your new category` }, { status: 404 })
