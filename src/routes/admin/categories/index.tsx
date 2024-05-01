@@ -11,7 +11,7 @@ const categories = new Hono<{ Bindings: Bindings }>()
 
 categories.get('/', async (c) => {
     try {
-        const categoriesList = await c.env.POEMONGER_POEMS.prepare('select name, description from categories;').all()
+        const categoriesList = await c.env.POEMONGER_POEMS.prepare('select name, description, path from categories;').all()
         return c.html(
             <Base title="Poemonger | Categories - List">
                 <>
@@ -72,7 +72,7 @@ categories.post('/new', async (c) => {
 
     try {
         const { success } = await c.env.POEMONGER_POEMS.prepare('insert into categories(name, description, path) values(?, ?, ?);')
-            .bind(name, description, name.split(' ').join('_'))
+            .bind(name, description, name.toLowerCase().split(' ').join('_'))
             .all()
         if (success) return c.json({ success: true, error }, { status })
         else {
