@@ -73,10 +73,14 @@ categories.post('/new', async (c) => {
     if (!name || !description)
         return c.json({ success: false, error: 'No name or description in request' }, { status: 404 })
 
-    const { success } = await c.env.POEMONGER_POEMS.prepare('insert into categories(name, description) values(?, ?);').bind(name, description).all()
-    if (success) return c.json({ success: true, error }, { status })
-    else {
-        return c.json({ success: false, error: `Something went wrong while trying to save your new category` }, { status: 404 })
+    try {
+        const { success } = await c.env.POEMONGER_POEMS.prepare('insert into categories(name, description) values(?, ?);').bind(name, description).all()
+        if (success) return c.json({ success: true, error }, { status })
+        else {
+            return c.json({ success: false, error: `Something went wrong while trying to save your new category` }, { status: 404 })
+        }
+    } catch (e: any) {
+        return c.json({ success: false, error: e })
     }
 
     return c.json({ error }, { status })
