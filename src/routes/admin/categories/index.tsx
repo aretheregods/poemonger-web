@@ -36,21 +36,29 @@ categories.get('/', async (c) => {
 
 categories.get('/new', async (c) => {
     try {
-        const { results } = await c.env.POEMONGER_POEMS.prepare('select type from entities;').all()
-        return c.html(
-            <Base
-                title="Poemonger | Admin - Categories"
-                assets={[
-                    <link
-                        rel="stylesheet"
-                        href="/static/styles/admin/poetryForm.css"
-                    />,
-                    <script type="module" src="/static/js/admin/categoriesNew.js" defer></script>,
-                ]}
-            >
-                <Categories entityOptions={results} />
-            </Base>
-        )
+        const { results, error, success } = await c.env.POEMONGER_POEMS.prepare('select type from entities;').all()
+        if (success) {
+            return c.html(
+                <Base
+                    title="Poemonger | Admin - Categories"
+                    assets={[
+                        <link
+                            rel="stylesheet"
+                            href="/static/styles/admin/poetryForm.css"
+                        />,
+                        <script type="module" src="/static/js/admin/categoriesNew.js" defer></script>,
+                    ]}
+                >
+                    <Categories entityOptions={results} />
+                </Base>
+            )
+        } else {
+            return c.html(
+                <Base title="Poemonger | Admin - Error">
+                    <h2>Error {error}</h2>
+                </Base>
+            )
+        }
     } catch (e) {
         return c.html(
             <Base title="Poemonger | Admin - Category">
