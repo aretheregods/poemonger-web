@@ -76,7 +76,7 @@ categories.post('/new', async (c) => {
     const { success } = await c.env.POEMONGER_POEMS.prepare('insert into categories(name, description) values(?, ?);').bind(name, description).all()
     if (success) return c.json({ success: true, error }, { status })
     else {
-        return c.json({ success: false, error: `Something went wrong while trying to save your new category` }, { status: 500 })
+        return c.json({ success: false, error: `Something went wrong while trying to save your new category` }, { status: 404 })
     }
 
     return c.json({ error }, { status })
