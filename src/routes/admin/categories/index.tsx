@@ -87,12 +87,29 @@ categories.post('/new', async (c) => {
 
 categories.get('/:category', (c) => {
     const category = c.req.param('category')
+    try {
+        const category = await c.env.POEMONGER_POEMS.prepare('select name, description from categories where path = ?')
+            .bind(category)
+            .first()
 
-    return c.html(
-        <Base title={`Poemonger | Admin - Category: ${category}`}>
-            <h2>Category {category}</h2>
-        </Base>
-    )
+        if (category !== null) return c.html(
+                <Base title={`Poemonger | Admin - Category: ${category}`}>
+                    <h2>Category {category?.name}</h2>
+                </Base>
+            )
+            else return c.html(
+                <Base>
+                    <h2>Could not find category</h2>
+                </Base>
+            )
+    } catch (e) {
+        return c.html(
+            <Base>
+                <h2>Error getting category</h2>
+            </Base>
+        )
+    }
+
 })
 
 export default categories
