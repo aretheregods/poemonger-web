@@ -7,11 +7,6 @@ type Bindings = {
     POEMONGER_POEMS: D1Database
 }
 
-type Meta = {
-    name: string;
-    description: string;
-}
-
 const categories = new Hono<{ Bindings: Bindings }>()
 
 categories.get('/', async (c) => {
@@ -34,6 +29,16 @@ categories.get('/', async (c) => {
             </Base>
         )
     }
+})
+
+categories.get('/:category', (c) => {
+    const category = c.req.param('category')
+
+    return c.html(
+        <Base title={`Poemonger | Admin - Category: ${category}`}>
+            <h2>Category {category}</h2>
+        </Base>
+    )
 })
 
 categories.get('/new', (c) =>
