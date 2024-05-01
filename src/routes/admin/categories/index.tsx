@@ -1,11 +1,14 @@
 import { Hono } from 'hono'
 import { getCookie } from 'hono/cookie'
+import { Client as LibsqlClient, createClient } from "@libsql/client/web";
 
 import { Base } from '../../../Base'
 import { Categories } from '../../../components/admin'
 
 type Bindings = {
     POEMONGER_POEMS: KVNamespace
+    TURSO_URL?: string;
+    TURSO_AUTH_TOKEN?: string;
 }
 
 type Meta = {
@@ -15,16 +18,30 @@ type Meta = {
 
 const categories = new Hono<{ Bindings: Bindings }>()
 
+function buildLibsqlClient(env: Bindings): LibsqlClient {
+    const url = env.TURSO_URL?.trim();
+    if (url === undefined) {
+      throw new Error("TURSO_URL env var is not defined");
+    }
+
+    const authToken = env.TURSO_AUTH_TOKEN?.trim();
+    if (authToken == undefined) {
+      throw new Error("TURSO_AUTH_TOKEN env var is not defined");
+    }
+
+    return createClient({ url, authToken })
+}
+
 categories.get('/', async (c) => {
     try {
-        const categoriesList = await c.env.POEMONGER_POEMS.list()
+        const client = buildLibsqlClient(c.env)
+        const categoriesList = await client.execute('select name, description from categories;')
         return c.html(
             <Base title="Poemonger | Categories - List">
                 <>
                     <h2>Categories List</h2>
-                    {categoriesList.keys.map(async ({ metadata }) => {
-                        const m: Meta = await metadata.json();
-                        return <p><a href={`/admin/categories/${m.name}`}>{m.name}</a></p>
+                    {categoriesList.rows.map(async ({ name }) => {
+                        return <p><a href={`/admin/categories/${name}`}>{name}</a></p>
                     })}
                 </>
             </Base>
@@ -74,20 +91,12 @@ categories.post('/new', async (c) => {
     if (!name || !description)
         return c.json({ success: false, error: 'No name or description in request' }, { status: 404 })
 
+    const client = buildLibsqlClient(c.env);
     try {
-        const currentCategory = await c.env.POEMONGER_POEMS.get(`category=${name}`)
-        if (currentCategory !== null) {
-            return c.json({ success: false, error: 'This category already exists' }, { status: 404 })
-        } else {
-            try {
-                await c.env.POEMONGER_POEMS.put(`category=${name}`, '', { metadata: { name, description } })
-                return c.json({ success: true, error })
-            } catch {
-                return c.json({ success: false, error: 'Something went wrong while trying to save your new category' }, { status: 500 })
-            }
-        }
+        await client.execute({ sql: 'insert into categories(name, description) values(?, ?);', args: [name, description] })
+        return c.json({ success: true, error })
     } catch {
-        return c.json({ success: false, error: 'Something went wrong while searching for this category' }, { status: 500 })
+        return c.json({ success: false, error: 'Something went wrong while trying to save your new category' }, { status: 500 })
     }
 
     return c.json({ error }, { status })
