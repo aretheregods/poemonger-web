@@ -85,26 +85,26 @@ categories.post('/new', async (c) => {
     return c.json({ error }, { status })
 })
 
-categories.get('/:category', (c) => {
-    const category = c.req.param('category')
+categories.get('/:category', async (c) => {
+    const categoryParam = c.req.param('category')
     try {
-        const category = await c.env.POEMONGER_POEMS.prepare('select name, description from categories where path = ?')
-            .bind(category)
+        const category: { name: string } | null = await c.env.POEMONGER_POEMS.prepare('select name, description from categories where path = ?')
+            .bind(categoryParam as string)
             .first()
 
         if (category !== null) return c.html(
-                <Base title={`Poemonger | Admin - Category: ${category}`}>
-                    <h2>Category {category?.name}</h2>
-                </Base>
-            )
-            else return c.html(
-                <Base>
-                    <h2>Could not find category</h2>
-                </Base>
-            )
+            <Base title={`Poemonger | Admin - Category: ${category}`}>
+                <h2>Category {category?.name}</h2>
+            </Base>
+        )
+        else return c.html(
+            <Base title="Poemonger | Admin - Category">
+                <h2>Could not find category</h2>
+            </Base>
+        )
     } catch (e) {
         return c.html(
-            <Base>
+            <Base title="Poemonger | Admin - Category">
                 <h2>Error getting category</h2>
             </Base>
         )
