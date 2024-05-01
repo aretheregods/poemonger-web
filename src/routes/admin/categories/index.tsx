@@ -80,7 +80,7 @@ categories.post('/new', async (c) => {
             return c.json({ success: false, error: `Something went wrong while trying to save your new category` }, { status: 404 })
         }
     } catch (e: any) {
-        return c.json({ success: false, error: e })
+        return c.json({ success: false, error: e }, { status: 404 })
     }
 
     return c.json({ error }, { status })
