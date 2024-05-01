@@ -6,9 +6,7 @@ import { Base } from '../../../Base'
 import { Categories } from '../../../components/admin'
 
 type Bindings = {
-    POEMONGER_POEMS: KVNamespace
-    TURSO_URL?: string;
-    TURSO_AUTH_TOKEN?: string;
+    POEMONGER_POEMS: D1Database
 }
 
 type Meta = {
@@ -18,29 +16,14 @@ type Meta = {
 
 const categories = new Hono<{ Bindings: Bindings }>()
 
-function buildLibsqlClient(env: Bindings): LibsqlClient {
-    const url = env.TURSO_URL?.trim();
-    if (url === undefined) {
-      throw new Error("TURSO_URL env var is not defined");
-    }
-
-    const authToken = env.TURSO_AUTH_TOKEN?.trim();
-    if (authToken == undefined) {
-      throw new Error("TURSO_AUTH_TOKEN env var is not defined");
-    }
-
-    return createClient({ url, authToken })
-}
-
 categories.get('/', async (c) => {
     try {
-        const client = buildLibsqlClient(c.env)
-        const categoriesList = await client.execute('select name, description from categories;')
+        const categoriesList = await c.env.POEMONGER_POEMS.prepare('select name, description from categories;').all()
         return c.html(
             <Base title="Poemonger | Categories - List">
                 <>
                     <h2>Categories List</h2>
-                    {categoriesList.rows.map(async ({ name }) => {
+                    {categoriesList.results.map(async ({ name }) => {
                         return <p><a href={`/admin/categories/${name}`}>{name}</a></p>
                     })}
                 </>
@@ -91,11 +74,10 @@ categories.post('/new', async (c) => {
     if (!name || !description)
         return c.json({ success: false, error: 'No name or description in request' }, { status: 404 })
 
-    const client = buildLibsqlClient(c.env);
-    try {
-        await client.execute({ sql: 'insert into categories(name, description) values(?, ?);', args: [name, description] })
-        return c.json({ success: true, error })
-    } catch {
+    
+    const { success } = await c.env.POEMONGER_POEMS.prepare('insert into categories(name, description) values(?, ?);').bind(name, description).all()
+    if (success) return c.json({ success: true, error }, { status })
+    else {
         return c.json({ success: false, error: 'Something went wrong while trying to save your new category' }, { status: 500 })
     }
 
