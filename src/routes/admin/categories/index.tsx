@@ -15,7 +15,10 @@ categories.get('/', async (c) => {
         return c.html(
             <Base title="Poemonger | Categories - List">
                 <>
-                    <h2>Categories List</h2>
+                    <div>
+                        <h2>Categories List</h2>
+                        <a href="/admin/categories/new">Add new category</a>
+                    </div>
                     {categoriesList.results.map(({ name, path }) => {
                         return <p><a href={`/admin/categories/${path}`}>{name}</a></p>
                     })}
