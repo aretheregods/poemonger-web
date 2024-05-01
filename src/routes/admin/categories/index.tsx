@@ -1,6 +1,6 @@
 import { Hono } from 'hono'
 import { getCookie } from 'hono/cookie'
-import { Client as LibsqlClient, createClient } from "@libsql/client/web";
+import { Client as LibsqlClient, createClient } from "@libsql/client";
 
 import { Base } from '../../../Base'
 import { Categories } from '../../../components/admin'
