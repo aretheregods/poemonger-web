@@ -34,16 +34,6 @@ categories.get('/', async (c) => {
     }
 })
 
-categories.get('/:category', (c) => {
-    const category = c.req.param('category')
-
-    return c.html(
-        <Base title={`Poemonger | Admin - Category: ${category}`}>
-            <h2>Category {category}</h2>
-        </Base>
-    )
-})
-
 categories.get('/new', (c) =>
     c.html(
         <Base
@@ -93,6 +83,16 @@ categories.post('/new', async (c) => {
     }
 
     return c.json({ error }, { status })
+})
+
+categories.get('/:category', (c) => {
+    const category = c.req.param('category')
+
+    return c.html(
+        <Base title={`Poemonger | Admin - Category: ${category}`}>
+            <h2>Category {category}</h2>
+        </Base>
+    )
 })
 
 export default categories
