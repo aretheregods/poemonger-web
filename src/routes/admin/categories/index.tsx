@@ -1,6 +1,5 @@
 import { Hono } from 'hono'
 import { getCookie } from 'hono/cookie'
-import { Client as LibsqlClient, createClient } from "@libsql/client";
 
 import { Base } from '../../../Base'
 import { Categories } from '../../../components/admin'
@@ -23,7 +22,7 @@ categories.get('/', async (c) => {
             <Base title="Poemonger | Categories - List">
                 <>
                     <h2>Categories List</h2>
-                    {categoriesList.results.map(async ({ name }) => {
+                    {categoriesList.results.map(({ name }) => {
                         return <p><a href={`/admin/categories/${name}`}>{name}</a></p>
                     })}
                 </>
@@ -74,7 +73,6 @@ categories.post('/new', async (c) => {
     if (!name || !description)
         return c.json({ success: false, error: 'No name or description in request' }, { status: 404 })
 
-    
     const { success, error: e } = await c.env.POEMONGER_POEMS.prepare('insert into categories(name, description) values(?, ?);').bind(name, description).all()
     if (success) return c.json({ success: true, error }, { status })
     else {
