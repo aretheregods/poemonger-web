@@ -34,22 +34,31 @@ categories.get('/', async (c) => {
     }
 })
 
-categories.get('/new', (c) =>
-    c.html(
-        <Base
-            title="Poemonger | Admin - Categories"
-            assets={[
-                <link
-                    rel="stylesheet"
-                    href="/static/styles/admin/poetryForm.css"
-                />,
-                <script type="module" src="/static/js/admin/categoriesNew.js" defer></script>,
-            ]}
-        >
-            <Categories />
-        </Base>
-    )
-)
+categories.get('/new', async (c) => {
+    try {
+        const entityOptions = await c.env.POEMONGER_POEMS.prepare('select type from entities;').all()
+        return c.html(
+            <Base
+                title="Poemonger | Admin - Categories"
+                assets={[
+                    <link
+                        rel="stylesheet"
+                        href="/static/styles/admin/poetryForm.css"
+                    />,
+                    <script type="module" src="/static/js/admin/categoriesNew.js" defer></script>,
+                ]}
+            >
+                <Categories entityOptions={entityOptions} />
+            </Base>
+        )
+    } catch {
+        return c.html(
+            <Base title="Poemonger | Admin - Category">
+                <h2>There was an error loading entities</h2>
+            </Base>
+        )
+    }   
+})
 
 categories.post('/new', async (c) => {
     var ct = c.req.header('Content-Type')
