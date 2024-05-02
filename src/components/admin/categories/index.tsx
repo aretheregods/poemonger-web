@@ -28,7 +28,7 @@ export default function Categories(results: Array<Record<string, unknown>> = [])
                         required
                     />
                 </li>
-                <li>
+                {/* <li>
                     <label htmlFor="selectEntity">Entity Type</label>
                     <select name="entity" id="selectEntity" class="standard-input" required>
                         <option value="">Choose an entity the category applies to</option>
@@ -36,7 +36,7 @@ export default function Categories(results: Array<Record<string, unknown>> = [])
                             return <option value={`${t}`}>{t}</option>
                         })}
                     </select>
-                </li>
+                </li> */}
             </ul>
             <button id="submit" type="submit" class="button">
                 Submit
