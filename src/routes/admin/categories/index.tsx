@@ -49,9 +49,7 @@ categories.get('/new', async (c) => {
                         <script type="module" src="/static/js/admin/categoriesNew.js" defer></script>,
                     ]}
                 >
-                    <>
-                        {results.map(({ t }) => <p>{t}</p>)}
-                    </>
+                    <Categories results={results} />
                 </Base>
             )
         } else {
