@@ -2,7 +2,6 @@ import { Hono } from 'hono'
 
 import { Base } from '../../../Base'
 import Input from '../../../components/input'
-import { Categories } from '../../../components/admin'
 
 type Bindings = {
     POEMONGER_POEMS: D1Database
