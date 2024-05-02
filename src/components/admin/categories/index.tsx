@@ -28,15 +28,15 @@ export default function Categories(results: Array<Record<string, unknown>> = [])
                         required
                     />
                 </li>
-                {/* <li>
-                    <label htmlFor="selectEntity">Entity Type</label>
+                <li>
+                    <label for="selectEntity">Entity Type</label>
                     <select name="entity" id="selectEntity" class="standard-input" required>
                         <option value="">Choose an entity the category applies to</option>
                         {results.map(({ t }) => {
                             return <option value={`${t}`}>{t}</option>
                         })}
                     </select>
-                </li> */}
+                </li>
             </ul>
             <button id="submit" type="submit" class="button">
                 Submit
