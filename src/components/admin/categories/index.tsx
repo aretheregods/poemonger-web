@@ -29,11 +29,11 @@ export default function Categories(results: Array<Record<string, unknown>> = [])
                     />
                 </li>
                 <li>
-                    <label for="selectEntity">Entity Type</label>
-                    <select name="entity" id="selectEntity" class="standard-input" required>
-                        <option value="">Choose an entity the category applies to</option>
+                    <label for="select-entity">Entity</label>
+                    <select id="select-entity" name="entity" class="standard-input" required>
+                        <option value="" disabled>Choose an entity the category applies to</option>
                         {results.map(({ t }) => {
-                            return <option value={`${t}`}>{t}</option>
+                            return <option id={`${t}`} value={`${t}`} title={`${t}`}>{t}</option>
                         })}
                     </select>
                 </li>
