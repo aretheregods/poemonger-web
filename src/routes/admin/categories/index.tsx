@@ -35,9 +35,9 @@ categories.get('/', async (c) => {
 })
 
 categories.get('/new', async (c) => {
-    // try {
+    try {
         const { results, error, success } = await c.env.POEMONGER_POEMS.prepare('select type from entities;').all()
-        // if (success) {
+        if (success) {
             return c.html(
                 <Base
                     title="Poemonger | Admin - Categories"
@@ -49,30 +49,26 @@ categories.get('/new', async (c) => {
                         <script type="module" src="/static/js/admin/categoriesNew.js" defer></script>,
                     ]}
                 >
-                    <>
-                        <Categories entityOptions={results} />
-                        {error}
-                        {success}
-                    </>
+                    <h2>Something</h2>
                 </Base>
             )
-    //     } else {
-    //         return c.html(
-    //             <Base title="Poemonger | Admin - Error">
-    //                 <h2>Error {error}</h2>
-    //             </Base>
-    //         )
-    //     }
-    // } catch (e) {
-    //     return c.html(
-    //         <Base title="Poemonger | Admin - Category Error">
-    //             <>
-    //                 <h2>There was an error loading entities</h2>
-    //                 <p>{e}</p>
-    //             </>
-    //         </Base>
-    //     )
-    // }   
+        } else {
+            return c.html(
+                <Base title="Poemonger | Admin - Error">
+                    <h2>Error {error}</h2>
+                </Base>
+            )
+        }
+    } catch (e) {
+        return c.html(
+            <Base title="Poemonger | Admin - Category Error">
+                <>
+                    <h2>There was an error loading entities</h2>
+                    <p>{e}</p>
+                </>
+            </Base>
+        )
+    }   
 })
 
 categories.post('/new', async (c) => {

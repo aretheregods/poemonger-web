@@ -1,6 +1,6 @@
 import Input from '../../input'
 
-export default function Categories(entityOptions: Array<Record<string, unknown>> = []) {
+export default function Categories(results: Array<Record<string, unknown>> = []) {
     return (
         <form
             id="add-category"
@@ -32,8 +32,8 @@ export default function Categories(entityOptions: Array<Record<string, unknown>>
                     <label htmlFor="selectEntity">Entity Type</label>
                     <select name="entity" id="selectEntity" class="standard-input" required>
                         <option value="">Choose an entity the category applies to</option>
-                        {entityOptions.map(({ type }) => {
-                            return <option value={`${type}`}>{type}</option>
+                        {results.map(({ t }) => {
+                            return <option value={`${t}`}>{t}</option>
                         })}
                     </select>
                 </li>
