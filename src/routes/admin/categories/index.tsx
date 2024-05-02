@@ -132,7 +132,7 @@ categories.post('/new', async (c) => {
         return c.json({ success: false, error: 'No name or description in request' }, { status: 404 })
 
     try {
-        const { success } = await c.env.POEMONGER_POEMS.prepare('insert into categories(name, description, path, entity) values(?, ?, ?);')
+        const { success } = await c.env.POEMONGER_POEMS.prepare('insert into categories(name, description, path, entity) values(?, ?, ?, ?);')
             .bind(name, description, name.toLowerCase().split(' ').join('_'), entity)
             .all()
         if (success) return c.json({ success: true, error }, { status })
