@@ -1,8 +1,6 @@
-import { html } from 'hono/html'
-
 import Input from '../../input'
 
-export default function Categories() {
+export default function Categories(entityOptions: Array<{ type: string }> = []) {
     return (
         <form
             id="add-category"
@@ -29,6 +27,15 @@ export default function Categories() {
                         label="Category description"
                         required
                     />
+                </li>
+                <li>
+                    <label htmlFor="selectEntity">Entity Type</label>
+                    <select name="entity" id="selectEntity" class="standard-input" required>
+                        <option value="">Choose an entity the category applies to</option>
+                        {entityOptions.map(({ type }) => {
+                            return <option value={`${type}`}>{type}</option>
+                        })}
+                    </select>
                 </li>
             </ul>
             <button id="submit" type="submit" class="button">

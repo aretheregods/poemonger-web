@@ -13,4 +13,6 @@ poetry.get('/', (c) =>
     )
 )
 
+poetry.get('/new', (c) => {})
+
 export default poetry
