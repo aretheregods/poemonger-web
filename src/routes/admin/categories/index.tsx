@@ -36,7 +36,7 @@ categories.get('/', async (c) => {
 
 categories.get('/new', async (c) => {
     try {
-        const { results, error, success } = await c.env.POEMONGER_POEMS.prepare('select type from entities;').all()
+        const { results, error, success } = await c.env.POEMONGER_POEMS.prepare('select type as t from entities;').all()
         if (success) {
             return c.html(
                 <Base
@@ -49,7 +49,7 @@ categories.get('/new', async (c) => {
                         <script type="module" src="/static/js/admin/categoriesNew.js" defer></script>,
                     ]}
                 >
-                    <h2>Something</h2>
+                    <Categories results={results} />
                 </Base>
             )
         } else {
