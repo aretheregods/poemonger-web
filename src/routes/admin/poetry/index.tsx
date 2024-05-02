@@ -18,7 +18,7 @@ poetry.get('/', (c) =>
 )
 
 poetry.get('/new', async (c) => {
-    const categoryList = await c.env.POEMONGER_POEMS.prepare('select title, name, description from categories where entity = "work";').all()
+    const categoryList = await c.env.POEMONGER_POEMS.prepare('select name, description from categories where entity = "work";').all()
     const workList = await c.env.POEMONGER_POEMS.prepare('select id, title from works;').all()
     return c.html(
         <Base title="Poemonger | Admin - Poetry">
