@@ -49,7 +49,9 @@ categories.get('/new', async (c) => {
                         <script type="module" src="/static/js/admin/categoriesNew.js" defer></script>,
                     ]}
                 >
-                    <Categories results={await results} />
+                    <>
+                        {results.map(({ t }) => <p>{t}</p>)}
+                    </>
                 </Base>
             )
         } else {
