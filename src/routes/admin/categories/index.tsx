@@ -51,10 +51,13 @@ categories.get('/new', async (c) => {
                 <Categories entityOptions={results} />
             </Base>
         )
-    } catch {
+    } catch (e) {
         return c.html(
             <Base title="Poemonger | Admin - Category">
+                <>
                 <h2>There was an error loading entities</h2>
+                    <p>{e}</p>
+                </>
             </Base>
         )
     }   

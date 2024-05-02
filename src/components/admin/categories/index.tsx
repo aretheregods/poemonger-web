@@ -1,6 +1,6 @@
 import Input from '../../input'
 
-export default function Categories(entityOptions: Array<{ type: string }> = []) {
+export default function Categories(entityOptions: Array<Record<string, unknown>> = []) {
     return (
         <form
             id="add-category"
