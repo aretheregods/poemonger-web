@@ -30,9 +30,7 @@ poetry.get('/', async (c) => {
                         <>
                             <h4>{title}</h4>
                             {l.map(section => {
-                                return section.map(line => {
-                                    return <p>{line}</p>
-                                })
+                                return JSON.stringify(section)
                             })}
                         </>
 
