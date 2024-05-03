@@ -20,15 +20,15 @@ type PoemPost = {
 const poetry = new Hono<{ Bindings: Bindings }>()
 
 poetry.get('/', async (c) => {
-    const poemList = await c.env.POEMONGER_POEMS.prepare("select title, sample_section, sample_length, lines as l from poetry").all()
+    const poemList = await c.env.POEMONGER_POEMS.prepare("select title, sample_section, sample_length, lines from poetry").all()
     
     return c.html(
         <Base title="Poemonger | Admin - Poetry">
             <>
                 <h2>Admin Poetry</h2>
-                {poemList.results.map(({ title, sample_section, sample_length, l }) => {
-                    var lines = JSON.parse(l as string)
-                    var ss = sample_section ? lines.slice(0, sample_section) : lines
+                {poemList.results.map(({ title, sample_section, sample_length, lines }) => {
+                    var l = JSON.parse(lines as string)
+                    var ss = sample_section ? l.slice(0, sample_section) : l
                     return (
                         <>
                             <h4>{title}</h4>
