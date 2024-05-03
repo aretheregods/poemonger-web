@@ -141,8 +141,6 @@ categories.post('/new', async (c) => {
     } catch (e: any) {
         return c.json({ success: false, error: 'Something was wrong with your request. Try again.' }, { status: 404 })
     }
-
-    return c.json({ error }, { status })
 })
 
 categories.get('/:category', async (c) => {
