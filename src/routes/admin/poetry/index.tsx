@@ -20,7 +20,7 @@ type PoemPost = {
 const poetry = new Hono<{ Bindings: Bindings }>()
 
 poetry.get('/', async (c) => {
-    const poemList = await c.env.POEMONGER_POEMS.prepare('select title, lines from poetry').all()
+    const poemList = await c.env.POEMONGER_POEMS.prepare("select title, json_extract(lines, '$') from poetry").all()
     return c.html(
         <Base title="Poemonger | Admin - Poetry">
             <>
