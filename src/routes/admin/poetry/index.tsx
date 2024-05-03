@@ -21,25 +21,26 @@ const poetry = new Hono<{ Bindings: Bindings }>()
 
 poetry.get('/', async (c) => {
     const poemList = await c.env.POEMONGER_POEMS.prepare("select title, lines->'$' as l from poetry").all()
-    return c.json(poemList)
-    // return c.html(
-    //     <Base title="Poemonger | Admin - Poetry">
-    //         <>
-    //             <h2>Admin Poetry</h2>
-    //             {poemList.results.map(({ title, l }) => {
-    //                 return (
-    //                     <>
-    //                         <h4>{title}</h4>
-    //                         {l.map(section => {
-    //                             return JSON.stringify(section)
-    //                         })}
-    //                     </>
+    // return c.json(poemList)
+    return c.html(
+        <Base title="Poemonger | Admin - Poetry">
+            <>
+                <h2>Admin Poetry</h2>
+                {poemList.results.map(({ title, l }) => {
+                    var lines = JSON.parse(l)
+                    return (
+                        <>
+                            <h4>{title}</h4>
+                            {lines.map(section => {
+                                return section.map(line => <p>{line}</p>)
+                            })}
+                        </>
 
-    //                 )
-    //             })}
-    //         </>
-    //     </Base>
-    // )
+                    )
+                })}
+            </>
+        </Base>
+    )
 })
 
 poetry.get('/new', async (c) => {
