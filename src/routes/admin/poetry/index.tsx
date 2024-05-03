@@ -34,7 +34,10 @@ poetry.get('/', async (c) => {
                             <h4>{title}</h4>
                             {ss.map((section: Array<string>) => {
                                 var sl = sample_length ? section.slice(0, sample_length as number) : section
-                                return sl.map(line => <p>{line}</p>)
+                                return <>
+                                    {sl.map(line => <p>{line}</p>)}
+                                    <br/>
+                                </>
                             })}
                         </>
 
