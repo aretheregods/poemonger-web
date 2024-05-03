@@ -30,7 +30,7 @@ poetry.get('/', async (c) => {
                         <>
                             <h4>{title}</h4>
                             {lines.map(section => {
-                                section.map(line => {
+                                return section.map(line => {
                                     return <p>{line}</p>
                                 })
                             })}
