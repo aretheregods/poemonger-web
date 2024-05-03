@@ -20,19 +20,21 @@ type PoemPost = {
 const poetry = new Hono<{ Bindings: Bindings }>()
 
 poetry.get('/', async (c) => {
-    const poemList = await c.env.POEMONGER_POEMS.prepare("select title, lines->'$' as l from poetry").all()
-    // return c.json(poemList)
+    const poemList = await c.env.POEMONGER_POEMS.prepare("select title, sample_section, sample_length lines->'$' as lines from poetry").all()
+    
     return c.html(
         <Base title="Poemonger | Admin - Poetry">
             <>
                 <h2>Admin Poetry</h2>
-                {poemList.results.map(({ title, l }) => {
-                    var lines = JSON.parse(l)
+                {poemList.results.map(({ title, sample_section, sample_length, lines }) => {
+                    var l = JSON.parse(lines as string)
+                    var ss = sample_section ? l.slice(0, sample_section) : l
                     return (
                         <>
                             <h4>{title}</h4>
-                            {lines.map(section => {
-                                return section.map(line => <p>{line}</p>)
+                            {ss.map((section: Array<string>) => {
+                                var sl = sample_length ? section.slice(0, sample_length as number) : section
+                                return sl.map(line => <p>{line}</p>)
                             })}
                         </>
 
@@ -89,7 +91,7 @@ poetry.get('/new', async (c) => {
                     <p>Subcategory</p>
                     <select name="subcategory" id="subcategory" required>
                         <option value="" disabled>
-                            --Select poem subcategory--
+                            --Select poem subcategory-- 
                         </option>
                         {categoryList.results.map(({ name, description }) => (
                             <option id={`${name}`} value={`${name}`} title={`${description}`}>
