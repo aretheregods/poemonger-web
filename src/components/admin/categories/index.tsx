@@ -36,7 +36,9 @@ export default function Categories(results: Record<string, unknown>[] = []) {
                             return <option id={`${t}`} value={`${t}`} title={`${t}`}>{t}</option>
                         })}
                     </select> */}
-                    {results.map(({ t }) => <p>{t}</p>)}
+                    {results.map(({ t }) => (
+                        <p>{t}</p>
+                    ))}
                 </li>
             </ul>
             <button id="submit" type="submit" class="button">

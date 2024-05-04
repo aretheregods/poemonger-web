@@ -11,7 +11,9 @@ const categories = new Hono<{ Bindings: Bindings }>()
 
 categories.get('/', async (c) => {
     try {
-        const categoriesList = await c.env.POEMONGER_POEMS.prepare('select name, description, path from categories;').all()
+        const categoriesList = await c.env.POEMONGER_POEMS.prepare(
+            'select name, description, path from categories;'
+        ).all()
         return c.html(
             <Base title="Poemonger | Categories - List">
                 <>
@@ -20,7 +22,11 @@ categories.get('/', async (c) => {
                         <a href="/admin/categories/new">Add new category</a>
                     </div>
                     {categoriesList.results.map(({ name, path }) => {
-                        return <p><a href={`/admin/categories/${path}`}>{name}</a></p>
+                        return (
+                            <p>
+                                <a href={`/admin/categories/${path}`}>{name}</a>
+                            </p>
+                        )
                     })}
                 </>
             </Base>
@@ -36,7 +42,9 @@ categories.get('/', async (c) => {
 
 categories.get('/new', async (c) => {
     try {
-        const { results, error, success } = await c.env.POEMONGER_POEMS.prepare('select type as t from entities;').all()
+        const { results, error, success } = await c.env.POEMONGER_POEMS.prepare(
+            'select type as t from entities;'
+        ).all()
         if (success) {
             return c.html(
                 <Base
@@ -46,7 +54,11 @@ categories.get('/new', async (c) => {
                             rel="stylesheet"
                             href="/static/styles/admin/poetryForm.css"
                         />,
-                        <script type="module" src="/static/js/admin/categoriesNew.js" defer></script>,
+                        <script
+                            type="module"
+                            src="/static/js/admin/categoriesNew.js"
+                            defer
+                        ></script>,
                     ]}
                 >
                     <form
@@ -77,10 +89,25 @@ categories.get('/new', async (c) => {
                             </li>
                             <li>
                                 <label for="select-entity">Entity</label>
-                                <select id="select-entity" name="entity" class="standard-input" required>
-                                    <option value="" disabled>Choose an entity the category applies to</option>
+                                <select
+                                    id="select-entity"
+                                    name="entity"
+                                    class="standard-input"
+                                    required
+                                >
+                                    <option value="" disabled>
+                                        Choose an entity the category applies to
+                                    </option>
                                     {results.map(({ t }) => {
-                                        return <option id={`${t}`} value={`${t}`} title={`${t}`}>{t}</option>
+                                        return (
+                                            <option
+                                                id={`${t}`}
+                                                value={`${t}`}
+                                                title={`${t}`}
+                                            >
+                                                {t}
+                                            </option>
+                                        )
                                     })}
                                 </select>
                             </li>
@@ -107,7 +134,7 @@ categories.get('/new', async (c) => {
                 </>
             </Base>
         )
-    }   
+    }
 })
 
 categories.post('/new', async (c) => {
@@ -128,38 +155,65 @@ categories.post('/new', async (c) => {
     var entity = body.get('entity')
 
     if (!name || !description || !entity)
-        return c.json({ success: false, error: 'No name or description in request' }, { status: 404 })
+        return c.json(
+            { success: false, error: 'No name or description in request' },
+            { status: 404 }
+        )
 
     try {
-        const { success } = await c.env.POEMONGER_POEMS.prepare('insert into categories(name, description, path, entity) values(?, ?, ?, ?);')
-            .bind(name, description, name.toLowerCase().split(' ').join('_'), entity)
+        const { success } = await c.env.POEMONGER_POEMS.prepare(
+            'insert into categories(name, description, path, entity) values(?, ?, ?, ?);'
+        )
+            .bind(
+                name,
+                description,
+                name.toLowerCase().split(' ').join('_'),
+                entity
+            )
             .all()
         if (success) return c.json({ success: true, error }, { status })
         else {
-            return c.json({ success: false, error: `Something went wrong while trying to save your new category` }, { status: 404 })
+            return c.json(
+                {
+                    success: false,
+                    error: `Something went wrong while trying to save your new category`,
+                },
+                { status: 404 }
+            )
         }
     } catch (e: any) {
-        return c.json({ success: false, error: 'Something was wrong with your request. Try again.' }, { status: 404 })
+        return c.json(
+            {
+                success: false,
+                error: 'Something was wrong with your request. Try again.',
+            },
+            { status: 404 }
+        )
     }
 })
 
 categories.get('/:category', async (c) => {
     const categoryParam = c.req.param('category')
     try {
-        const category: { name: string } | null = await c.env.POEMONGER_POEMS.prepare('select name, description from categories where path = ?')
-            .bind(categoryParam as string)
-            .first()
+        const category: { name: string } | null =
+            await c.env.POEMONGER_POEMS.prepare(
+                'select name, description from categories where path = ?'
+            )
+                .bind(categoryParam as string)
+                .first()
 
-        if (category !== null) return c.html(
-            <Base title={`Poemonger | Admin - Category: ${category}`}>
-                <h2>Category {category?.name}</h2>
-            </Base>
-        )
-        else return c.html(
-            <Base title="Poemonger | Admin - Category">
-                <h2>Could not find category</h2>
-            </Base>
-        )
+        if (category !== null)
+            return c.html(
+                <Base title={`Poemonger | Admin - Category: ${category}`}>
+                    <h2>Category {category?.name}</h2>
+                </Base>
+            )
+        else
+            return c.html(
+                <Base title="Poemonger | Admin - Category">
+                    <h2>Could not find category</h2>
+                </Base>
+            )
     } catch (e) {
         return c.html(
             <Base title="Poemonger | Admin - Category">
@@ -167,7 +221,6 @@ categories.get('/:category', async (c) => {
             </Base>
         )
     }
-
 })
 
 export default categories
