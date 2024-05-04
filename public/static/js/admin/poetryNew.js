@@ -7,6 +7,17 @@ f.addEventListener('submit', (e) => {
     e.preventDefault()
 
     request
+        .parseForm({
+            formElement: e.target,
+            submitter: e.submitter,
+            reducer(formMap, [key, value]) {
+                if (key === 'lines') {
+                    var sections = value.split('\n\n')
+                    var lines = sectinos.map(s => s.split('\n'))
+                    
+                }
+            }
+        })
         .post({
             path: '/admin/poetry/new',
             body: new FormData(e.target, e.submitter),

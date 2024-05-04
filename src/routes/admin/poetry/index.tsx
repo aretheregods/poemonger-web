@@ -13,15 +13,20 @@ type PoemPost = {
     category: string
     subcategory: string
     release_date: string
+    single: number
+    sample_section: number
     sample_length: number
     poem: string[]
+    image: string
+    audio: string
+    video: string
 }
 
 const poetry = new Hono<{ Bindings: Bindings }>()
 
 poetry.get('/', async (c) => {
     const poemList = await c.env.POEMONGER_POEMS.prepare("select title, sample_section, sample_length, lines from poetry").all()
-    
+
     return c.html(
         <Base title="Poemonger | Admin - Poetry">
             <>
@@ -36,7 +41,7 @@ poetry.get('/', async (c) => {
                                 var sl = sample_length ? section.slice(0, sample_length as number) : section
                                 return <>
                                     {sl.map(line => <p>{line}</p>)}
-                                    <br/>
+                                    <br />
                                 </>
                             })}
                         </>
@@ -57,7 +62,7 @@ poetry.get('/new', async (c) => {
                 rel="stylesheet"
                 href="/static/styles/admin/poetryForm.css"
             />,
-            <script type="module" src="/static/js/admin/categoriesNew.js" defer></script>,
+            <script type="module" src="/static/js/admin/poetryNew.js" defer></script>,
         ]}>
             <form id="add-poem" action="/poetry" method="post">
                 <label for="title">
@@ -94,7 +99,7 @@ poetry.get('/new', async (c) => {
                     <p>Subcategory</p>
                     <select name="subcategory" id="subcategory" required>
                         <option value="" disabled>
-                            --Select poem subcategory-- 
+                            --Select poem subcategory--
                         </option>
                         {categoryList.results.map(({ name, description }) => (
                             <option id={`${name}`} value={`${name}`} title={`${description}`}>
@@ -107,13 +112,21 @@ poetry.get('/new', async (c) => {
                     <p>Release Date</p>
                     <input id="releaseDate" name="release_date" type="date" required />
                 </label>
+                <label for="single">
+                    <p>Single</p>
+                    <input id="single" name="single" type="number" required />
+                </label>
+                <label for="sampleSection">
+                    <p>Sample Section</p>
+                    <input id="sampleSection" name="sample_section" type="number" required />
+                </label>
                 <label for="sampleLength">
                     <p>Sample Length</p>
                     <input id="sampleLength" name="sample_length" type="number" required />
                 </label>
                 <label for="poem">
                     <p>Poem</p>
-                        <textarea id="poem" name="poem" cols={60} rows={28} required
+                    <textarea id="poem" name="lines" cols={60} rows={28} required
                         placeholder="Whose woods these are I think I know"></textarea>
                 </label>
                 <button id="submit" type="submit">Submit</button>
@@ -134,12 +147,12 @@ poetry.post('/new', async (c) => {
         return c.json({ error })
     }
 
-    var body: PoemPost = await c.req.formData()
-    var { title, work, category, subcategory, release_date, sample_length, poem } = body;
+    var body: PoemPost = await c.req.parseBody()
+    var { title, work, category, subcategory, release_date, single, sample_section, sample_length, poem } = body;
 
     try {
-        const { success } = await c.env.POEMONGER_POEMS.prepare('insert into poetry(title, work, category, subcategory, release_date, sample_length, poem) values(?, json_value(?), ?, ?, ?, ?, ?);')
-            .bind(title, work, category, subcategory, release_date, sample_length, poem)
+        const { success } = await c.env.POEMONGER_POEMS.prepare('insert into poetry(title, work, category, subcategory, release_date, single, sample_section, sample_length, lines) values(?, json_value(?), ?, ?, ?, ?, ?, ?, ?);')
+            .bind(title, work, category, subcategory, release_date, single, sample_section, sample_length, poem)
             .all()
         if (success) return c.json({ success: true, error }, { status })
         else {
