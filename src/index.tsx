@@ -12,6 +12,7 @@ import Email, { Activate } from './components/emails'
 import ActivatePage from './components/signup/ActivatePage'
 import SignUp from './components/signup'
 import Hashes from './utils/hash'
+import Landing from './components/landing'
 import Login from './components/login'
 import Logout from './components/logout'
 import Reset from './components/reset'
@@ -421,7 +422,7 @@ app.get('/delete', (c) =>
 app.get('/', (c) => {
     const props = {
         title: 'Poemonger',
-        children: <h1>Hello, Poemonger</h1>,
+        children: <Landing />,
     }
     return c.html(<Base {...props} />)
 })
