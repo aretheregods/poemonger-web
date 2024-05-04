@@ -129,6 +129,18 @@ poetry.get('/new', async (c) => {
                     <textarea id="poem" name="lines" cols={60} rows={28} required
                         placeholder="Whose woods these are I think I know"></textarea>
                 </label>
+                <label for="image">
+                    <p>Title</p>
+                    <input id="image" name="image" type="text" placeholder="The image file name" />
+                </label>
+                <label for="audio">
+                    <p>Title</p>
+                    <input id="audio" name="audio" type="text" placeholder="The audio file name" />
+                </label>
+                <label for="video">
+                    <p>Title</p>
+                    <input id="video" name="video" type="text" placeholder="The video file name" />
+                </label>
                 <button id="submit" type="submit">Submit</button>
             </form>
         </Base>
