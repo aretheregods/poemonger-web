@@ -499,7 +499,12 @@ app.get('/', async (c) => {
                                                 {sl.map((line, index, sl) => {
                                                     return index ===
                                                         sl.length - 1 ? (
-                                                        <p>...</p>
+                                                        <>
+                                                            <p>...</p>
+                                                            <button class="button">
+                                                                Read more now
+                                                            </button>
+                                                        </>
                                                     ) : (
                                                         <p>{line}</p>
                                                     )
