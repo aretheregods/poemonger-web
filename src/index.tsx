@@ -1,4 +1,4 @@
-import { Hono } from 'hono'
+import { Context, Hono, Next } from 'hono'
 import { getCookie, setCookie } from 'hono/cookie'
 import { csrf } from 'hono/csrf'
 import { secureHeaders } from 'hono/secure-headers'
@@ -15,6 +15,7 @@ import Hashes from './utils/hash'
 import Landing from './components/landing'
 import Login from './components/login'
 import Logout from './components/logout'
+import Nav from './components/nav'
 import Reset from './components/reset'
 import Delete from './components/reset'
 
@@ -24,13 +25,55 @@ type Bindings = {
     DKIM_PRIVATE_KEY: string
 }
 
-const app = new Hono<{ Bindings: Bindings }>()
+type Variables = {
+    currentSession?: { cookie: string; currentSession: { created_at: string } }
+    currentSessionError?: { error: boolean; message: string }
+}
+
+const app = new Hono<{ Bindings: Bindings; Variables: Variables }>()
 
 app.use(csrf())
 app.use(secureHeaders())
+app.use(userCookieAuth)
+app.use('/read', loggedInRedirect)
 
 app.route('/admin', admin)
 app.route('/read', read)
+
+export async function userCookieAuth(
+    c: Context<{ Bindings: Bindings }>,
+    next: Next
+): Promise<void> {
+    const hasCookie = getCookie(c, 'poemonger_session', 'secure')
+    if (hasCookie) {
+        try {
+            const currentSession = await c.env.USERS_SESSIONS.get(
+                `session=${hasCookie}`,
+                { type: 'json' }
+            )
+            currentSession &&
+                c.set('currentSession' as never, {
+                    cookie: hasCookie,
+                    currentSession,
+                })
+        } catch {
+            c.set('currentSessionError' as never, {
+                error: true,
+                message: 'Error getting session data',
+            })
+        }
+    }
+    await next()
+}
+
+export async function loggedInRedirect(
+    c: Context<{ Bindings: Bindings; Variables: Variables }>,
+    next: Next
+): Promise<Response | void> {
+    if (!c.var.currentSession || c.var.currentSessionError) {
+        return c.redirect('/read')
+    } else await next()
+}
 
 app.get('/signup', (c) =>
     c.html(
@@ -420,9 +463,14 @@ app.get('/delete', (c) =>
 )
 
 app.get('/', (c) => {
+    var nav
+    if (c.var.currentSession && !c.var.currentSessionError) {
+        nav = <Nav />
+    }
     const props = {
         title: 'Poemonger',
         children: <Landing />,
+        header: nav,
     }
     return c.html(<Base {...props} />)
 })
