@@ -31,4 +31,18 @@ button.button {
     padding: 0.5rem 1rem;
     border: none;
     border-radius: 0.5rem;
+    background-color: hsl(var(--button-color), var(--button-color-l));
+    color: hsl(var(--button-text-color));
+    border: none;
+    width: min-content;
+    justify-self: end;
+}
+
+button.button:hover {
+    background-color: hsl(
+        var(--button-color),
+        calc(var(--button-color-l) - 20%)
+    );
+    color: white;
+    transition: all 180ms ease-in-out;
 }
