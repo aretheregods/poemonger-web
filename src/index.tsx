@@ -467,16 +467,13 @@ app.get('/', async (c) => {
     if (c.var.currentSession && !c.var.currentSessionError) {
         return c.redirect('/read')
     }
-    let props = {
-        title: 'Poemonger | Error',
-        children: <h2>Error getting data. Reload.</h2>,
-    }
+
     try {
         const { results, error, success } = await c.env.POEMONGER_POEMS.prepare(
             'select id, title from poetry where json_extract(poetry.work, "$.id") = 2;'
         ).all()
 
-        props = {
+        const props = {
             title: 'Poemonger',
             children: (
                 <Landing>
@@ -486,14 +483,14 @@ app.get('/', async (c) => {
                 </Landing>
             ),
         }
+        return c.html(<Base {...props} />)
     } catch {
-        props = {
+        const props = {
             title: 'Poemonger | Error',
             children: <h2>Error getting poems</h2>,
         }
+        return c.html(<Base {...props} />)
     }
-
-    return c.html(<Base {...props} />)
 })
 
 export default app
