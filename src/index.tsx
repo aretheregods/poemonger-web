@@ -495,22 +495,25 @@ app.get('/', async (c) => {
                                               )
                                             : section
                                         return (
-                                            <>
+                                            <section class="poem-container">
                                                 {sl.map((line, index, sl) => {
                                                     return index ===
                                                         sl.length - 1 ? (
                                                         <>
                                                             <p>...</p>
-                                                            <button class="button">
+                                                            <a
+                                                                href="/signup"
+                                                                class="read-more-link"
+                                                            >
                                                                 Read more now
-                                                            </button>
+                                                            </a>
                                                         </>
                                                     ) : (
                                                         <p>{line}</p>
                                                     )
                                                 })}
                                                 <br />
-                                            </>
+                                            </section>
                                         )
                                     })}
                                 </>

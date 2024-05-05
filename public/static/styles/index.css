@@ -47,3 +47,11 @@ button.button:hover {
     color: white;
     transition: all 180ms ease-in-out;
 }
+
+.poem-container {
+    width: fit-content;
+}
+
+.read-more-link {
+    text-align: center;
+}
