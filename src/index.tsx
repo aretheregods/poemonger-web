@@ -478,7 +478,13 @@ app.get('/', async (c) => {
 
         props = {
             title: 'Poemonger',
-            children: <Landing results={[...results]} />,
+            children: (
+                <Landing>
+                    {results.map((r) => (
+                        <p>{r.title}</p>
+                    ))}
+                </Landing>
+            ),
         }
     } catch {
         props = {
