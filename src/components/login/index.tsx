@@ -62,7 +62,7 @@ export default function Login({
             </button>
             <section>
                 <p>
-                    Don't have an account?
+                    Don't have an account?{' '}
                     <span>
                         <a href="/signup">Sign up</a>
                     </span>
