@@ -7,6 +7,14 @@ export default function SignUp() {
             class="credentials-form"
             data-static-form-name="signup"
         >
+            <section id="other-link-container">
+                <p>
+                    Already have an account?{' '}
+                    <span>
+                        <a href="/login">Log in</a>
+                    </span>
+                </p>
+            </section>
             <ul>
                 <li>
                     <Input
