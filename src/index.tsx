@@ -20,6 +20,7 @@ import Reset from './components/reset'
 import Delete from './components/reset'
 
 type Bindings = {
+    POEMONGER_POEMS: D1Database
     USERS_KV: KVNamespace
     USERS_SESSIONS: KVNamespace
     DKIM_PRIVATE_KEY: string
@@ -462,14 +463,30 @@ app.get('/delete', (c) =>
     )
 )
 
-app.get('/', (c) => {
+app.get('/', async (c) => {
     if (c.var.currentSession && !c.var.currentSessionError) {
         return c.redirect('/read')
     }
-    const props = {
-        title: 'Poemonger',
-        children: <Landing />,
+    let props = {
+        title: 'Poemonger | Error',
+        children: <h2>Error getting data. Reload.</h2>,
     }
+    try {
+        const { results, error, success } = await c.env.POEMONGER_POEMS.prepare(
+            'select id, title from poetry where json_extract(poetry.work, "$.id") = 2;'
+        ).all()
+
+        props = {
+            title: 'Poemonger',
+            children: <Landing results={[...results]} />,
+        }
+    } catch {
+        props = {
+            title: 'Poemonger | Error',
+            children: <h2>Error getting poems</h2>,
+        }
+    }
+
     return c.html(<Base {...props} />)
 })
 
