@@ -474,10 +474,10 @@ app.get('/', async (c) => {
         ).all()
 
         const props = {
-            title: 'Poemonger',
+            title: 'Poemonger | Real Poetry',
+            header: <h1>POEMONGER</h1>,
             children: (
                 <>
-                    <h2>This is a landing page</h2>
                     {results.map(
                         ({ title, lines, sample_length, sample_section }) => {
                             var l = JSON.parse(lines as string)
@@ -486,7 +486,7 @@ app.get('/', async (c) => {
                                 : l
                             return (
                                 <>
-                                    <h4>{title}</h4>
+                                    <h2>{title}</h2>
                                     {ss.map((section: Array<string>) => {
                                         var sl = sample_length
                                             ? section.slice(
