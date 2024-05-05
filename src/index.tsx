@@ -470,7 +470,7 @@ app.get('/', async (c) => {
 
     try {
         const { results, error, success } = await c.env.POEMONGER_POEMS.prepare(
-            'select id, title from poetry where json_extract(poetry.work, "$.id") = 2;'
+            'select id, title, sample_section, sample_length, lines from poetry where json_extract(poetry.work, "$.id") = 2;'
         ).all()
 
         const props = {
@@ -478,9 +478,35 @@ app.get('/', async (c) => {
             children: (
                 <>
                     <h2>This is a landing page</h2>
-                    {results.map((r) => (
-                        <p>{r.title}</p>
-                    ))}
+                    {results.map(
+                        ({ title, lines, sample_length, sample_section }) => {
+                            var l = JSON.parse(lines as string)
+                            var ss = sample_section
+                                ? l.slice(0, sample_section)
+                                : l
+                            return (
+                                <>
+                                    <h4>{title}</h4>
+                                    {ss.map((section: Array<string>) => {
+                                        var sl = sample_length
+                                            ? section.slice(
+                                                  0,
+                                                  sample_length as number
+                                              )
+                                            : section
+                                        return (
+                                            <>
+                                                {sl.map((line) => (
+                                                    <p>{line}</p>
+                                                ))}
+                                                <br />
+                                            </>
+                                        )
+                                    })}
+                                </>
+                            )
+                        }
+                    )}
                 </>
             ),
         }
