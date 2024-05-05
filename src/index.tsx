@@ -476,11 +476,12 @@ app.get('/', async (c) => {
         const props = {
             title: 'Poemonger',
             children: (
-                <Landing>
+                <>
+                    <h2>This is a landing page</h2>
                     {results.map((r) => (
                         <p>{r.title}</p>
                     ))}
-                </Landing>
+                </>
             ),
         }
         return c.html(<Base {...props} />)
