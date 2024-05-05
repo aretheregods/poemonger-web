@@ -463,14 +463,12 @@ app.get('/delete', (c) =>
 )
 
 app.get('/', (c) => {
-    var nav
     if (c.var.currentSession && !c.var.currentSessionError) {
-        nav = <Nav />
+        return c.redirect('/read')
     }
     const props = {
         title: 'Poemonger',
         children: <Landing />,
-        header: nav,
     }
     return c.html(<Base {...props} />)
 })
