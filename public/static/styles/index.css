@@ -36,7 +36,7 @@ button.button {
     border: none;
     width: min-content;
     justify-self: end;
-    white-space: nowrawp;
+    white-space: nowrap;
 }
 
 button.button:hover {
