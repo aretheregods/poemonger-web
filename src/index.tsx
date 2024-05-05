@@ -496,9 +496,14 @@ app.get('/', async (c) => {
                                             : section
                                         return (
                                             <>
-                                                {sl.map((line) => (
-                                                    <p>{line}</p>
-                                                ))}
+                                                {sl.map((line, index, sl) => {
+                                                    return index ===
+                                                        sl.length - 1 ? (
+                                                        <p>...</p>
+                                                    ) : (
+                                                        <p>{line}</p>
+                                                    )
+                                                })}
                                                 <br />
                                             </>
                                         )
