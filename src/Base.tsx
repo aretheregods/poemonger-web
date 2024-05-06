@@ -50,16 +50,6 @@ export const Base = ({
                     <nav>
                         <a href="/">
                             <img
-                                src="/static/logos/poemonger.webp"
-                                alt="Poemonger Logo"
-                                height="64"
-                                width="128"
-                                fetchpriority="high"
-                                loading="eager"
-                            />
-                        </a>
-                        <a href="/">
-                            <img
                                 src="/static/logos/poemonger.svg"
                                 height="64"
                                 width="128"
