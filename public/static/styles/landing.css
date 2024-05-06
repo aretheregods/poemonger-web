@@ -4,6 +4,10 @@
     gap: 4rem;
 }
 
+.poem-section-container p {
+    text-align: center;
+}
+
 @media (width >= 320px) and (width <= 480px) {
     .poem-section-container {
         grid-template-columns: none;
