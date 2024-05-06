@@ -28,7 +28,7 @@
         & .poem-video-section {
             display: grid;
 
-            & h4 {
+            & h3 {
                 align-self: center;
                 margin: 0;
             }
