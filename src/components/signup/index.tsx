@@ -16,6 +16,7 @@ export default function SignUp() {
                 </p>
             </section>
             <hr />
+            <h2 id="form-title">Sign up</h2>
             <br />
             <ul>
                 <li>
