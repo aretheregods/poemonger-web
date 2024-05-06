@@ -48,12 +48,15 @@ export const Base = ({
             <body>
                 ${header ?? (
                     <nav>
-                        <img
-                            src="/static/logos/logo.svg"
-                            alt="Poemonger Logo 'P'"
-                        />
                         <a href="/">
-                            <h1>POEMONGER</h1>
+                            <img
+                                id="poemonger-logo"
+                                src="/static/logos/logo.svg"
+                                alt="Poemonger Logo 'P'"
+                                height="3"
+                                width="3"
+                            />
+                            <h1>OEMONGER</h1>
                         </a>
                     </nav>
                 )}
