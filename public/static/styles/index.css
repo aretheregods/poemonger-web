@@ -26,6 +26,7 @@ textarea {
     font: inherit;
 }
 
+a.button,
 button.button {
     font-size: medium;
     padding: 0.5rem 1rem;
@@ -37,8 +38,10 @@ button.button {
     width: min-content;
     justify-self: end;
     white-space: nowrap;
+    text-decoration: none;
 }
 
+a.button,
 button.button:hover {
     background-color: hsl(
         var(--button-color),

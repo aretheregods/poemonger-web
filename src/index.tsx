@@ -506,7 +506,13 @@ app.get('/', async (c) => {
                                         })}
                                         <p>...</p>
                                         <p>
-                                            <a href="/signup">Read more now</a>
+                                            <a
+                                                href="/signup"
+                                                title="Sign up to read more awesome poetry"
+                                                class="button"
+                                            >
+                                                Read more now
+                                            </a>
                                         </p>
                                     </section>
                                 </>
