@@ -492,50 +492,57 @@ app.get('/', async (c) => {
                             return (
                                 <>
                                     <section class="poem-section-container">
-                                        <h2>{title}</h2>
-                                        <p title={`Author Name: ${author}`}>
-                                            <em>By: {author}</em>
-                                        </p>
-                                        <section class="poem-container">
-                                            {ss.map(
-                                                (section: Array<string>) => {
-                                                    var sl = sample_length
-                                                        ? section.slice(
-                                                              0,
-                                                              sample_length as number
-                                                          )
-                                                        : section
-                                                    return (
-                                                        <>
-                                                            <section class="poem-container">
-                                                                {sl.map(
-                                                                    (line) => {
-                                                                        return (
-                                                                            <p>
-                                                                                {
-                                                                                    line
-                                                                                }
-                                                                            </p>
-                                                                        )
-                                                                    }
-                                                                )}
-                                                            </section>
-                                                            <br />
-                                                        </>
-                                                    )
-                                                }
-                                            )}
-                                            <hr />
-                                            <br />
-                                            <p class="read-more-link">
-                                                <a
-                                                    href="/signup"
-                                                    title="Sign up to read more awesome poetry"
-                                                    class="button"
-                                                >
-                                                    Read better poetry &#128366;
-                                                </a>
+                                        <section class="poem-content-container"
+                                            <h2>{title}</h2>
+                                            <p title={`Author Name: ${author}`}>
+                                                <em>By: {author}</em>
                                             </p>
+                                            <section class="poem-container">
+                                                {ss.map(
+                                                    (
+                                                        section: Array<string>
+                                                    ) => {
+                                                        var sl = sample_length
+                                                            ? section.slice(
+                                                                  0,
+                                                                  sample_length as number
+                                                              )
+                                                            : section
+                                                        return (
+                                                            <>
+                                                                <section class="poem-container">
+                                                                    {sl.map(
+                                                                        (
+                                                                            line
+                                                                        ) => {
+                                                                            return (
+                                                                                <p>
+                                                                                    {
+                                                                                        line
+                                                                                    }
+                                                                                </p>
+                                                                            )
+                                                                        }
+                                                                    )}
+                                                                </section>
+                                                                <br />
+                                                            </>
+                                                        )
+                                                    }
+                                                )}
+                                                <hr />
+                                                <br />
+                                                <p class="read-more-link">
+                                                    <a
+                                                        href="/signup"
+                                                        title="Sign up to read more awesome poetry"
+                                                        class="button"
+                                                    >
+                                                        Read better poetry
+                                                        &#128366;
+                                                    </a>
+                                                </p>
+                                            </section>
                                         </section>
                                         <div
                                             class="poem-video-container"
