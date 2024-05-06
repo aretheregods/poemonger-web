@@ -513,7 +513,7 @@ app.get('/', async (c) => {
                                                 title="Sign up to read more awesome poetry"
                                                 class="button"
                                             >
-                                                Read more now
+                                                Read better poetry
                                             </a>
                                         </p>
                                     </section>
