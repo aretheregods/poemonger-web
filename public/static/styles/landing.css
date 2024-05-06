@@ -8,8 +8,7 @@
 .poem-section-container {
     & h2,
     & h3,
-    & h4,
-    & p {
+    & h4 {
         text-align: center;
     }
 }
