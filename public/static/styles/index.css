@@ -75,7 +75,7 @@ button.button:hover {
 
 .poem-container hr::after {
     background: #fff;
-    content: 'Join me to';
+    content: 'Ready to go?';
     padding: 0 4px;
     position: relative;
     top: -13px;
