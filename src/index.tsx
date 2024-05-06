@@ -501,7 +501,6 @@ app.get('/', async (c) => {
                                                             return <p>{line}</p>
                                                         })}
                                                     </section>
-                                                    <br />
                                                 </>
                                             )
                                         })}
