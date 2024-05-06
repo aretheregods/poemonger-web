@@ -492,9 +492,9 @@ app.get('/', async (c) => {
                             return (
                                 <>
                                     <h2>{title}</h2>
-                                    <h4>
-                                        <em>{author}</em>
-                                    </h4>
+                                    <p title={`Author Name: ${author}`}>
+                                        <em>By: {author}</em>
+                                    </p>
                                     <section class="poem-container">
                                         {ss.map((section: Array<string>) => {
                                             var sl = sample_length
