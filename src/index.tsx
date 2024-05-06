@@ -470,7 +470,7 @@ app.get('/', async (c) => {
 
     try {
         const { results, error, success } = await c.env.POEMONGER_POEMS.prepare(
-            'select id, title, sample_section, sample_length, lines from poetry where json_extract(poetry.work, "$.id") = 2;'
+            'select id, title, sample_section, sample_length, lines, json_extract(author, "$.id") as author_id, json_extract(author, "$.name") as author from poetry where json_extract(poetry.work, "$.id") = 2;'
         ).all()
 
         const props = {
@@ -478,7 +478,13 @@ app.get('/', async (c) => {
             children: (
                 <>
                     {results.map(
-                        ({ title, lines, sample_length, sample_section }) => {
+                        ({
+                            title,
+                            author,
+                            lines,
+                            sample_length,
+                            sample_section,
+                        }) => {
                             var l = JSON.parse(lines as string)
                             var ss = sample_section
                                 ? l.slice(0, sample_section)
@@ -486,6 +492,9 @@ app.get('/', async (c) => {
                             return (
                                 <>
                                     <h2>{title}</h2>
+                                    <h4>
+                                        <em>{author}</em>
+                                    </h4>
                                     <section class="poem-container">
                                         {ss.map((section: Array<string>) => {
                                             var sl = sample_length
