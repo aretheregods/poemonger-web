@@ -475,6 +475,9 @@ app.get('/', async (c) => {
 
         const props = {
             title: 'Poemonger | Real Poetry',
+            assets: [
+                <link rel="stylesheet" href="/static/styles/landing.css" />,
+            ],
             children: (
                 <>
                     {results.map(
