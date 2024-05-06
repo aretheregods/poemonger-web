@@ -27,6 +27,11 @@ nav a {
     text-decoration: none;
 }
 
+main {
+    display: grid;
+    justify-content: center;
+}
+
 button,
 input,
 select,
