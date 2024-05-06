@@ -549,7 +549,8 @@ app.get('/', async (c) => {
                                         </section>
                                         <section class="poem-video-section">
                                             <h4>
-                                                <em>Official Poetry Video</em>
+                                                {title}{' '}
+                                                <em>(Official Poetry Video)</em>
                                             </h4>
                                             <div
                                                 class="poem-video-container"
