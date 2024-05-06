@@ -21,6 +21,10 @@
     & > p.read-more-link {
         display: none;
     }
+
+    & .poetry-video_iframe {
+        width: 100%;
+    }
 }
 
 @media (width >= 320px) and (width <= 768px) {
@@ -41,6 +45,10 @@
                 align-self: center;
                 margin: 0;
                 padding: 1rem;
+            }
+
+            & .poetry-video_iframe {
+                width: 101%;
             }
         }
 
