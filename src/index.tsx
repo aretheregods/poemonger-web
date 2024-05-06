@@ -475,7 +475,6 @@ app.get('/', async (c) => {
 
         const props = {
             title: 'Poemonger | Real Poetry',
-            header: <h1>POEMONGER</h1>,
             children: (
                 <>
                     {results.map(

@@ -46,7 +46,13 @@ export const Base = ({
                 ${assets}
             </head>
             <body>
-                ${header}
+                ${header ?? (
+                    <nav>
+                        <h1>
+                            <a href="/">POEMONGER</a>
+                        </h1>
+                    </nav>
+                )}
                 <main>${children}</main>
                 ${footer}
             </body>
