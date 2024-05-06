@@ -19,6 +19,7 @@
         grid-template-columns: none;
         grid-template-rows: 1fr 1fr;
         padding-top: auto;
+        gap: 1rem;
 
         & .poem-content-container {
             order: 2;
