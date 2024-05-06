@@ -18,5 +18,10 @@
     .poem-section-container {
         grid-template-columns: none;
         grid-template-rows: 1fr 1fr;
+        padding-top: auto;
+
+        & .poem-content-container {
+            order: 2;
+        }
     }
 }
