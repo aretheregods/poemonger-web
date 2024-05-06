@@ -14,7 +14,7 @@
     }
 }
 
-.poem-section-container hr {
+.poem-section-container hr.video-poem-split {
     display: none;
 }
 
@@ -51,10 +51,14 @@
 
         & hr::after {
             background: #fff;
-            content: 'Read the poem';
+            content: 'Ready to go?';
             padding: 0 4px;
             position: relative;
             top: -13px;
+        }
+
+        & hr.video-poem-split {
+            content: 'Read the poem';
         }
     }
 }

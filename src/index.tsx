@@ -565,7 +565,7 @@ app.get('/', async (c) => {
                                                 ></iframe>
                                             </div>
                                         </section>
-                                        <hr />
+                                        <hr class="video-poem-split" />
                                     </section>
                                 </>
                             )
