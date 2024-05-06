@@ -504,7 +504,9 @@ app.get('/', async (c) => {
                                                 </>
                                             )
                                         })}
+                                        <br />
                                         <hr />
+                                        <br />
                                         <p class="read-more-link">
                                             <a
                                                 href="/signup"
