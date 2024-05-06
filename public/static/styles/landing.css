@@ -19,7 +19,7 @@
         display: none;
     }
 
-    & > a.read-more-link {
+    & > p.read-more-link {
         display: none;
     }
 }
@@ -44,7 +44,7 @@
             }
         }
 
-        & > a.read-more-link {
+        & > p.read-more-link {
             display: block;
         }
 
