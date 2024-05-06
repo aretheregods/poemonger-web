@@ -67,7 +67,7 @@ button.button:hover {
 .poem-container {
     width: fit-content;
 
-    & p {
+    & p:not(.read-more-link) {
         text-align: left;
     }
 
