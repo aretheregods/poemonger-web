@@ -3,3 +3,10 @@
     grid-template-columns: 1fr 1fr;
     gap: 4rem;
 }
+
+@media (width >= 320px) and (width <= 480px) {
+    .poem-section-container {
+        grid-template-columns: none;
+        grid-template-rows: 1fr 1fr;
+    }
+}

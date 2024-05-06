@@ -551,6 +551,9 @@ app.get('/', async (c) => {
                                             class="poem-video-container"
                                             style="position: relative; padding-top: 177.77777777777777%;"
                                         >
+                                            <p>
+                                                <em>Official Poetry Video</em>
+                                            </p>
                                             <iframe
                                                 src="https://customer-atan7w69apqpwpbi.cloudflarestream.com/59c2144c8d5d0f2a098a1f35bc21a501/iframe?poster=https://customer-atan7w69apqpwpbi.cloudflarestream.com/59c2144c8d5d0f2a098a1f35bc21a501/thumbnails/thumbnail.jpg%3Ftime%3D%26height%3D600&title=Poetry+Shouldn%27t+Suck"
                                                 loading="lazy"
