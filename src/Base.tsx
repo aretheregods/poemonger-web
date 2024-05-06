@@ -51,12 +51,11 @@ export const Base = ({
                         <a href="/">
                             <img
                                 id="poemonger-logo"
-                                src="/static/logos/logo.svg"
-                                alt="Poemonger Logo 'P'"
-                                height="48"
+                                src="/static/logos/poemonger.svg"
+                                alt="Poemonger Logo"
+                                height="27"
                                 width="48"
                             />
-                            <h1>OEMONGER</h1>
                         </a>
                     </nav>
                 )}
