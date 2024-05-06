@@ -23,5 +23,13 @@
         & .poem-content-container {
             order: 2;
         }
+
+        & .poem-video-section {
+            display: grid;
+
+            & h4 {
+                align-self: center;
+            }
+        }
     }
 }
