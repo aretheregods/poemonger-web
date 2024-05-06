@@ -55,6 +55,24 @@ button.button:hover {
     width: fit-content;
 }
 
+.poem-container hr {
+    border: none;
+    border-top: 3px double #333;
+    color: #333;
+    overflow: visible;
+    text-align: center;
+    height: 5px;
+    width: 100%;
+}
+
+.poem-container hr::after {
+    background: #fff;
+    content: 'Join me to';
+    padding: 0 4px;
+    position: relative;
+    top: -13px;
+}
+
 .read-more-link {
     text-align: center;
 }
