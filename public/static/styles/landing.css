@@ -5,10 +5,10 @@
 }
 
 .poem-section-container {
-    h2,
-    h3,
-    h4,
-    p {
+    & h2,
+    & h3,
+    & h4,
+    & p {
         text-align: center;
     }
 }
