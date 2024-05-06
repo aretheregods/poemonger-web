@@ -565,6 +565,16 @@ app.get('/', async (c) => {
                                                 ></iframe>
                                             </div>
                                         </section>
+                                        <p class="read-more-link">
+                                            <a
+                                                href="/signup"
+                                                title="Sign up to read more awesome poetry"
+                                                class="button"
+                                            >
+                                                Read better poetry &#128366;
+                                            </a>
+                                        </p>
+                                        <br />
                                         <hr class="video-poem-split" />
                                     </section>
                                 </>
