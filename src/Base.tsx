@@ -51,7 +51,7 @@ export const Base = ({
                         <a href="/">
                             <img
                                 src="/static/logos/poemonger.svg"
-                                height="64"
+                                height="41"
                                 width="128"
                                 fetchpriority="high"
                                 loading="eager"
