@@ -497,7 +497,7 @@ app.get('/', async (c) => {
                                             <section class="poem-container">
                                                 {sl.map((line, index, sl) => {
                                                     return index ===
-                                                        sl.length - 1 ? (
+                                                        sl.length ? (
                                                         <>
                                                             <p>...</p>
                                                             <a
