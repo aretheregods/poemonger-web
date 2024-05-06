@@ -496,8 +496,7 @@ app.get('/', async (c) => {
                                         return (
                                             <section class="poem-container">
                                                 {sl.map((line, index, sl) => {
-                                                    return index ===
-                                                        sl.length ? (
+                                                    return (
                                                         <>
                                                             <p>...</p>
                                                             <a
@@ -507,10 +506,14 @@ app.get('/', async (c) => {
                                                                 Read more now
                                                             </a>
                                                         </>
-                                                    ) : (
-                                                        <p>{line}</p>
                                                     )
                                                 })}
+                                                <p>...</p>
+                                                <h1>
+                                                    <a href="/signup">
+                                                        Read more now
+                                                    </a>
+                                                </h1>
                                                 <br />
                                             </section>
                                         )
