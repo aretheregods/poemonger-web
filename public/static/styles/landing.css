@@ -27,7 +27,7 @@
 @media (width >= 320px) and (width <= 480px) {
     .poem-section-container {
         grid-template-columns: none;
-        grid-template-rows: 1fr auto auto 1fr;
+        grid-template-rows: auto 3rem 3rem auto;
         padding-top: 0px;
         gap: 3rem;
 
@@ -41,6 +41,7 @@
             & h3 {
                 align-self: center;
                 margin: 0;
+                padding: 1rem;
             }
         }
 
