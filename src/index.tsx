@@ -501,10 +501,10 @@ app.get('/', async (c) => {
                                                             return <p>{line}</p>
                                                         })}
                                                     </section>
+                                                    <br />
                                                 </>
                                             )
                                         })}
-                                        <br />
                                         <hr />
                                         <br />
                                         <p class="read-more-link">
