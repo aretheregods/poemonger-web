@@ -60,6 +60,8 @@ export default function Login({
             <button type="submit" class="button">
                 Submit
             </button>
+            <br />
+            <hr />
             <section id="other-link-container">
                 <p>
                     Don't have an account?{' '}

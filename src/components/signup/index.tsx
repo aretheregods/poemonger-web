@@ -15,6 +15,8 @@ export default function SignUp() {
                     </span>
                 </p>
             </section>
+            <hr />
+            <br />
             <ul>
                 <li>
                     <Input
