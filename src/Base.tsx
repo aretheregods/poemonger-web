@@ -53,8 +53,8 @@ export const Base = ({
                                 id="poemonger-logo"
                                 src="/static/logos/logo.svg"
                                 alt="Poemonger Logo 'P'"
-                                height="3"
-                                width="3"
+                                height="48"
+                                width="48"
                             />
                             <h1>OEMONGER</h1>
                         </a>
