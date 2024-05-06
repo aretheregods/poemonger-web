@@ -14,8 +14,14 @@
     }
 }
 
-.poem-section-container hr.video-poem-split {
-    display: none;
+.poem-section-container {
+    & hr.video-poem-split {
+        display: none;
+    }
+
+    & > a.read-more-link {
+        display: none;
+    }
 }
 
 @media (width >= 320px) and (width <= 480px) {
@@ -36,6 +42,10 @@
                 align-self: center;
                 margin: 0;
             }
+        }
+
+        & > a.read-more-link {
+            display: block;
         }
 
         & hr.video-poem-split {
