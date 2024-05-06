@@ -68,7 +68,7 @@ button.button:hover {
     width: fit-content;
 }
 
-.poem-container hr {
+.poem-container hr.ready-to-go_message {
     border: none;
     border-top: 3px double #333;
     color: #333;
@@ -78,7 +78,7 @@ button.button:hover {
     width: 100%;
 }
 
-.poem-container hr::after {
+.poem-container hr.ready-to-go_message::after {
     background: #fff;
     content: 'Ready to go?';
     padding: 0 4px;

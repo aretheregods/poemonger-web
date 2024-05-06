@@ -533,7 +533,7 @@ app.get('/', async (c) => {
                                                         )
                                                     }
                                                 )}
-                                                <hr />
+                                                <hr class="ready-to-go_message" />
                                                 <br />
                                                 <p class="read-more-link">
                                                     <a
