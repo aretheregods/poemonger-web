@@ -547,21 +547,23 @@ app.get('/', async (c) => {
                                                 </p>
                                             </section>
                                         </section>
-                                        <div
-                                            class="poem-video-container"
-                                            style="position: relative; padding-top: 177.77777777777777%;"
-                                        >
+                                        <section class="poem-video-section">
                                             <p>
                                                 <em>Official Poetry Video</em>
                                             </p>
-                                            <iframe
-                                                src="https://customer-atan7w69apqpwpbi.cloudflarestream.com/59c2144c8d5d0f2a098a1f35bc21a501/iframe?poster=https://customer-atan7w69apqpwpbi.cloudflarestream.com/59c2144c8d5d0f2a098a1f35bc21a501/thumbnails/thumbnail.jpg%3Ftime%3D%26height%3D600&title=Poetry+Shouldn%27t+Suck"
-                                                loading="lazy"
-                                                style="border: none; position: absolute; top: 0; left: 0; height: 100%; width: 100%;"
-                                                allow="accelerometer; gyroscope; autoplay; encrypted-media; picture-in-picture;"
-                                                allowfullscreen={true}
-                                            ></iframe>
-                                        </div>
+                                            <div
+                                                class="poem-video-container"
+                                                style="position: relative; padding-top: 177.77777777777777%;"
+                                            >
+                                                <iframe
+                                                    src="https://customer-atan7w69apqpwpbi.cloudflarestream.com/59c2144c8d5d0f2a098a1f35bc21a501/iframe?poster=https://customer-atan7w69apqpwpbi.cloudflarestream.com/59c2144c8d5d0f2a098a1f35bc21a501/thumbnails/thumbnail.jpg%3Ftime%3D%26height%3D600&title=Poetry+Shouldn%27t+Suck"
+                                                    loading="lazy"
+                                                    style="border: none; position: absolute; top: 0; left: 0; height: 100%; width: 100%;"
+                                                    allow="accelerometer; gyroscope; autoplay; encrypted-media; picture-in-picture;"
+                                                    allowfullscreen={true}
+                                                ></iframe>
+                                            </div>
+                                        </section>
                                     </section>
                                 </>
                             )
