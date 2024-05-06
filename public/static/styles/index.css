@@ -23,6 +23,10 @@ nav {
     display: inline-flex;
 }
 
+nav a {
+    text-decoration: none;
+}
+
 button,
 input,
 select,
