@@ -492,7 +492,7 @@ app.get('/', async (c) => {
                             return (
                                 <>
                                     <section class="poem-section-container">
-                                        <section class="poem-content-container"
+                                        <section class="poem-content-container">
                                             <h2>{title}</h2>
                                             <p title={`Author Name: ${author}`}>
                                                 <em>By: {author}</em>
