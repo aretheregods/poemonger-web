@@ -36,7 +36,7 @@ const app = new Hono<{ Bindings: Bindings; Variables: Variables }>()
 app.use(csrf())
 app.use(secureHeaders())
 app.use(userCookieAuth)
-app.use('/read', loggedInRedirect)
+app.use('/read', loggedOutRedirect)
 
 app.route('/admin', admin)
 app.route('/read', read)
@@ -67,12 +67,12 @@ export async function userCookieAuth(
     await next()
 }
 
-export async function loggedInRedirect(
+export async function loggedOutRedirect(
     c: Context<{ Bindings: Bindings; Variables: Variables }>,
     next: Next
 ): Promise<Response | void> {
     if (!c.var.currentSession || c.var.currentSessionError) {
-        return c.redirect('/read')
+        return c.redirect('/login')
     } else await next()
 }
 
@@ -254,7 +254,7 @@ app.get('/login', async (c) => {
             const currentSession = await c.env.USERS_SESSIONS.get(
                 `session=${hasCookie}`
             )
-            if (currentSession) return c.redirect('/')
+            if (currentSession) return c.redirect('/read')
         } catch {
             console.log('no session')
         }
