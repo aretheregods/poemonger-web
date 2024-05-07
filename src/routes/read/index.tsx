@@ -35,7 +35,7 @@ read.use(
 )
 
 read.get('/', async (c) => {
-    let response = { message: 'There was an error:' }
+    let response = { message: 'There was an error:', data: [] }
 
     try {
         const r = await c.var.READER_SESSIONS.fetch(c.req.raw)
@@ -45,7 +45,10 @@ read.get('/', async (c) => {
     }
     return c.html(
         <Base title="Poemonger | Read">
-            <h2>{response.message}</h2>
+            <>
+                <h2>{response.message}</h2>
+                {response.data?.map(({ title }) => <p>{title}</p>) || ''}
+            </>
         </Base>
     )
 })
