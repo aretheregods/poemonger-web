@@ -147,10 +147,10 @@ app.post('/signup', async (c) => {
                     created_at: n,
                     active: false,
                     purchases: {},
+                    session_id: session_id.toString(),
                     hash,
                     token,
                     salt,
-                    session_id,
                 })
             )
 
