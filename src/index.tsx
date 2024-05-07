@@ -362,17 +362,14 @@ app.post('/login', async (c) => {
             const h = await H.HashPasswordWithSalt(password as string, n)
             if (h === hash) {
                 try {
-                    var sessionId
-                    var userData = {}
-                    if (u.session_id) {
-                        sessionId = u.session_id
-                        userData = await c.env.USERS_SESSIONS.get(
-                            `session=${sessionId}`,
-                            { type: 'json' }
-                        )
+                    var userData = await c.env.USERS_SESSIONS.get(
+                        `session=${u.session_id}`,
+                        { type: 'json' }
+                    )
+                    if (userData) {
+                        user = userData
                     } else {
-                        sessionId = crypto.randomUUID()
-                        userData = {
+                        user = {
                             created_at: Date.now(),
                             first_name: u.first_name,
                             last_name: u.last_name,
@@ -380,14 +377,13 @@ app.post('/login', async (c) => {
                         }
 
                         await c.env.USERS_SESSIONS.put(
-                            `session=${sessionId}`,
-                            JSON.stringify(userData),
+                            `session=${u.session_id}`,
+                            JSON.stringify(user),
                             { expirationTtl: 86400 * 60 }
                         )
                     }
-                    error = false
 
-                    setCookie(c, 'poemonger_session', sessionId, {
+                    setCookie(c, 'poemonger_session', u.session_id, {
                         path: '/',
                         prefix: 'secure',
                         secure: true,
@@ -399,6 +395,7 @@ app.post('/login', async (c) => {
                         sameSite: 'Lax',
                     })
                     user = userData
+                    error = false
                 } catch (e) {
                     error = true
                     message = `${messages.error} ${e}`
