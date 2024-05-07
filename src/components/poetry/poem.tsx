@@ -11,7 +11,7 @@ export default function Poem({
     lines: unknown
     sample_length: unknown
     sample_section: unknown
-    children: JSX.Element
+    children?: JSX.Element
 }) {
     var l = JSON.parse(lines as string)
     var ss = sample_section ? l.slice(0, sample_section) : l
