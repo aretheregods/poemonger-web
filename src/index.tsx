@@ -247,18 +247,18 @@ app.get('/activate', async (c) => {
     )
 })
 
-app.get('/login', async (c) => {
-    const hasCookie = getCookie(c, 'poemonger_session', 'secure')
-    if (hasCookie) {
-        try {
-            const currentSession = await c.env.USERS_SESSIONS.get(
-                `session=${hasCookie}`
-            )
-            if (currentSession) return c.redirect('/')
-        } catch {
-            console.log('no session')
-        }
-    }
+app.get('/login', loggedInRedirect, async (c) => {
+    // const hasCookie = getCookie(c, 'poemonger_session', 'secure')
+    // if (hasCookie) {
+    //     try {
+    //         const currentSession = await c.env.USERS_SESSIONS.get(
+    //             `session=${hasCookie}`
+    //         )
+    //         if (currentSession) return c.redirect('/')
+    //     } catch {
+    //         console.log('no session')
+    //     }
+    // }
 
     return c.html(
         <Base
@@ -463,10 +463,10 @@ app.get('/delete', (c) =>
     )
 )
 
-app.get('/', async (c) => {
-    if (c.var.currentSession && !c.var.currentSessionError) {
-        return c.redirect('/read')
-    }
+app.get('/', loggedInRedirect, async (c) => {
+    // if (c.var.currentSession && !c.var.currentSessionError) {
+    //     return c.redirect('/read')
+    // }
 
     try {
         const { results, error, success } = await c.env.POEMONGER_POEMS.prepare(
