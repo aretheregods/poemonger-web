@@ -9,7 +9,7 @@ type Bindings = {
 
 type Variables = {
     READER_SESSIONS: DurableObjectNamespace & {
-        data(arg: Request, arg1?: boolean): Response
+        query(arg: Request, arg1?: boolean): Response
         reply(): Response
     }
     currentSession?: {
@@ -38,7 +38,7 @@ read.get('/', async (c) => {
     let response = { message: 'There was an error:', data: [] }
 
     try {
-        const r = await c.var.READER_SESSIONS.data(c.req.raw)
+        const r = await c.var.READER_SESSIONS.query(c.req.raw)
         response = await r.json()
     } catch (e) {
         response.message += ` ${e}`
