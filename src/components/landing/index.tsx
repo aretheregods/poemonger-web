@@ -1,4 +1,4 @@
-import { PoemVideo } from '../poetry'
+import { Poem, PoemVideo } from '../poetry'
 
 type results = {
     title: string
@@ -30,43 +30,19 @@ export default async function Landing({
                     }) => {
                         var l = JSON.parse(lines as string)
                         var ss = sample_section ? l.slice(0, sample_section) : l
+
                         return (
                             <>
                                 <section class="poem-section-container">
-                                    <section class="poem-content-container">
-                                        <h2>{title}</h2>
-                                        <p title={`Author Name: ${author}`}>
-                                            <em>By: {author}</em>
-                                        </p>
-                                        <section class="poem-container">
-                                            {ss.map(
-                                                (section: Array<string>) => {
-                                                    var sl = sample_length
-                                                        ? section.slice(
-                                                              0,
-                                                              sample_length as number
-                                                          )
-                                                        : section
-                                                    return (
-                                                        <>
-                                                            <section class="poem-container">
-                                                                {sl.map(
-                                                                    (line) => {
-                                                                        return (
-                                                                            <p>
-                                                                                {
-                                                                                    line
-                                                                                }
-                                                                            </p>
-                                                                        )
-                                                                    }
-                                                                )}
-                                                            </section>
-                                                            <br />
-                                                        </>
-                                                    )
-                                                }
-                                            )}
+                                    <Poem
+                                        {...{
+                                            title,
+                                            author,
+                                            sample_length,
+                                            sample_section: ss,
+                                        }}
+                                    >
+                                        <>
                                             <hr class="ready-to-go_message" />
                                             <br />
                                             <p class="read-more-link">
@@ -78,8 +54,8 @@ export default async function Landing({
                                                     Read better poetry &#128366;
                                                 </a>
                                             </p>
-                                        </section>
-                                    </section>
+                                        </>
+                                    </Poem>
                                     <PoemVideo
                                         title={title as string}
                                         video={video as string}
