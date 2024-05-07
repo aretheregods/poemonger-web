@@ -12,6 +12,8 @@ type Variables = {
         fetch(arg: Request): Response
         reply(): Response
     }
+    currentSession?: { cookie: string; currentSession: { created_at: string } }
+    currentSessionError?: { error: boolean; message: string }
 }
 
 const read = new Hono<{ Bindings: Bindings; Variables: Variables }>()

@@ -21,6 +21,7 @@ import Delete from './components/reset'
 
 type Bindings = {
     POEMONGER_POEMS: D1Database
+    POEMONGER_READER_SESSIONS: DurableObjectNamespace
     USERS_KV: KVNamespace
     USERS_SESSIONS: KVNamespace
     DKIM_PRIVATE_KEY: string
@@ -135,6 +136,7 @@ app.post('/signup', async (c) => {
             const H = new Hashes()
             const token = await H.Hash256(email as string)
             const hash = await H.HashPasswordWithSalt(password as string, n)
+            const session_id = c.env.POEMONGER_READER_SESSIONS.newUniqueId()
             await c.env.USERS_KV.put(
                 `user=${email}`,
                 JSON.stringify({
@@ -144,9 +146,11 @@ app.post('/signup', async (c) => {
                     last_name: last_name,
                     created_at: n,
                     active: false,
+                    purchases: {},
                     hash,
                     token,
                     salt,
+                    session_id,
                 })
             )
 
@@ -345,6 +349,7 @@ app.post('/login', async (c) => {
         email: string
         created_at: number
         hash: string
+        session_id: string
     }>(`user=${email}`, { type: 'json' })
     if (!u) {
         message = messages.exists
@@ -357,20 +362,30 @@ app.post('/login', async (c) => {
             const h = await H.HashPasswordWithSalt(password as string, n)
             if (h === hash) {
                 try {
-                    const sessionId = crypto.randomUUID()
-                    var userData = {
-                        created_at: Date.now(),
-                        first_name: u.first_name,
-                        last_name: u.last_name,
-                        email: u.email,
+                    var sessionId
+                    var userData = {}
+                    if (u.session_id) {
+                        sessionId = u.session_id
+                        userData = await c.env.USERS_SESSIONS.get(
+                            `session=${sessionId}`,
+                            { type: 'json' }
+                        )
+                    } else {
+                        sessionId = crypto.randomUUID()
+                        userData = {
+                            created_at: Date.now(),
+                            first_name: u.first_name,
+                            last_name: u.last_name,
+                            email: u.email,
+                        }
+
+                        await c.env.USERS_SESSIONS.put(
+                            `session=${sessionId}`,
+                            JSON.stringify(userData),
+                            { expirationTtl: 86400 * 60 }
+                        )
                     }
                     error = false
-
-                    await c.env.USERS_SESSIONS.put(
-                        `session=${sessionId}`,
-                        JSON.stringify(userData),
-                        { expirationTtl: 86400 * 60 }
-                    )
 
                     setCookie(c, 'poemonger_session', sessionId, {
                         path: '/',
@@ -418,23 +433,17 @@ app.get('/logout', (c) =>
 app.post('/logout', async (c) => {
     const hasCookie = getCookie(c, 'poemonger_session', 'secure')
     if (hasCookie) {
-        try {
-            await c.env.USERS_SESSIONS.delete(`session=${hasCookie}`)
-            setCookie(c, 'poemonger_session', hasCookie, {
-                path: '/',
-                prefix: 'secure',
-                secure: true,
-                httpOnly: true,
-                maxAge: 86400 * -1,
-                expires: new Date(Date.now() + 1000 * 60 * 60 * 24 * -1),
-                sameSite: 'Lax',
-            })
-            c.status(200)
-            return c.json({ success: true })
-        } catch {
-            c.status(500)
-            return c.json({ success: false })
-        }
+        setCookie(c, 'poemonger_session', hasCookie, {
+            path: '/',
+            prefix: 'secure',
+            secure: true,
+            httpOnly: true,
+            maxAge: 86400 * -1,
+            expires: new Date(Date.now() + 1000 * 60 * 60 * 24 * -1),
+            sameSite: 'Lax',
+        })
+        c.status(200)
+        return c.json({ success: true })
     } else {
         c.status(404)
         return c.json({ success: false })
