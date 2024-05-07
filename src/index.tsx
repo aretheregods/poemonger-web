@@ -248,16 +248,8 @@ app.get('/activate', async (c) => {
 })
 
 app.get('/login', async (c) => {
-    const hasCookie = getCookie(c, 'poemonger_session', 'secure')
-    if (hasCookie) {
-        try {
-            const currentSession = await c.env.USERS_SESSIONS.get(
-                `session=${hasCookie}`
-            )
-            if (currentSession) return c.redirect('/read')
-        } catch {
-            console.log('no session')
-        }
+    if (c.var.currentSession || c.var.currentSessionError) {
+        return c.redirect('/read')
     }
 
     return c.html(
