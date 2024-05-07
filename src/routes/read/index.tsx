@@ -9,7 +9,7 @@ type Bindings = {
 
 type Variables = {
     READER_SESSIONS: DurableObjectNamespace & {
-        query(arg: Request, arg1?: boolean): Response
+        query(arg: Request, arg1?: string, arg2?: boolean): Response
         reply(): Response
     }
     currentSession?: {
