@@ -394,7 +394,7 @@ app.post('/login', async (c) => {
                         ),
                         sameSite: 'Lax',
                     })
-                    user = userData
+                    user = userData as {}
                     error = false
                 } catch (e) {
                     error = true
