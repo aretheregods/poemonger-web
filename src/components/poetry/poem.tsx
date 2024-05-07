@@ -5,9 +5,9 @@ export default function Poem({
     sample_section: ss,
     children,
 }: {
-    title: string
-    author: string
-    sample_length: number
+    title: unknown
+    author: unknown
+    sample_length: unknown
     sample_section: string[][]
     children: JSX.Element
 }) {
@@ -18,7 +18,7 @@ export default function Poem({
                 <em>By: {author}</em>
             </p>
             <section class="poem-container">
-                {ss.map((section: Array<string>) => {
+                {ss?.map((section: Array<string>) => {
                     var sl = sample_length
                         ? section.slice(0, sample_length as number)
                         : section
