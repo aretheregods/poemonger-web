@@ -28,9 +28,6 @@ export default async function Landing({
                         sample_length,
                         sample_section,
                     }) => {
-                        var l = JSON.parse(lines as string)
-                        var ss = sample_section ? l.slice(0, sample_section) : l
-
                         return (
                             <>
                                 <section class="poem-section-container">
@@ -38,8 +35,9 @@ export default async function Landing({
                                         {...{
                                             title,
                                             author,
+                                            lines,
                                             sample_length,
-                                            sample_section: ss,
+                                            sample_section,
                                         }}
                                     >
                                         <>
