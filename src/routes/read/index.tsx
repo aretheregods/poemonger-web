@@ -12,7 +12,10 @@ type Variables = {
         fetch(arg: Request): Response
         reply(): Response
     }
-    currentSession?: { cookie: string; currentSession: { created_at: string } }
+    currentSession?: {
+        cookie: string
+        currentSession: { created_at: string; session_id: string }
+    }
     currentSessionError?: { error: boolean; message: string }
 }
 
@@ -20,7 +23,11 @@ const read = new Hono<{ Bindings: Bindings; Variables: Variables }>()
 
 read.use(
     async (c: Context<{ Bindings: Bindings; Variables: Variables }>, next) => {
-        const id = c.env.POEMONGER_READER_SESSIONS.newUniqueId()
+        const id = c.var.currentSession
+            ? c.env.POEMONGER_READER_SESSIONS.idFromString(
+                  c.var.currentSession.currentSession.session_id
+              )
+            : c.env.POEMONGER_READER_SESSIONS.newUniqueId()
         const stub = c.env.POEMONGER_READER_SESSIONS.get(id)
         c.set('READER_SESSIONS' as never, stub as never)
         await next()

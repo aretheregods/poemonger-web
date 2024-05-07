@@ -374,6 +374,7 @@ app.post('/login', async (c) => {
                             first_name: u.first_name,
                             last_name: u.last_name,
                             email: u.email,
+                            session_id: u.session_id,
                         }
 
                         await c.env.USERS_SESSIONS.put(
