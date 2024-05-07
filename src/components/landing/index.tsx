@@ -22,6 +22,7 @@ export default async function Landing({
                         title,
                         author,
                         lines,
+                        video,
                         sample_length,
                         sample_section,
                     }) => {
@@ -87,7 +88,7 @@ export default async function Landing({
                                             style="position: relative; padding-top: 177.77777777777777%;"
                                         >
                                             <iframe
-                                                src="https://customer-atan7w69apqpwpbi.cloudflarestream.com/59c2144c8d5d0f2a098a1f35bc21a501/iframe?poster=https://customer-atan7w69apqpwpbi.cloudflarestream.com/59c2144c8d5d0f2a098a1f35bc21a501/thumbnails/thumbnail.jpg%3Ftime%3D%26height%3D600&title=Poetry+Shouldn%27t+Suck"
+                                                src={`https://customer-atan7w69apqpwpbi.cloudflarestream.com/${video}/iframe?poster=https://customer-atan7w69apqpwpbi.cloudflarestream.com/${video}/thumbnails/thumbnail.jpg%3Ftime%3D%26height%3D600&title=Poetry+Shouldn%27t+Suck`}
                                                 loading="lazy"
                                                 class="poetry-video_iframe"
                                                 style="border: none; position: absolute; top: 0; left: 0; height: 100%;"
