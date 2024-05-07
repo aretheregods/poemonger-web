@@ -21,6 +21,7 @@ import Delete from './components/reset'
 
 type Bindings = {
     POEMONGER_POEMS: D1Database
+    POEMONGER_READER_CARTS: DurableObjectNamespace
     POEMONGER_READER_SESSIONS: DurableObjectNamespace
     USERS_KV: KVNamespace
     USERS_SESSIONS: KVNamespace
@@ -136,6 +137,7 @@ app.post('/signup', async (c) => {
             const H = new Hashes()
             const token = await H.Hash256(email as string)
             const hash = await H.HashPasswordWithSalt(password as string, n)
+            const cart_id = c.env.POEMONGER_READER_CARTS.newUniqueId()
             const session_id = c.env.POEMONGER_READER_SESSIONS.newUniqueId()
             await c.env.USERS_KV.put(
                 `user=${email}`,
@@ -147,6 +149,7 @@ app.post('/signup', async (c) => {
                     created_at: n,
                     active: false,
                     purchases: {},
+                    cart_id: cart_id.toString(),
                     session_id: session_id.toString(),
                     hash,
                     token,
@@ -349,6 +352,7 @@ app.post('/login', async (c) => {
         email: string
         created_at: number
         hash: string
+        cart_id: string
         session_id: string
     }>(`user=${email}`, { type: 'json' })
     if (!u) {
@@ -374,6 +378,7 @@ app.post('/login', async (c) => {
                             first_name: u.first_name,
                             last_name: u.last_name,
                             email: u.email,
+                            cart_id: u.cart_id,
                             session_id: u.session_id,
                         }
 

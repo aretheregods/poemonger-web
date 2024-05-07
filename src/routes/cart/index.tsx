@@ -14,7 +14,7 @@ type Variables = {
     }
     currentSession?: {
         cookie: string
-        currentSession: { created_at: string; session_id: string }
+        currentSession: { created_at: string; cart_id: string }
     }
     currentSessionError?: { error: boolean; message: string }
 }
@@ -25,7 +25,7 @@ cart.use(
     async (c: Context<{ Bindings: Bindings; Variables: Variables }>, next) => {
         const id = c.var.currentSession
             ? c.env.POEMONGER_READER_CARTS.idFromString(
-                  c.var.currentSession.currentSession.session_id
+                  c.var.currentSession.currentSession.cart_id
               )
             : c.env.POEMONGER_READER_CARTS.newUniqueId()
         const stub = c.env.POEMONGER_READER_CARTS.get(id)
