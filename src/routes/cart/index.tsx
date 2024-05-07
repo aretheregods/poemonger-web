@@ -4,11 +4,11 @@ import { html } from 'hono/html'
 import { Base } from '../../Base'
 
 type Bindings = {
-    POEMONGER_READER_SESSIONS: DurableObjectNamespace
+    POEMONGER_READER_CARTS: DurableObjectNamespace
 }
 
 type Variables = {
-    READER_SESSIONS: DurableObjectNamespace & {
+    READER_CARTS: DurableObjectNamespace & {
         fetch(arg: Request): Response
         reply(): Response
     }
@@ -24,12 +24,12 @@ const cart = new Hono<{ Bindings: Bindings; Variables: Variables }>()
 cart.use(
     async (c: Context<{ Bindings: Bindings; Variables: Variables }>, next) => {
         const id = c.var.currentSession
-            ? c.env.POEMONGER_READER_SESSIONS.idFromString(
+            ? c.env.POEMONGER_READER_CARTS.idFromString(
                   c.var.currentSession.currentSession.session_id
               )
-            : c.env.POEMONGER_READER_SESSIONS.newUniqueId()
-        const stub = c.env.POEMONGER_READER_SESSIONS.get(id)
-        c.set('READER_SESSIONS' as never, stub as never)
+            : c.env.POEMONGER_READER_CARTS.newUniqueId()
+        const stub = c.env.POEMONGER_READER_CARTS.get(id)
+        c.set('READER_CARTS' as never, stub as never)
         await next()
     }
 )
@@ -38,7 +38,7 @@ cart.get('/', async (c) => {
     let response = { message: 'There was an error:' }
 
     try {
-        const r = await c.var.READER_SESSIONS.fetch(c.req.raw)
+        const r = await c.var.READER_CARTS.fetch(c.req.raw)
         response = await r.json()
     } catch (e) {
         response.message += ` ${e}`
@@ -54,7 +54,7 @@ cart.get('/test', async (c) => {
     let response = { message: 'There was an error:' }
 
     try {
-        const r = await c.var.READER_SESSIONS.reply()
+        const r = await c.var.READER_CARTS.reply()
         response = await r.json()
     } catch (e) {
         response.message += ` ${e}`
