@@ -57,4 +57,4 @@ cart.get('/test', async (c) => {
     )
 })
 
-export default read
+export default cart
