@@ -91,11 +91,9 @@ export async function readerSessions(
     c: Context<{ Bindings: Bindings; Variables: Variables }>,
     next: Next
 ) {
-    const id = c.var.currentSession
-        ? c.env.POEMONGER_READER_SESSIONS.idFromString(
-              c.var.currentSession.currentSession.session_id
-          )
-        : c.env.POEMONGER_READER_SESSIONS.newUniqueId()
+    const id = c.env.POEMONGER_READER_SESSIONS.idFromString(
+        c.var.currentSession.currentSession.session_id
+    )
     const stub = c.env.POEMONGER_READER_SESSIONS.get(id)
     c.set('READER_SESSIONS' as never, stub as never)
     await next()
