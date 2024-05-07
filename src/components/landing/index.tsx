@@ -1,14 +1,6 @@
 import { Poem, PoemVideo } from '../poetry'
 import { Variables } from '../../'
 
-type results = {
-    title: string
-    author: string
-    lines: string[][]
-    sample_length: number
-    sample_section: number
-}
-
 export default async function Landing({
     req,
     r,
