@@ -10,6 +10,7 @@ import { admin, read } from './routes'
 import { Base } from './Base'
 import Email, { Activate } from './components/emails'
 import ActivatePage from './components/signup/ActivatePage'
+import cart from './components/routes/cart'
 import SignUp from './components/signup'
 import Hashes from './utils/hash'
 import Landing from './components/landing'
@@ -36,9 +37,11 @@ const app = new Hono<{ Bindings: Bindings; Variables: Variables }>()
 app.use(csrf())
 app.use(secureHeaders())
 app.use(userCookieAuth)
+app.use('/cart', loggedOutRedirect)
 app.use('/read', loggedOutRedirect)
 
 app.route('/admin', admin)
+app.route('/cart', cart)
 app.route('/read', read)
 
 export async function userCookieAuth(
