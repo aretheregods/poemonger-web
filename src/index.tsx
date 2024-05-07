@@ -4,13 +4,12 @@ import { csrf } from 'hono/csrf'
 import { secureHeaders } from 'hono/secure-headers'
 
 // routes
-import { admin, read } from './routes'
+import { admin, cart, read } from './routes'
 
 // components
 import { Base } from './Base'
 import Email, { Activate } from './components/emails'
 import ActivatePage from './components/signup/ActivatePage'
-import cart from './components/routes/cart'
 import SignUp from './components/signup'
 import Hashes from './utils/hash'
 import Landing from './components/landing'
