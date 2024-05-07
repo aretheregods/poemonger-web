@@ -1,4 +1,5 @@
 import { Poem, PoemVideo } from '../poetry'
+import { Variables } from '../../'
 
 type results = {
     title: string
@@ -9,17 +10,21 @@ type results = {
 }
 
 export default async function Landing({
-    d,
+    req,
+    r,
     query,
 }: {
-    d: D1Database
+    req: Request
+    r: Variables['READER_SESSIONS']
     query: string
 }) {
     try {
-        const { results, error, success } = await d.prepare(query).all()
+        let response = { message: 'There was an error:', data: [] }
+        const res = await r.query(req, query)
+        const results: { data: [] } = await res.json()
         return (
             <>
-                {results.map(
+                {results?.data?.map(
                     ({
                         title,
                         author,

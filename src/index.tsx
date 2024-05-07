@@ -19,7 +19,7 @@ import Nav from './components/nav'
 import Reset from './components/reset'
 import Delete from './components/reset'
 
-type Bindings = {
+export type Bindings = {
     POEMONGER_POEMS: D1Database
     POEMONGER_READER_CARTS: DurableObjectNamespace
     POEMONGER_READER_SESSIONS: DurableObjectNamespace
@@ -28,8 +28,15 @@ type Bindings = {
     DKIM_PRIVATE_KEY: string
 }
 
-type Variables = {
-    currentSession?: { cookie: string; currentSession: { created_at: string } }
+export type Variables = {
+    READER_SESSIONS: DurableObjectNamespace & {
+        query(arg: Request, arg1?: string, arg2?: boolean): Response
+        reply(): Response
+    }
+    currentSession?: {
+        cookie: string
+        currentSession: { created_at: string; session_id: string }
+    }
     currentSessionError?: { error: boolean; message: string }
 }
 
@@ -78,6 +85,20 @@ export async function loggedOutRedirect(
     if (!c.var.currentSession || c.var.currentSessionError) {
         return c.redirect('/login')
     } else await next()
+}
+
+export async function readerSessions(
+    c: Context<{ Bindings: Bindings; Variables: Variables }>,
+    next: Next
+) {
+    const id = c.var.currentSession
+        ? c.env.POEMONGER_READER_SESSIONS.idFromString(
+              c.var.currentSession.currentSession.session_id
+          )
+        : c.env.POEMONGER_READER_SESSIONS.newUniqueId()
+    const stub = c.env.POEMONGER_READER_SESSIONS.get(id)
+    c.set('READER_SESSIONS' as never, stub as never)
+    await next()
 }
 
 app.get('/signup', (c) =>
@@ -469,7 +490,7 @@ app.get('/delete', (c) =>
     )
 )
 
-app.get('/', async (c) => {
+app.get('/', readerSessions, async (c) => {
     if (c.var.currentSession && !c.var.currentSessionError) {
         return c.redirect('/read')
     }
@@ -479,6 +500,8 @@ app.get('/', async (c) => {
         assets: [<link rel="stylesheet" href="/static/styles/landing.css" />],
         children: (
             <Landing
+                req={c.req.raw}
+                r={c.var.READER_SESSIONS}
                 d={c.env.POEMONGER_POEMS}
                 query={
                     'select id, title, sample_section, sample_length, lines, video, json_extract(author, "$.id") as author_id, json_extract(author, "$.name") as author from poetry where json_extract(poetry.work, "$.id") = 2;'

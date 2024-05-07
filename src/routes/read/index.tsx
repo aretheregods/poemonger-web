@@ -2,6 +2,7 @@ import { Context, Hono } from 'hono'
 import { html } from 'hono/html'
 
 import { Base } from '../../Base'
+import { readerSessions } from '../../'
 
 type Bindings = {
     POEMONGER_READER_SESSIONS: DurableObjectNamespace
@@ -21,18 +22,7 @@ type Variables = {
 
 const read = new Hono<{ Bindings: Bindings; Variables: Variables }>()
 
-read.use(
-    async (c: Context<{ Bindings: Bindings; Variables: Variables }>, next) => {
-        const id = c.var.currentSession
-            ? c.env.POEMONGER_READER_SESSIONS.idFromString(
-                  c.var.currentSession.currentSession.session_id
-              )
-            : c.env.POEMONGER_READER_SESSIONS.newUniqueId()
-        const stub = c.env.POEMONGER_READER_SESSIONS.get(id)
-        c.set('READER_SESSIONS' as never, stub as never)
-        await next()
-    }
-)
+read.use(readerSessions)
 
 read.get('/', async (c) => {
     let response = { message: 'There was an error:', data: [] }
