@@ -502,7 +502,6 @@ app.get('/', readerSessions, async (c) => {
             <Landing
                 req={c.req.raw}
                 r={c.var.READER_SESSIONS}
-                d={c.env.POEMONGER_POEMS}
                 query={
                     'select id, title, sample_section, sample_length, lines, video, json_extract(author, "$.id") as author_id, json_extract(author, "$.name") as author from poetry where json_extract(poetry.work, "$.id") = 2;'
                 }
