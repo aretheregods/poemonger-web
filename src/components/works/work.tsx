@@ -26,7 +26,10 @@ export default function Work({
                 sizes="(min-width: 768px) 33vw,(min-width: 480px) 50vw,80vw"
             />
             <Price price={price} locale={locale} />
-            <button class="button">Read it now</button>
+            <section>
+                <button class="button">Read it now</button>
+                <button class="button buy-it-now">Buy it now</button>
+            </section>
         </section>
     )
 }

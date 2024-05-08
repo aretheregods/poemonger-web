@@ -60,6 +60,10 @@ button.button {
     justify-self: end;
     white-space: nowrap;
     text-decoration: none;
+
+    & .buy-it-now {
+        background-color: hsl(45, 97%, 75%);
+    }
 }
 
 a.button:hover,
@@ -70,6 +74,11 @@ button.button:hover {
     );
     color: white;
     transition: all 180ms ease-in-out;
+
+    & .buy-it-now {
+        background-color: hsl(45, 97%, 50%);
+        color: hsl(var(--button-text-color));
+    }
 }
 
 .book-cover {
