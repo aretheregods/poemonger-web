@@ -501,6 +501,10 @@ app.get('/delete', loggedOutRedirect, (c) =>
 )
 
 app.get('/audio/:audioId', async (c) => {
+    if (!c.var.currentSession || c.var.currentSessionError) {
+        return c.notFound()
+    }
+
     const { audioId } = c.req.param()
     const object = await c.env.STORAGE_MAIN.get(audioId)
 
