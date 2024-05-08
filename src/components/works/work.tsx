@@ -27,7 +27,7 @@ export default function Work({
             />
             <Price price={price} locale={locale} />
             <section class="read-purchase_buttons">
-                <button class="button">Read it now</button>
+                <button class="button">Read a bit</button>
                 <button class="button buy-it-now">Buy it now</button>
             </section>
         </section>
