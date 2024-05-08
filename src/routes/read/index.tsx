@@ -6,6 +6,8 @@ import { Poem } from '../../components/poetry'
 import { Work } from '../../components/works'
 import { readerSessions } from '../../'
 
+import { countries } from '../../utils'
+
 type Bindings = {
     POEMONGER_READER_SESSIONS: DurableObjectNamespace
 }
@@ -30,8 +32,7 @@ read.get('/', async (c) => {
     let response = { message: 'There was an error:', data: [] }
 
     try {
-        const query =
-            'select id, title, subtitle, cover from works where id = 1;'
+        const query = `select id, title, subtitle, json_extract(prices, "$.${c.req.raw.cf?.country}") as price cover from works where id = 1;`
         const r = await c.var.READER_SESSIONS.query(c.req.raw, query)
         response = await r.json()
     } catch (e) {
@@ -44,8 +45,12 @@ read.get('/', async (c) => {
         >
             <>
                 <h2>{response.message}</h2>
-                {response.data?.map(({ id, title, subtitle, cover }) => (
-                    <Work imgId={cover} />
+                {response.data?.map(({ id, title, subtitle, cover, price }) => (
+                    <Work
+                        imgId={cover}
+                        price={price}
+                        locale={c.req.raw.cf?.country as countries}
+                    />
                 )) || ''}
             </>
         </Base>
