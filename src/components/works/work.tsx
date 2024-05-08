@@ -4,10 +4,10 @@ export default function Work({ imgId }: { imgId: string }) {
     return (
         <section>
             <img
-                src={getImg(imgId, 'public')}
+                src={getImg(imgId, 'small')}
                 alt="A book cover"
-                width="300"
-                height="200"
+                width="400"
+                height="640"
                 loading="lazy"
                 decoding="async"
                 srcset={`${getImg(imgId, 'small')} 400w,${getImg(
