@@ -4,5 +4,7 @@
 
     & button.button {
         justify-self: center;
+        margin-block: 1rem;
+        padding-block: 1rem;
     }
 }
