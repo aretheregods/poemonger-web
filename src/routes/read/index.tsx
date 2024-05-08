@@ -38,7 +38,10 @@ read.get('/', async (c) => {
         response.message += ` ${e}`
     }
     return c.html(
-        <Base title="Poemonger | Read">
+        <Base
+            title="Poemonger | Read"
+            assets={[<link rel="stylesheet" href="/static/styles/work.css" />]}
+        >
             <>
                 <h2>{response.message}</h2>
                 {response.data?.map(({ id, title, subtitle, cover }) => (

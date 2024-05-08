@@ -2,7 +2,7 @@ import { getImg } from '../../utils'
 
 export default function Work({ imgId }: { imgId: string }) {
     return (
-        <section>
+        <section class="work-container">
             <img
                 src={getImg(imgId, 'medium')}
                 alt="A book cover"
