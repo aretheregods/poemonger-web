@@ -13,8 +13,11 @@
     }
 
     & .work-info {
-        display: flex;
+        display: grid;
+        width: 80%;
+        justify-content: space-around;
         justify-self: center;
+        grid-template-columns: 1fr 1fr;
 
         & .work-title {
             & em {
