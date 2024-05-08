@@ -23,7 +23,7 @@ export default function Work({
                 <figcaption>Listen to the first chapter</figcaption>
                 <audio
                     src={`/audio/${audioId}`}
-                    preload="none"
+                    preload="metadata"
                     controlslist="nodownload"
                     controls
                 ></audio>
