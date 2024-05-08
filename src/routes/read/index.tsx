@@ -63,7 +63,7 @@ read.get('/', async (c) => {
     )
 })
 
-read.get('/test', async (c) => {
+read.get('/:workId', async (c) => {
     let response = { message: 'There was an error:' }
 
     try {
