@@ -101,8 +101,12 @@ export async function readerSessions(
     await next()
 }
 
-app.get('/signup', (c) =>
-    c.html(
+app.get('/signup', (c) => {
+    if (c.var.currentSession || c.var.currentSessionError) {
+        return c.redirect('/read')
+    }
+
+    return c.html(
         <Base
             title="Poemonger | Sign Up"
             assets={[
@@ -120,7 +124,7 @@ app.get('/signup', (c) =>
             <SignUp />
         </Base>
     )
-)
+})
 
 app.post('/signup', async (c) => {
     var n = Date.now()
