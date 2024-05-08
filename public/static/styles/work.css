@@ -27,6 +27,7 @@
 
         & .work-price {
             font-size: larger;
+            justify-self: end;
         }
     }
 
