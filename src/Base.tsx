@@ -6,6 +6,7 @@ type pageValues = {
     header?: JSX.Element
     footer?: JSX.Element
     assets?: Array<JSX.Element>
+    loggedIn?: boolean
 }
 
 export const Base = ({
@@ -14,6 +15,7 @@ export const Base = ({
     header,
     footer,
     assets = [],
+    loggedIn = false,
 }: pageValues) => {
     return html`
         <!DOCTYPE html>
@@ -58,16 +60,22 @@ export const Base = ({
                             />
                         </a>
                         <section class="login-signup_links">
-                            <a href="/login" title="log in">
-                                Login
-                            </a>
-                            <a
-                                href="signup"
-                                title="sign up for better poetry"
-                                class="button"
-                            >
-                                Sign up
-                            </a>
+                            {loggedIn ? (
+                                <p>Logged In</p>
+                            ) : (
+                                <>
+                                    <a href="/login" title="log in">
+                                        Login
+                                    </a>
+                                    <a
+                                        href="signup"
+                                        title="sign up for better poetry"
+                                        class="button"
+                                    >
+                                        Sign up
+                                    </a>
+                                </>
+                            )}
                         </section>
                     </nav>
                 )}

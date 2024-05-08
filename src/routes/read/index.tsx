@@ -42,6 +42,7 @@ read.get('/', async (c) => {
         <Base
             title="Poemonger | Read"
             assets={[<link rel="stylesheet" href="/static/styles/work.css" />]}
+            loggedIn={!!c.var.currentSession}
         >
             <>
                 <h2>{response.message}</h2>
