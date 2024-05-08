@@ -23,3 +23,13 @@
         gap: 1rem;
     }
 }
+
+@media (width >= 320px) and (width <= 480px) {
+    .work-container figcaption {
+        text-align: center;
+    }
+
+    .work-container audio {
+        width: 50vw;
+    }
+}
