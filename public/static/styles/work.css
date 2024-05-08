@@ -14,6 +14,13 @@
 
     & .work-info {
         display: flex;
+        justify-self: center;
+
+        & .work-title {
+            & em {
+                font-weight: 400;
+            }
+        }
 
         & .work-price {
             font-size: larger;

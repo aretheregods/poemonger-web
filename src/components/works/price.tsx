@@ -22,7 +22,7 @@ export default function Price({
             <h4 class="work-title">
                 {title}{' '}
                 <span>
-                    <em>{subtitle}</em>
+                    <em>{subtitle ? `: ${subtitle}` : ''}</em>
                 </span>
             </h4>
             <p class="work-price">{fp}</p>
