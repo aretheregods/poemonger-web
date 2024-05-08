@@ -1,4 +1,8 @@
 .work-container {
     display: grid;
     justify-content: center;
+
+    & button.button {
+        justify-self: center;
+    }
 }
