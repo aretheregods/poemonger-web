@@ -14,6 +14,7 @@ export default function Work({ imgId }: { imgId: string }) {
                     imgId,
                     'medium'
                 )} 600w,${getImg(imgId, 'public')} 800w`}
+                sizes="(min-width: 66em) 33vw,(min-width: 44em) 50vw,100vw"
             />
         </section>
     )
