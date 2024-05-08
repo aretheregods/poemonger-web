@@ -7,11 +7,15 @@ export default function Work({
     price,
     locale,
     audioId,
+    title,
+    subtitle,
 }: {
     imgId: string
     price: number
     locale: countries
     audioId: string
+    title: string
+    subtitle: string
 }) {
     return (
         <section class="work-container">
@@ -36,7 +40,12 @@ export default function Work({
                 )} 600w,${getImg(imgId, 'public')} 800w`}
                 sizes="(min-width: 768px) 33vw,(min-width: 480px) 50vw,80vw"
             />
-            <Price price={price} locale={locale} />
+            <Price
+                price={price}
+                locale={locale}
+                title={title}
+                subtitle={subtitle}
+            />
             <section class="read-purchase_buttons">
                 <button class="button">Read a bit</button>
                 <button class="button buy-it-now">Buy it now</button>

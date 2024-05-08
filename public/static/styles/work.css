@@ -12,9 +12,12 @@
         justify-self: center;
     }
 
-    & .work-price {
-        font-size: larger;
-        text-align: center;
+    & .work-info {
+        display: flex;
+
+        & .work-price {
+            font-size: larger;
+        }
     }
 
     & .read-purchase_buttons {
@@ -34,7 +37,13 @@
 }
 
 @media (width >= 320px) and (width <= 480px) {
-    .work-container audio {
-        width: 50vw;
+    .work-container {
+        & .work-info {
+            width: 50vw;
+        }
+
+        & audio {
+            width: 50vw;
+        }
     }
 }
