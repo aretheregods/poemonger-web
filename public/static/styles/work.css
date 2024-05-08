@@ -43,6 +43,7 @@
 
         figcaption {
             text-align: center;
+            padding-block: 0.5rem;
         }
     }
 }
