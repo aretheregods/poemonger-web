@@ -4,7 +4,7 @@ export default function Work({ imgId }: { imgId: string }) {
     return (
         <section>
             <img
-                src={getImg(imgId, 'small')}
+                src={getImg(imgId, 'medium')}
                 alt="A book cover"
                 width="320"
                 height="512"
