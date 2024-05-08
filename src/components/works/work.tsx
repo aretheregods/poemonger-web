@@ -6,11 +6,11 @@ export default function Work({ imgId }: { imgId: string }) {
             <img
                 src={getImg(imgId, 'small')}
                 alt="A book cover"
-                width="400"
-                height="640"
+                width="320"
+                height="512"
                 loading="lazy"
                 decoding="async"
-                srcset={`${getImg(imgId, 'small')} 400w,${getImg(
+                srcset={`${getImg(imgId, 'small')} 320w,${getImg(
                     imgId,
                     'medium'
                 )} 600w,${getImg(imgId, 'public')} 800w`}
