@@ -23,8 +23,13 @@
         gap: 1rem;
     }
 
-    .work-audio figcaption {
-        text-align: center;
+    .work-audio {
+        display: grid;
+        justify-content: center;
+
+        figcaption {
+            text-align: center;
+        }
     }
 }
 
