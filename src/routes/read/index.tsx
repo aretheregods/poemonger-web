@@ -53,6 +53,8 @@ read.get('/', async (c) => {
                             price={price}
                             locale={c.req.raw.cf?.country as countries}
                             audioId={audio}
+                            title={title}
+                            subtitle={subtitle}
                         />
                     )
                 ) || ''}
