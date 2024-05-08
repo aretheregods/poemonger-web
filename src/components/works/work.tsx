@@ -17,7 +17,12 @@ export default function Work({
         <section class="work-container">
             <figure class="work-audio">
                 <figcaption>Listen to the first chapter</figcaption>
-                <audio src={`/audio/${audioId}`} controls></audio>
+                <audio
+                    src={`/audio/${audioId}`}
+                    preload="none"
+                    controlslist="nodownload"
+                    controls
+                ></audio>
             </figure>
             <img
                 src={getImg(imgId, 'medium')}
