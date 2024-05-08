@@ -6,13 +6,19 @@ export default function Work({
     imgId,
     price,
     locale,
+    audioId,
 }: {
     imgId: string
     price: number
     locale: countries
+    audioId: string
 }) {
     return (
         <section class="work-container">
+            <figure>
+                <figcaption>Listen to the first chapter</figcaption>
+                <audio src={`/audio/${audioId}`} controls></audio>
+            </figure>
             <img
                 src={getImg(imgId, 'medium')}
                 alt="A book cover"

@@ -32,7 +32,7 @@ read.get('/', async (c) => {
     let response = { message: 'There was an error:', data: [] }
 
     try {
-        const query = `select id, title, subtitle, json_extract(prices, "$.${c.req.raw.cf?.country}") as price, cover from works where id = 1;`
+        const query = `select id, title, subtitle, json_extract(prices, "$.${c.req.raw.cf?.country}") as price, cover, audio from works where id = 1;`
         const r = await c.var.READER_SESSIONS.query(c.req.raw, query)
         response = await r.json()
     } catch (e) {
@@ -46,13 +46,16 @@ read.get('/', async (c) => {
         >
             <>
                 <h2>{response.message}</h2>
-                {response.data?.map(({ id, title, subtitle, cover, price }) => (
-                    <Work
-                        imgId={cover}
-                        price={price}
-                        locale={c.req.raw.cf?.country as countries}
-                    />
-                )) || ''}
+                {response.data?.map(
+                    ({ id, title, subtitle, cover, audio, price }) => (
+                        <Work
+                            imgId={cover}
+                            price={price}
+                            locale={c.req.raw.cf?.country as countries}
+                            audioId={audio}
+                        />
+                    )
+                ) || ''}
             </>
         </Base>
     )

@@ -25,6 +25,7 @@ export type Bindings = {
     POEMONGER_READER_SESSIONS: DurableObjectNamespace
     USERS_KV: KVNamespace
     USERS_SESSIONS: KVNamespace
+    STORAGE_MAIN: R2Bucket
     DKIM_PRIVATE_KEY: string
 }
 
@@ -498,6 +499,23 @@ app.get('/delete', loggedOutRedirect, (c) =>
         </Base>
     )
 )
+
+app.get('/audio/:audioId', async (c) => {
+    const { audioId } = c.req.param()
+    const object = await c.env.STORAGE_MAIN.get(audioId)
+
+    if (object === null) {
+        return c.notFound()
+    }
+
+    const headers = new Headers()
+    object.writeHttpMetadata(headers)
+    headers.set('etag', object.httpEtag)
+
+    return new Response(object.body, {
+        headers,
+    })
+})
 
 app.get('/', readerSessions, async (c) => {
     if (c.var.currentSession && !c.var.currentSessionError) {
