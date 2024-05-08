@@ -61,7 +61,7 @@ button.button {
     white-space: nowrap;
     text-decoration: none;
 
-    & .buy-it-now {
+    &.buy-it-now {
         background-color: hsl(45, 97%, 75%);
     }
 }
@@ -75,7 +75,7 @@ button.button:hover {
     color: white;
     transition: all 180ms ease-in-out;
 
-    & .buy-it-now {
+    &.buy-it-now {
         background-color: hsl(45, 97%, 50%);
         color: hsl(var(--button-text-color));
     }
