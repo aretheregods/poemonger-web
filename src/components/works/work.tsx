@@ -15,7 +15,7 @@ export default function Work({
 }) {
     return (
         <section class="work-container">
-            <figure>
+            <figure class="work-audio">
                 <figcaption>Listen to the first chapter</figcaption>
                 <audio src={`/audio/${audioId}`} controls></audio>
             </figure>
