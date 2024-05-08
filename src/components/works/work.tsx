@@ -15,6 +15,7 @@ export default function Work({ imgId }: { imgId: string }) {
                 )} 600w,${getImg(imgId, 'public')} 800w`}
                 sizes="(min-width: 768px) 33vw,(min-width: 480px) 50vw,80vw"
             />
+            <button class="button">Read it now</button>
         </section>
     )
 }
