@@ -21,6 +21,7 @@ body {
 
 nav {
     display: inline-flex;
+    justify-content: space-around;
 }
 
 nav a {

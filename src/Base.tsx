@@ -57,6 +57,18 @@ export const Base = ({
                                 loading="eager"
                             />
                         </a>
+                        <section class="login-signup_links">
+                            <a href="/login" title="log in">
+                                Login
+                            </a>
+                            <a
+                                href="signup"
+                                title="sign up for better poetry"
+                                class="button"
+                            >
+                                Sign up
+                            </a>
+                        </section>
                     </nav>
                 )}
                 <main>${children}</main>
