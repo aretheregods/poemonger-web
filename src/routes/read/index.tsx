@@ -2,7 +2,7 @@ import { Context, Hono } from 'hono'
 import { html } from 'hono/html'
 
 import { Base } from '../../Base'
-import { Poem } from '../../components/poetry'
+import { WorkPurchase, WorkSample } from '../../components/read'
 import { Work } from '../../components/works'
 import { readerSessions } from '../../'
 
