@@ -7,4 +7,9 @@
         margin-block: 1rem;
         padding-block: 1rem;
     }
+
+    & .price {
+        font-size: larger;
+        text-align: center;
+    }
 }

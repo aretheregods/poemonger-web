@@ -13,5 +13,5 @@ export default function Price({
         currency: i.currency,
         currencyDisplay: 'narrowSymbol',
     }).format(price)
-    return <p>{fp}</p>
+    return <p class="work-price">{fp}</p>
 }
