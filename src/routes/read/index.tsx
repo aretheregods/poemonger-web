@@ -3,6 +3,7 @@ import { html } from 'hono/html'
 
 import { Base } from '../../Base'
 import { Poem } from '../../components/poetry'
+import { Work } from '../../components/works'
 import { readerSessions } from '../../'
 
 type Bindings = {
@@ -30,7 +31,7 @@ read.get('/', async (c) => {
 
     try {
         const query =
-            'select id, title, sample_section, sample_length, lines, video, json_extract(author, "$.id") as author_id, json_extract(author, "$.name") as author from poetry where json_extract(poetry.work, "$.id") = 2;'
+            'select id, title, subtitle, cover from works where id = 1;'
         const r = await c.var.READER_SESSIONS.query(c.req.raw, query)
         response = await r.json()
     } catch (e) {
@@ -40,28 +41,9 @@ read.get('/', async (c) => {
         <Base title="Poemonger | Read">
             <>
                 <h2>{response.message}</h2>
-                {response.data?.map(
-                    ({
-                        title,
-                        author,
-                        lines,
-                        video,
-                        sample_length,
-                        sample_section,
-                    }) => (
-                        <section class="poem-section-container">
-                            <Poem
-                                {...{
-                                    title,
-                                    author,
-                                    lines,
-                                    sample_length,
-                                    sample_section,
-                                }}
-                            />
-                        </section>
-                    )
-                ) || ''}
+                {response.data?.map(({ id, title, subtitle, cover }) => (
+                    <Work imgId={cover} />
+                )) || ''}
             </>
         </Base>
     )
