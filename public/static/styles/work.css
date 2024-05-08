@@ -8,6 +8,10 @@
         padding-block: 1rem;
     }
 
+    & .book-cover {
+        justify-self: center;
+    }
+
     & .work-price {
         font-size: larger;
         text-align: center;
