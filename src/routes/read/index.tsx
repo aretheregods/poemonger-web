@@ -68,7 +68,7 @@ read.get('/test', async (c) => {
         response.message += ` ${e}`
     }
     return c.html(
-        <Base title="Poemonger | Read - Test">
+        <Base title="Poemonger | Read - Test" loggedIn={!!c.var.currentSession}>
             <h2>{response.message}</h2>
         </Base>
     )

@@ -247,6 +247,10 @@ app.post('/signup', async (c) => {
 })
 
 app.get('/activate', async (c) => {
+    if (c.var.currentSession || c.var.currentSessionError) {
+        return c.redirect('/read')
+    }
+
     const e = c.req.query('user')
     const t = c.req.query('token')
     var error = false
@@ -442,7 +446,7 @@ app.post('/login', async (c) => {
     return c.json({ error, message, user })
 })
 
-app.get('/logout', (c) =>
+app.get('/logout', loggedOutRedirect, (c) =>
     c.html(
         <Base
             title="Poemonger | Logout"
@@ -452,6 +456,7 @@ app.get('/logout', (c) =>
                     src="/static/js/logout/index.js"
                 ></script>,
             ]}
+            loggedIn={!!c.var.currentSession}
         >
             <Logout />
         </Base>
@@ -478,17 +483,17 @@ app.post('/logout', async (c) => {
     }
 })
 
-app.get('/reset', (c) =>
+app.get('/reset', loggedOutRedirect, (c) =>
     c.html(
-        <Base title="Poemonger | Reset">
+        <Base title="Poemonger | Reset" loggedIn={!!c.var.currentSession}>
             <Reset />
         </Base>
     )
 )
 
-app.get('/delete', (c) =>
+app.get('/delete', loggedOutRedirect, (c) =>
     c.html(
-        <Base title="Poemonger | Delete">
+        <Base title="Poemonger | Delete" loggedIn={!!c.var.currentSession}>
             <Delete />
         </Base>
     )
