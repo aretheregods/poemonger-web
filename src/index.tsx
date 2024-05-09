@@ -174,7 +174,7 @@ app.post('/signup', async (c) => {
                     last_name: last_name,
                     created_at: n,
                     active: false,
-                    purchases: {},
+                    purchases: [],
                     cart_id: cart_id.toString(),
                     session_id: session_id.toString(),
                     hash,
@@ -384,6 +384,7 @@ app.post('/login', async (c) => {
         hash: string
         cart_id: string
         session_id: string
+        purchases: Array<string>
     }>(`user=${email}`, { type: 'json' })
     if (!u) {
         message = messages.exists
@@ -410,6 +411,7 @@ app.post('/login', async (c) => {
                             email: u.email,
                             cart_id: u.cart_id,
                             session_id: u.session_id,
+                            purchases: [],
                         }
 
                         await c.env.USERS_SESSIONS.put(
