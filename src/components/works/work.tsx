@@ -3,6 +3,7 @@ import { getImg } from '../../utils'
 import { countries } from '../../utils'
 
 export default function Work({
+    workId,
     imgId,
     price,
     locale,
@@ -10,6 +11,7 @@ export default function Work({
     title,
     subtitle,
 }: {
+    workId: number
     imgId: string
     price: number
     locale: countries
@@ -47,7 +49,9 @@ export default function Work({
                 subtitle={subtitle}
             />
             <section class="read-purchase_buttons">
-                <button class="button">Read a bit</button>
+                <a href={`/read/${workId}`} class="button">
+                    Read a bit
+                </a>
                 <button class="button buy-it-now">Buy it now</button>
             </section>
         </section>

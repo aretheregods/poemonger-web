@@ -16,10 +16,15 @@ type Variables = {
     READER_SESSIONS: DurableObjectNamespace & {
         query(arg: Request, arg1?: string, arg2?: boolean): Response
         purchase(): Response
+        getPurchase(arg: string): Response
     }
     currentSession?: {
         cookie: string
-        currentSession: { created_at: string; session_id: string }
+        currentSession: {
+            created_at: string
+            session_id: string
+            purchases: Array<string>
+        }
     }
     currentSessionError?: { error: boolean; message: string }
 }
@@ -49,6 +54,7 @@ read.get('/', async (c) => {
                 {response.data?.map(
                     ({ id, title, subtitle, cover, audio, price }) => (
                         <Work
+                            workId={id}
                             imgId={cover}
                             price={price}
                             locale={c.req.raw.cf?.country as countries}
@@ -64,17 +70,22 @@ read.get('/', async (c) => {
 })
 
 read.get('/:workId', async (c) => {
-    let response = { message: 'There was an error:' }
+    const workId = c.req.param('workId')
+    let response = { data: '', error: '' }
 
     try {
-        const r = await c.var.READER_SESSIONS.purchase()
+        const r = await c.var.READER_SESSIONS.getPurchase(workId)
         response = await r.json()
     } catch (e) {
-        response.message += ` ${e}`
+        response.error += ` ${e}`
     }
     return c.html(
         <Base title="Poemonger | Read - Test" loggedIn={!!c.var.currentSession}>
-            <h2>{response.message}</h2>
+            {response.data && !response.error ? (
+                <WorkPurchase workId={workId} />
+            ) : (
+                <WorkSample workId={workId} />
+            )}
         </Base>
     )
 })
