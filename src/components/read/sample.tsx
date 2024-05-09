@@ -23,6 +23,9 @@ export default function WorkSample({
                     <>
                         <section class="poem-section-container">
                             <>
+                                <section id="sample-info">
+                                    <h3>This is a sample</h3>
+                                </section>
                                 <Poem
                                     {...{
                                         title,
@@ -30,9 +33,6 @@ export default function WorkSample({
                                         lines: sample,
                                     }}
                                 />
-                                <section id="sample-info">
-                                    <h3>This is a sample</h3>
-                                </section>
                             </>
                         </section>
                         <section id="page-turners">
