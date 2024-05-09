@@ -76,6 +76,30 @@ read.get('/:workId', async (c) => {
     try {
         const r = await c.var.READER_SESSIONS.getPurchase(workId)
         response = await r.json()
+
+        return c.html(
+            <Base
+                title="Poemonger | Read - Test"
+                loggedIn={!!c.var.currentSession}
+            >
+                <>
+                    {response.purchase && !response.error && (
+                        <WorkPurchase
+                            workId={workId}
+                            poetry={response.poetry}
+                        />
+                    )}
+                    {!response.purchase && !response.error && (
+                        <WorkSample workId={workId} poetry={response.poetry} />
+                    )}
+                    {response.error && (
+                        <h2>
+                            There was an error getting poems: {response.error}
+                        </h2>
+                    )}
+                </>
+            </Base>
+        )
     } catch (e) {
         response.error += ` ${e}`
         return c.html(
@@ -84,22 +108,6 @@ read.get('/:workId', async (c) => {
             </Base>
         )
     }
-
-    return c.html(
-        <Base title="Poemonger | Read - Test" loggedIn={!!c.var.currentSession}>
-            <>
-                {response.purchase && !response.error && (
-                    <WorkPurchase workId={workId} poetry={response.poetry} />
-                )}
-                {!response.purchase && !response.error && (
-                    <WorkSample workId={workId} poetry={response.poetry} />
-                )}
-                {response.error && (
-                    <h2>There was an error getting poems: {response.error}</h2>
-                )}
-            </>
-        </Base>
-    )
 })
 
 export default read
