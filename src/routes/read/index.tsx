@@ -76,7 +76,7 @@ read.get('/:workId', async (c) => {
         purchase: boolean
         error: string
         poetry: Array<{
-            work: string
+            work: { title: string; chapter: number; chapters: number }
             title: string
             author: string
             sample?: Array<Array<string>>
@@ -95,6 +95,13 @@ read.get('/:workId', async (c) => {
             <Base
                 title="Poemonger | Read - Test"
                 loggedIn={!!c.var.currentSession}
+                assets={[
+                    <script
+                        type="module"
+                        src="/static/js/read/readWork.js"
+                        defer
+                    ></script>,
+                ]}
             >
                 <>
                     {response.purchase && !response.error && (

@@ -6,7 +6,7 @@ export default function WorkSample({
 }: {
     workId: string
     poetry: Array<{
-        work: string
+        work: { title: string; chapter: number; chapters: number }
         title: string
         author: string
         sample?: Array<Array<string>>
@@ -15,7 +15,10 @@ export default function WorkSample({
 }) {
     return (
         <>
-            {poetry?.map(({ title, author, sample }) => {
+            {poetry?.map(({ work, author, sample }) => {
+                const { title, chapter, chapters } = JSON.parse(
+                    work as unknown as string
+                )
                 return (
                     <>
                         <section class="poem-section-container">
@@ -26,6 +29,25 @@ export default function WorkSample({
                                     lines: sample,
                                 }}
                             />
+                        </section>
+                        <section id="page-turners">
+                            {chapter !== 1 && (
+                                <button
+                                    id="previous"
+                                    data-chapter={`${chapter - 1}`}
+                                    title={`/read/${chapter}?${chapter - 1}`}
+                                >
+                                    Previous
+                                </button>
+                            )}
+                            {chapter !== chapters && (
+                                <button
+                                    id="next"
+                                    data-chapter={`${chapter + 1}`}
+                                >
+                                    Next
+                                </button>
+                            )}
                         </section>
                     </>
                 )
