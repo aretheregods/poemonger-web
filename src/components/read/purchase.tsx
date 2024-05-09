@@ -4,7 +4,7 @@ export default function WorkPurchase({
 }: {
     workId: string
     poetry: Array<{
-        work: { title: string }
+        work: string
         author: string
         sample?: Array<Array<string>>
         lines?: Array<Array<string>>
