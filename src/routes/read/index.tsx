@@ -71,7 +71,7 @@ read.get('/', async (c) => {
 
 read.get('/:workId', async (c) => {
     const workId = c.req.param('workId')
-    let response = { purchase: '', error: '' }
+    let response = { purchase: '', error: '', poetry: [['']] }
 
     try {
         const r = await c.var.READER_SESSIONS.getPurchase(workId)
@@ -84,10 +84,13 @@ read.get('/:workId', async (c) => {
             >
                 <>
                     {response.purchase && !response.error && (
-                        <WorkPurchase workId={workId} />
+                        <WorkPurchase
+                            workId={workId}
+                            poetry={response.poetry}
+                        />
                     )}
                     {!response.purchase && !response.error && (
-                        <WorkSample workId={workId} />
+                        <WorkSample workId={workId} poetry={response.poetry} />
                     )}
                     {response.error && (
                         <h2>There was an error getting poems</h2>
