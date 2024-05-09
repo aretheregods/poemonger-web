@@ -9,8 +9,8 @@ export default function Poem({
     title: unknown
     author: unknown
     lines: unknown
-    sample_length: unknown
-    sample_section: unknown
+    sample_length?: unknown
+    sample_section?: unknown
     children?: JSX.Element
 }) {
     var l = JSON.parse(lines as string)

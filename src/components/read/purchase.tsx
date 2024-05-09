@@ -3,7 +3,12 @@ export default function WorkPurchase({
     poetry,
 }: {
     workId: string
-    poetry: Array<Array<string>>
+    poetry: Array<{
+        work: { title: string }
+        author: string
+        sample?: Array<Array<string>>
+        lines?: Array<Array<string>>
+    }>
 }) {
     return <h2>Purchase of {workId}</h2>
 }

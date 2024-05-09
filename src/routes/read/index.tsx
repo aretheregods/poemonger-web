@@ -71,7 +71,16 @@ read.get('/', async (c) => {
 
 read.get('/:workId', async (c) => {
     const workId = c.req.param('workId')
-    let response = { purchase: '', error: '', poetry: [['']] }
+    let response: {
+        purchase: boolean
+        error: string
+        poetry: Array<{
+            work: { title: string }
+            author: string
+            sample?: Array<Array<string>>
+            lines?: Array<Array<string>>
+        }>
+    }
 
     try {
         const r = await c.var.READER_SESSIONS.getPurchase(workId)
@@ -101,10 +110,9 @@ read.get('/:workId', async (c) => {
             </Base>
         )
     } catch (e) {
-        response.error += ` ${e}`
         return c.html(
             <Base title="Poemonger | Error" loggedIn={!!c.var.currentSession}>
-                <h2>There was an error getting poems: {response.error}</h2>
+                <h2>There was an error getting poems: {` ${e}`}</h2>
             </Base>
         )
     }

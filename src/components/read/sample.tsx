@@ -1,9 +1,35 @@
+import { Poem } from '../../components/poetry'
+
 export default function WorkSample({
     workId,
     poetry,
 }: {
     workId: string
-    poetry: Array<Array<string>>
+    poetry: Array<{
+        work: { title: string }
+        author: string
+        sample?: Array<Array<string>>
+        lines?: Array<Array<string>>
+    }>
 }) {
-    return <h2>Sample of {workId}</h2>
+    return (
+        <>
+            {poetry?.map(({ work, author, sample }) => {
+                var { title } = work
+                return (
+                    <>
+                        <section class="poem-section-container">
+                            <Poem
+                                {...{
+                                    title,
+                                    author,
+                                    lines: sample,
+                                }}
+                            />
+                        </section>
+                    </>
+                )
+            })}
+        </>
+    )
 }
