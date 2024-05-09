@@ -71,21 +71,30 @@ read.get('/', async (c) => {
 
 read.get('/:workId', async (c) => {
     const workId = c.req.param('workId')
-    let response = { data: '', error: '' }
+    let response = { purchase: '', error: '' }
 
     try {
         const r = await c.var.READER_SESSIONS.getPurchase(workId)
         response = await r.json()
     } catch (e) {
         response.error += ` ${e}`
+        c.html(
+            <Base title="Poemonger | Error" loggedIn={!!c.var.currentSession}>
+                <h2>There was an error getting poems</h2>
+            </Base>
+        )
     }
     return c.html(
         <Base title="Poemonger | Read - Test" loggedIn={!!c.var.currentSession}>
-            {response.data && !response.error ? (
-                <WorkPurchase workId={workId} />
-            ) : (
-                <WorkSample workId={workId} />
-            )}
+            <>
+                {response.purchase && !response.error && (
+                    <WorkPurchase workId={workId} />
+                )}{' '}
+                {!response.purchase && !response.error && (
+                    <WorkSample workId={workId} />
+                )}
+                {response.error && <h2>There was an error getting poems</h2>}
+            </>
         </Base>
     )
 })
