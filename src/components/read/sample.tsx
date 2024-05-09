@@ -22,13 +22,18 @@ export default function WorkSample({
                 return (
                     <>
                         <section class="poem-section-container">
-                            <Poem
-                                {...{
-                                    title,
-                                    author,
-                                    lines: sample,
-                                }}
-                            />
+                            <>
+                                <Poem
+                                    {...{
+                                        title,
+                                        author,
+                                        lines: sample,
+                                    }}
+                                />
+                                <section id="sample-info">
+                                    <h3>This is a sample</h3>
+                                </section>
+                            </>
                         </section>
                         <section id="page-turners">
                             {chapter !== 1 && (
