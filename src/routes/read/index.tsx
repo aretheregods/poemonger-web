@@ -93,7 +93,9 @@ read.get('/:workId', async (c) => {
                         <WorkSample workId={workId} poetry={response.poetry} />
                     )}
                     {response.error && (
-                        <h2>There was an error getting poems</h2>
+                        <h2>
+                            There was an error getting poems: {response.error}
+                        </h2>
                     )}
                 </>
             </Base>
@@ -102,7 +104,7 @@ read.get('/:workId', async (c) => {
         response.error += ` ${e}`
         return c.html(
             <Base title="Poemonger | Error" loggedIn={!!c.var.currentSession}>
-                <h2>There was an error getting poems</h2>
+                <h2>There was an error getting poems: {response.error}</h2>
             </Base>
         )
     }
