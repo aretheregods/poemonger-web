@@ -15,8 +15,8 @@ export default function WorkSample({
 }) {
     return (
         <>
-            {poetry?.map(({ work, author, sample }) => {
-                const { title, chapter, chapters } = JSON.parse(
+            {poetry?.map(({ work, title, author, sample }) => {
+                const { chapter, chapters } = JSON.parse(
                     work as unknown as string
                 )
                 return (
