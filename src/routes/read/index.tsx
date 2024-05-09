@@ -76,6 +76,7 @@ read.get('/:workId', async (c) => {
         error: string
         poetry: Array<{
             work: string
+            title: string
             author: string
             sample?: Array<Array<string>>
             lines?: Array<Array<string>>

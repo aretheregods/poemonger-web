@@ -7,6 +7,7 @@ export default function WorkSample({
     workId: string
     poetry: Array<{
         work: string
+        title: string
         author: string
         sample?: Array<Array<string>>
         lines?: Array<Array<string>>
@@ -14,13 +15,13 @@ export default function WorkSample({
 }) {
     return (
         <>
-            {poetry?.map(({ work, author, sample }) => {
+            {poetry?.map(({ title, author, sample }) => {
                 return (
                     <>
                         <section class="poem-section-container">
                             <Poem
                                 {...{
-                                    title: work,
+                                    title,
                                     author,
                                     lines: sample,
                                 }}
