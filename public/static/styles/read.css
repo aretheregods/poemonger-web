@@ -1,0 +1,9 @@
+#page-turners {
+    display: flex;
+    justify-content: space-between;
+}
+
+#page-buttons {
+    display: flex;
+    gap: 2rem;
+}
