@@ -36,6 +36,14 @@ export default function WorkSample({
                             </>
                         </section>
                         <section id="page-turners">
+                            <input
+                                id="page-range"
+                                type="range"
+                                value={chapter}
+                                min="1"
+                                max={chapters}
+                                step="1"
+                            />
                             {chapter !== 1 && (
                                 <button
                                     id="previous"
