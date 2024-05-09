@@ -35,6 +35,12 @@
         display: flex;
         justify-content: center;
         gap: 1rem;
+
+        & .read-a-bit {
+            height: max-content;
+            padding-block: 1rem;
+            align-self: center;
+        }
     }
 
     .work-audio {

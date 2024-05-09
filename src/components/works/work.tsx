@@ -49,7 +49,7 @@ export default function Work({
                 subtitle={subtitle}
             />
             <section class="read-purchase_buttons">
-                <a href={`/read/${workId}`} class="button">
+                <a href={`/read/${workId}`} class="button read-a-bit">
                     Read a bit
                 </a>
                 <button class="button buy-it-now">Buy it now</button>
