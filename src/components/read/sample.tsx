@@ -15,7 +15,7 @@ export default function WorkSample({
     return (
         <>
             {poetry?.map(({ work, author, sample }) => {
-                var { title } = work
+                var { title } = JSON.parse(work as string)
                 return (
                     <>
                         <section class="poem-section-container">

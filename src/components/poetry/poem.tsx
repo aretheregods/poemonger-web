@@ -2,8 +2,8 @@ export default function Poem({
     title,
     author,
     lines,
-    sample_length,
-    sample_section,
+    sample_length = 0,
+    sample_section = 0,
     children,
 }: {
     title: unknown
