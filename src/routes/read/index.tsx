@@ -16,7 +16,7 @@ type Variables = {
     READER_SESSIONS: DurableObjectNamespace & {
         query(arg: Request, arg1?: string, arg2?: boolean): Response
         purchase(): Response
-        getPurchase(arg: string): Response
+        getPurchase(arg: string, arg1?: number): Response
     }
     currentSession?: {
         cookie: string
@@ -71,6 +71,7 @@ read.get('/', async (c) => {
 
 read.get('/:workId', async (c) => {
     const workId = c.req.param('workId')
+    const chapter = c.req.query('chapter')
     let response: {
         purchase: boolean
         error: string
@@ -84,7 +85,10 @@ read.get('/:workId', async (c) => {
     }
 
     try {
-        const r = await c.var.READER_SESSIONS.getPurchase(workId)
+        const r = await c.var.READER_SESSIONS.getPurchase(
+            workId,
+            chapter ? parseInt(chapter) : (chapter as undefined)
+        )
         response = await r.json()
 
         return c.html(
