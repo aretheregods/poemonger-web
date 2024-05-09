@@ -34,6 +34,7 @@ export default function WorkSample({
                             {chapter !== 1 && (
                                 <button
                                     id="previous"
+                                    class="button"
                                     data-chapter={`${chapter - 1}`}
                                     title={`/read/${chapter}?${chapter - 1}`}
                                 >
@@ -43,6 +44,7 @@ export default function WorkSample({
                             {chapter !== chapters && (
                                 <button
                                     id="next"
+                                    class="button"
                                     data-chapter={`${chapter + 1}`}
                                 >
                                     Next
