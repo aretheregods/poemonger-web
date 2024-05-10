@@ -28,7 +28,7 @@ export default function WorkSample({
                                 <section id="sample-info">
                                     <h3>This is a sample</h3>
                                     <button class="button add-to-cart">
-                                        But it now
+                                        &#65291; Add to cart
                                     </button>
                                 </section>
                                 <Poem
