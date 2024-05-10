@@ -51,7 +51,7 @@
         }
     }
 
-    & .audio-video_tools {
+    & .audio-video_tools > * {
         border: solid 1px hsl(33, 99%, 33%);
         background-color: unset;
     }
