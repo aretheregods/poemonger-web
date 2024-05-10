@@ -13,6 +13,10 @@
     padding-inline: 2rem;
 }
 
+#page-range {
+    flex-grow: 1;
+}
+
 #page-buttons {
     display: flex;
     gap: 2rem;
