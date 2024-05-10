@@ -1,6 +1,7 @@
 .work-container {
     display: grid;
     justify-content: center;
+    width: min-content;
 
     & button.button {
         justify-self: center;
@@ -14,7 +15,6 @@
 
     & .work-info {
         display: grid;
-        width: 80%;
         justify-content: space-around;
         justify-self: center;
         grid-template-columns: 1fr 1fr;
@@ -35,7 +35,6 @@
         display: flex;
         flex-wrap: wrap;
         gap: 1rem;
-        padding-inline: 2rem;
 
         & > * {
             min-width: fit-content;
@@ -53,6 +52,9 @@
     .work-audio {
         display: grid;
         justify-content: center;
+        width: fit-content;
+        margin-inline: 0px;
+        justify-self: center;
 
         figcaption {
             text-align: center;
