@@ -1,6 +1,6 @@
 .poem-section-container {
-    min-height: calc(100vh - 8rem);
-    max-height: calc(100vh - 8rem);
+    min-height: calc(100vh - 8.5rem);
+    max-height: calc(100vh - 8.5rem);
     overflow-x: scroll;
     width: fit-content;
     justify-self: center;
