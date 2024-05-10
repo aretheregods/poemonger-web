@@ -33,8 +33,15 @@
 
     & .read-purchase_buttons {
         display: flex;
-        justify-content: center;
+        flex-wrap: wrap;
         gap: 1rem;
+        padding-inline: 2rem;
+
+        & > * {
+            min-width: fit-content;
+            flex: 1;
+            text-align: center;
+        }
 
         & .read-a-bit {
             height: max-content;
