@@ -1,3 +1,9 @@
+.poem-section-container {
+    min-height: calc(100vh - 8rem);
+    max-height: calc(100vh - 8rem);
+    overflow-x: scroll;
+}
+
 #page-turners {
     display: flex;
     justify-content: space-between;
