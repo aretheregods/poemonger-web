@@ -2,12 +2,15 @@
     min-height: calc(100vh - 8rem);
     max-height: calc(100vh - 8rem);
     overflow-x: scroll;
+    width: fit-content;
+    justify-self: center;
 }
 
 #page-turners {
     display: flex;
     justify-content: space-between;
-    width: 100%;
+    width: 100vw;
+    padding-inline: 2rem;
 }
 
 #page-buttons {
