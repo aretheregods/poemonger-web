@@ -26,7 +26,6 @@ export default function Work({
                     <button
                         data-work-id={workId}
                         class="button audio-poem_trigger"
-                        data-visible="0"
                     >
                         Audio poem
                     </button>
@@ -44,6 +43,9 @@ export default function Work({
                         ></audio>
                     </figure>
                 </section>
+                <button data-work-id={workId} class="button video-poem_trigger">
+                    Video poem
+                </button>
             </section>
             <img
                 src={getImg(imgId, 'medium')}
