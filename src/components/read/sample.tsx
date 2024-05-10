@@ -45,27 +45,24 @@ export default function WorkSample({
                                 step="1"
                             />
                             <section id="page-buttons">
-                                {chapter !== 1 && (
-                                    <button
-                                        id="previous"
-                                        class="button"
-                                        data-chapter={`${chapter - 1}`}
-                                        title={`/read/${chapter}?${
-                                            chapter - 1
-                                        }`}
-                                    >
-                                        &#10216;
-                                    </button>
-                                )}
-                                {chapter !== chapters && (
-                                    <button
-                                        id="next"
-                                        class="button"
-                                        data-chapter={`${chapter + 1}`}
-                                    >
-                                        &#10217;
-                                    </button>
-                                )}
+                                <button
+                                    id="previous"
+                                    class="button"
+                                    data-chapter={`${chapter - 1}`}
+                                    title={`/read/${chapter}?${chapter - 1}`}
+                                    disabled={chapter === 1}
+                                >
+                                    &#10216;
+                                </button>
+
+                                <button
+                                    id="next"
+                                    class="button"
+                                    data-chapter={`${chapter + 1}`}
+                                    disabled={chapter === chapters}
+                                >
+                                    &#10217;
+                                </button>
                             </section>
                         </section>
                     </>
