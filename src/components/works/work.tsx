@@ -31,7 +31,7 @@ export default function Work({
                         Audio poem
                     </button>
                     <figure
-                        data-work-id={workId}
+                        id={`audio-poem_player-${workId}`}
                         class="work-audio audio-poem_player"
                         style="display: none;"
                     >
