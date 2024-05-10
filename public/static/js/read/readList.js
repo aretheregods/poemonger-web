@@ -7,7 +7,7 @@ var app = document.querySelectorAll('.audio-poem_player')
 
 app.forEach((a) => {
     a.addEventListener(`toggleAudioPlayer_${a.dataset.workId}`, (e) => {
-        if (e.target.style.display) e.target.removeAttribute('style')
+        if (e.target.hasAttribute('style')) e.target.removeAttribute('style')
         else e.target.setAttribute('style', 'display: none;')
     })
 })
