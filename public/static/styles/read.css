@@ -11,6 +11,7 @@
     justify-content: space-between;
     width: 100vw;
     padding-inline: 2rem;
+    gap: 2rem;
 }
 
 #page-range {

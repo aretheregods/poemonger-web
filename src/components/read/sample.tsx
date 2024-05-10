@@ -54,7 +54,10 @@ export default function WorkSample({
                                 >
                                     &#10216;
                                 </button>
-
+                                <p>
+                                    <span id="chapter-number">{chapter}</span>/
+                                    <span id="chapters-total">{chapters}</span>
+                                </p>
                                 <button
                                     id="next"
                                     class="button"
