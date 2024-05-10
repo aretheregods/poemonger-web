@@ -50,7 +50,6 @@ read.get('/', async (c) => {
             loggedIn={!!c.var.currentSession}
         >
             <>
-                <h2>{response.message}</h2>
                 {response.data?.map(
                     ({ id, title, subtitle, cover, audio, price }) => (
                         <Work
