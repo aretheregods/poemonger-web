@@ -18,6 +18,7 @@
         justify-content: space-around;
         justify-self: center;
         grid-template-columns: 1fr 1fr;
+        width: 100%;
 
         & .work-title {
             & em {
@@ -65,10 +66,6 @@
 
 @media (width >= 320px) and (width <= 480px) {
     .work-container {
-        & .work-info {
-            width: 50vw;
-        }
-
         & audio {
             width: 50vw;
         }
