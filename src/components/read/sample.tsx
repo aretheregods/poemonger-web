@@ -40,7 +40,7 @@ export default function WorkSample({
                                 />
                                 {!single && (
                                     <>
-                                        <hr />
+                                        <hr id="poem-sample_separator" />
                                         <button class="button buy-it-now">
                                             &#128214; Buy it now
                                         </button>

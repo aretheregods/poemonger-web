@@ -34,7 +34,7 @@
     }
 }
 
-hr {
+#poem-sample_separator {
     border: none;
     border-top: 3px double #333;
     color: #333;
@@ -44,7 +44,7 @@ hr {
     width: 100%;
 }
 
-hr::after {
+#poem-sample_separator::after {
     font-weight: 800;
     background: #fff;
     content: 'Sample: Not the full work';
