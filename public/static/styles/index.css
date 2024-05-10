@@ -61,7 +61,7 @@ button.button {
     white-space: nowrap;
     text-decoration: none;
 
-    &.buy-it-now {
+    &.add-to-cart {
         background-color: hsl(45, 97%, 75%);
     }
 }
