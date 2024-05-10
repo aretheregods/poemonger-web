@@ -87,7 +87,8 @@ read.get('/:workId', async (c) => {
     try {
         const r = await c.var.READER_SESSIONS.getPurchase(
             workId,
-            chapter ? parseInt(chapter) : (chapter as undefined)
+            chapter ? parseInt(chapter) : (chapter as undefined),
+            true
         )
         response = await r.json()
 
