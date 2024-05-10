@@ -34,6 +34,10 @@
     }
 }
 
+#poem-sample_buy-it-now {
+    display: grid;
+}
+
 #poem-sample_separator {
     border: none;
     border-top: 3px double #333;
