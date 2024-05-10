@@ -41,6 +41,12 @@
         margin-block: 1rem;
         padding: 1rem 1.5rem;
         justify-self: center;
+        background-color: hsl(25, 99%, 75%);
+
+        &:hover {
+            background-color: hsl(25, 99%, 50%);
+            color: inherit;
+        }
     }
 }
 
