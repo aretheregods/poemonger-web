@@ -27,7 +27,7 @@ export default function WorkSample({
                             <>
                                 <section id="sample-info">
                                     <h3>This is a sample</h3>
-                                    <button class="button buy-it-now">
+                                    <button class="button add-to-cart">
                                         But it now
                                     </button>
                                 </section>

@@ -75,7 +75,7 @@ button.button:hover {
     color: white;
     transition: all 180ms ease-in-out;
 
-    &.buy-it-now {
+    &.add-to-cart {
         background-color: hsl(45, 97%, 50%);
         color: hsl(var(--button-text-color));
     }
