@@ -13,7 +13,7 @@ app.forEach((a) => {
 })
 
 apt.forEach((a) => {
-    a.addEventListener('click', (e) => {
+    a.addEventListener('click', function (e) {
         this.dispatchEvent(
             new CustomEvent(`toggleAudioPlayer_${e.target.dataset.workId}`, {
                 bubbles: true,
