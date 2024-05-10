@@ -46,7 +46,14 @@ read.get('/', async (c) => {
     return c.html(
         <Base
             title="Poemonger | Read"
-            assets={[<link rel="stylesheet" href="/static/styles/work.css" />]}
+            assets={[
+                <link rel="stylesheet" href="/static/styles/work.css" />,
+                <script
+                    type="module"
+                    src="/static/js/read/readList.js"
+                    defer
+                ></script>,
+            ]}
             loggedIn={!!c.var.currentSession}
         >
             <>

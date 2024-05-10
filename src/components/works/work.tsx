@@ -24,13 +24,17 @@ export default function Work({
             <section class="audio-video_tools">
                 <section class="audio-tools">
                     <button
-                        id={`audio-button_work-${workId}`}
-                        class="button audio-poem"
+                        data-work-id={workId}
+                        class="button audio-poem_trigger"
                         data-visible="0"
                     >
                         Audio poem
                     </button>
-                    <figure id={`audio_work-${workId}`} class="work-audio">
+                    <figure
+                        data-work-id={workId}
+                        class="work-audio audio-poem_player"
+                        style="display: none;"
+                    >
                         <figcaption>Listen to the first chapter</figcaption>
                         <audio
                             src={`/audio/${audioId}`}
