@@ -96,6 +96,7 @@ read.get('/:workId', async (c) => {
                 title="Poemonger | Read - Test"
                 loggedIn={!!c.var.currentSession}
                 assets={[
+                    <link rel="stylesheet" href="/static/styles/read.css" />,
                     <script
                         type="module"
                         src="/static/js/read/readWork.js"
