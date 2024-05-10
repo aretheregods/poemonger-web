@@ -23,10 +23,10 @@ export default function Work({
         <section class="work-container">
             <section class="audio-video_tools flexible-buttons">
                 <button data-work-id={workId} class="button audio-poem_trigger">
-                    Audio poem
+                    &#127911; Audio poem
                 </button>
                 <button data-work-id={workId} class="button video-poem_trigger">
-                    Video poem
+                    &#9658; Video poem
                 </button>
             </section>
             <figure

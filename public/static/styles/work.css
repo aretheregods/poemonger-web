@@ -51,7 +51,12 @@
         }
     }
 
-    .work-audio {
+    & .audio-video_tools {
+        border: solid 1px hsl(33, 99%, 33%);
+        background-color: unset;
+    }
+
+    & .work-audio {
         display: grid;
         justify-content: center;
         width: fit-content;
