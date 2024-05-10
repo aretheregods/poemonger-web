@@ -12,7 +12,7 @@ apt.forEach((a) => {
         else
             e.target.setAttribute(
                 'style',
-                'background-color: hsl( 244, 84%, calc(79% - 20%) ); color: white;'
+                'background-color: hsl( 244, 84%, 79% ); color: white;'
             )
     })
 })
