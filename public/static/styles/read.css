@@ -35,7 +35,6 @@
 }
 
 hr {
-    display: inline;
     border: none;
     border-top: 3px double #333;
     color: #333;
@@ -46,6 +45,7 @@ hr {
 }
 
 hr::after {
+    font-weight: 800;
     background: #fff;
     content: 'Sample: Not the full work';
     padding: 0 4px;
