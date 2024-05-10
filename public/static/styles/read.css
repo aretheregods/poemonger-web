@@ -22,3 +22,13 @@
     display: flex;
     gap: 2rem;
 }
+
+#sample-info {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2rem;
+
+    & > * {
+        flex: 1;
+    }
+}
