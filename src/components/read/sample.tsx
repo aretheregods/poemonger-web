@@ -37,6 +37,7 @@ export default function WorkSample({
                                         lines: sample,
                                     }}
                                 />
+                                {chapter === 1 && <hr />}
                             </>
                         </section>
                         <Pagination {...{ chapter, chapters }} />
