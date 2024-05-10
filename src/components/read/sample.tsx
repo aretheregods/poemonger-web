@@ -38,7 +38,14 @@ export default function WorkSample({
                                         lines: sample,
                                     }}
                                 />
-                                {!single && <hr />}
+                                {!single && (
+                                    <>
+                                        <hr />
+                                        <button class="button buy-it-now">
+                                            &#128214; Buy it now
+                                        </button>
+                                    </>
+                                )}
                             </>
                         </section>
                         <Pagination {...{ chapter, chapters }} />
