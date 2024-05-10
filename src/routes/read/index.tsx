@@ -16,7 +16,7 @@ type Variables = {
     READER_SESSIONS: DurableObjectNamespace & {
         query(arg: Request, arg1?: string, arg2?: boolean): Response
         purchase(): Response
-        getPurchase(arg: string, arg1?: number): Response
+        getPurchase(arg: string, arg1?: number, arg2?: boolean): Response
     }
     currentSession?: {
         cookie: string
@@ -78,6 +78,7 @@ read.get('/:workId', async (c) => {
             work: { title: string; chapter: number; chapters: number }
             title: string
             author: string
+            single: boolean
             sample?: Array<Array<string>>
             lines?: Array<Array<string>>
         }>

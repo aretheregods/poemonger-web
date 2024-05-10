@@ -10,13 +10,14 @@ export default function WorkSample({
         work: { title: string; chapter: number; chapters: number }
         title: string
         author: string
+        single: boolean
         sample?: Array<Array<string>>
         lines?: Array<Array<string>>
     }>
 }) {
     return (
         <>
-            {poetry?.map(({ work, title, author, sample }) => {
+            {poetry?.map(({ work, title, author, single, sample }) => {
                 const { chapter, chapters } = JSON.parse(
                     work as unknown as string
                 )
@@ -37,7 +38,7 @@ export default function WorkSample({
                                         lines: sample,
                                     }}
                                 />
-                                {chapter !== 1 && <hr />}
+                                {!single && <hr />}
                             </>
                         </section>
                         <Pagination {...{ chapter, chapters }} />
