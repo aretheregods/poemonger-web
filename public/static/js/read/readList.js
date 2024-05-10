@@ -7,5 +7,12 @@ apt.forEach((a) => {
         )
         if (app.hasAttribute('style')) app.removeAttribute('style')
         else app.setAttribute('style', 'display: none;')
+
+        if (e.target.hasAttribute('style')) e.target.removeAttribute('style')
+        else
+            e.target.setAttribute(
+                'style',
+                'background-color: hsl( 244, 84%, calc(79% - 20%) ); color: white;'
+            )
     })
 })
