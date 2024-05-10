@@ -25,7 +25,10 @@ export default function Price({
                     <em>{subtitle ? `| ${subtitle}` : ''}</em>
                 </span>
             </h4>
-            <p class="work-price">{fp}</p>
+            <section class="add-to-cart">
+                <button class="button">&#65291; &#128722;</button>
+                <p class="work-price">{fp}</p>
+            </section>
         </section>
     )
 }
