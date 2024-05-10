@@ -21,15 +21,26 @@ export default function Work({
 }) {
     return (
         <section class="work-container">
-            <figure class="work-audio">
-                <figcaption>Listen to the first chapter</figcaption>
-                <audio
-                    src={`/audio/${audioId}`}
-                    preload="metadata"
-                    controlslist="nodownload"
-                    controls
-                ></audio>
-            </figure>
+            <section class="audio-video_tools">
+                <section class="audio-tools">
+                    <button
+                        id={`audio-button_work-${workId}`}
+                        class="button audio-poem"
+                        data-visible="0"
+                    >
+                        Audio poem
+                    </button>
+                    <figure id={`audio_work-${workId}`} class="work-audio">
+                        <figcaption>Listen to the first chapter</figcaption>
+                        <audio
+                            src={`/audio/${audioId}`}
+                            preload="metadata"
+                            controlslist="nodownload"
+                            controls
+                        ></audio>
+                    </figure>
+                </section>
+            </section>
             <img
                 src={getImg(imgId, 'medium')}
                 alt="A book cover"
