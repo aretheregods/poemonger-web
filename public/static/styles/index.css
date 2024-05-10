@@ -81,6 +81,17 @@ button.button:hover {
     }
 }
 
+.flexible-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+
+    & > * {
+        flex: 1;
+        min-width: fit-content;
+    }
+}
+
 .book-cover {
     aspect-ratio: 10 / 16;
 }

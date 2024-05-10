@@ -21,32 +21,27 @@ export default function Work({
 }) {
     return (
         <section class="work-container">
-            <section class="audio-video_tools">
-                <section class="audio-tools">
-                    <button
-                        data-work-id={workId}
-                        class="button audio-poem_trigger"
-                    >
-                        Audio poem
-                    </button>
-                    <figure
-                        id={`audio-poem_player-${workId}`}
-                        class="work-audio audio-poem_player"
-                        style="display: none;"
-                    >
-                        <figcaption>Listen to the first chapter</figcaption>
-                        <audio
-                            src={`/audio/${audioId}`}
-                            preload="metadata"
-                            controlslist="nodownload"
-                            controls
-                        ></audio>
-                    </figure>
-                </section>
+            <section class="audio-video_tools flexible-buttons">
+                <button data-work-id={workId} class="button audio-poem_trigger">
+                    Audio poem
+                </button>
                 <button data-work-id={workId} class="button video-poem_trigger">
                     Video poem
                 </button>
             </section>
+            <figure
+                id={`audio-poem_player-${workId}`}
+                class="work-audio audio-poem_player"
+                style="display: none;"
+            >
+                <figcaption>Listen to the first chapter</figcaption>
+                <audio
+                    src={`/audio/${audioId}`}
+                    preload="metadata"
+                    controlslist="nodownload"
+                    controls
+                ></audio>
+            </figure>
             <img
                 src={getImg(imgId, 'medium')}
                 alt="A book cover"
