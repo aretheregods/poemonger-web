@@ -26,6 +26,9 @@ export default function WorkSample({
                             <>
                                 <section id="sample-info">
                                     <h3>This is a sample</h3>
+                                    <button class="button buy-it-now">
+                                        But it now
+                                    </button>
                                 </section>
                                 <Poem
                                     {...{

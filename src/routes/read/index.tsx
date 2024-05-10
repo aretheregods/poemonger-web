@@ -92,7 +92,7 @@ read.get('/:workId', async (c) => {
 
         return c.html(
             <Base
-                title="Poemonger | Read - Test"
+                title={`Poemonger | Read - ${workId}`}
                 loggedIn={!!c.var.currentSession}
                 assets={[
                     <link rel="stylesheet" href="/static/styles/read.css" />,
