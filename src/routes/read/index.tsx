@@ -63,7 +63,7 @@ read.get('/', async (c) => {
                 ></script>,
             ]}
             loggedIn={!!c.var.currentSession}
-            shoppingCartCount={cartValue.size()}
+            shoppingCartCount={cartValue.data.size()}
         >
             <>
                 {response.data?.map(
@@ -77,7 +77,9 @@ read.get('/', async (c) => {
                                 audioId={audio}
                                 title={title}
                                 subtitle={subtitle}
-                                itemInCart={!!cartValue.get(`items.${workId}`)}
+                                itemInCart={
+                                    !!cartValue.data.get(`items.${workId}`)
+                                }
                             />
                         )
                     }
