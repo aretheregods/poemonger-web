@@ -1,4 +1,4 @@
-import { HTTP } from '../utils/http/index.js'
+import HTTP from '../utils/http/index.js'
 
 var query = new HTTP()
 var apt = document.querySelectorAll('.audio-poem_trigger')
