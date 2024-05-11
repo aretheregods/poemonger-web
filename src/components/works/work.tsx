@@ -10,6 +10,7 @@ export default function Work({
     audioId,
     title,
     subtitle,
+    itemInCart,
 }: {
     workId: number
     imgId: string
@@ -18,6 +19,7 @@ export default function Work({
     audioId: string
     title: string
     subtitle: string
+    itemInCart: boolean
 }) {
     return (
         <section class="work-container">
@@ -67,7 +69,7 @@ export default function Work({
                 <button
                     class="button add-to-cart"
                     data-work-id={workId}
-                    data-added="0"
+                    data-added={itemInCart ? 1 : 0}
                 >
                     &#65291; Add to cart
                 </button>

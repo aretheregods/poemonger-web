@@ -13,6 +13,7 @@ type Variables = {
         getCartCount(): Response
         getCart(): Response
         deleteFromCart(workId: string): Response
+        itemInCart(workId: string): Response
     }
     currentSession?: {
         cookie: string

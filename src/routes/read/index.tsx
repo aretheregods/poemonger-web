@@ -21,6 +21,7 @@ type Variables = {
     READER_CARTS: DurableObjectNamespace & {
         addToCart(workId: string): Response
         getCartCount(): Response
+        itemInCart(workId: string): Response
     }
     currentSession?: {
         cookie: string
@@ -66,17 +67,22 @@ read.get('/', async (c) => {
         >
             <>
                 {response.data?.map(
-                    ({ id, title, subtitle, cover, audio, price }) => (
-                        <Work
-                            workId={id}
-                            imgId={cover}
-                            price={price}
-                            locale={c.req.raw.cf?.country as countries}
-                            audioId={audio}
-                            title={title}
-                            subtitle={subtitle}
-                        />
-                    )
+                    async ({ id, title, subtitle, cover, audio, price }) => {
+                        const i = await c.var.READER_CARTS.itemInCart(id)
+                        const itemInCart = i.json()
+                        return (
+                            <Work
+                                workId={id}
+                                imgId={cover}
+                                price={price}
+                                locale={c.req.raw.cf?.country as countries}
+                                audioId={audio}
+                                title={title}
+                                subtitle={subtitle}
+                                itemInCart={!!itemInCart.value}
+                            />
+                        )
+                    }
                 ) || ''}
             </>
         </Base>
