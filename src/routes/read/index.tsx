@@ -48,45 +48,95 @@ read.get('/', async (c) => {
         const cartCount = await c.var.READER_CARTS.getCartCount()
         response = await r.json()
         const cartValue = await cartCount.json()
+        return c.html(
+            <Base
+                title="Poemonger | Read"
+                assets={[
+                    <link rel="stylesheet" href="/static/styles/work.css" />,
+                    <script
+                        type="module"
+                        src="/static/js/read/readList.js"
+                        defer
+                    ></script>,
+                ]}
+                loggedIn={!!c.var.currentSession}
+                shoppingCartCount={cartValue.count}
+            >
+                <>
+                    {response.data?.map(
+                        async ({
+                            id,
+                            title,
+                            subtitle,
+                            cover,
+                            audio,
+                            price,
+                        }) => {
+                            const i = await c.var.READER_CARTS.itemInCart(id)
+                            const itemInCart = i.json()
+                            return (
+                                <Work
+                                    workId={id}
+                                    imgId={cover}
+                                    price={price}
+                                    locale={c.req.raw.cf?.country as countries}
+                                    audioId={audio}
+                                    title={title}
+                                    subtitle={subtitle}
+                                    itemInCart={!!itemInCart.value}
+                                />
+                            )
+                        }
+                    ) || ''}
+                </>
+            </Base>
+        )
     } catch (e) {
         response.message += ` ${e}`
+        return c.html(
+            <Base
+                title="Poemonger | Read"
+                assets={[
+                    <link rel="stylesheet" href="/static/styles/work.css" />,
+                    <script
+                        type="module"
+                        src="/static/js/read/readList.js"
+                        defer
+                    ></script>,
+                ]}
+                loggedIn={!!c.var.currentSession}
+                shoppingCartCount={cartValue.count}
+            >
+                <>
+                    {response.data?.map(
+                        async ({
+                            id,
+                            title,
+                            subtitle,
+                            cover,
+                            audio,
+                            price,
+                        }) => {
+                            const i = await c.var.READER_CARTS.itemInCart(id)
+                            const itemInCart = i.json()
+                            return (
+                                <Work
+                                    workId={id}
+                                    imgId={cover}
+                                    price={price}
+                                    locale={c.req.raw.cf?.country as countries}
+                                    audioId={audio}
+                                    title={title}
+                                    subtitle={subtitle}
+                                    itemInCart={!!itemInCart.value}
+                                />
+                            )
+                        }
+                    ) || ''}
+                </>
+            </Base>
+        )
     }
-    return c.html(
-        <Base
-            title="Poemonger | Read"
-            assets={[
-                <link rel="stylesheet" href="/static/styles/work.css" />,
-                <script
-                    type="module"
-                    src="/static/js/read/readList.js"
-                    defer
-                ></script>,
-            ]}
-            loggedIn={!!c.var.currentSession}
-            shoppingCartCount={cartValue.count}
-        >
-            <>
-                {response.data?.map(
-                    async ({ id, title, subtitle, cover, audio, price }) => {
-                        const i = await c.var.READER_CARTS.itemInCart(id)
-                        const itemInCart = i.json()
-                        return (
-                            <Work
-                                workId={id}
-                                imgId={cover}
-                                price={price}
-                                locale={c.req.raw.cf?.country as countries}
-                                audioId={audio}
-                                title={title}
-                                subtitle={subtitle}
-                                itemInCart={!!itemInCart.value}
-                            />
-                        )
-                    }
-                ) || ''}
-            </>
-        </Base>
-    )
 })
 
 read.get('/:workId', async (c) => {
