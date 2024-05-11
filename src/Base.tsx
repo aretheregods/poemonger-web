@@ -3,6 +3,7 @@ import { html } from 'hono/html'
 type pageValues = {
     children?: JSX.Element
     title: string
+    shoppingCartCount?: number
     header?: JSX.Element
     footer?: JSX.Element
     assets?: Array<JSX.Element>
@@ -16,6 +17,7 @@ export const Base = ({
     footer,
     assets = [],
     loggedIn = false,
+    shoppingCartCount = 0,
 }: pageValues) => {
     return html`
         <!DOCTYPE html>
@@ -61,7 +63,12 @@ export const Base = ({
                         </a>
                         <section class="login-signup_links">
                             {loggedIn ? (
-                                <p>Logged In</p>
+                                <>
+                                    <h2 id="shopping-cart_nav">
+                                        {shoppingCartCount} &#128722;
+                                    </h2>
+                                    <p>Logged In</p>
+                                </>
                             ) : (
                                 <>
                                     <a href="/login" title="log in">
