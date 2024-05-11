@@ -11,6 +11,7 @@ type Variables = {
     READER_CARTS: DurableObjectNamespace & {
         addToCart(workId: string): Response
         getCartCount(): Response
+        getCart(): Response
     }
     currentSession?: {
         cookie: string
@@ -38,7 +39,7 @@ cart.get('/', async (c) => {
     let response = { message: 'There was an error:' }
 
     try {
-        const r = await c.var.READER_CARTS.addToCart('1')
+        const r = await c.var.READER_CARTS.getCart()
         response = await r.json()
     } catch (e) {
         response.message += ` ${e}`
@@ -50,20 +51,30 @@ cart.get('/', async (c) => {
     )
 })
 
-cart.get('/test', async (c) => {
-    let response = { message: 'There was an error:' }
+cart.get('/count', async (c) => {
+    let response = { count: 0, error: '' }
 
     try {
         const r = await c.var.READER_CARTS.getCartCount()
         response = await r.json()
     } catch (e) {
+        response.error += e
+    }
+
+    return c.json(response)
+})
+
+cart.post('/:workId', async (c) => {
+    const workId = c.req.param('workId')
+    let response = { message: 'There was an error:' }
+
+    try {
+        const r = await c.var.READER_CARTS.addToCart(workId)
+        response = await r.json()
+    } catch (e) {
         response.message += ` ${e}`
     }
-    return c.html(
-        <Base title="Poemonger | Cart - Test">
-            <h2>{response.message}</h2>
-        </Base>
-    )
+    return c.json(response)
 })
 
 export default cart
