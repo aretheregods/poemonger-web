@@ -2,7 +2,7 @@ import Price from './price'
 import { getImg } from '../../utils'
 import { countries } from '../../utils'
 
-export default function Work({
+export default async function Work({
     workId,
     imgId,
     price,
