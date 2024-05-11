@@ -74,8 +74,6 @@ read.get('/', async (c) => {
                             audio,
                             price,
                         }) => {
-                            const i = await c.var.READER_CARTS.itemInCart(id)
-                            const itemInCart = i.json()
                             return (
                                 <Work
                                     workId={id}
@@ -85,7 +83,7 @@ read.get('/', async (c) => {
                                     audioId={audio}
                                     title={title}
                                     subtitle={subtitle}
-                                    itemInCart={!!itemInCart.value}
+                                    cart={c.var.READER_CARTS}
                                 />
                             )
                         }
