@@ -18,6 +18,10 @@ type Variables = {
         purchase(): Response
         getPurchase(arg: string, arg1?: number, arg2?: boolean): Response
     }
+    READER_CARTS: DurableObjectNamespace & {
+        addToCart(workId: string): Response
+        getCartCount(): Response
+    }
     currentSession?: {
         cookie: string
         currentSession: {

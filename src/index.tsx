@@ -36,7 +36,11 @@ export type Variables = {
     }
     currentSession?: {
         cookie: string
-        currentSession: { created_at: string; session_id: string }
+        currentSession: {
+            created_at: string
+            session_id: string
+            cart_id: string
+        }
     }
     currentSessionError?: { error: boolean; message: string }
 }
@@ -47,6 +51,7 @@ app.use(csrf())
 app.use(secureHeaders())
 app.use(userCookieAuth)
 app.use('/cart', loggedOutRedirect)
+app.use('/cart', readerSessions)
 app.use('/read', loggedOutRedirect)
 
 app.route('/admin', admin)
@@ -97,8 +102,15 @@ export async function readerSessions(
               c.var.currentSession.currentSession.session_id
           )
         : c.env.POEMONGER_READER_SESSIONS.idFromName('LandingPage')
+    const cart = c.var.currentSession
+        ? c.env.POEMONGER_READER_CARTS.idFromString(
+              c.var.currentSession.currentSession.cart_id
+          )
+        : c.env.POEMONGER_READER_CARTS.newUniqueId()
     const stub = c.env.POEMONGER_READER_SESSIONS.get(id)
+    const cartStub = c.env.POEMONGER_READER_CARTS.get(cart)
     c.set('READER_SESSIONS' as never, stub as never)
+    c.set('READER_CARTS' as never, cartStub as never)
     await next()
 }
 
