@@ -22,6 +22,7 @@ type Variables = {
         addToCart(workId: string): Response
         getCartCount(): Response
         itemInCart(workId: string): Response
+        clearCart(): Response
     }
     currentSession?: {
         cookie: string
@@ -43,6 +44,7 @@ read.get('/', async (c) => {
     let cartValue = { count: 0, error: '' }
 
     try {
+        await c.var.READER_CARTS.clearCart()
         const query = `select id, title, subtitle, json_extract(prices, "$.${c.req.raw.cf?.country}") as price, cover, audio from works where id = 1;`
         const r = await c.var.READER_SESSIONS.query(c.req.raw, query)
         const cartCount = await c.var.READER_CARTS.getCartCount()
