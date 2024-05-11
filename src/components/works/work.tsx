@@ -10,7 +10,7 @@ export default async function Work({
     audioId,
     title,
     subtitle,
-    cart,
+    itemInCart,
 }: {
     workId: number
     imgId: string
@@ -19,10 +19,8 @@ export default async function Work({
     audioId: string
     title: string
     subtitle: string
-    cart: DurableObjectNamespace
+    itemInCart: DurableObjectNamespace
 }) {
-    const i = await cart.itemInCart(workId)
-    const itemInCart = i.json()
     return (
         <section class="work-container">
             <section class="audio-video_tools flexible-buttons">
@@ -71,7 +69,7 @@ export default async function Work({
                 <button
                     class="button add-to-cart"
                     data-work-id={workId}
-                    data-added={itemInCart.value ? 1 : 0}
+                    data-added={itemInCart ? 1 : 0}
                 >
                     &#65291; Add to cart
                 </button>
