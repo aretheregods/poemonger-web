@@ -24,13 +24,15 @@ apt.forEach((a) => {
 atc.forEach((a) => {
     a.addEventListener('click', (e) => {
         if (e.target.dataset.added == 0)
-            query.post(`/cart/${e.target.dataset.workId}`).then((added) => {
-                console.log({ added })
-                e.target.dataset.workId = 1
-            })
+            query
+                .post({ path: `/cart/${e.target.dataset.workId}` })
+                .then((added) => {
+                    console.log({ added })
+                    e.target.dataset.workId = 1
+                })
         else
             query
-                .post(`/cart/remove/${e.target.dataset.workId}`)
+                .post({ path: `/cart/remove/${e.target.dataset.workId}` })
                 .then((removed) => {
                     console.log({ removed })
                     e.target.dataset.workId = 0
