@@ -80,5 +80,13 @@
         & audio {
             width: 50vw;
         }
+
+        & .audio-video_tools {
+            gap: 0px;
+
+            & > * {
+                padding-block: 0.5rem;
+            }
+        }
     }
 }
