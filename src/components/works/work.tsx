@@ -64,7 +64,9 @@ export default function Work({
                 <a href={`/read/${workId}`} class="button read-a-bit">
                     Read a bit
                 </a>
-                <button class="button add-to-cart">&#65291; Add to cart</button>
+                <button class="button add-to-cart" data-work-id={workId}>
+                    &#65291; Add to cart
+                </button>
             </section>
         </section>
     )

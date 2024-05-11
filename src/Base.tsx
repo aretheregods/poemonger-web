@@ -65,7 +65,10 @@ export const Base = ({
                             {loggedIn ? (
                                 <>
                                     <h2 id="shopping-cart_nav">
-                                        {shoppingCartCount} &#128722;
+                                        <span id="shopping-cart_count">
+                                            {shoppingCartCount}
+                                        </span>{' '}
+                                        &#128722;
                                     </h2>
                                     <p>Logged In</p>
                                 </>

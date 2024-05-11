@@ -12,6 +12,7 @@ type Variables = {
         addToCart(workId: string): Response
         getCartCount(): Response
         getCart(): Response
+        deleteFromCart(workId: string): Response
     }
     currentSession?: {
         cookie: string
@@ -61,6 +62,18 @@ cart.get('/count', async (c) => {
         response.error += e
     }
 
+    return c.json(response)
+})
+
+cart.post('/remove/:workId', async (c) => {
+    const workId = c.req.param('workId')
+    let response = { count: 0, error: '' }
+    try {
+        const r = await c.var.READER_CARTS.deleteFromCart(workId)
+        response = await r.json()
+    } catch (e) {
+        response.error += e
+    }
     return c.json(response)
 })
 

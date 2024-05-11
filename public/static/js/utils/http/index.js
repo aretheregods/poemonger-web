@@ -17,7 +17,9 @@ export default class HTTP {
 
     delete() {}
 
-    get() {}
+    get(path = '') {
+        return fetch(path).then((r) => r.json)
+    }
 
     post({ path = '/', body = '', headers = {} }) {
         return fetch(path, { body, headers, method: 'POST' }).then((r) =>
@@ -28,9 +30,11 @@ export default class HTTP {
     put() {}
 
     logout({ path = '/logout', redirect = '/' }) {
-        this.post({ path }).then(res => {
-            if(res.success) location.href = redirect;
-        }).catch(e => console.error('Something went wrong', { e }))
+        this.post({ path })
+            .then((res) => {
+                if (res.success) location.href = redirect
+            })
+            .catch((e) => console.error('Something went wrong', { e }))
     }
 
     parseForm({
