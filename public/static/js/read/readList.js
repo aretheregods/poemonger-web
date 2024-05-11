@@ -28,14 +28,14 @@ atc.forEach((a) => {
                 .post({ path: `/cart/${e.target.dataset.workId}` })
                 .then((added) => {
                     console.log({ added })
-                    e.target.dataset.workId = 1
+                    e.target.dataset.added = 1
                 })
         else
             query
                 .post({ path: `/cart/remove/${e.target.dataset.workId}` })
                 .then((removed) => {
                     console.log({ removed })
-                    e.target.dataset.workId = 0
+                    e.target.dataset.added = 0
                 })
     })
 })
