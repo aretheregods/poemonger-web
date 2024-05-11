@@ -9,8 +9,8 @@ type Bindings = {
 
 type Variables = {
     READER_CARTS: DurableObjectNamespace & {
-        fetch(arg: Request): Response
-        reply(): Response
+        addToCart(workId: string): Response
+        getCartCount(): Response
     }
     currentSession?: {
         cookie: string
@@ -38,7 +38,7 @@ cart.get('/', async (c) => {
     let response = { message: 'There was an error:' }
 
     try {
-        const r = await c.var.READER_CARTS.fetch(c.req.raw)
+        const r = await c.var.READER_CARTS.addToCart('1')
         response = await r.json()
     } catch (e) {
         response.message += ` ${e}`
@@ -54,7 +54,7 @@ cart.get('/test', async (c) => {
     let response = { message: 'There was an error:' }
 
     try {
-        const r = await c.var.READER_CARTS.reply()
+        const r = await c.var.READER_CARTS.getCartCount()
         response = await r.json()
     } catch (e) {
         response.message += ` ${e}`
