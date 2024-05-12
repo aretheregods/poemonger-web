@@ -81,7 +81,7 @@ to take effect, as the specificity is the same */
 @starting-style {
     [popover]:popover-open {
         opacity: 0;
-        transform: scaleX(0);
+        transform: scale(0);
     }
 }
 
