@@ -39,7 +39,7 @@ read.use(readerSessions)
 
 read.get('/', async (c) => {
     let response = { message: 'There was an error:', data: [] }
-    let cartValue = { data: new Map(), error: '' }
+    let cartValue = { size: 0, data: [], error: '' }
 
     try {
         const query = `select id, title, subtitle, json_extract(prices, "$.${c.req.raw.cf?.country}") as price, cover, audio from works where id = 1;`
@@ -65,7 +65,7 @@ read.get('/', async (c) => {
             shoppingCartCount={cartValue.size as number}
         >
             <>
-                <h3>Size {cartValue.size}</h3>
+                <h3>Size {cartValue.data}</h3>
                 {response.data?.map(
                     async ({ id, title, subtitle, cover, audio, price }) => {
                         return (
@@ -78,7 +78,7 @@ read.get('/', async (c) => {
                                 title={title}
                                 subtitle={subtitle}
                                 workInCart={cartValue.data.includes(
-                                    `items.${id}`
+                                    `items.${id}` as never
                                 )}
                             />
                         )
