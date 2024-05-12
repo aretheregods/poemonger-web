@@ -62,9 +62,10 @@ read.get('/', async (c) => {
                 ></script>,
             ]}
             loggedIn={!!c.var.currentSession}
+            shoppingCartCount={cartValue.size as number}
         >
             <>
-                <h3>Size {cartValue.data}</h3>
+                <h3>Size {cartValue.size}</h3>
                 {response.data?.map(
                     async ({ id, title, subtitle, cover, audio, price }) => {
                         return (
@@ -76,6 +77,9 @@ read.get('/', async (c) => {
                                 audioId={audio}
                                 title={title}
                                 subtitle={subtitle}
+                                workInCart={cartValue.data.includes(
+                                    `items.${id}`
+                                )}
                             />
                         )
                     }
