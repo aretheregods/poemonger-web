@@ -174,7 +174,10 @@ read.get('/:workId', async (c) => {
 })
 
 read.get('/cartdata', (c) => {
-    return c.json(c.var.cartSessions)
+    return c.json({
+        data: c.var.cartSessions?.data,
+        size: c.var.cartSessions?.size,
+    })
 })
 
 export default read
