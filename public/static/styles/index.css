@@ -38,6 +38,7 @@ nav {
 }
 
 #shopping-cart_button {
+    display: flex;
     background: none;
     color: inherit;
     border: none;
