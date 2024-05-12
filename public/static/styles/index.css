@@ -68,7 +68,7 @@ nav {
 
     /* Final state of the exit animation */
     opacity: 0;
-    transform: scaleX(0);
+    transform: scale(0);
 
     transition: opacity 0.3s, transform 0.3s, overlay 0.3s allow-discrete,
         display 0.3s allow-discrete;
