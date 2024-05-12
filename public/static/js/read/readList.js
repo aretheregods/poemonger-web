@@ -24,27 +24,24 @@ apt.forEach((a) => {
 atc.forEach((a) => {
     a.addEventListener('click', (e) => {
         var workId = e.target.dataset.workId
+        var s = document.getElementById('shopping-cart_count')
+        var i = document.getElementById(`added-icon_${workId}`)
+        var a = document.getElementById(`added-add_${workId}`)
         if (e.target.dataset.added == 0)
             query.post({ path: `/cart/${workId}` }).then((added) => {
                 if (added.added) {
-                    var s = document.getElementById('shopping-cart_count')
-                    var i = document.getElementById(`added-icon_${workId}`)
-                    var a = document.getElementById(`added-add_${workId}`)
                     e.target.dataset.added = 1
                     s.textContent = parseInt(s.textContent + 1)
-                    i.textContent = `&#10003;`
+                    i.innerHTML = `&#10003;`
                     a.textContent = 'Added'
                 }
             })
         else
             query.post({ path: `/cart/remove/${workId}` }).then((deleted) => {
                 if (deleted.deleted) {
-                    var s = document.getElementById('shopping-cart_count')
-                    var i = document.getElementById(`added-icon_${workId}`)
-                    var a = document.getElementById(`added-add_${workId}`)
                     e.target.dataset.added = 0
                     s.textContent = parseInt(s.textContent - 1)
-                    i.textContent = '&#65291;'
+                    i.innerHTML = '&#65291;'
                     a.textContent = 'Add'
                 }
             })
