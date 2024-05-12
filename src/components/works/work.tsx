@@ -19,7 +19,7 @@ export default async function Work({
     audioId: string
     title: string
     subtitle: string
-    itemInCart: DurableObjectNamespace
+    itemInCart: boolean
 }) {
     return (
         <section class="work-container">
