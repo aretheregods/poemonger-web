@@ -131,18 +131,13 @@ read.get('/:workId', async (c) => {
                 title={`Poemonger | Read - ${workId}`}
                 loggedIn={!!c.var.currentSession}
                 assets={[
-                    <meta
-                        http-equiv="Cache-Control"
-                        content="max-age=0, must-revalidate"
-                    />,
-                    <meta http-equiv="Pragma" content="no-cache" />,
-                    <meta http-equiv="Expires" content="0" />,
                     <link rel="stylesheet" href="/static/styles/read.css" />,
                     <script
                         type="module"
                         src="/static/js/read/readWork.js"
                         defer
                     ></script>,
+                    <script src="/static/js/read/readReady.js"></script>,
                     ...sampleWorkJs,
                 ]}
                 shoppingCartCount={c.var.cartSessions?.size as number}
