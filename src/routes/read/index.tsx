@@ -47,7 +47,7 @@ read.get('/', async (c) => {
         const r = await c.var.READER_SESSIONS.query(c.req.raw, query)
         const cartMetadata = await c.var.READER_CARTS.getCartMetadata()
         response = await r.json()
-        cartValue = (await c.var.READER_CARTS.cartMetadata.json()) || cartValue
+        cartValue = (await cartMetadata.json()) || cartValue
     } catch (e) {
         response.message += ` ${e}`
     }
