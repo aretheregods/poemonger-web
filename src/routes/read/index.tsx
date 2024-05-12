@@ -173,7 +173,7 @@ read.get('/:workId', async (c) => {
     }
 })
 
-read.get('/metadata', (c) => {
+read.get('/cartdata', (c) => {
     return c.json(c.var.cartSessions)
 })
 
