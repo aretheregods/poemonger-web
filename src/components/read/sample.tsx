@@ -4,8 +4,10 @@ import Pagination from './pagination'
 export default function WorkSample({
     workId,
     poetry,
+    workInCart,
 }: {
     workId: string
+    workInCart: boolean
     poetry: Array<{
         work: { title: string; chapter: number; chapters: number }
         title: string
@@ -27,7 +29,11 @@ export default function WorkSample({
                             <>
                                 <section id="sample-info">
                                     <h3>This is a sample</h3>
-                                    <button class="button add-to-cart">
+                                    <button
+                                        class="button add-to-cart"
+                                        data-work-id={workId}
+                                        data-added={~~workInCart}
+                                    >
                                         &#65291; Add to cart
                                     </button>
                                 </section>

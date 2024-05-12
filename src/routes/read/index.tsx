@@ -145,7 +145,15 @@ read.get('/:workId', async (c) => {
                         />
                     )}
                     {!response.purchase && !response.error && (
-                        <WorkSample workId={workId} poetry={response.poetry} />
+                        <WorkSample
+                            workId={workId}
+                            poetry={response.poetry}
+                            workInCart={
+                                c.var.cartSessions?.data.includes(
+                                    `items.${workId}` as never
+                                ) || false
+                            }
+                        />
                     )}
                     {response.error && (
                         <h2>
