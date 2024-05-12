@@ -1,3 +1,4 @@
+import { AddToCart } from '../../components/cart'
 import { Poem } from '../../components/poetry'
 import Pagination from './pagination'
 
@@ -29,19 +30,9 @@ export default function WorkSample({
                             <>
                                 <section id="sample-info">
                                     <h3>This is a sample</h3>
-                                    <button
-                                        class="button add-to-cart"
-                                        data-work-id={workId}
-                                        data-added={~~workInCart}
-                                    >
-                                        <span id={`added-icon_${workId}`}>
-                                            &#65291;
-                                        </span>{' '}
-                                        <span id={`added-add_${workId}`}>
-                                            Add
-                                        </span>{' '}
-                                        to cart
-                                    </button>
+                                    <AddToCart
+                                        {...{ workId: ~~workId, workInCart }}
+                                    />
                                 </section>
                                 <Poem
                                     {...{

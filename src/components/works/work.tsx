@@ -1,3 +1,4 @@
+import { AddToCart } from '../cart'
 import Price from './price'
 import { getImg } from '../../utils'
 import { countries } from '../../utils'
@@ -68,14 +69,7 @@ export default async function Work({
                 <a href={`/read/${workId}`} class="button read-a-bit">
                     Read a bit
                 </a>
-                <button
-                    class="button add-to-cart"
-                    data-work-id={workId}
-                    data-added={~~workInCart}
-                >
-                    <span id={`added-icon_${workId}`}>&#65291;</span>{' '}
-                    <span id={`added-add_${workId}`}>Add</span> to cart
-                </button>
+                <AddToCart {...{ workId, workInCart }} />
             </section>
         </section>
     )
