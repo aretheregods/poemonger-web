@@ -173,4 +173,8 @@ read.get('/:workId', async (c) => {
     }
 })
 
+read.get('/metadata', (c) => {
+    return c.json(c.var.cartSessions)
+})
+
 export default read
