@@ -89,6 +89,10 @@ read.get('/', async (c) => {
     )
 })
 
+read.get('/cartdata', (c) => {
+    return c.json(c.var.cartSessions)
+})
+
 read.get('/:workId', async (c) => {
     const workId = c.req.param('workId')
     const chapter = c.req.query('chapter')
@@ -171,13 +175,6 @@ read.get('/:workId', async (c) => {
             </Base>
         )
     }
-})
-
-read.get('/cartdata', (c) => {
-    return c.json({
-        data: c.var.cartSessions?.data,
-        size: c.var.cartSessions?.size,
-    })
 })
 
 export default read
