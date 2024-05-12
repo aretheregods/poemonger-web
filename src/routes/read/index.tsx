@@ -20,7 +20,7 @@ type Variables = {
     }
     READER_CARTS: DurableObjectNamespace & {
         addToCart(workId: string): Response
-        itemInCart(workId: string): Response
+        getCartMetadata(): Response
     }
     currentSession?: {
         cookie: string
@@ -39,12 +39,14 @@ read.use(readerSessions)
 
 read.get('/', async (c) => {
     let response = { message: 'There was an error:', data: [] }
-    let cartValue = { count: 0, error: '' }
+    let cartValue = { data: new Map(), error: '' }
 
     try {
         const query = `select id, title, subtitle, json_extract(prices, "$.${c.req.raw.cf?.country}") as price, cover, audio from works where id = 1;`
         const r = await c.var.READER_SESSIONS.query(c.req.raw, query)
+        const cart = await c.var.READER_CARTS.getCartMetadata()
         response = await r.json()
+        cartValue = await cart.json()
     } catch (e) {
         response.message += ` ${e}`
     }
@@ -62,10 +64,9 @@ read.get('/', async (c) => {
             loggedIn={!!c.var.currentSession}
         >
             <>
+                <h3>Size {cartValue.data.size}</h3>
                 {response.data?.map(
                     async ({ id, title, subtitle, cover, audio, price }) => {
-                        const i = await c.var.READER_CARTS.itemInCart(id)
-                        const itemInCart = i.json()
                         return (
                             <Work
                                 workId={id}
