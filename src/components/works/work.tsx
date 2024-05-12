@@ -44,18 +44,20 @@ export default async function Work({
                     controls
                 ></audio>
             </figure>
-            <img
-                src={getImg(imgId, 'medium')}
-                alt="A book cover"
-                class="book-cover"
-                loading="lazy"
-                decoding="async"
-                srcset={`${getImg(imgId, 'small')} 320w,${getImg(
-                    imgId,
-                    'medium'
-                )} 600w,${getImg(imgId, 'public')} 800w`}
-                sizes="(min-width: 768px) 33vw,(min-width: 480px) 50vw,80vw"
-            />
+            <a href={`/read/${workId}`}>
+                <img
+                    src={getImg(imgId, 'medium')}
+                    alt="A book cover"
+                    class="book-cover"
+                    loading="lazy"
+                    decoding="async"
+                    srcset={`${getImg(imgId, 'small')} 320w,${getImg(
+                        imgId,
+                        'medium'
+                    )} 600w,${getImg(imgId, 'public')} 800w`}
+                    sizes="(min-width: 768px) 33vw,(min-width: 480px) 50vw,80vw"
+                />
+            </a>
             <Price
                 price={price}
                 locale={locale}
