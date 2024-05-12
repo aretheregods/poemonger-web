@@ -45,9 +45,9 @@ read.get('/', async (c) => {
     try {
         const query = `select id, title, subtitle, json_extract(prices, "$.${c.req.raw.cf?.country}") as price, cover, audio from works where id = 1;`
         const r = await c.var.READER_SESSIONS.query(c.req.raw, query)
-        const cartCount = await c.var.READER_CARTS.getCartMetadata()
+        const cartMetadata = await c.var.READER_CARTS.getCartMetadata()
         response = await r.json()
-        cartValue = (await cartCount.json()) || cartValue
+        cartValue = (await c.var.READER_CARTS.cartMetadata.json()) || cartValue
     } catch (e) {
         response.message += ` ${e}`
     }
