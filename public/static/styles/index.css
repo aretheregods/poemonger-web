@@ -47,6 +47,16 @@ nav {
     outline: inherit;
 }
 
+#shopping-cart_container {
+    width: 200px;
+    height: 100px;
+    position: absolute;
+    inset: unset;
+    top: 5rem;
+    right: 6rem;
+    margin: 0;
+}
+
 [popover]:popover-open {
     opacity: 1;
     transform: scaleX(1);
