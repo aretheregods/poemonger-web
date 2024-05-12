@@ -65,15 +65,15 @@ export const Base = ({
                             {loggedIn ? (
                                 <>
                                     <h2 id="shopping-cart_nav">
-                                        <button
+                                        <a
                                             id="shopping-cart_button"
-                                            popovertarget="shopping-cart_container"
+                                            href="/cart"
                                         >
                                             <span id="shopping-cart_count">
                                                 {shoppingCartCount}
                                             </span>{' '}
                                             &#128722;
-                                        </button>
+                                        </a>
                                     </h2>
                                     <p>Logged In</p>
                                     <section

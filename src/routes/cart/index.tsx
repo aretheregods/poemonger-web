@@ -2,6 +2,7 @@ import { Context, Hono } from 'hono'
 import { html } from 'hono/html'
 
 import { Base } from '../../Base'
+import { cartSessions } from '../../'
 
 type Bindings = {
     POEMONGER_READER_CARTS: DurableObjectNamespace
@@ -15,6 +16,7 @@ type Variables = {
         deleteFromCart(workId: string): Response
         itemInCart(workId: string): Response
     }
+    cartSessions?: { size: number; data: Array<string> }
     currentSession?: {
         cookie: string
         currentSession: { created_at: string; cart_id: string }
@@ -23,6 +25,8 @@ type Variables = {
 }
 
 const cart = new Hono<{ Bindings: Bindings; Variables: Variables }>()
+
+cart.use(cartSessions)
 
 cart.use(
     async (c: Context<{ Bindings: Bindings; Variables: Variables }>, next) => {
@@ -40,15 +44,17 @@ cart.use(
 cart.get('/', async (c) => {
     let response = { message: 'There was an error:' }
 
-    try {
-        const r = await c.var.READER_CARTS.getCart()
-        response = await r.json()
-    } catch (e) {
-        response.message += ` ${e}`
-    }
     return c.html(
         <Base title="Poemonger | Cart">
-            <h2>{response.message}</h2>
+            <h2>
+                {c.var.cartSessions?.size
+                    ? `You have ${
+                          c.var.cartSessions.size == 1
+                              ? `${c.var.cartSessions} item`
+                              : `${c.var.cartSessions} items`
+                      } in your cart`
+                    : 'You have no items in your cart'}
+            </h2>
         </Base>
     )
 })
