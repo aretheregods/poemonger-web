@@ -47,7 +47,7 @@ read.get('/', async (c) => {
         const r = await c.var.READER_SESSIONS.query(c.req.raw, query)
         const cartCount = await c.var.READER_CARTS.getCartMetadata()
         response = await r.json()
-        cartValue = await cartCount.json()
+        cartValue = (await cartCount.json()) || new Map()
     } catch (e) {
         response.message += ` ${e}`
     }
@@ -77,7 +77,7 @@ read.get('/', async (c) => {
                                 audioId={audio}
                                 title={title}
                                 subtitle={subtitle}
-                                itemInCart={cartValue.data.get(`items.${id}`)}
+                                itemInCart={cartValue.data.has(`items.${id}`)}
                             />
                         )
                     }
