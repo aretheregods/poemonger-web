@@ -20,7 +20,6 @@ type Variables = {
     }
     READER_CARTS: DurableObjectNamespace & {
         addToCart(workId: string): Response
-        getCartMetadata(): Response
         itemInCart(workId: string): Response
     }
     currentSession?: {
@@ -40,14 +39,12 @@ read.use(readerSessions)
 
 read.get('/', async (c) => {
     let response = { message: 'There was an error:', data: [] }
-    let cartValue = { data: new Map() }
+    let cartValue = { count: 0, error: '' }
 
     try {
         const query = `select id, title, subtitle, json_extract(prices, "$.${c.req.raw.cf?.country}") as price, cover, audio from works where id = 1;`
         const r = await c.var.READER_SESSIONS.query(c.req.raw, query)
-        const cartMetadata = await c.var.READER_CARTS.getCartMetadata()
         response = await r.json()
-        cartValue = (await cartMetadata.json()) || cartValue
     } catch (e) {
         response.message += ` ${e}`
     }
@@ -63,11 +60,12 @@ read.get('/', async (c) => {
                 ></script>,
             ]}
             loggedIn={!!c.var.currentSession}
-            shoppingCartCount={cartValue.data.size}
         >
             <>
                 {response.data?.map(
-                    ({ id, title, subtitle, cover, audio, price }) => {
+                    async ({ id, title, subtitle, cover, audio, price }) => {
+                        const i = await c.var.READER_CARTS.itemInCart(id)
+                        const itemInCart = i.json()
                         return (
                             <Work
                                 workId={id}
@@ -77,7 +75,6 @@ read.get('/', async (c) => {
                                 audioId={audio}
                                 title={title}
                                 subtitle={subtitle}
-                                itemInCart={cartValue.data.has(`items.${id}`)}
                             />
                         )
                     }

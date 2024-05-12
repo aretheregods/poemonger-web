@@ -10,7 +10,6 @@ export default async function Work({
     audioId,
     title,
     subtitle,
-    itemInCart,
 }: {
     workId: number
     imgId: string
@@ -19,7 +18,6 @@ export default async function Work({
     audioId: string
     title: string
     subtitle: string
-    itemInCart: boolean
 }) {
     return (
         <section class="work-container">
@@ -66,11 +64,7 @@ export default async function Work({
                 <a href={`/read/${workId}`} class="button read-a-bit">
                     Read a bit
                 </a>
-                <button
-                    class="button add-to-cart"
-                    data-work-id={workId}
-                    data-added={itemInCart ? 1 : 0}
-                >
+                <button class="button add-to-cart" data-work-id={workId}>
                     &#65291; Add to cart
                 </button>
             </section>
