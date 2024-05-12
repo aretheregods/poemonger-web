@@ -1,5 +1,4 @@
 import { Context, Hono } from 'hono'
-import { cache } from 'hono/cache'
 import { html } from 'hono/html'
 
 import { Base } from '../../Base'
@@ -94,102 +93,87 @@ read.get('/cartdata', (c) => {
     return c.json(c.var.cartSessions)
 })
 
-read.get(
-    '/:workId',
-    cache({
-        cacheName: 'read-workId',
-        cacheControl: 'must-revalidate',
-        vary: 'cart-must-change',
-    }),
-    async (c) => {
-        const workId = c.req.param('workId')
-        const chapter = c.req.query('chapter')
-        let response: {
-            purchase: boolean
-            error: string
-            poetry: Array<{
-                work: { title: string; chapter: number; chapters: number }
-                title: string
-                author: string
-                single: boolean
-                sample?: Array<Array<string>>
-                lines?: Array<Array<string>>
-            }>
-        }
-
-        try {
-            const r = await c.var.READER_SESSIONS.getPurchase(
-                workId,
-                chapter ? parseInt(chapter) : (chapter as undefined),
-                true
-            )
-            response = await r.json()
-            const sampleWorkJs = !response.purchase
-                ? [
-                      <script
-                          type="module"
-                          src="/static/js/read/readList.js"
-                          defer
-                      ></script>,
-                  ]
-                : []
-
-            return c.html(
-                <Base
-                    title={`Poemonger | Read - ${workId}`}
-                    loggedIn={!!c.var.currentSession}
-                    assets={[
-                        <link
-                            rel="stylesheet"
-                            href="/static/styles/read.css"
-                        />,
-                        <script
-                            type="module"
-                            src="/static/js/read/readWork.js"
-                            defer
-                        ></script>,
-                        ...sampleWorkJs,
-                    ]}
-                    shoppingCartCount={c.var.cartSessions?.size as number}
-                >
-                    <>
-                        {response.purchase && !response.error && (
-                            <WorkPurchase
-                                workId={workId}
-                                poetry={response.poetry}
-                            />
-                        )}
-                        {!response.purchase && !response.error && (
-                            <WorkSample
-                                workId={workId}
-                                poetry={response.poetry}
-                                workInCart={
-                                    c.var.cartSessions?.data.includes(
-                                        `items.${workId}` as never
-                                    ) || false
-                                }
-                            />
-                        )}
-                        {response.error && (
-                            <h2>
-                                There was an error getting poems:{' '}
-                                {response.error}
-                            </h2>
-                        )}
-                    </>
-                </Base>
-            )
-        } catch (e) {
-            return c.html(
-                <Base
-                    title="Poemonger | Error"
-                    loggedIn={!!c.var.currentSession}
-                >
-                    <h2>There was an error getting poems: {` ${e}`}</h2>
-                </Base>
-            )
-        }
+read.get('/:workId', async (c) => {
+    const workId = c.req.param('workId')
+    const chapter = c.req.query('chapter')
+    let response: {
+        purchase: boolean
+        error: string
+        poetry: Array<{
+            work: { title: string; chapter: number; chapters: number }
+            title: string
+            author: string
+            single: boolean
+            sample?: Array<Array<string>>
+            lines?: Array<Array<string>>
+        }>
     }
-)
+
+    try {
+        const r = await c.var.READER_SESSIONS.getPurchase(
+            workId,
+            chapter ? parseInt(chapter) : (chapter as undefined),
+            true
+        )
+        response = await r.json()
+        const sampleWorkJs = !response.purchase
+            ? [
+                  <script
+                      type="module"
+                      src="/static/js/read/readList.js"
+                      defer
+                  ></script>,
+              ]
+            : []
+
+        return c.html(
+            <Base
+                title={`Poemonger | Read - ${workId}`}
+                loggedIn={!!c.var.currentSession}
+                assets={[
+                    <link rel="stylesheet" href="/static/styles/read.css" />,
+                    <script
+                        type="module"
+                        src="/static/js/read/readWork.js"
+                        defer
+                    ></script>,
+                    ...sampleWorkJs,
+                ]}
+                shoppingCartCount={c.var.cartSessions?.size as number}
+            >
+                <>
+                    {response.purchase && !response.error && (
+                        <WorkPurchase
+                            workId={workId}
+                            poetry={response.poetry}
+                        />
+                    )}
+                    {!response.purchase && !response.error && (
+                        <WorkSample
+                            workId={workId}
+                            poetry={response.poetry}
+                            workInCart={
+                                c.var.cartSessions?.data.includes(
+                                    `items.${workId}` as never
+                                ) || false
+                            }
+                        />
+                    )}
+                    {response.error && (
+                        <h2>
+                            There was an error getting poems: {response.error}
+                        </h2>
+                    )}
+                </>
+            </Base>
+        )
+    } catch (e) {
+        return c.html(
+            <Base title="Poemonger | Error" loggedIn={!!c.var.currentSession}>
+                <h2>There was an error getting poems: {` ${e}`}</h2>
+            </Base>
+        )
+    }
+})
 
 export default read
