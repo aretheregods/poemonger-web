@@ -66,6 +66,11 @@ button.button {
     &.add-to-cart {
         background-color: hsl(45, 97%, 75%);
 
+        &.added {
+            background-color: hsl(45, 97%, 50%);
+            color: hsl(var(--button-text-color));
+        }
+
         & > * {
             pointer-events: none;
         }
