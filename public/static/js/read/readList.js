@@ -27,20 +27,32 @@ atc.forEach((a) => {
             query
                 .post({ path: `/cart/${e.target.dataset.workId}` })
                 .then((added) => {
-                    var s = document.getElementById('shopping-cart_count')
                     if (added.added) {
+                        var s = document.getElementById('shopping-cart_count')
+                        var i = document.getElementById(
+                            `added-icon_${e.target.dataset.workId}`
+                        )
+                        var a = document.getElementById(`added-add_${workId}`)
                         e.target.dataset.added = 1
                         s.textContent = parseInt(s.textContent + 1)
+                        i.textContent = `&#10003;`
+                        a.textContent = 'Added'
                     }
                 })
         else
             query
                 .post({ path: `/cart/remove/${e.target.dataset.workId}` })
-                .then((removed) => {
-                    var s = document.getElementById('shopping-cart_count')
-                    if (removed.deleted) {
+                .then((deleted) => {
+                    if (deleted.deleted) {
+                        var s = document.getElementById('shopping-cart_count')
+                        var i = document.getElementById(
+                            `added-icon_${e.target.dataset.workId}`
+                        )
+                        var a = document.getElementById(`added-add_${workId}`)
                         e.target.dataset.added = 0
                         s.textContent = parseInt(s.textContent - 1)
+                        i.textContent = '&#65291;'
+                        a.textContent = 'Add'
                     }
                 })
     })

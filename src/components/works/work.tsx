@@ -73,8 +73,8 @@ export default async function Work({
                     data-work-id={workId}
                     data-added={~~workInCart}
                 >
-                    <span data-added-icon={workId}>&#65291;</span>{' '}
-                    <span data-added-add>Add</span> to cart
+                    <span id={`added-icon_${workId}`}>&#65291;</span>{' '}
+                    <span id={`added-add_${workId}`}>Add</span> to cart
                 </button>
             </section>
         </section>

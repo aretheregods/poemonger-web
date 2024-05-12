@@ -34,7 +34,13 @@ export default function WorkSample({
                                         data-work-id={workId}
                                         data-added={~~workInCart}
                                     >
-                                        &#65291; Add to cart
+                                        <span id={`added-icon_${workId}`}>
+                                            &#65291;
+                                        </span>{' '}
+                                        <span id={`added-add_${workId}`}>
+                                            Add
+                                        </span>{' '}
+                                        to cart
                                     </button>
                                 </section>
                                 <Poem
