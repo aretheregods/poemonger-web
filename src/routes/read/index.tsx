@@ -65,7 +65,6 @@ read.get('/', async (c) => {
             shoppingCartCount={cartValue.size as number}
         >
             <>
-                <h3>Size {cartValue.data}</h3>
                 {response.data?.map(
                     async ({ id, title, subtitle, cover, audio, price }) => {
                         return (

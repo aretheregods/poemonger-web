@@ -27,15 +27,21 @@ atc.forEach((a) => {
             query
                 .post({ path: `/cart/${e.target.dataset.workId}` })
                 .then((added) => {
-                    console.log({ added })
-                    e.target.dataset.added = 1
+                    var s = document.getElementById('shopping-cart_count')
+                    if (removed.added) {
+                        e.target.dataset.added = 1
+                        s.textContent = parseInt(s.textContent + 1)
+                    }
                 })
         else
             query
                 .post({ path: `/cart/remove/${e.target.dataset.workId}` })
                 .then((removed) => {
-                    console.log({ removed })
-                    e.target.dataset.added = 0
+                    var s = document.getElementById('shopping-cart_count')
+                    if (removed.deleted) {
+                        e.target.dataset.added = 0
+                        s.textContent = parseInt(s.textContent - 1)
+                    }
                 })
     })
 })
