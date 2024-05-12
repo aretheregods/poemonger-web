@@ -7,6 +7,7 @@ export default function AddToCart({
 }) {
     return (
         <button
+            id={`add-to-cart_button-${workId}`}
             class={`button add-to-cart ${workInCart && 'added'}`}
             data-work-id={workId}
             data-added={~~workInCart}
