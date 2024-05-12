@@ -34,6 +34,10 @@ export type Variables = {
         query(arg: Request, arg1?: string, arg2?: boolean): Response
         reply(): Response
     }
+    READER_CARTS: DurableObjectNamespace & {
+        addToCart(workId: string): Response
+        getCartMetadata(): Response
+    }
     currentSession?: {
         cookie: string
         currentSession: {
@@ -114,6 +118,16 @@ export async function readerSessions(
     await next()
 }
 
+export async function cartSessions(
+    c: Context<{ Bindings: Bindings; Variables: Variables }>,
+    next: Next
+) {
+    let cartValue = { size: 0, data: [], error: '' }
+    const cart = await c.var.READER_CARTS.getCartMetadata()
+    cartValue = await cart.json()
+    c.set('cartSessions' as never, cartValue as never)
+    await next()
+}
 app.get('/signup', (c) => {
     if (c.var.currentSession || c.var.currentSessionError) {
         return c.redirect('/read')

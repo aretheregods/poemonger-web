@@ -4,7 +4,7 @@ import { html } from 'hono/html'
 import { Base } from '../../Base'
 import { WorkPurchase, WorkSample } from '../../components/read'
 import { Work } from '../../components/works'
-import { readerSessions } from '../../'
+import { cartSessions, readerSessions } from '../../'
 
 import { countries } from '../../utils'
 
@@ -22,6 +22,7 @@ type Variables = {
         addToCart(workId: string): Response
         getCartMetadata(): Response
     }
+    cartSessions?: { size: number; data: Array<string> }
     currentSession?: {
         cookie: string
         currentSession: {
@@ -36,17 +37,15 @@ type Variables = {
 const read = new Hono<{ Bindings: Bindings; Variables: Variables }>()
 
 read.use(readerSessions)
+read.use(cartSessions)
 
 read.get('/', async (c) => {
     let response = { message: 'There was an error:', data: [] }
-    let cartValue = { size: 0, data: [], error: '' }
 
     try {
         const query = `select id, title, subtitle, json_extract(prices, "$.${c.req.raw.cf?.country}") as price, cover, audio from works where id = 1;`
         const r = await c.var.READER_SESSIONS.query(c.req.raw, query)
-        const cart = await c.var.READER_CARTS.getCartMetadata()
         response = await r.json()
-        cartValue = await cart.json()
     } catch (e) {
         response.message += ` ${e}`
     }
@@ -62,7 +61,7 @@ read.get('/', async (c) => {
                 ></script>,
             ]}
             loggedIn={!!c.var.currentSession}
-            shoppingCartCount={cartValue.size as number}
+            shoppingCartCount={c.var.cartSessions?.size as number}
         >
             <>
                 {response.data?.map(
@@ -76,9 +75,11 @@ read.get('/', async (c) => {
                                 audioId={audio}
                                 title={title}
                                 subtitle={subtitle}
-                                workInCart={cartValue.data.includes(
-                                    `items.${id}` as never
-                                )}
+                                workInCart={
+                                    c.var.cartSessions?.data.includes(
+                                        `items.${id}` as never
+                                    ) || false
+                                }
                             />
                         )
                     }
@@ -124,6 +125,7 @@ read.get('/:workId', async (c) => {
                         defer
                     ></script>,
                 ]}
+                shoppingCartCount={c.var.cartSessions?.size as number}
             >
                 <>
                     {response.purchase && !response.error && (
