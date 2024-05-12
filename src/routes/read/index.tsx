@@ -137,7 +137,6 @@ read.get('/:workId', async (c) => {
                         src="/static/js/read/readWork.js"
                         defer
                     ></script>,
-                    <script src="/static/js/read/readReady.js"></script>,
                     ...sampleWorkJs,
                 ]}
                 shoppingCartCount={c.var.cartSessions?.size as number}
