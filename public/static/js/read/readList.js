@@ -28,7 +28,7 @@ atc.forEach((a) => {
                 .post({ path: `/cart/${e.target.dataset.workId}` })
                 .then((added) => {
                     var s = document.getElementById('shopping-cart_count')
-                    if (removed.added) {
+                    if (added.added) {
                         e.target.dataset.added = 1
                         s.textContent = parseInt(s.textContent + 1)
                     }
