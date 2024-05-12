@@ -64,7 +64,7 @@ read.get('/', async (c) => {
             loggedIn={!!c.var.currentSession}
         >
             <>
-                <h3>Size {cartValue.data.size}</h3>
+                <h3>Size {cartValue.data}</h3>
                 {response.data?.map(
                     async ({ id, title, subtitle, cover, audio, price }) => {
                         return (

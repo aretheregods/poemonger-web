@@ -64,7 +64,11 @@ export default async function Work({
                 <a href={`/read/${workId}`} class="button read-a-bit">
                     Read a bit
                 </a>
-                <button class="button add-to-cart" data-work-id={workId}>
+                <button
+                    class="button add-to-cart"
+                    data-work-id={workId}
+                    data-added="0"
+                >
                     &#65291; Add to cart
                 </button>
             </section>
