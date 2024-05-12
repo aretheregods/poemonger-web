@@ -112,6 +112,15 @@ read.get('/:workId', async (c) => {
             true
         )
         response = await r.json()
+        const sampleWorkJs = !response.purchase
+            ? [
+                  <script
+                      type="module"
+                      src="/static/js/read/readList.js"
+                      defer
+                  ></script>,
+              ]
+            : []
 
         return c.html(
             <Base
@@ -124,6 +133,7 @@ read.get('/:workId', async (c) => {
                         src="/static/js/read/readWork.js"
                         defer
                     ></script>,
+                    ...sampleWorkJs,
                 ]}
                 shoppingCartCount={c.var.cartSessions?.size as number}
             >
