@@ -59,7 +59,7 @@ nav {
 
 [popover]:popover-open {
     opacity: 1;
-    transform: scaleX(1);
+    transform: scale(1);
 }
 
 [popover] {
