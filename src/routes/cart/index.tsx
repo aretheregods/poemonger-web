@@ -33,7 +33,11 @@ cart.get('/', async (c) => {
     let response = { message: 'There was an error:' }
 
     return c.html(
-        <Base title="Poemonger | Cart">
+        <Base
+            title="Poemonger | Cart"
+            loggedIn={!!c.var.currentSession}
+            shoppingCartCount={c.var.cartSessions?.size as number}
+        >
             <h2>
                 {c.var.cartSessions?.size
                     ? `You have ${
