@@ -46,7 +46,7 @@
 
         & .read-a-bit {
             height: max-content;
-            padding-block: 1rem;
+            padding-block: 1.125rem;
             align-self: center;
         }
     }
