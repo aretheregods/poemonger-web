@@ -38,8 +38,8 @@ cart.get('/', async (c) => {
                 {c.var.cartSessions?.size
                     ? `You have ${
                           c.var.cartSessions.size == 1
-                              ? `${c.var.cartSessions} item`
-                              : `${c.var.cartSessions} items`
+                              ? `${c.var.cartSessions.size} item`
+                              : `${c.var.cartSessions.size} items`
                       } in your cart`
                     : 'You have no items in your cart'}
             </h2>
