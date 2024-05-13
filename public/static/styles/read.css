@@ -21,6 +21,10 @@
 #page-buttons {
     display: flex;
     gap: 2rem;
+
+    & > button {
+        padding-inline: 1.5rem;
+    }
 }
 
 #sample-info {
