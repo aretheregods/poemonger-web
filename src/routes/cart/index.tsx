@@ -51,19 +51,6 @@ cart.get('/', async (c) => {
     )
 })
 
-cart.get('/count', async (c) => {
-    let response = { count: 0, error: '' }
-
-    try {
-        const r = await c.var.READER_CARTS.getCartCount()
-        response = await r.json()
-    } catch (e) {
-        response.error += e
-    }
-
-    return c.json(response)
-})
-
 cart.post('/remove/:workId', async (c) => {
     const workId = c.req.param('workId')
     let response = { count: 0, error: '' }
