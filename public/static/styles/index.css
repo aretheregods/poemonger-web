@@ -34,6 +34,10 @@ nav {
         align-items: center;
         gap: 1rem;
         padding: 0.5rem;
+
+        & > * {
+            padding: 1.125rem 1rem;
+        }
     }
 }
 
