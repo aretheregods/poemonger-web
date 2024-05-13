@@ -24,6 +24,8 @@ nav {
     justify-content: space-between;
 
     & a {
+        height: min-content;
+        margin: 0;
         text-decoration: none;
         display: grid;
         align-items: center;
@@ -36,6 +38,8 @@ nav {
         padding: 0.5rem;
 
         & > * {
+            height: min-content;
+            margin: 0;
             padding: 1.125rem 1rem;
         }
     }
