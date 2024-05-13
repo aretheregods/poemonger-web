@@ -55,7 +55,6 @@ app.use(csrf())
 app.use(secureHeaders())
 app.use(userCookieAuth)
 app.use('/cart', loggedOutRedirect)
-app.use('/cart', readerSessions)
 app.use('/read', loggedOutRedirect)
 
 app.route('/admin', admin)

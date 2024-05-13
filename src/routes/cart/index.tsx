@@ -2,7 +2,7 @@ import { Context, Hono } from 'hono'
 import { html } from 'hono/html'
 
 import { Base } from '../../Base'
-import { cartSessions } from '../../'
+import { cartSessions, readerSessions } from '../../'
 
 type Bindings = {
     POEMONGER_READER_CARTS: DurableObjectNamespace
@@ -26,20 +26,8 @@ type Variables = {
 
 const cart = new Hono<{ Bindings: Bindings; Variables: Variables }>()
 
+cart.use(readerSessions)
 cart.use(cartSessions)
-
-cart.use(
-    async (c: Context<{ Bindings: Bindings; Variables: Variables }>, next) => {
-        const id = c.var.currentSession
-            ? c.env.POEMONGER_READER_CARTS.idFromString(
-                  c.var.currentSession.currentSession.cart_id
-              )
-            : c.env.POEMONGER_READER_CARTS.newUniqueId()
-        const stub = c.env.POEMONGER_READER_CARTS.get(id)
-        c.set('READER_CARTS' as never, stub as never)
-        await next()
-    }
-)
 
 cart.get('/', async (c) => {
     let response = { message: 'There was an error:' }
