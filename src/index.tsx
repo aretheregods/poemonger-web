@@ -15,7 +15,6 @@ import Hashes from './utils/hash'
 import Landing from './components/landing'
 import Login from './components/login'
 import Logout from './components/logout'
-import Nav from './components/nav'
 import Reset from './components/reset'
 import Delete from './components/reset'
 

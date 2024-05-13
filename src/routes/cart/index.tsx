@@ -1,5 +1,4 @@
 import { Context, Hono } from 'hono'
-import { html } from 'hono/html'
 
 import { Base } from '../../Base'
 import { cartSessions, readerSessions } from '../../'
