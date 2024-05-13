@@ -124,7 +124,7 @@ textarea {
 a.button,
 button.button {
     font-size: medium;
-    padding: 0.5rem 1rem;
+    padding: 1.125rem 1rem;
     border: none;
     border-radius: 0.5rem;
     background-color: hsl(var(--button-color), var(--button-color-l));
