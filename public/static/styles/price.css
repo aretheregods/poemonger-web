@@ -1,0 +1,19 @@
+.work-info {
+    display: grid;
+    justify-content: space-around;
+    align-items: center;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+
+    & .work-title {
+        & em {
+            font-weight: 400;
+        }
+    }
+
+    & .work-price {
+        font-size: larger;
+        font-weight: 800;
+        justify-self: end;
+    }
+}
