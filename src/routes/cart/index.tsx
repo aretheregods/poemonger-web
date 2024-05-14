@@ -49,7 +49,9 @@ cart.get('/', async (c) => {
                           } in your cart`
                         : 'You have no items in your cart'}
                 </h2>
-                {data.data}
+                {data.data.map((d) => (
+                    <p>{d}</p>
+                ))}
             </>
         </Base>
     )
