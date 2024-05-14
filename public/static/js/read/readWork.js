@@ -10,7 +10,7 @@ if (r) r.addEventListener('change', chapterRange)
 
 function chapterButtons(e) {
     var c = e.target.dataset.chapter
-    if (e.metaKey || e.button === 1) {
+    if (e.ctrlKey || e.metaKey || e.button === 1) {
         var href = new URL(window.location.href)
         var params = href.searchParams
         params.set('chapter', c)
