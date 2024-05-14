@@ -44,7 +44,14 @@ cart.get('/', async (c) => {
     return c.html(
         <Base
             title="Poemonger | Cart"
-            assets={[<link rel="stylesheet" href="/static/styles/price.css" />]}
+            assets={[
+                <link rel="stylesheet" href="/static/styles/price.css" />,
+                <script
+                    type="module"
+                    src="/static/js/cart/cartList.js"
+                    defer
+                ></script>,
+            ]}
             loggedIn={!!c.var.currentSession}
             shoppingCartCount={c.var.cartSessions?.size as number}
         >
