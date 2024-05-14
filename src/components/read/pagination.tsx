@@ -5,6 +5,7 @@ export default function Pagination({
     chapter: number
     chapters: number
 }) {
+    const disabledStyle = '--button-color-l: 95%; pointer-events: none;'
     return (
         <section id="page-turners">
             <input
@@ -20,8 +21,13 @@ export default function Pagination({
                     id="previous"
                     class="button"
                     data-chapter={`${chapter - 1}`}
-                    title={`/read/${chapter}?${chapter - 1}`}
+                    title={
+                        chapter === 1
+                            ? ''
+                            : `/read/${chapter}?chapter=${chapter - 1}`
+                    }
                     disabled={chapter === 1}
+                    style={`${chapter === 1 ? disabledStyle : ''}`}
                 >
                     &#10216;
                 </button>
@@ -33,7 +39,13 @@ export default function Pagination({
                     id="next"
                     class="button"
                     data-chapter={`${chapter + 1}`}
+                    title={
+                        chapter === chapters
+                            ? ''
+                            : `/read/${chapter}?chapter=${chapter + 1}`
+                    }
                     disabled={chapter === chapters}
+                    style={`${chapter === chapters ? disabledStyle : ''}`}
                 >
                     &#10217;
                 </button>
