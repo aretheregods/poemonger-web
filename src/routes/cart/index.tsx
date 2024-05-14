@@ -38,7 +38,6 @@ cart.get('/', async (c) => {
             title: string
             subtitle: string
             cover: string
-            audio: string
             price: number
         }>
     } = await r.json()
@@ -67,35 +66,33 @@ cart.get('/', async (c) => {
                           } in your cart`
                         : 'You have no items in your cart'}
                 </h2>
-                {data.data.map(
-                    ({ id, title, subtitle, cover, audio, price }) => (
-                        <section>
-                            <a href={`/read/${id}`}>
-                                <img
-                                    src={getImg(cover, 'verySmall')}
-                                    alt="A book cover"
-                                    class="book-cover"
-                                    loading="lazy"
-                                    decoding="async"
-                                    srcset={`${getImg(
-                                        cover,
-                                        'verySmall'
-                                    )} 128w,${getImg(cover, 'tiny')} 64w`}
-                                    sizes="(min-width: 128px) 33vw,(min-width: 64px) 20vw"
-                                />
-                            </a>
-                            <Price
-                                {...{
-                                    id,
-                                    title,
-                                    subtitle,
-                                    price,
-                                    locale: c.req.raw.cf?.country as countries,
-                                }}
+                {data.data.map(({ id, title, subtitle, cover, price }) => (
+                    <section>
+                        <a href={`/read/${id}`}>
+                            <img
+                                src={getImg(cover, 'verySmall')}
+                                alt="A book cover"
+                                class="book-cover"
+                                loading="lazy"
+                                decoding="async"
+                                srcset={`${getImg(
+                                    cover,
+                                    'verySmall'
+                                )} 128w,${getImg(cover, 'tiny')} 64w`}
+                                sizes="(min-width: 128px) 33vw,(min-width: 64px) 20vw"
                             />
-                        </section>
-                    )
-                )}
+                        </a>
+                        <Price
+                            {...{
+                                id,
+                                title,
+                                subtitle,
+                                price,
+                                locale: c.req.raw.cf?.country as countries,
+                            }}
+                        />
+                    </section>
+                ))}
             </>
         </Base>
     )
