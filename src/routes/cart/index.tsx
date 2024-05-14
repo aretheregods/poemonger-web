@@ -75,11 +75,11 @@ cart.get('/', async (c) => {
                                 class="book-cover"
                                 loading="lazy"
                                 decoding="async"
-                                srcset={`${getImg(
+                                srcset={`${getImg(cover, 'verySmall')},${getImg(
                                     cover,
-                                    'verySmall'
-                                )} 128w,${getImg(cover, 'tiny')} 64w`}
-                                sizes="(max-width: 128px) 33vw,(max-width: 64px) 20vw"
+                                    'tiny'
+                                )}`}
+                                sizes="(((min-width: 320px) and (max-width: 768px)) 64px, 128px"
                             />
                         </a>
                         <Price
