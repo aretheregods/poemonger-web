@@ -13,7 +13,7 @@ type Variables = {
     READER_CARTS: DurableObjectNamespace & {
         addToCart(workId: string): Response
         getCartCount(): Response
-        getCart(): Response
+        getCart(r: Request): Response
         deleteFromCart(workId: string): Response
         itemInCart(workId: string): Response
     }
@@ -31,7 +31,7 @@ cart.use(readerSessions)
 cart.use(cartSessions)
 
 cart.get('/', async (c) => {
-    const r = await c.var.READER_CARTS.getCart()
+    const r = await c.var.READER_CARTS.getCart(c.req.raw)
     const data: {
         data: Array<{
             id: number
