@@ -29,6 +29,8 @@ cart.use(readerSessions)
 cart.use(cartSessions)
 
 cart.get('/', async (c) => {
+    const r = c.var.READER_CARTS.getCart()
+    const data = await r.json()
     let response = { message: 'There was an error:' }
 
     return c.html(
@@ -37,15 +39,18 @@ cart.get('/', async (c) => {
             loggedIn={!!c.var.currentSession}
             shoppingCartCount={c.var.cartSessions?.size as number}
         >
-            <h2>
-                {c.var.cartSessions?.size
-                    ? `You have ${
-                          c.var.cartSessions.size == 1
-                              ? `${c.var.cartSessions.size} item`
-                              : `${c.var.cartSessions.size} items`
-                      } in your cart`
-                    : 'You have no items in your cart'}
-            </h2>
+            <>
+                <h2>
+                    {c.var.cartSessions?.size
+                        ? `You have ${
+                              c.var.cartSessions.size == 1
+                                  ? `${c.var.cartSessions.size} item`
+                                  : `${c.var.cartSessions.size} items`
+                          } in your cart`
+                        : 'You have no items in your cart'}
+                </h2>
+                {data}
+            </>
         </Base>
     )
 })
