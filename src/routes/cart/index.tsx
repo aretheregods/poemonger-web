@@ -3,7 +3,7 @@ import { Context, Hono } from 'hono'
 import { Base } from '../../Base'
 import { Price } from '../../components/works'
 import { cartSessions, readerSessions } from '../../'
-import { countries } from '../../utils'
+import { countries, getImg } from '../../utils'
 
 type Bindings = {
     POEMONGER_READER_CARTS: DurableObjectNamespace
@@ -37,6 +37,8 @@ cart.get('/', async (c) => {
             id: number
             title: string
             subtitle: string
+            cover: string
+            audio: string
             price: number
         }>
     } = await r.json()
@@ -65,17 +67,35 @@ cart.get('/', async (c) => {
                           } in your cart`
                         : 'You have no items in your cart'}
                 </h2>
-                {data.data.map(({ id, title, subtitle, price }) => (
-                    <Price
-                        {...{
-                            id,
-                            title,
-                            subtitle,
-                            price,
-                            locale: c.req.raw.cf?.country as countries,
-                        }}
-                    />
-                ))}
+                {data.data.map(
+                    ({ id, title, subtitle, cover, audio, price }) => (
+                        <section>
+                            <a href={`/read/${id}`}>
+                                <img
+                                    src={getImg(cover, 'very-small')}
+                                    alt="A book cover"
+                                    class="book-cover"
+                                    loading="lazy"
+                                    decoding="async"
+                                    srcset={`${getImg(
+                                        cover,
+                                        'very-small'
+                                    )} 128w,${getImg(cover, 'tiny')} 64w`}
+                                    sizes="(min-width: 128px) 33vw,(min-width: 64px) 20vw"
+                                />
+                            </a>
+                            <Price
+                                {...{
+                                    id,
+                                    title,
+                                    subtitle,
+                                    price,
+                                    locale: c.req.raw.cf?.country as countries,
+                                }}
+                            />
+                        </section>
+                    )
+                )}
             </>
         </Base>
     )
