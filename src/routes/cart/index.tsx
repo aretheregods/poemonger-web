@@ -29,7 +29,7 @@ cart.use(readerSessions)
 cart.use(cartSessions)
 
 cart.get('/', async (c) => {
-    const r = c.var.READER_CARTS.getCart()
+    const r = await c.var.READER_CARTS.getCart()
     const data = await r.json()
     let response = { message: 'There was an error:' }
 
