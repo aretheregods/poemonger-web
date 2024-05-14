@@ -72,7 +72,7 @@ cart.get('/', async (c) => {
                         <section>
                             <a href={`/read/${id}`}>
                                 <img
-                                    src={getImg(cover, 'very-small')}
+                                    src={getImg(cover, 'verySmall')}
                                     alt="A book cover"
                                     class="book-cover"
                                     loading="lazy"
