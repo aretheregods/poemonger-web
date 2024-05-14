@@ -2,7 +2,6 @@
     display: grid;
     justify-content: space-around;
     align-items: center;
-    grid-template-columns: 1fr 1fr;
     gap: 2rem;
 
     & .work-title {
