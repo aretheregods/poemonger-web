@@ -1,7 +1,9 @@
 import { Context, Hono } from 'hono'
 
 import { Base } from '../../Base'
+import { Price } from '../../components/works'
 import { cartSessions, readerSessions } from '../../'
+import { countries } from '../../utils'
 
 type Bindings = {
     POEMONGER_READER_CARTS: DurableObjectNamespace
@@ -30,7 +32,14 @@ cart.use(cartSessions)
 
 cart.get('/', async (c) => {
     const r = await c.var.READER_CARTS.getCart()
-    const data = await r.json()
+    const data: {
+        data: Array<{
+            id: number
+            title: string
+            subtitle: string
+            price: number
+        }>
+    } = await r.json()
     let response = { message: 'There was an error:' }
 
     return c.html(
@@ -49,8 +58,16 @@ cart.get('/', async (c) => {
                           } in your cart`
                         : 'You have no items in your cart'}
                 </h2>
-                {data.data.map(({ title }) => (
-                    <p>{title}</p>
+                {data.data.map(({ id, title, subtitle, price }) => (
+                    <Price
+                        {...{
+                            id,
+                            title,
+                            subtitle,
+                            price,
+                            locale: c.req.raw.cf?.country as countries,
+                        }}
+                    />
                 ))}
             </>
         </Base>
