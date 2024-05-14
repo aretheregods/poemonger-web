@@ -79,7 +79,7 @@ cart.get('/', async (c) => {
                                     decoding="async"
                                     srcset={`${getImg(
                                         cover,
-                                        'very-small'
+                                        'verySmall'
                                     )} 128w,${getImg(cover, 'tiny')} 64w`}
                                     sizes="(min-width: 128px) 33vw,(min-width: 64px) 20vw"
                                 />
