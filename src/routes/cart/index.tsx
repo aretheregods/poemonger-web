@@ -40,7 +40,6 @@ cart.get('/', async (c) => {
             price: number
         }>
     } = await r.json()
-    let response = { message: 'There was an error:' }
 
     return c.html(
         <Base
