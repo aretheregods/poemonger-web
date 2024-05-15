@@ -1,4 +1,4 @@
-import { Context, Hono } from 'hono'
+import { Hono } from 'hono'
 
 import { Base } from '../../Base'
 import { CartItem } from '../../components/cart'

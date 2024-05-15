@@ -59,12 +59,7 @@ export default async function Work({
                     sizes="(min-width: 768px) 33vw,(min-width: 480px) 50vw,80vw"
                 />
             </a>
-            <Price
-                price={price}
-                locale={locale}
-                title={title}
-                subtitle={subtitle}
-            />
+            <Price {...{ workId, price, locale, title, subtitle }} />
             <section class="read-purchase_buttons">
                 <a href={`/read/${workId}`} class="button read-a-bit">
                     Read a bit
