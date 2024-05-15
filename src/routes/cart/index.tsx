@@ -11,11 +11,11 @@ type Bindings = {
 
 type Variables = {
     READER_CARTS: DurableObjectNamespace & {
-        addToCart(workId: string): Response
-        getCartCount(): Response
-        getCart(r: Request): Response
-        deleteFromCart(workId: string): Response
-        itemInCart(workId: string): Response
+        addToCart(workId: string): Promise<Response>
+        getCartCount(): Promise<Response>
+        getCart(r: Request): Promise<Response>
+        deleteFromCart(workId: string): Promise<Response>
+        itemInCart(workId: string): Promise<Response>
     }
     cartSessions?: { size: number; data: Array<string> }
     currentSession?: {
