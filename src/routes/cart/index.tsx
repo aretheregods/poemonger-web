@@ -96,7 +96,9 @@ cart.get('/', async (c) => {
                                 }}
                             />
                         </section>
-                        <button class="cart_item-delete">&Chi;</button>
+                        <button class="cart_item-delete" data-work-id={id}>
+                            &Chi;
+                        </button>
                     </section>
                 ))}
             </>
