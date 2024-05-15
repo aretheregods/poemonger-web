@@ -4,7 +4,12 @@ import { html } from 'hono/html'
 import { Base } from '../../Base'
 import { WorkPurchase, WorkSample } from '../../components/read'
 import { Work } from '../../components/works'
-import { cartSessions, loggedOutRedirect, readerSessions, requestCountry } from '../../'
+import {
+    cartSessions,
+    loggedOutRedirect,
+    readerSessions,
+    requestCountry,
+} from '../../'
 
 import { countries, locales } from '../../utils'
 
@@ -46,7 +51,7 @@ read.use(loggedOutRedirect)
 read.use(readerSessions)
 read.use(cartSessions)
 
-read.get('/', async c => {
+read.get('/', async (c) => {
     let response = { message: 'There was an error:', data: [] }
 
     try {
@@ -96,11 +101,11 @@ read.get('/', async c => {
     )
 })
 
-read.get('/cartdata', c => {
+read.get('/cartdata', (c) => {
     return c.json(c.var.cartSessions)
 })
 
-read.get('/:workId', async c => {
+read.get('/:workId', async (c) => {
     const workId = c.req.param('workId')
     const chapter = c.req.query('chapter')
     let response: {

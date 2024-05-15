@@ -25,17 +25,25 @@ export default async function Work({
     return (
         <section class="work-container">
             <section class="audio-video_tools flexible-buttons">
-                <button data-work-id={workId} class="button audio-poem_trigger" data-on="0">
+                <button
+                    data-work-id={workId}
+                    class="button audio-poem_trigger"
+                    data-on="0"
+                >
                     &#127911; Audio poem
                 </button>
-                <button data-work-id={workId} class="button video-poem_trigger" data-on="0">
+                <button
+                    data-work-id={workId}
+                    class="button video-poem_trigger"
+                    data-on="0"
+                >
                     &#9658; Video poem
                 </button>
             </section>
             <figure
                 id={`audio-poem_player-${workId}`}
                 class="work-audio audio-poem_player"
-                style="display: none;"
+                style="heigh: 0px; opacity: 0%;"
                 data-on="0"
             >
                 <figcaption>Listen to the first chapter</figcaption>
