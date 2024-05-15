@@ -36,7 +36,7 @@ type Variables = {
         }
     }
     currentSessionError?: { error: boolean; message: string }
-    requestCountry: countries
+    country: countries
 }
 
 const read = new Hono<{ Bindings: Bindings; Variables: Variables }>()
@@ -50,7 +50,7 @@ read.get('/', async c => {
     let response = { message: 'There was an error:', data: [] }
 
     try {
-        const query = `select id, title, subtitle, json_extract(prices, "$.${c.var.requestCountry}") as price, cover, audio from works where id = 1;`
+        const query = `select id, title, subtitle, json_extract(prices, "$.${c.var.country}") as price, cover, audio from works where id = 1;`
         const r = await c.var.READER_SESSIONS.query(c.req.raw, query)
         response = await r.json()
     } catch (e) {
@@ -78,7 +78,7 @@ read.get('/', async c => {
                                 workId={id}
                                 imgId={cover}
                                 price={price}
-                                locale={c.var.requestCountry}
+                                locale={c.var.country}
                                 audioId={audio}
                                 title={title}
                                 subtitle={subtitle}
