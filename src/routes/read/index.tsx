@@ -14,13 +14,17 @@ type Bindings = {
 
 type Variables = {
     READER_SESSIONS: DurableObjectNamespace & {
-        query(arg: Request, arg1?: string, arg2?: boolean): Response
-        purchase(): Response
-        getPurchase(arg: string, arg1?: number, arg2?: boolean): Response
+        query(arg: Request, arg1?: string, arg2?: boolean): Promise<Response>
+        purchase(): Promise<Response>
+        getPurchase(
+            arg: string,
+            arg1?: number,
+            arg2?: boolean
+        ): Promise<Response>
     }
     READER_CARTS: DurableObjectNamespace & {
-        addToCart(workId: string): Response
-        getCartMetadata(): Response
+        addToCart(workId: string): Promise<Response>
+        getCartMetadata(): Promise<Response>
     }
     cartSessions?: { size: number; data: Array<string> }
     currentSession?: {
@@ -39,7 +43,7 @@ const read = new Hono<{ Bindings: Bindings; Variables: Variables }>()
 read.use(readerSessions)
 read.use(cartSessions)
 
-read.get('/', async (c) => {
+read.get('/', async c => {
     let response = { message: 'There was an error:', data: [] }
 
     try {
@@ -89,11 +93,11 @@ read.get('/', async (c) => {
     )
 })
 
-read.get('/cartdata', (c) => {
+read.get('/cartdata', c => {
     return c.json(c.var.cartSessions)
 })
 
-read.get('/:workId', async (c) => {
+read.get('/:workId', async c => {
     const workId = c.req.param('workId')
     const chapter = c.req.query('chapter')
     let response: {
