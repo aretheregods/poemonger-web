@@ -1,9 +1,10 @@
 .poem-section-container {
-    min-height: calc(100vh - 10rem);
-    max-height: calc(100vh - 10rem);
+    min-height: calc(100vh - 10.5rem);
+    max-height: calc(100vh - 10.5rem);
     overflow-x: scroll;
     width: fit-content;
     justify-self: center;
+    scrollbar-width: none;
 }
 
 #page-turners {
@@ -31,6 +32,9 @@
     display: flex;
     flex-wrap: wrap;
     gap: 2rem;
+    position: sticky;
+    top: 0px;
+    background-color: white;
 
     & > * {
         flex: 1;
