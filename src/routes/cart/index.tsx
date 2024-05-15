@@ -68,29 +68,35 @@ cart.get('/', async (c) => {
                 </h2>
                 {data.data.map(({ id, title, subtitle, cover, price }) => (
                     <section class="cart_item">
-                        <a href={`/read/${id}`}>
-                            <img
-                                src={getImg(cover, 'verySmall')}
-                                alt="A book cover"
-                                class="book-cover"
-                                loading="lazy"
-                                decoding="async"
-                                srcset={`${getImg(
-                                    cover,
-                                    'small'
-                                )} 1480w,${getImg(cover, 'verySmall')} 320w`}
-                                sizes="(((min-width: 320px) and (max-width: 768px)) 128px, 256px"
+                        <section>
+                            <a href={`/read/${id}`}>
+                                <img
+                                    src={getImg(cover, 'verySmall')}
+                                    alt="A book cover"
+                                    class="book-cover"
+                                    loading="lazy"
+                                    decoding="async"
+                                    srcset={`${getImg(
+                                        cover,
+                                        'small'
+                                    )} 1480w,${getImg(
+                                        cover,
+                                        'verySmall'
+                                    )} 320w`}
+                                    sizes="(((min-width: 320px) and (max-width: 768px)) 128px, 256px"
+                                />
+                            </a>
+                            <Price
+                                {...{
+                                    id,
+                                    title,
+                                    subtitle,
+                                    price,
+                                    locale: c.req.raw.cf?.country as countries,
+                                }}
                             />
-                        </a>
-                        <Price
-                            {...{
-                                id,
-                                title,
-                                subtitle,
-                                price,
-                                locale: c.req.raw.cf?.country as countries,
-                            }}
-                        />
+                        </section>
+                        <button>&Chi;</button>
                     </section>
                 ))}
             </>
