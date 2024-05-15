@@ -1,7 +1,9 @@
 .cart_item {
+    --element-br: 10px;
     display: flex;
     padding: 1rem;
     border: 1px solid #999;
+    border-radius: var(--element-br);
 
     & > .cart_item-information {
         display: grid;
@@ -27,6 +29,7 @@
         padding: 1rem;
         background-color: unset;
         font-size: x-large;
+        border-radius: var(--element-br);
     }
 }
 
