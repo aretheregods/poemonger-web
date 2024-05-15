@@ -98,6 +98,8 @@
 
             & .work_info-link {
                 width: max-content;
+                color: unset;
+                text-decoration: none;
             }
         }
     }
