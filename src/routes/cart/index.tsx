@@ -23,6 +23,7 @@ type Variables = {
         currentSession: { created_at: string; cart_id: string }
     }
     currentSessionError?: { error: boolean; message: string }
+    requestCountry: countries
 }
 
 const cart = new Hono<{ Bindings: Bindings; Variables: Variables }>()
@@ -75,7 +76,7 @@ cart.get('/', async c => {
                             subtitle,
                             cover,
                             price,
-                            locale: c.req.raw.cf?.country as countries,
+                            locale: c.var.requestCountry,
                         }}
                     />
                 ))}

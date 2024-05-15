@@ -36,6 +36,7 @@ type Variables = {
         }
     }
     currentSessionError?: { error: boolean; message: string }
+    requestCountry: countries
 }
 
 const read = new Hono<{ Bindings: Bindings; Variables: Variables }>()
@@ -45,12 +46,10 @@ read.use(readerSessions)
 read.use(cartSessions)
 
 read.get('/', async c => {
-    const nation = c.req.raw.cf?.country as countries || 'US'
-    const country = Object.hasOwn(locales, nation) ? c.req.raw.cf?.country as countries : 'US'
     let response = { message: 'There was an error:', data: [] }
 
     try {
-        const query = `select id, title, subtitle, json_extract(prices, "$.${country}") as price, cover, audio from works where id = 1;`
+        const query = `select id, title, subtitle, json_extract(prices, "$.${c.var.requestCountry}") as price, cover, audio from works where id = 1;`
         const r = await c.var.READER_SESSIONS.query(c.req.raw, query)
         response = await r.json()
     } catch (e) {
@@ -78,7 +77,7 @@ read.get('/', async c => {
                                 workId={id}
                                 imgId={cover}
                                 price={price}
-                                locale={country}
+                                locale={c.var.requestCountry}
                                 audioId={audio}
                                 title={title}
                                 subtitle={subtitle}
