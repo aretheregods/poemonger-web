@@ -1,9 +1,9 @@
 import { Context, Hono } from 'hono'
 
 import { Base } from '../../Base'
-import { Price } from '../../components/works'
+import { CartItem } from '../../components/cart'
 import { cartSessions, readerSessions } from '../../'
-import { countries, getImg } from '../../utils'
+import { countries } from '../../utils'
 
 type Bindings = {
     POEMONGER_READER_CARTS: DurableObjectNamespace
@@ -67,39 +67,16 @@ cart.get('/', async (c) => {
                         : 'You have no items in your cart'}
                 </h2>
                 {data.data.map(({ id, title, subtitle, cover, price }) => (
-                    <section class="cart_item">
-                        <section class="cart_item-information">
-                            <a href={`/read/${id}`}>
-                                <img
-                                    src={getImg(cover, 'verySmall')}
-                                    alt="A book cover"
-                                    class="book-cover"
-                                    loading="lazy"
-                                    decoding="async"
-                                    srcset={`${getImg(
-                                        cover,
-                                        'small'
-                                    )} 1480w,${getImg(
-                                        cover,
-                                        'verySmall'
-                                    )} 320w`}
-                                    sizes="(((min-width: 320px) and (max-width: 768px)) 128px, 256px"
-                                />
-                            </a>
-                            <Price
-                                {...{
-                                    id,
-                                    title,
-                                    subtitle,
-                                    price,
-                                    locale: c.req.raw.cf?.country as countries,
-                                }}
-                            />
-                        </section>
-                        <button class="cart_item-delete" data-work-id={id}>
-                            &Chi;
-                        </button>
-                    </section>
+                    <CartItem
+                        {...{
+                            id,
+                            title,
+                            subtitle,
+                            cover,
+                            price,
+                            locale: c.req.raw.cf?.country as countries,
+                        }}
+                    />
                 ))}
             </>
         </Base>
