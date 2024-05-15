@@ -1,6 +1,11 @@
 .cart_item {
     display: grid;
     grid-template-columns: 1fr 1fr;
+
+    & a {
+        display: grid;
+        align-items: center;
+    }
 }
 
 .work-info {
