@@ -79,7 +79,7 @@ cart.get('/', async (c) => {
                                     cover,
                                     'small'
                                 )} 1480w,${getImg(cover, 'verySmall')} 800w`}
-                                sizes="(((min-width: 320px) and (max-width: 768px)) 96px, 128px"
+                                sizes="(((min-width: 320px) and (max-width: 768px)) 128px, 256px"
                             />
                         </a>
                         <Price
