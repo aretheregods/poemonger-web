@@ -13,6 +13,8 @@
     width: 100vw;
     padding-inline: 2rem;
     gap: 2rem;
+    position: sticky;
+    bottom: 0.5rem;
 }
 
 #page-range {
