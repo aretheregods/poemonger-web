@@ -11,7 +11,11 @@
 
         & .work-info {
             align-items: start;
-            gap: 0.5erm;
+            gap: 0.5rem;
+
+            & .work-price {
+                justify-self: center;
+            }
         }
     }
 
