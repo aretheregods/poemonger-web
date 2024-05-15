@@ -22,6 +22,7 @@
     & a {
         display: grid;
         align-items: center;
+        max-width: fit-content;
 
         & img {
             max-width: 256px;

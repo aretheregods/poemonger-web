@@ -48,7 +48,7 @@
 #poem-sample_buy-it-now {
     display: grid;
 
-    button.buy-it-now {
+    & button.buy-it-now {
         margin-block: 1rem;
         padding: 1rem 1.5rem;
         justify-self: center;

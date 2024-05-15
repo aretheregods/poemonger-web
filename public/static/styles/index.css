@@ -170,7 +170,6 @@ button.button:hover {
         color: hsl(var(--button-text-color));
     }
 }
-
 .flexible-buttons {
     display: flex;
     flex-wrap: wrap;
