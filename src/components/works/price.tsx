@@ -1,11 +1,13 @@
 import { countries, locales } from '../../utils'
 
 export default function Price({
+    workId,
     price,
     locale,
     title,
     subtitle,
 }: {
+    workId?: string
     price: number
     locale: countries
     title: string
@@ -17,14 +19,23 @@ export default function Price({
         currency: i.currency,
         currencyDisplay: 'narrowSymbol',
     }).format(price)
+    const T = ({ title, subtitle }: { title: string; subtitle: string }) => (
+        <h4 class="work-title">
+            {title}{' '}
+            <span>
+                <em>{subtitle ? `| ${subtitle}` : ''}</em>
+            </span>
+        </h4>
+    )
     return (
         <section class="work-info">
-            <h4 class="work-title">
-                {title}{' '}
-                <span>
-                    <em>{subtitle ? `| ${subtitle}` : ''}</em>
-                </span>
-            </h4>
+            {workId ? (
+                <a class="work_info-link" href={`/read/${workId}`}>
+                    <T {...{ title, subtitle }} />
+                </a>
+            ) : (
+                <T {...{ title, subtitle }} />
+            )}
             <p class="work-price">{fp}</p>
         </section>
     )

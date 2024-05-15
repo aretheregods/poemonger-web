@@ -43,6 +43,11 @@
     align-items: center;
     gap: 2rem;
 
+    & .work_info-link {
+        color: unset;
+        text-decoration: none;
+    }
+
     & .work-title {
         & em {
             font-weight: 400;
