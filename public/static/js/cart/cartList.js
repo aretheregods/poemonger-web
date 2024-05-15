@@ -6,7 +6,7 @@ var query = new HTTP()
 cid.forEach((d) => {
     d.addEventListener('click', (e) => {
         query
-            .post(`/cart/remove/${e.target.dataset.workId}`)
+            .post({ path: `/cart/remove/${e.target.dataset.workId}` })
             .then((r) => {
                 window.location.reload()
             })
