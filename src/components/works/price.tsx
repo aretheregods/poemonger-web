@@ -7,7 +7,7 @@ export default function Price({
     title,
     subtitle,
 }: {
-    workId?: string
+    workId?: number
     price: number
     locale: countries
     title: string

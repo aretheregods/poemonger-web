@@ -35,7 +35,7 @@ export default function CartItem({
                 </a>
                 <Price
                     {...{
-                        id,
+                        workId: id,
                         title,
                         subtitle,
                         price,
