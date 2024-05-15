@@ -53,8 +53,6 @@ const app = new Hono<{ Bindings: Bindings; Variables: Variables }>()
 app.use(csrf())
 app.use(secureHeaders())
 app.use(userCookieAuth)
-app.use('/cart', loggedOutRedirect)
-app.use('/read', loggedOutRedirect)
 
 app.route('/admin', admin)
 app.route('/cart', cart)
@@ -126,7 +124,7 @@ export async function cartSessions(
     c.set('cartSessions' as never, cartValue as never)
     await next()
 }
-app.get('/signup', (c) => {
+app.get('/signup', c => {
     if (c.var.currentSession || c.var.currentSessionError) {
         return c.redirect('/read')
     }
@@ -151,7 +149,7 @@ app.get('/signup', (c) => {
     )
 })
 
-app.post('/signup', async (c) => {
+app.post('/signup', async c => {
     var n = Date.now()
     var ct = c.req.header('Content-Type')
     var f = /multipart\/form-data/g.test(ct || '')
@@ -271,7 +269,7 @@ app.post('/signup', async (c) => {
     return c.json({ message })
 })
 
-app.get('/activate', async (c) => {
+app.get('/activate', async c => {
     if (c.var.currentSession || c.var.currentSessionError) {
         return c.redirect('/read')
     }
@@ -310,7 +308,7 @@ app.get('/activate', async (c) => {
     )
 })
 
-app.get('/login', async (c) => {
+app.get('/login', async c => {
     if (c.var.currentSession || c.var.currentSessionError) {
         return c.redirect('/read')
     }
@@ -335,7 +333,7 @@ app.get('/login', async (c) => {
     )
 })
 
-app.post('/login/check-email', async (c) => {
+app.post('/login/check-email', async c => {
     var ct = c.req.header('Content-Type')
     var f = /multipart\/form-data/g.test(ct || '')
     var salt
@@ -375,7 +373,7 @@ app.post('/login/check-email', async (c) => {
     return c.json({ salt, error }, { status })
 })
 
-app.post('/login', async (c) => {
+app.post('/login', async c => {
     var ct = c.req.header('Content-Type')
     var f = /multipart\/form-data/g.test(ct || '')
     var user = {}
@@ -473,7 +471,7 @@ app.post('/login', async (c) => {
     return c.json({ error, message, user })
 })
 
-app.get('/logout', loggedOutRedirect, (c) =>
+app.get('/logout', loggedOutRedirect, c =>
     c.html(
         <Base
             title="Poemonger | Logout"
@@ -490,7 +488,7 @@ app.get('/logout', loggedOutRedirect, (c) =>
     )
 )
 
-app.post('/logout', async (c) => {
+app.post('/logout', async c => {
     const hasCookie = getCookie(c, 'poemonger_session', 'secure')
     if (hasCookie) {
         setCookie(c, 'poemonger_session', hasCookie, {
@@ -510,7 +508,7 @@ app.post('/logout', async (c) => {
     }
 })
 
-app.get('/reset', loggedOutRedirect, (c) =>
+app.get('/reset', loggedOutRedirect, c =>
     c.html(
         <Base title="Poemonger | Reset" loggedIn={!!c.var.currentSession}>
             <Reset />
@@ -518,7 +516,7 @@ app.get('/reset', loggedOutRedirect, (c) =>
     )
 )
 
-app.get('/delete', loggedOutRedirect, (c) =>
+app.get('/delete', loggedOutRedirect, c =>
     c.html(
         <Base title="Poemonger | Delete" loggedIn={!!c.var.currentSession}>
             <Delete />
@@ -526,7 +524,7 @@ app.get('/delete', loggedOutRedirect, (c) =>
     )
 )
 
-app.get('/audio/:audioId', async (c) => {
+app.get('/audio/:audioId', async c => {
     if (!c.var.currentSession || c.var.currentSessionError) {
         return c.notFound()
     }
@@ -547,7 +545,7 @@ app.get('/audio/:audioId', async (c) => {
     })
 })
 
-app.get('/', readerSessions, async (c) => {
+app.get('/', readerSessions, async c => {
     if (c.var.currentSession && !c.var.currentSessionError) {
         return c.redirect('/read')
     }

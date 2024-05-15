@@ -2,7 +2,7 @@ import { Hono } from 'hono'
 
 import { Base } from '../../Base'
 import { CartItem } from '../../components/cart'
-import { cartSessions, readerSessions } from '../../'
+import { cartSessions, loggedOutRedirect, readerSessions } from '../../'
 import { countries } from '../../utils'
 
 type Bindings = {
@@ -27,6 +27,7 @@ type Variables = {
 
 const cart = new Hono<{ Bindings: Bindings; Variables: Variables }>()
 
+cart.use(loggedOutRedirect)
 cart.use(readerSessions)
 cart.use(cartSessions)
 
