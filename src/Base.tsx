@@ -64,17 +64,14 @@ export const Base = ({
                         <section class="login-signup_links">
                             {loggedIn ? (
                                 <>
-                                    <h2 id="shopping-cart_nav">
-                                        <a
-                                            id="shopping-cart_button"
-                                            href="/cart"
-                                        >
+                                    <a id="shopping-cart_button" href="/cart">
+                                        <h2 id="shopping-cart_nav">
                                             <span id="shopping-cart_count">
                                                 {shoppingCartCount}
                                             </span>{' '}
                                             &#128722;
-                                        </a>
-                                    </h2>
+                                        </h2>
+                                    </a>
                                     <p>Logged In</p>
                                     <section
                                         id="shopping-cart_container"
