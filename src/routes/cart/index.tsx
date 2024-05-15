@@ -67,7 +67,7 @@ cart.get('/', async (c) => {
                         : 'You have no items in your cart'}
                 </h2>
                 {data.data.map(({ id, title, subtitle, cover, price }) => (
-                    <section>
+                    <section class="cart_item">
                         <a href={`/read/${id}`}>
                             <img
                                 src={getImg(cover, 'verySmall')}
