@@ -44,7 +44,7 @@ nav {
     }
 }
 
-img {
+img.book-cover {
     /* Override height and width set on img elements */
     height: auto;
     width: auto;
