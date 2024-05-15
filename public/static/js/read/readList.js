@@ -12,7 +12,7 @@ apt.forEach((a) => {
         if (app.dataset.on == 1) {
             e.target.dataset.on = 0
             app.dataset.on = 0
-            app.removeAttribute('style')
+            app.setAttribute('style', 'height: 0px; opacity: 0%;')
             e.target.setAttribute(
                 'style',
                 'background-color: unset; color: unset;'
@@ -20,7 +20,7 @@ apt.forEach((a) => {
         } else {
             e.target.dataset.on = 1
             app.dataset.on = 1
-            app.setAttribute('style', 'height: 0px; opacity: 0%;')
+            app.removeAttribute('style')
             e.target.setAttribute(
                 'style',
                 'background-color: hsl( 244, 84%, 79% ); color: white;'
