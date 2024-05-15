@@ -12,7 +12,11 @@ apt.forEach((a) => {
         if (app.hasAttribute('style')) app.removeAttribute('style')
         else app.setAttribute('style', 'display: none;')
 
-        if (e.target.hasAttribute('style')) e.target.removeAttribute('style')
+        if (e.target.hasAttribute('style'))
+            e.target.setAttribute(
+                'style',
+                'background-color: unset; color: unset;'
+            )
         else
             e.target.setAttribute(
                 'style',
