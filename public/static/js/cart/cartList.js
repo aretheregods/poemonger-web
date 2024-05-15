@@ -1,6 +1,6 @@
 import { HTTP } from '../utils/index.js'
 
-var cid = document.getElementsByClassName('cart_item-delete')
+var cid = document.querySelectorAll('.cart_item-delete')
 var query = new HTTP()
 
 cid.forEach((d) => {
