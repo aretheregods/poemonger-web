@@ -24,6 +24,8 @@
         & .work-title {
             & em {
                 font-weight: 400;
+                color: unset;
+                text-decoration: none;
             }
         }
 
