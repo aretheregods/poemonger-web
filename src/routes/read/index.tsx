@@ -6,7 +6,7 @@ import { WorkPurchase, WorkSample } from '../../components/read'
 import { Work } from '../../components/works'
 import { cartSessions, loggedOutRedirect, readerSessions } from '../../'
 
-import { countries } from '../../utils'
+import { countries, locales } from '../../utils'
 
 type Bindings = {
     POEMONGER_READER_SESSIONS: DurableObjectNamespace
@@ -45,7 +45,8 @@ read.use(readerSessions)
 read.use(cartSessions)
 
 read.get('/', async c => {
-    const country = c.req.raw.cf?.country as countries || 'US'
+    const nation = c.req.raw.cf?.country as countries || 'US'
+    const country = Object.hasOwn(locales, nation) ? c.req.raw.cf?.country as countries : 'US'
     let response = { message: 'There was an error:', data: [] }
 
     try {
