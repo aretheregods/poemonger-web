@@ -44,6 +44,12 @@ nav {
     }
 }
 
+img {
+    /* Override height and width set on img elements */
+    height: auto;
+    width: auto;
+}
+
 #shopping-cart_button {
     display: flex;
     background: none;
