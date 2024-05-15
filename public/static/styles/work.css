@@ -94,6 +94,7 @@
 
         & .work-info {
             grid-template-rows: 1fr 1fr;
+            grid-template-columns: auto;
 
             & .work_info-link {
                 width: max-content;
