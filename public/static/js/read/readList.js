@@ -17,8 +17,7 @@ apt.forEach((a) => {
                 'style',
                 'background-color: unset; color: unset;'
             )
-        }
-        else {
+        } else {
             e.target.dataset.on = 1
             app.dataset.on = 1
             app.setAttribute('style', 'display: none;')
@@ -27,7 +26,6 @@ apt.forEach((a) => {
                 'background-color: hsl( 244, 84%, 79% ); color: white;'
             )
         }
-            
     })
 })
 
