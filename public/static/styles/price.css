@@ -7,7 +7,7 @@
 
     & > .cart_item-information {
         display: grid;
-        grid-template-columns: 1fr 1fr;
+        grid-template-columns: 4fr 7fr 1fr;;
 
         & .work-info {
             align-items: start;
