@@ -32,16 +32,16 @@ export default function CartItem({
                         )} 320w`}
                         sizes="(((min-width: 320px) and (max-width: 768px)) 128px, 256px"
                     />
-                    <Price
-                        {...{
-                            id,
-                            title,
-                            subtitle,
-                            price,
-                            locale: locale,
-                        }}
-                    />
                 </a>
+                <Price
+                    {...{
+                        id,
+                        title,
+                        subtitle,
+                        price,
+                        locale: locale,
+                    }}
+                />
             </section>
             <button class="cart_item-delete" data-work-id={id}>
                 &Chi;
