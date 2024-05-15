@@ -47,7 +47,8 @@ nav {
 img.book-cover {
     /* Override height and width set on img elements */
     height: auto;
-    width: auto;
+    width: 100%;
+    aspect-ratio: 10 / 16;
 }
 
 #shopping-cart_button {
