@@ -5,6 +5,10 @@
     & a {
         display: grid;
         align-items: center;
+
+        & img {
+            max-width: 256px;
+        }
     }
 }
 
