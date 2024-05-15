@@ -1,6 +1,17 @@
 .cart_item {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
+    display: flex;
+    padding: 1rem;
+    border: 1px solid #999;
+
+    & > .cart_item-information {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+
+        & .work-info {
+            align-items: start;
+            gap: 0.5erm;
+        }
+    }
 
     & a {
         display: grid;
@@ -9,6 +20,13 @@
         & img {
             max-width: 256px;
         }
+    }
+
+    & .cart_item-delete {
+        height: max-content;
+        padding: 1rem;
+        background-color: unset;
+        font-size: x-large;
     }
 }
 

@@ -68,7 +68,7 @@ cart.get('/', async (c) => {
                 </h2>
                 {data.data.map(({ id, title, subtitle, cover, price }) => (
                     <section class="cart_item">
-                        <section>
+                        <section class="cart_item-information">
                             <a href={`/read/${id}`}>
                                 <img
                                     src={getImg(cover, 'verySmall')}
@@ -96,7 +96,7 @@ cart.get('/', async (c) => {
                                 }}
                             />
                         </section>
-                        <button>&Chi;</button>
+                        <button class="cart_item-delete">&Chi;</button>
                     </section>
                 ))}
             </>
