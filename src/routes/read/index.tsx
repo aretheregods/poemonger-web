@@ -4,7 +4,7 @@ import { html } from 'hono/html'
 import { Base } from '../../Base'
 import { WorkPurchase, WorkSample } from '../../components/read'
 import { Work } from '../../components/works'
-import { cartSessions, loggedOutRedirect, readerSessions } from '../../'
+import { cartSessions, loggedOutRedirect, readerSessions, requestCountry } from '../../'
 
 import { countries, locales } from '../../utils'
 
@@ -41,6 +41,7 @@ type Variables = {
 
 const read = new Hono<{ Bindings: Bindings; Variables: Variables }>()
 
+read.use(requestCountry)
 read.use(loggedOutRedirect)
 read.use(readerSessions)
 read.use(cartSessions)

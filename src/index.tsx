@@ -57,7 +57,6 @@ const app = new Hono<{ Bindings: Bindings; Variables: Variables }>()
 app.use(csrf())
 app.use(secureHeaders())
 app.use(userCookieAuth)
-app.use(requestCountry)
 
 app.route('/admin', admin)
 app.route('/cart', cart)
