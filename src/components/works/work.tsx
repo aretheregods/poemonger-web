@@ -48,8 +48,11 @@ export default async function Work({
             <a href={`/read/${workId}`}>
                 <img
                     src={getImg(imgId, 'medium')}
+                    height="640"
+                    width="400"
                     alt="A book cover"
                     class="book-cover"
+                    fetchPriority="high"
                     loading="lazy"
                     decoding="async"
                     srcset={`${getImg(imgId, 'small')} 320w,${getImg(
