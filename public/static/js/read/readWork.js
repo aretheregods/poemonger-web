@@ -55,6 +55,7 @@ const determineTransitionClass = (oldNavigationEntry, newNavigationEntry) => {
         if (currentPathname === destinationPathname) {
             return 'reload'
         } else if (parseInt(currentPathname) < parseInt(destinationPathname)) {
+            console.log('running')
             return 'push'
         } else if (parseInt(currentPathname) > parseInt(destinationPathname)) {
             return 'pop'
