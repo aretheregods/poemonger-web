@@ -28,10 +28,6 @@ export default function CartItem({
                         class="book-cover"
                         loading="lazy"
                         decoding="async"
-                        srcset={`${getImg(cover, 'small')} 1480w,${getImg(
-                            cover,
-                            'verySmall'
-                        )} 320w`}
                         sizes="(((min-width: 320px) and (max-width: 768px)) 128px, 192px"
                     />
                 </a>
