@@ -6,26 +6,28 @@ var atc = document.querySelectorAll('.add-to-cart')
 
 apt.forEach((a) => {
     a.addEventListener('click', (e) => {
-        var app = document.getElementById(
-            `audio-poem_player-${e.target.dataset.workId}`
-        )
-        if (app.dataset.on == 1) {
-            e.target.dataset.on = 0
-            app.dataset.on = 0
-            app.setAttribute('style', 'height: 0px; opacity: 0%;')
-            e.target.setAttribute(
-                'style',
-                'background-color: auto; color: auto;'
+        document.startViewTransition(() => {
+            var app = document.getElementById(
+                `audio-poem_player-${e.target.dataset.workId}`
             )
-        } else {
-            e.target.dataset.on = 1
-            app.dataset.on = 1
-            app.removeAttribute('style')
-            e.target.setAttribute(
-                'style',
-                'background-color: hsl( 244, 84%, 79% ); color: white;'
-            )
-        }
+            if (app.dataset.on == 1) {
+                e.target.dataset.on = 0
+                app.dataset.on = 0
+                app.setAttribute('style', 'height: 0px; opacity: 0%;')
+                e.target.setAttribute(
+                    'style',
+                    'background-color: auto; color: auto;'
+                )
+            } else {
+                e.target.dataset.on = 1
+                app.dataset.on = 1
+                app.removeAttribute('style')
+                e.target.setAttribute(
+                    'style',
+                    'background-color: hsl( 244, 84%, 79% ); color: white;'
+                )
+            }
+        })
     })
 })
 
