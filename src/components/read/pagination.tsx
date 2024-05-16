@@ -12,6 +12,7 @@ export default function Pagination({
                 id="page-range"
                 type="range"
                 value={chapter}
+                data-previous={chapter}
                 min="1"
                 max={chapters}
                 step="1"
@@ -21,6 +22,7 @@ export default function Pagination({
                     id="previous"
                     class="button"
                     data-chapter={`${chapter - 1}`}
+                    data-previous={chapter}
                     title={
                         chapter === 1
                             ? ''
@@ -39,6 +41,7 @@ export default function Pagination({
                     id="next"
                     class="button"
                     data-chapter={`${chapter + 1}`}
+                    data-previous={chapter}
                     title={
                         chapter === chapters
                             ? ''

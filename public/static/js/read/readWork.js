@@ -47,7 +47,7 @@ window.addEventListener('pagereveal', async e => {
 const determineTransitionClass = (newNavigationEntry) => {
 	const destinationURL = new URL(newNavigationEntry.url);
 
-	const currentPathname = destinationURL.searchParams.get('prev')
+	const currentPathname = destinationURL.searchParams.get('previous')
 	const destinationPathname = destinationURL.searchParams.get('chapter');
 
     if (destinationURL.pathname.startsWith('/read') && currentPathname) {
@@ -81,21 +81,26 @@ const isUAForwardButton = (oldNavigationEntry, newNavigationEntry) => {
 
 function chapterButtons(e) {
     var c = e.target.dataset.chapter
+    var p = e.target.dataset.previous
     if (e.ctrlKey || e.metaKey || e.button === 1) {
         var href = new URL(window.location.href)
         var params = href.searchParams
         params.set('chapter', c)
+        params.set('previous', p)
         window.open(href.href, '_blank')
     } else {
         var u = new URLSearchParams()
         u.set('chapter', c)
+        u.set("previous", p)
         window.location.search = u
     }
 }
 
 function chapterRange(e) {
     var c = e.target.value
+    var p = e.target.dataset.previous
     var u = new URLSearchParams()
     u.set('chapter', c)
+    u.set('previous', p)
     window.location.search = u
 }
