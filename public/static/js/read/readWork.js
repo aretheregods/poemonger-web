@@ -9,31 +9,31 @@ if (p) p.addEventListener('mouseup', chapterButtons)
 if (r) r.addEventListener('change', chapterRange)
 
 window.addEventListener('pageshow', async e => {
-    if (e.viewTransition) {
+    // if (e.viewTransition) {
         const transitionClass = determineTransitionClass(navigation.currentEntry);
 		document.documentElement.dataset.transition = transitionClass;
 
 		await e.viewTransition.finished;
 		delete document.documentElement.dataset.transition;
-	} else {
+	// } else {
 
-		// Do a reload animation
-		if (navigation.activation.navigationType == 'reload') {
-			document.documentElement.dataset.transition = "reload";
-			const t = document.startViewTransition(() => {
-				// NOOP
-			});
-			try {
-				await t.finished;
-				delete document.documentElement.dataset.transition;
-			} catch (e) {
-				console.log(e);
-			}
-			return;
-		}
+	// 	// Do a reload animation
+	// 	if (navigation.activation.navigationType == 'reload') {
+	// 		document.documentElement.dataset.transition = "reload";
+	// 		const t = document.startViewTransition(() => {
+	// 			// NOOP
+	// 		});
+	// 		try {
+	// 			await t.finished;
+	// 			delete document.documentElement.dataset.transition;
+	// 		} catch (e) {
+	// 			console.log(e);
+	// 		}
+	// 		return;
+	// 	}
 
-		// @TODO: manually create a “welcome” viewTransition here?
-	}
+	// 	// @TODO: manually create a “welcome” viewTransition here?
+	// }
 })
 
 // Determine the View Transition class to use based on the old and new navigation entries
