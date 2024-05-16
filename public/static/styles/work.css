@@ -21,6 +21,11 @@
         grid-template-columns: 1fr 1fr;
         width: 100%;
 
+        & .work_info-link {
+            color: unset;
+            text-decoration: none;
+        }
+
         & .work-title {
             & em {
                 font-weight: 400;
@@ -98,8 +103,6 @@
 
             & .work_info-link {
                 width: max-content;
-                color: unset;
-                text-decoration: none;
             }
         }
     }
