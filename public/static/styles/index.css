@@ -22,6 +22,12 @@ body {
 nav {
     display: flex;
     justify-content: space-between;
+    position: sticky;
+    top: 0.5rem;
+
+    & > a {
+        margin: auto 0;
+    }
 
     & a {
         height: min-content;
