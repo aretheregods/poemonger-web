@@ -30,6 +30,8 @@
         background-color: unset;
         font-size: x-large;
         border-radius: var(--element-br);
+        pointer-events: all;
+        cursor: pointer;
     }
 }
 
