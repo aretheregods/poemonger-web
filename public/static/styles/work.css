@@ -68,6 +68,7 @@
     }
 
     & .work-audio {
+        view-transition-name: audio-player;
         display: grid;
         justify-content: center;
         width: fit-content;
