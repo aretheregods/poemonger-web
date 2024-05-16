@@ -7,14 +7,9 @@ if (
     const specRules = {
         prerender: [
             {
-                where: { href_matches: ['/read/*', '/read'. '/cart'] },
-            },
-        ],
-        prefetch: [
-            {
-                urls: ['/cart'],
-            },
-        ],
+                "where": { "href_matches": ["/read/*", "/read". "/cart"] }
+            }
+        ]
     }
     specScript.textContent = JSON.stringify(specRules)
     console.log('added speculation rules to: cart')

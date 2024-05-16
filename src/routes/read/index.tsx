@@ -65,12 +65,13 @@ read.get('/', async c => {
             title="Poemonger | Read"
             assets={[
                 <link rel="stylesheet" href="/static/styles/work.css" />,
+                <link rel="prefetch" href="/read/*" />,
                 <script
                     type="module"
                     src="/static/js/read/readList.js"
                     defer
                 ></script>,
-                <script type="speculationrules" src="/static/js/specRules/specRules.js" defer></script>
+                <script src="/static/js/specRules/specRules.js" defer></script>
             ]}
             loggedIn={!!c.var.currentSession}
             shoppingCartCount={c.var.cartSessions?.size as number}
