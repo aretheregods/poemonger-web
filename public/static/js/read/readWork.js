@@ -41,14 +41,13 @@ window.addEventListener('pageshow', async e => {
 const determineTransitionClass = (newNavigationEntry) => {
 	const destinationURL = new URL(newNavigationEntry.url);
 
-	const currentPathname = destinationURL.searchParams.get('previous')
-	const destinationPathname = destinationURL.searchParams.get('chapter');
+	const currentPathname = destinationURL.searchParams.get('previous') || 0
+	const destinationPathname = destinationURL.searchParams.get('chapter') || 0
 
-    if (destinationURL.pathname.startsWith('/read') && currentPathname) {
+    if (destinationURL.pathname.startsWith('/read') && (currentPathname || destinationPathname)) {
         if (currentPathname === destinationPathname) {
             return 'reload'
         } else if (parseInt(currentPathname) < parseInt(destinationPathname)) {
-            console.log('running')
             return 'push'
         } else if (parseInt(currentPathname) > parseInt(destinationPathname)) {
             return 'pop'
