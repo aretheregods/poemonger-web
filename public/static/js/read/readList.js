@@ -6,7 +6,7 @@ var atc = document.querySelectorAll('.add-to-cart')
 
 apt.forEach((a) => {
     a.addEventListener('click', (e) => {
-        document.startViewTransition(() => {
+        function audioTransition() {
             var app = document.getElementById(
                 `audio-poem_player-${e.target.dataset.workId}`
             )
@@ -28,7 +28,10 @@ apt.forEach((a) => {
                     'background-color: hsl( 244, 84%, 79% ); color: white;'
                 )
             }
-        })
+        }
+
+        if(!document.startViewTransition) return audioTransition()
+        else document.startViewTransition(audioTransition)
     })
 })
 
