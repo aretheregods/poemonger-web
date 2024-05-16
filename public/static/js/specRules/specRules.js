@@ -7,8 +7,8 @@ if (
     const specRules = {
         prerender: [
             {
-                "where": { "href_matches": "/read/*" }
-            }
+                where: { href_matches: ['/read/*', '/read'. '/cart'] },
+            },
         ],
         prefetch: [
             {
