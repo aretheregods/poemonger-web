@@ -7,6 +7,12 @@
     scrollbar-width: none;
 }
 
+#poem-content-container {
+    width: 100vw;
+    display: grid;
+    justify-content: center;
+}
+
 #page-turners {
     display: flex;
     justify-content: space-between;
@@ -35,14 +41,16 @@
 #sample-info {
     display: flex;
     flex-wrap: wrap;
+    justify-content: center;
     gap: 2rem;
     position: sticky;
     top: 0px;
     background-color: white;
+    padding-bottom: 1rem;
 
     & > * {
         flex: 1;
-        min-width: fit-content;
+        max-width: fit-content;
     }
 }
 
