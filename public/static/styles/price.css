@@ -22,7 +22,6 @@
     & a {
         display: grid;
         align-items: center;
-        max-width: fit-content;
     }
 
     & .cart_item-delete {
