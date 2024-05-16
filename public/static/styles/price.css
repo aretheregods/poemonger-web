@@ -11,6 +11,8 @@
         display: grid;
         grid-template-columns: 4fr 7fr 1fr;
         gap: 1rem;
+        width: fit-content;
+        height: fit-content;
 
         & .work-info {
             align-items: start;
