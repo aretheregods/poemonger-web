@@ -15,7 +15,7 @@ apt.forEach((a) => {
             app.setAttribute('style', 'height: 0px; opacity: 0%;')
             e.target.setAttribute(
                 'style',
-                'background-color: unset; color: unset;'
+                'background-color: auto; color: auto;'
             )
         } else {
             e.target.dataset.on = 1
