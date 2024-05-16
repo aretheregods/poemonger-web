@@ -43,7 +43,7 @@ export default async function Work({
             <figure
                 id={`audio-poem_player-${workId}`}
                 class="work-audio audio-poem_player"
-                style="height: 0px; opacity: 0%;"
+                style="height: 0px; opacity: 0%; z-index: -1;"
                 data-on="0"
             >
                 <figcaption>Listen to the first chapter</figcaption>
