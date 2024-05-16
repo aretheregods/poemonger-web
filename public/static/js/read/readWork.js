@@ -8,6 +8,77 @@ if (p) p.addEventListener('click', chapterButtons)
 if (p) p.addEventListener('mouseup', chapterButtons)
 if (r) r.addEventListener('change', chapterRange)
 
+window.addEventListener('pageReveal', async e => {
+    if (e.viewTransition) {
+
+		if (!navigation.activation?.from) {
+			e.viewTransition.skipTransition();
+			return;
+		}
+
+		const transitionClass = determineTransitionClass(navigation.activation.from, navigation.currentEntry);
+		document.documentElement.dataset.transition = transitionClass;
+
+		await e.viewTransition.finished;
+		delete document.documentElement.dataset.transition;
+	} else {
+
+		// Do a reload animation
+		if (navigation.activation.navigationType == 'reload') {
+			document.documentElement.dataset.transition = "reload";
+			const t = document.startViewTransition(() => {
+				// NOOP
+			});
+			try {
+				await t.finished;
+				delete document.documentElement.dataset.transition;
+			} catch (e) {
+				console.log(e);
+			}
+			return;
+		}
+
+		// @TODO: manually create a “welcome” viewTransition here?
+	}
+})
+
+// Determine the View Transition class to use based on the old and new navigation entries
+// Also take the navigateEvent into account to detect UA back/forward navigation
+const determineTransitionClass = (oldNavigationEntry, newNavigationEntry) => {
+	const currentURL = new URL(oldNavigationEntry.url);
+	const destinationURL = new URL(newNavigationEntry.url);
+
+	const currentPathname = currentURL.searchParams.get('chapter')
+	const destinationPathname = destinationURL.searchParams.get('chapter');
+
+    if (destinationURL.pathname.startsWith('/read') && currentPathname) {
+        if (currentPathname === destinationPathname) {
+            return 'reload'
+        } else if (parseInt(currentPathname) < parseInt(destinationPathname)) {
+            return 'push'
+        } else if (parseInt(currentPathname) > parseInt(destinationPathname)) {
+            return 'pop'
+        } else {
+            console.warn('Unmatched Route Handling!')
+            console.log({
+                currentPathname,
+                destinationPathname,
+            })
+            return 'none'
+        }
+    } else return
+};
+
+// Determine if the UA back button was used to navigate
+const isUABackButton = (oldNavigationEntry, newNavigationEntry) => {
+	return (newNavigationEntry.index < oldNavigationEntry.index);
+};
+
+// Determine if the UA forward button was used to navigate
+const isUAForwardButton = (oldNavigationEntry, newNavigationEntry) => {
+	return (newNavigationEntry.index > oldNavigationEntry.index);
+};
+
 function chapterButtons(e) {
     var c = e.target.dataset.chapter
     if (e.ctrlKey || e.metaKey || e.button === 1) {

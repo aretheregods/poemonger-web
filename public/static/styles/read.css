@@ -1,3 +1,12 @@
+:root[data-transition="reload"] {
+	&::view-transition-old(page) {
+		display: none;
+	}
+	&::view-transition-new(page) {
+		animation-name: fade-in, scale-up;
+	}
+}
+
 .poem-section-container {
     min-height: calc(100vh - 11.5rem);
     max-height: calc(100vh - 11.5rem);
