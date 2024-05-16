@@ -8,7 +8,7 @@ if (p) p.addEventListener('click', chapterButtons)
 if (p) p.addEventListener('mouseup', chapterButtons)
 if (r) r.addEventListener('change', chapterRange)
 
-window.addEventListener('pageReveal', async e => {
+window.addEventListener('pagereveal', async e => {
     if (e.viewTransition) {
 
 		if (!navigation.activation?.from) {
