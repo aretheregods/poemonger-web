@@ -23,15 +23,13 @@ nav {
     display: flex;
     justify-content: space-between;
     position: sticky;
-    top: 0.5rem;
-
-    & > a {
-        margin: auto 0;
-    }
+    top: 0px;
+    z-index: 5;
+    background-color: white;
 
     & a {
         height: min-content;
-        margin: 0;
+        margin: auto 0;
         text-decoration: none;
         display: grid;
         align-items: center;
