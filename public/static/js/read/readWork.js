@@ -10,13 +10,7 @@ if (r) r.addEventListener('change', chapterRange)
 
 window.addEventListener('pagereveal', async e => {
     if (e.viewTransition) {
-
-		if (!navigation.activation?.from) {
-			e.viewTransition.skipTransition();
-			return;
-		}
-
-		const transitionClass = determineTransitionClass(navigation.currentEntry);
+        const transitionClass = determineTransitionClass(navigation.currentEntry);
 		document.documentElement.dataset.transition = transitionClass;
 
 		await e.viewTransition.finished;
