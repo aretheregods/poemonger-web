@@ -21,7 +21,6 @@ import Delete from './components/reset'
 // utils
 import { countries, locales } from './utils'
 
-
 export type Bindings = {
     POEMONGER_POEMS: D1Database
     POEMONGER_READER_CARTS: DurableObjectNamespace
@@ -129,9 +128,14 @@ export async function cartSessions(
     await next()
 }
 
-export async function requestCountry(c: Context<{ Bindings: Bindings; Variables: Variables }>, next: Next) {
-    const nation = c.req.raw.cf?.country as countries || 'US'
-    const country = Object.hasOwn(locales, nation) ? c.req.raw.cf?.country as countries : 'US'
+export async function requestCountry(
+    c: Context<{ Bindings: Bindings; Variables: Variables }>,
+    next: Next
+) {
+    const nation = (c.req.raw.cf?.country as countries) || 'US'
+    const country = Object.hasOwn(locales, nation)
+        ? (c.req.raw.cf?.country as countries)
+        : 'US'
     c.set('country' as never, country as never)
     await next()
 }

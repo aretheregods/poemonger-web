@@ -22,7 +22,7 @@ export default function WorkSample({
         <>
             {poetry?.map(({ work, title, author, single, sample }) => {
                 const { chapter, chapters } = JSON.parse(
-                    work as unknown as string
+                    (work as unknown) as string
                 )
                 return (
                     <>
@@ -38,17 +38,11 @@ export default function WorkSample({
                                     {...{
                                         title,
                                         author,
+                                        single,
                                         lines: sample,
+                                        isSample: true,
                                     }}
                                 />
-                                {!single && (
-                                    <section id="poem-sample_buy-it-now">
-                                        <hr id="poem-sample_separator" />
-                                        <button class="button buy-it-now">
-                                            &#128366; Buy it now
-                                        </button>
-                                    </section>
-                                )}
                             </>
                         </section>
                         <Pagination {...{ chapter, chapters }} />

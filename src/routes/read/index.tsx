@@ -51,7 +51,7 @@ read.use(loggedOutRedirect)
 read.use(readerSessions)
 read.use(cartSessions)
 
-read.get('/', async (c) => {
+read.get('/', async c => {
     let response = { message: 'There was an error:', data: [] }
 
     try {
@@ -101,11 +101,11 @@ read.get('/', async (c) => {
     )
 })
 
-read.get('/cartdata', (c) => {
+read.get('/cartdata', c => {
     return c.json(c.var.cartSessions)
 })
 
-read.get('/:workId', async (c) => {
+read.get('/:workId', async c => {
     const workId = c.req.param('workId')
     const chapter = c.req.query('chapter')
     let response: {
