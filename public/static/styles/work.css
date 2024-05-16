@@ -97,6 +97,14 @@
             }
         }
 
+        & .button {
+            margin-block: 0.5rem;
+        }
+
+        & .read-purchase_buttons {
+            gap: 0.25rem;
+        }
+
         & .work-info {
             grid-template-rows: 1fr 1fr;
             grid-template-columns: auto;
