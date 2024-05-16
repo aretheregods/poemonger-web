@@ -8,7 +8,7 @@ if (p) p.addEventListener('click', chapterButtons)
 if (p) p.addEventListener('mouseup', chapterButtons)
 if (r) r.addEventListener('change', chapterRange)
 
-window.addEventListener('pagereveal', async e => {
+window.addEventListener('pageshow', async e => {
     if (e.viewTransition) {
         const transitionClass = determineTransitionClass(navigation.currentEntry);
 		document.documentElement.dataset.transition = transitionClass;
