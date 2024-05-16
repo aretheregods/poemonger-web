@@ -50,7 +50,7 @@ read.use(loggedOutRedirect)
 read.use(readerSessions)
 read.use(cartSessions)
 
-read.get('/', async c => {
+read.get('/', async (c) => {
     let response = { message: 'There was an error:', data: [] }
 
     try {
@@ -71,7 +71,10 @@ read.get('/', async c => {
                     src="/static/js/read/readList.js"
                     defer
                 ></script>,
-                <script src="/static/js/specRules/specRulesRead.js" defer></script>
+                <script
+                    src="/static/js/specRules/specRulesRead.js"
+                    defer
+                ></script>,
             ]}
             loggedIn={!!c.var.currentSession}
             shoppingCartCount={c.var.cartSessions?.size as number}
@@ -102,11 +105,11 @@ read.get('/', async c => {
     )
 })
 
-read.get('/cartdata', c => {
+read.get('/cartdata', (c) => {
     return c.json(c.var.cartSessions)
 })
 
-read.get('/:workId', async c => {
+read.get('/:workId', async (c) => {
     const workId = c.req.param('workId')
     const chapter = c.req.query('chapter')
     let response: {
@@ -150,7 +153,10 @@ read.get('/:workId', async c => {
                         src="/static/js/read/readWork.js"
                         defer
                     ></script>,
-                    <script src="/static/js/specRules/specRulesRead.js" defer></script>,
+                    <script
+                        src="/static/js/specRules/specRulesRead.js"
+                        defer
+                    ></script>,
                     ...sampleWorkJs,
                 ]}
                 shoppingCartCount={c.var.cartSessions?.size as number}
