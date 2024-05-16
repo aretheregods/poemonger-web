@@ -41,15 +41,14 @@ export default function Poem({
                 })}
                 {children}
             </section>
-            {!single &&
-                isSample(
-                    <section id="poem-sample_buy-it-now">
-                        <hr id="poem-sample_separator" />
-                        <button class="button buy-it-now">
-                            &#128366; Buy it now
-                        </button>
-                    </section>
-                )}
+            {!single && isSample && (
+                <section id="poem-sample_buy-it-now">
+                    <hr id="poem-sample_separator" />
+                    <button class="button buy-it-now">
+                        &#128366; Buy it now
+                    </button>
+                </section>
+            )}
         </section>
     )
 }

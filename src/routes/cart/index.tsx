@@ -38,7 +38,7 @@ cart.use(loggedOutRedirect)
 cart.use(readerSessions)
 cart.use(cartSessions)
 
-cart.get('/', async (c) => {
+cart.get('/', async c => {
     const r = await c.var.READER_CARTS.getCart(c.req.raw)
     const data: {
         data: Array<{
@@ -91,7 +91,7 @@ cart.get('/', async (c) => {
     )
 })
 
-cart.post('/remove/:workId', async (c) => {
+cart.post('/remove/:workId', async c => {
     const workId = c.req.param('workId')
     let response = { count: 0, error: '' }
     try {
@@ -103,7 +103,7 @@ cart.post('/remove/:workId', async (c) => {
     return c.json(response)
 })
 
-cart.post('/:workId', async (c) => {
+cart.post('/:workId', async c => {
     const workId = c.req.param('workId')
     let response = { message: 'There was an error:' }
 
