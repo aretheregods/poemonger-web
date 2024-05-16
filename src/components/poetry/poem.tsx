@@ -13,6 +13,8 @@ export default function Poem({
     lines: unknown
     sample_length?: unknown
     sample_section?: unknown
+    single?: boolean
+    isSample?: boolean
     children?: JSX.Element
 }) {
     var l = JSON.parse(lines as string)
