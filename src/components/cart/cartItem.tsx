@@ -22,8 +22,8 @@ export default function CartItem({
                 <a href={`/read/${id}`}>
                     <img
                         src={getImg(cover, 'verySmall')}
-                        height="410"
-                        width="256"
+                        height="192"
+                        width="120"
                         alt="A book cover"
                         class="book-cover"
                         loading="lazy"
@@ -32,7 +32,7 @@ export default function CartItem({
                             cover,
                             'verySmall'
                         )} 320w`}
-                        sizes="(((min-width: 320px) and (max-width: 768px)) 128px, 256px"
+                        sizes="(((min-width: 320px) and (max-width: 768px)) 128px, 192px"
                     />
                 </a>
                 <Price
