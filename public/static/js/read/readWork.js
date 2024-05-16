@@ -16,7 +16,7 @@ window.addEventListener('pagereveal', async e => {
 			return;
 		}
 
-		const transitionClass = determineTransitionClass(navigation.activation.from, navigation.currentEntry);
+		const transitionClass = determineTransitionClass(navigation.currentEntry);
 		document.documentElement.dataset.transition = transitionClass;
 
 		await e.viewTransition.finished;
@@ -44,11 +44,10 @@ window.addEventListener('pagereveal', async e => {
 
 // Determine the View Transition class to use based on the old and new navigation entries
 // Also take the navigateEvent into account to detect UA back/forward navigation
-const determineTransitionClass = (oldNavigationEntry, newNavigationEntry) => {
-	const currentURL = new URL(oldNavigationEntry.url);
+const determineTransitionClass = (newNavigationEntry) => {
 	const destinationURL = new URL(newNavigationEntry.url);
 
-	const currentPathname = currentURL.searchParams.get('chapter')
+	const currentPathname = destinationURL.searchParams.get('prev')
 	const destinationPathname = destinationURL.searchParams.get('chapter');
 
     if (destinationURL.pathname.startsWith('/read') && currentPathname) {
