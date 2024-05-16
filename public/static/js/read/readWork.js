@@ -10,8 +10,7 @@ if (r) r.addEventListener('change', chapterRange)
 
 window.addEventListener('pageshow', async e => {
     const transitionClass = determineTransitionClass(navigation.currentEntry);
-    const poemContainer = document.getElementById('poem-content-container')
-    poemContainer.dataset.transition = transitionClass;
+    document.documentElement.dataset.transition = transitionClass;
 
     await e.viewTransition.finished;
     delete document.documentElement.dataset.transition;
