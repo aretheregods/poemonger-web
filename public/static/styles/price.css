@@ -19,11 +19,6 @@
         }
     }
 
-    & a {
-        display: grid;
-        align-items: center;
-    }
-
     & .cart_item-delete {
         height: max-content;
         padding: 1rem;
