@@ -5,11 +5,11 @@ if (
     const specScript = document.createElement('script')
     specScript.type = 'speculationrules'
     const specRules = {
-        "prerender": [
+        prerender: [
             {
-                "where": { "href_matches": ["/read/*", "/read", "/cart"] }
-            }
-        ]
+                where: { href_matches: ['/read/*', '/read', '/cart'] },
+            },
+        ],
     }
     specScript.textContent = JSON.stringify(specRules)
     console.log('added speculation rules to: cart')
