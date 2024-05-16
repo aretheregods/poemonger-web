@@ -54,9 +54,11 @@
 	}
 }
 
-body {
+#poem-content-container {
     view-transition-name: page;
+}
 
+body {
     font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI',
         Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue',
         sans-serif;
