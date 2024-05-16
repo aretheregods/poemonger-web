@@ -70,6 +70,7 @@ read.get('/', async c => {
                     src="/static/js/read/readList.js"
                     defer
                 ></script>,
+                <script src="/static/js/read/specRules.js" defer></script>
             ]}
             loggedIn={!!c.var.currentSession}
             shoppingCartCount={c.var.cartSessions?.size as number}
