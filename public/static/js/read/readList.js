@@ -10,6 +10,7 @@ apt.forEach((a) => {
             var app = document.getElementById(
                 `audio-poem_player-${e.target.dataset.workId}`
             )
+
             if (app.dataset.on == 1) {
                 e.target.dataset.on = 0
                 app.dataset.on = 0
