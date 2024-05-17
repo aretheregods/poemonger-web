@@ -12,7 +12,7 @@ export default async function Landing({
 }) {
     try {
         let response = { message: 'There was an error:', data: [] }
-        const res = await r.query(req, query)
+        const res = await r.query(req, query, true)
         const results: { data: [] } = await res.json()
         return (
             <>
