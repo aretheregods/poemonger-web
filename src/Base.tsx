@@ -50,53 +50,58 @@ export const Base = ({
                 ${assets}
             </head>
             <body>
-                ${header ?? (
-                    <nav>
-                        <a href="/">
-                            <img
-                                src="/static/logos/poemonger.svg"
-                                height="41"
-                                width="128"
-                                fetchpriority="high"
-                                loading="eager"
-                            />
-                        </a>
-                        <section class="login-signup_links">
-                            {loggedIn ? (
-                                <>
-                                    <a id="shopping-cart_button" href="/cart">
-                                        <h2 id="shopping-cart_nav">
-                                            <span id="shopping-cart_count">
-                                                {shoppingCartCount}
-                                            </span>{' '}
-                                            &#128722;
-                                        </h2>
-                                    </a>
-                                    <p>Logged In</p>
-                                    <section
-                                        id="shopping-cart_container"
-                                        popover="auto"
-                                    >
-                                        Shopping Cart
-                                    </section>
-                                </>
-                            ) : (
-                                <>
-                                    <a href="/login" title="log in">
-                                        Login
-                                    </a>
-                                    <a
-                                        href="signup"
-                                        title="sign up for better poetry"
-                                        class="button"
-                                    >
-                                        Sign up
-                                    </a>
-                                </>
-                            )}
-                        </section>
-                    </nav>
-                )}
+                <header>
+                    ${header ?? (
+                        <nav>
+                            <a href="/">
+                                <img
+                                    src="/static/logos/poemonger.svg"
+                                    height="41"
+                                    width="128"
+                                    fetchpriority="high"
+                                    loading="eager"
+                                />
+                            </a>
+                            <section class="login-signup_links">
+                                {loggedIn ? (
+                                    <>
+                                        <a
+                                            id="shopping-cart_button"
+                                            href="/cart"
+                                        >
+                                            <h2 id="shopping-cart_nav">
+                                                <span id="shopping-cart_count">
+                                                    {shoppingCartCount}
+                                                </span>{' '}
+                                                &#128722;
+                                            </h2>
+                                        </a>
+                                        <p>Logged In</p>
+                                        <section
+                                            id="shopping-cart_container"
+                                            popover="auto"
+                                        >
+                                            Shopping Cart
+                                        </section>
+                                    </>
+                                ) : (
+                                    <>
+                                        <a href="/login" title="log in">
+                                            Login
+                                        </a>
+                                        <a
+                                            href="signup"
+                                            title="sign up for better poetry"
+                                            class="button"
+                                        >
+                                            Sign up
+                                        </a>
+                                    </>
+                                )}
+                            </section>
+                        </nav>
+                    )}
+                </header>
                 <main>${children}</main>
                 ${footer}
             </body>
