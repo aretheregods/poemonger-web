@@ -20,7 +20,7 @@ export default function Poem({
     var l = JSON.parse(lines as string)
     var ss = sample_section ? l.slice(0, sample_section) : l
     return (
-        <section id="poem-content-container" class="poem-content-container">
+        <article id="poem-content-container" class="poem-content-container">
             <h2>{title}</h2>
             <p title={`Author Name: ${author}`}>
                 <em>By: {author}</em>
@@ -51,6 +51,6 @@ export default function Poem({
                     </button>
                 </section>
             )}
-        </section>
+        </article>
     )
 }
