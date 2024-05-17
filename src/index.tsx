@@ -568,7 +568,13 @@ app.get('/', readerSessions, async c => {
 
     const props = {
         title: 'Poemonger | Real Poetry',
-        assets: [<link rel="stylesheet" href="/static/styles/landing.css" />, <script src="/static/js/specRules/specRulesLogin.js" defer></script>],
+        assets: [
+            <link rel="stylesheet" href="/static/styles/landing.css" />,
+            <script
+                src="/static/js/specRules/specRulesLogin.js"
+                defer
+            ></script>,
+        ],
         children: (
             <Landing
                 req={c.req.raw}
