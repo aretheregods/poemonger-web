@@ -99,7 +99,11 @@ cart.get('/', async c => {
 cart.get('/purchase/:workId', c => {
     const workId = c.req.param('workId')
     return c.html(
-        <Base title="Poemonger | Purchase Work">
+        <Base
+            title="Poemonger | Purchase Work"
+            loggedIn={!!c.var.currentSession}
+            shoppingCartCount={c.var.cartSessions?.size as number}
+        >
             <h2>Buy this work {workId}</h2>
         </Base>
     )
@@ -107,7 +111,11 @@ cart.get('/purchase/:workId', c => {
 
 cart.get('/purchase', c => {
     return c.html(
-        <Base title="Poemonger | Purchase Cart">
+        <Base
+            title="Poemonger | Purchase Cart"
+            loggedIn={!!c.var.currentSession}
+            shoppingCartCount={c.var.cartSessions?.size as number}
+        >
             <h2>Buy a cart of works</h2>
         </Base>
     )
