@@ -91,13 +91,17 @@ export const Base = ({
                                     </>
                                 ) : (
                                     <>
-                                        <a href="/login" title="log in">
+                                        <a
+                                            href="/login"
+                                            title="log in"
+                                            class="login-link"
+                                        >
                                             Login
                                         </a>
                                         <a
                                             href="signup"
                                             title="sign up for better poetry"
-                                            class="button"
+                                            class="button signup-link"
                                         >
                                             Sign up
                                         </a>

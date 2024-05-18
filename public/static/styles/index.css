@@ -92,6 +92,10 @@ nav {
             padding: 1.125rem 1rem;
             border-radius: 10px;
         }
+
+        & .login-link {
+            margin-right: 1rem;
+        }
     }
 }
 
