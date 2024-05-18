@@ -74,18 +74,23 @@ cart.get('/', async c => {
                           } in your cart`
                         : 'You have no items in your cart'}
                 </h2>
-                {data.data.map(({ id, title, subtitle, cover, price }) => (
-                    <CartItem
-                        {...{
-                            id,
-                            title,
-                            subtitle,
-                            cover,
-                            price,
-                            locale: c.var.country,
-                        }}
-                    />
-                ))}
+                <section>
+                    {data.data.map(({ id, title, subtitle, cover, price }) => (
+                        <CartItem
+                            {...{
+                                id,
+                                title,
+                                subtitle,
+                                cover,
+                                price,
+                                locale: c.var.country,
+                            }}
+                        />
+                    ))}
+                    <a href="/cart/purchase" class="button purchase-cart">
+                        Checkout
+                    </a>
+                </section>
             </>
         </Base>
     )
@@ -94,8 +99,16 @@ cart.get('/', async c => {
 cart.get('/purchase/:workId', c => {
     const workId = c.req.param('workId')
     return c.html(
-        <Base title="Poemonger | Purchase">
-            <h2>Buy this book {workId}</h2>
+        <Base title="Poemonger | Purchase Work">
+            <h2>Buy this work {workId}</h2>
+        </Base>
+    )
+})
+
+cart.get('/purchase', c => {
+    return c.html(
+        <Base title="Poemonger | Purchase Cart">
+            <h2>Buy a cart of works</h2>
         </Base>
     )
 })
