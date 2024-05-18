@@ -173,6 +173,12 @@ so this starting-style rule cannot be nested */
     }
 }
 
+#logged-in-popover_container {
+    top: 6rem;
+    right: 1rem;
+    left: auto;
+}
+
 main {
     display: grid;
     justify-content: center;

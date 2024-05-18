@@ -1,10 +1,10 @@
-:root[data-transition="reload"] {
-	&::view-transition-old(page) {
-		display: none;
-	}
-	&::view-transition-new(page) {
-		animation-name: fade-in, scale-up;
-	}
+:root[data-transition='reload'] {
+    &::view-transition-old(page) {
+        display: none;
+    }
+    &::view-transition-new(page) {
+        animation-name: fade-in, scale-up;
+    }
 }
 
 .poem-section-container {
