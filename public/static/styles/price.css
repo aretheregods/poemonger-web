@@ -69,7 +69,7 @@
     }
 }
 
-@media (width >=320px) and (width >=768px) {
+@media (width >=320px) and (width <=768px) {
     #cart-main_container {
         grid-template-columns: none;
     }
