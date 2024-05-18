@@ -11,7 +11,9 @@ if (r) r.addEventListener('change', chapterRange)
 window.addEventListener('pageshow', async e => {
     const transitionClass = determineTransitionClass(navigation.currentEntry);
     document.documentElement.dataset.transition = transitionClass;
-    delete document.documentElement.dataset.transition
+    setTimeout(() => {
+        delete document.documentElement.dataset.transition
+    }, 250)
 })
 
 // Determine the View Transition class to use based on the old and new navigation entries
