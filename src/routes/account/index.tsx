@@ -31,6 +31,8 @@ type Variables = {
     currentSession?: {
         cookie: string
         currentSession: {
+            first_name: string
+            last_name: string
             created_at: string
             session_id: string
             purchases: Array<string>
@@ -48,13 +50,18 @@ account.use(readerSessions)
 account.use(cartSessions)
 
 account.get('/', c => {
+    const { first_name, last_name, created_at } = c.var.currentSession?.currentSession || { first_name: '', last_name: '', created_at: '' }
+
     return c.html(
         <Base
             title="Poemonger | Account"
             loggedIn={!!c.var.currentSession}
             shoppingCartCount={c.var.cartSessions?.size as number}
         >
-            <h2>This is your account</h2>
+            <>
+                <h2>This is your account, {first_name} {last_name}</h2>
+                <p>You've been a poemonger since {new Date(created_at).toLocaleDateString('en-US')}</p>
+            </>
         </Base>
     )
 })
