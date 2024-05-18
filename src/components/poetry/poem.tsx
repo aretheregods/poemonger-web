@@ -48,7 +48,7 @@ export default function Poem({
             {!single && isSample && (
                 <section id="poem-sample_buy-it-now">
                     <hr id="poem-sample_separator" />
-                    <a href={`/purchase/${id}`} class="button buy-it-now">
+                    <a href={`/cart/purchase/${id}`} class="button buy-it-now">
                         &#128366; Buy it now
                     </a>
                 </section>
