@@ -49,7 +49,11 @@ account.use(cartSessions)
 
 account.get('/', c => {
     return c.html(
-        <Base title="Poemonger | Account">
+        <Base
+            title="Poemonger | Account"
+            loggedIn={!!c.var.currentSession}
+            shoppingCartCount={c.var.cartSessions?.size as number}
+        >
             <h2>This is your account</h2>
         </Base>
     )
