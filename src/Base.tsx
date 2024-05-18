@@ -86,6 +86,7 @@ export const Base = ({
                                             id="logged-in-popover_container"
                                             popover="auto"
                                         >
+                                            <a href="/account">Account</a>
                                             <a href="/logout">Log out</a>
                                         </section>
                                     </>
