@@ -184,6 +184,10 @@ so this starting-style rule cannot be nested */
     right: 1rem;
     left: auto;
     border-width: 1px;
+
+    & a {
+        paddding: 0.5rem 1.5rem;
+    }
 }
 
 main {
