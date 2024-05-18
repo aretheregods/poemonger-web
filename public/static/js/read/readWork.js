@@ -8,12 +8,12 @@ if (p) p.addEventListener('click', chapterButtons)
 if (p) p.addEventListener('mouseup', chapterButtons)
 if (r) r.addEventListener('change', chapterRange)
 
-window.addEventListener('pagereveal', async e => {
+window.addEventListener('pageshow', async e => {
     const transitionClass = determineTransitionClass(navigation.currentEntry);
     document.documentElement.dataset.transition = transitionClass;
-
-    await e.viewTransition.finished;
-    delete document.documentElement.dataset.transition;
+    setTimeout(() => {
+        delete document.documentElement.dataset.transition
+    }, 500)
 })
 
 // Determine the View Transition class to use based on the old and new navigation entries
