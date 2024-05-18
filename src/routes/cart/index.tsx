@@ -74,7 +74,7 @@ cart.get('/', async c => {
                           } in your cart`
                         : 'You have no items in your cart'}
                 </h2>
-                <section>
+                <section id="cart-main_container">
                     {data.data.map(({ id, title, subtitle, cover, price }) => (
                         <CartItem
                             {...{

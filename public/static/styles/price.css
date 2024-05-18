@@ -58,3 +58,19 @@
         justify-self: end;
     }
 }
+
+#cart-main_container {
+    display: grid;
+    gap: 1rem;
+    grid-template-columns: 1fr 1fr;
+
+    &>.button.purchase-cart {
+        height: fit-content;
+    }
+}
+
+@media (width >=320px) and (width >=768px) {
+    #cart-main_container {
+        grid-template-columns: none;
+    }
+}
