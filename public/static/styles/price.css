@@ -64,7 +64,7 @@
     gap: 1rem;
     grid-template-columns: 1fr 1fr;
 
-    &>.button.purchase-cart {
+    & > .button.purchase-cart {
         height: fit-content;
     }
 }
