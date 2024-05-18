@@ -90,6 +90,7 @@ nav {
             height: min-content;
             margin: 0;
             padding: 1.125rem 1rem;
+            border-radius: 10px;
         }
     }
 }
@@ -106,6 +107,7 @@ img.book-cover {
     background: none;
     color: inherit;
     border: none;
+    margin-inline: 1rem;
     padding: 0;
     font: inherit;
     cursor: pointer;
@@ -177,6 +179,7 @@ so this starting-style rule cannot be nested */
     top: 6rem;
     right: 1rem;
     left: auto;
+    border-width: 1px;
 }
 
 main {
