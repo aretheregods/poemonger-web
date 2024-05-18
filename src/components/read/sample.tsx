@@ -36,6 +36,7 @@ export default function WorkSample({
                                 </section>
                                 <Poem
                                     {...{
+                                        id: ~~workId,
                                         title,
                                         author,
                                         single,

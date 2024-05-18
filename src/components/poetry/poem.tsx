@@ -1,4 +1,5 @@
 export default function Poem({
+    id,
     title,
     author,
     lines,
@@ -8,6 +9,7 @@ export default function Poem({
     isSample = false,
     children,
 }: {
+    id?: number
     title: unknown
     author: unknown
     lines: unknown
@@ -46,9 +48,9 @@ export default function Poem({
             {!single && isSample && (
                 <section id="poem-sample_buy-it-now">
                     <hr id="poem-sample_separator" />
-                    <button class="button buy-it-now">
+                    <a href={`/purchase/${id}`} class="button buy-it-now">
                         &#128366; Buy it now
-                    </button>
+                    </a>
                 </section>
             )}
         </article>

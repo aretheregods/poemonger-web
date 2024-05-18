@@ -91,6 +91,15 @@ cart.get('/', async c => {
     )
 })
 
+cart.get('/purchase/:workId', c => {
+    const workId = c.req.param('workId')
+    return c.html(
+        <Base title="Poemonger | Purchase">
+            <h2>Buy this book {workId}</h2>
+        </Base>
+    )
+})
+
 cart.post('/remove/:workId', async c => {
     const workId = c.req.param('workId')
     let response = { count: 0, error: '' }
