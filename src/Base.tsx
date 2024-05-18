@@ -76,12 +76,14 @@ export const Base = ({
                                                 &#128722;
                                             </h2>
                                         </a>
-                                        <p>Logged In</p>
+                                        <button popovertarget="logged-in-popover_container">
+                                            Logged In
+                                        </button>
                                         <section
-                                            id="shopping-cart_container"
+                                            id="logged-in-popover_container"
                                             popover="auto"
                                         >
-                                            Shopping Cart
+                                            <a href="/logout">Log out</a>
                                         </section>
                                     </>
                                 ) : (

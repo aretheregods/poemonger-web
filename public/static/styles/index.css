@@ -4,20 +4,19 @@
     box-sizing: border-box;
 }
 
-
 @view-transition {
-	navigation: auto;
+    navigation: auto;
 }
 
 @keyframes slide-in {
-	from {
-		translate: 100vw 0;
-	}
+    from {
+        translate: 100vw 0;
+    }
 }
 @keyframes slide-out {
-	to {
-		translate: 100vw 0;
-	}
+    to {
+        translate: 100vw 0;
+    }
 }
 
 :root {
@@ -31,27 +30,27 @@
     --button-text-color: 267, 100%, 15%;
 }
 
-:root[data-transition="push"] {
-	&::view-transition-old(page) {
-		&::view-transition-old(page) {
-			animation-name: shrink;
-			transform-origin: 100% 50%;
-		}
-	}
-	&::view-transition-new(page) {
-		animation-name: slide-in;
-	}
+:root[data-transition='push'] {
+    &::view-transition-old(page) {
+        &::view-transition-old(page) {
+            animation-name: shrink;
+            transform-origin: 100% 50%;
+        }
+    }
+    &::view-transition-new(page) {
+        animation-name: slide-in;
+    }
 }
 
-:root[data-transition="pop"] {
-	&::view-transition-old(page) {
-		animation-name: slide-out;
-		z-index: 1;
-	}
-	&::view-transition-new(page) {
-		animation-name: grow;
-		transform-origin: 100% 50%;
-	}
+:root[data-transition='pop'] {
+    &::view-transition-old(page) {
+        animation-name: slide-out;
+        z-index: 1;
+    }
+    &::view-transition-new(page) {
+        animation-name: grow;
+        transform-origin: 100% 50%;
+    }
 }
 
 body {
@@ -63,7 +62,7 @@ body {
 }
 
 ::view-transition-group(page) {
-	animation-duration: 0.7s;
+    animation-duration: 0.7s;
 }
 
 nav {
