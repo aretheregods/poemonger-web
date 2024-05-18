@@ -76,7 +76,10 @@ export const Base = ({
                                                 &#128722;
                                             </h2>
                                         </a>
-                                        <button popovertarget="logged-in-popover_container">
+                                        <button
+                                            popovertarget="logged-in-popover_container"
+                                            class="button"
+                                        >
                                             Logged In
                                         </button>
                                         <section
