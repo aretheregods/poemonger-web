@@ -49,7 +49,7 @@ account.use(loggedOutRedirect)
 account.use(readerSessions)
 account.use(cartSessions)
 
-account.get('/', c => {
+account.get('/', (c) => {
     const { first_name, last_name, created_at, purchases } = c.var
         .currentSession?.currentSession || {
         first_name: '',
@@ -78,7 +78,7 @@ account.get('/', c => {
                     )}
                 </p>
                 <h3>Purchase Receipts</h3>
-                {purchases.map(p => {
+                {purchases.map((p) => {
                     return <p>{p}</p>
                 })}
             </>
