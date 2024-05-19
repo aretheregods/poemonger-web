@@ -80,12 +80,14 @@ account.get('/', (c) => {
                         locales[userLocale].locale
                     )}
                 </p>
-                <h3>Purchase Receipts</h3>
-                <ul id="account-purchases_list">
-                    {purchases.map((p) => {
-                        return <li>{p}</li>
-                    })}
-                </ul>
+                <figure>
+                    <legend>Purchase Receipts</legend>
+                    <ul id="account-purchases_list">
+                        {purchases.map((p) => {
+                            return <li>{p}</li>
+                        })}
+                    </ul>
+                </figure>
             </>
         </Base>
     )
