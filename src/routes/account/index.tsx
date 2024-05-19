@@ -61,7 +61,7 @@ account.get('/', c => {
         >
             <>
                 <h2>This is your account, {first_name} {last_name}</h2>
-                <p>You've been a poemonger since {new Date(created_at).toLocaleDateString(locales[userLocale].locale)}</p>
+                <p>You've been with poemonger since {new Date(created_at).toLocaleDateString(locales[userLocale].locale)}</p> 
             </>
         </Base>
     )
