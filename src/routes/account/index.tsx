@@ -50,8 +50,16 @@ account.use(readerSessions)
 account.use(cartSessions)
 
 account.get('/', c => {
-    const { first_name, last_name, created_at } = c.var.currentSession?.currentSession || { first_name: '', last_name: '', created_at: '' }
-    const userLocale = locales.hasOwnProperty(c.var.country) ? c.var.country : 'US'
+    const { first_name, last_name, created_at, purchases } = c.var
+        .currentSession?.currentSession || {
+        first_name: '',
+        last_name: '',
+        created_at: '',
+        purchases: [''],
+    }
+    const userLocale = locales.hasOwnProperty(c.var.country)
+        ? c.var.country
+        : 'US'
 
     return c.html(
         <Base
@@ -60,8 +68,19 @@ account.get('/', c => {
             shoppingCartCount={c.var.cartSessions?.size as number}
         >
             <>
-                <h2>This is your account, {first_name} {last_name}</h2>
-                <p>You've been with poemonger since {new Date(created_at).toLocaleDateString(locales[userLocale].locale)}</p> 
+                <h2>
+                    This is your account, {first_name} {last_name}
+                </h2>
+                <p>
+                    You've been with poemonger since{' '}
+                    {new Date(created_at).toLocaleDateString(
+                        locales[userLocale].locale
+                    )}
+                </p>
+                <h3>Purchase Receipts</h3>
+                {purchases.map(p => {
+                    return <p>{p}</p>
+                })}
             </>
         </Base>
     )
