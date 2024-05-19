@@ -11,7 +11,6 @@ export default async function Landing({
     query: string
 }) {
     try {
-        let response = { message: 'There was an error:', data: [] }
         const res = await r.query(req, query, true)
         const results: { data: [] } = await res.json()
         return (
@@ -67,6 +66,7 @@ export default async function Landing({
                                     <br />
                                     <hr class="video-poem-split" />
                                 </section>
+                                <section></section>
                             </>
                         )
                     }

@@ -33,12 +33,12 @@ export type Bindings = {
 
 export type Variables = {
     READER_SESSIONS: DurableObjectNamespace & {
-        query(arg: Request, arg1?: string, arg2?: boolean): Response
-        reply(): Response
+        query(arg: Request, arg1?: string, arg2?: boolean): Promise<Response>
+        reply(): Promise<Response>
     }
     READER_CARTS: DurableObjectNamespace & {
-        addToCart(workId: string): Response
-        getCartMetadata(): Response
+        addToCart(workId: string): Promise<Response>
+        getCartMetadata(): Promise<Response>
     }
     currentSession?: {
         cookie: string
