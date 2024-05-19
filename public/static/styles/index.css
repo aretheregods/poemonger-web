@@ -189,7 +189,7 @@ so this starting-style rule cannot be nested */
         padding: 0.5rem 1.5rem;
     }
 
-    & *:not(:last-child) {
+    & > *:not(:last-child) {
         border-bottom: black 1px solid;
     }
 }
