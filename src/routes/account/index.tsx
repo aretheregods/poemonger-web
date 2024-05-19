@@ -7,7 +7,7 @@ import {
     readerSessions,
     requestCountry,
 } from '../../'
-import { countries } from '../../utils'
+import { countries, locales } from '../../utils'
 
 type Bindings = {
     POEMONGER_READER_SESSIONS: DurableObjectNamespace
@@ -51,6 +51,7 @@ account.use(cartSessions)
 
 account.get('/', c => {
     const { first_name, last_name, created_at } = c.var.currentSession?.currentSession || { first_name: '', last_name: '', created_at: '' }
+    const userLocale = locales.hasOwnProperty(c.var.country) ? c.var.country : 'US'
 
     return c.html(
         <Base
@@ -60,7 +61,7 @@ account.get('/', c => {
         >
             <>
                 <h2>This is your account, {first_name} {last_name}</h2>
-                <p>You've been a poemonger since {new Date(created_at).toLocaleDateString('en-US')}</p>
+                <p>You've been a poemonger since {new Date(created_at).toLocaleDateString(locales[userLocale].locale)}</p>
             </>
         </Base>
     )
