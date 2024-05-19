@@ -64,6 +64,9 @@ account.get('/', (c) => {
     return c.html(
         <Base
             title="Poemonger | Account"
+            assets={[
+                <link rel="stylesheet" href="/static/styles/account.css" />,
+            ]}
             loggedIn={!!c.var.currentSession}
             shoppingCartCount={c.var.cartSessions?.size as number}
         >
@@ -78,9 +81,11 @@ account.get('/', (c) => {
                     )}
                 </p>
                 <h3>Purchase Receipts</h3>
-                {purchases.map((p) => {
-                    return <p>{p}</p>
-                })}
+                <ul id="account-purchases_list">
+                    {purchases.map((p) => {
+                        return <li>{p}</li>
+                    })}
+                </ul>
             </>
         </Base>
     )
