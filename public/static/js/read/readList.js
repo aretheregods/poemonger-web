@@ -10,7 +10,7 @@ apt.forEach((a) => {
             var app = document.getElementById(
                 `audio-poem_player-${e.target.dataset.workId}`
             )
-            var audio = app.querySelector('audio')
+            var audio = document.getElementById(`audio-poem_player-element-${e.target.dataset.workId}`)
 
             if (app.dataset.on == 1) {
                 e.target.dataset.on = 0

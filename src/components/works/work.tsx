@@ -48,7 +48,7 @@ export default async function Work({
             >
                 <figcaption>Listen to the first chapter</figcaption>
                 <audio
-                    class="audio-poem_player"
+                    id={`audio-poem_player-element-${workId}`}
                     src={`/audio/${audioId}`}
                     preload="none"
                     controlslist="nodownload"
