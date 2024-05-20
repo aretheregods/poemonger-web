@@ -27,6 +27,12 @@
     }
 }
 
+#poetry-twelve-steps {
+    & ul {
+        list-style: none;
+    }
+}
+
 @media (width >= 320px) and (width <= 768px) {
     .poem-section-container {
         grid-template-columns: none;
