@@ -32,7 +32,7 @@
 
 #poetry-twelve-steps {
     & ul {
-        list-style: none;
+        list-style: number;
     }
 }
 
