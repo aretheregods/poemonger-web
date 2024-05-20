@@ -69,7 +69,7 @@ export default async function Landing({
                                 <section id="poetry-twelve-steps">
                                     <figure>
                                         <legend>
-                                            <h2>12 Poetic Steps</h2>
+                                            <h2>12 Poetic Steps (Or How I Learned to Stop Worrying and Love Real, Traditional Poetry)</h2>
                                         </legend>
                                         <ul>
                                             <li>
