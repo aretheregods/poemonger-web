@@ -138,7 +138,7 @@ export default async function Landing({
                                                 a result of Poemonger, we tried
                                                 to carry this message of
                                                 poetry's rhythm and
-                                                possibilities poets and all
+                                                possibilities to poets and all
                                                 people.
                                             </li>
                                         </ul>
