@@ -36,6 +36,14 @@
     width: 75ch;
     justify-self: center;
 
+    & > figure {
+        padding-inline: 2rem;
+    }
+
+    & h2 {
+        margin-inline: 2rem;
+    }
+
     & ul {
         list-style: number;
     }
@@ -50,6 +58,7 @@
 
         & .poem-content-container {
             order: 2;
+            justify-self: center;
         }
 
         & .poem-video-section {
