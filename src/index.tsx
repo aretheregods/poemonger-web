@@ -556,6 +556,7 @@ app.get('/audio/:audioId', async (c) => {
     const headers = new Headers()
     object.writeHttpMetadata(headers)
     headers.set('etag', object.httpEtag)
+    headers.set('Content-Type', 'audio/x-m4a')
 
     return new Response(object.body, {
         headers,
