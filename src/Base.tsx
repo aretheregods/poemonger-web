@@ -50,7 +50,7 @@ export const Base = ({
                 ${assets}
             </head>
             <body>
-                <header>
+                <header id="poemonger-nav-header">
                     ${header ?? (
                         <nav>
                             <a href="/">

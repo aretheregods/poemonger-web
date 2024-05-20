@@ -65,13 +65,16 @@ body {
     animation-duration: 0.7s;
 }
 
-nav {
-    display: flex;
-    justify-content: space-between;
+#poemonger-nav-header {
     position: sticky;
     top: 0px;
     z-index: 5;
     background-color: white;
+}
+
+nav {
+    display: flex;
+    justify-content: space-between;
 
     & a {
         height: min-content;
