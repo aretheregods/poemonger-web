@@ -46,6 +46,10 @@
 
     & ul {
         list-style: number;
+
+        & li {
+            margin-block: 1rem;
+        }
     }
 }
 
