@@ -15,6 +15,7 @@
 
 .poem-section-container {
     max-width: fit-content;
+    margin: 0 auto;
 
     & hr.video-poem-split {
         display: none;
