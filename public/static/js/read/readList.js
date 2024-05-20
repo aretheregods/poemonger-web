@@ -10,11 +10,13 @@ apt.forEach((a) => {
             var app = document.getElementById(
                 `audio-poem_player-${e.target.dataset.workId}`
             )
+            var audio = app.querySelector('audio')
 
             if (app.dataset.on == 1) {
                 e.target.dataset.on = 0
                 app.dataset.on = 0
                 app.setAttribute('style', 'height: 0px; opacity: 0%; z-index: -1;')
+                audio.setAttribute('preload', 'metadata')
                 e.target.setAttribute(
                     'style',
                     'background-color: auto; color: auto;'
@@ -23,6 +25,7 @@ apt.forEach((a) => {
                 e.target.dataset.on = 1
                 app.dataset.on = 1
                 app.removeAttribute('style')
+                audio.setAttribute('preload', 'none')
                 e.target.setAttribute(
                     'style',
                     'background-color: hsl( 244, 84%, 79% ); color: white;'
