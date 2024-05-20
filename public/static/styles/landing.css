@@ -33,7 +33,6 @@
 #poetry-twelve-steps {
     display: grid;
     text-wrap: wrap;
-    width: 75ch;
     justify-self: center;
 
     & > figure {
