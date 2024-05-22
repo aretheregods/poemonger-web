@@ -584,7 +584,7 @@ app.get('/landing/poems', c => {
                 ],
             ],
             image: '07681682-d46b-48b2-ca89-fb8de1739600',
-            video: 'f169164d8d5a3e08ca8ce3302cae9f90',
+            video: 'https://youtube.com/embed/8w9xnwA0pIQ',
             audio: '',
             price: 1999,
             id: 1,

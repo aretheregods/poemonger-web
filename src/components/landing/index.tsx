@@ -69,7 +69,19 @@ export default async function Landing({
                                 <section id="poetry-twelve-steps">
                                     <figure>
                                         <legend>
-                                            <h2>12 Poetic Steps (Or How I Learned to Stop Worrying and Love Real, Traditional Poetry)</h2>
+                                            <h2>
+                                                I'm Warren Christopher Taylor.
+                                                And this is why I changed my
+                                                poetry
+                                            </h2>
+                                            <h3>
+                                                <em>
+                                                    12 Poetic Steps (Or How I
+                                                    Learned to Stop Worrying and
+                                                    Love Real, Traditional
+                                                    Poetry)
+                                                </em>
+                                            </h3>
                                         </legend>
                                         <ul>
                                             <li>
