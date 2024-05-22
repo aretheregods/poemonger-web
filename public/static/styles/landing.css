@@ -37,7 +37,7 @@
     justify-self: center;
 
     & > figure {
-        padding-inline: 2rem;
+        padding-inline: 1rem;
     }
 
     & h3 {
