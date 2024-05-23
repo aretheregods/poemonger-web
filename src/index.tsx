@@ -101,7 +101,7 @@ export async function loggedOutRedirect(
             `/login?${
                 ['/login', '/signup'].includes(c.req.path)
                     ? ''
-                    : `redirect=${c.req.}`
+                    : `redirect=${c.req.path}`
             }`
         )
     } else await next()
