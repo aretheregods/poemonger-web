@@ -1,5 +1,5 @@
 var plw = document.getElementById('poemonger-landing-works')
-var works = document.querySelector('.work-description_container')
+var works = document.querySelectorAll('.work-description_container')
 
 works.forEach((work) => {
     work.addEventListener('toggle', (e) => {
