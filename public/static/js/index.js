@@ -12,6 +12,7 @@ i.observe(plw)
 function makeWorks(entries, observer) {
     entries.forEach((entry) => {
         if (entry.isIntersecting && entry.target.dataset.worksFetched == 0) {
+            entry.target.dataset.worksFetched = 1
             var p = document.createElement('p')
             p.setAttribute('id', 'works-loading')
             p.textContent = 'Loading'
@@ -24,9 +25,9 @@ function makeWorks(entries, observer) {
                 var works = d.data.forEach((work) => {
                     var workP = document.createElement('p')
                     workP.textContent = work.title
-                    entry.target.appendChild(workP)
+                    child.appendChild(workP)
                 })
-                entry.target.dataset.worksFetched = 1
+                entry.target.appendChild(child)
             })
         }
     })
