@@ -155,7 +155,7 @@ export async function paramRedirect(
     c: Context<{ Bindings: Bindings; Variables: Variables }>,
     next: Next
 ) {
-    const redirect = c.req.param('redirect')
+    const redirect = c.req.query('redirect')
     if (redirect) {
         await next()
         c.redirect(redirect)
