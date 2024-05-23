@@ -58,8 +58,12 @@
     justify-content: center;
     gap: 2rem;
 
-    h2 {
+    & h2 {
         text-align: center;
+    }
+
+    & .work-price {
+        text-align: end;
     }
 }
 
