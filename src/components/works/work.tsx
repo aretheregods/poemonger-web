@@ -80,7 +80,7 @@ export default async function Work({
                     Read a bit
                 </a>
                 {landing ? (
-                    <button class="button">Description</button>
+                    <button class="button work-description">Description</button>
                 ) : (
                     <AddToCart {...{ workId, workInCart }} />
                 )}

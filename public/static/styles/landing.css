@@ -65,6 +65,10 @@
     & .work-price {
         text-align: end;
     }
+
+    & .button.work-description {
+        background-color: hsl(45, 97%, 50%);
+    }
 }
 
 @media (width >= 320px) and (width <= 768px) {
