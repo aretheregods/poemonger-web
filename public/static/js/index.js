@@ -24,7 +24,7 @@ function makeWorks(entries, observer) {
                 )
                 var child = document.createDocumentFragment()
                 var works = d.data.map((work) =>
-                    child.appendChild('p').textContent(work.title)
+                    child.append(work.title, document.createElement('p'))
                 )
                 works.forEach((w) => entry.target.appendChild(w))
                 entry.target.dataset.worksFetched = 1
