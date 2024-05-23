@@ -97,10 +97,13 @@ export async function loggedOutRedirect(
     next: Next
 ): Promise<Response | void> {
     if (!c.var.currentSession || c.var.currentSessionError) {
-        const url = new URL('/login')
-        const params = url.searchParams
-        params.set('redirect', url.pathname)
-        return c.redirect(url.toString())
+        return c.redirect(
+            `/login?${
+                !['/login', '/signup'].includes(c.req.path)
+                    ? ''
+                    : `redirect=${c.req.path}`
+            }`
+        )
     } else await next()
 }
 
