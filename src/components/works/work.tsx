@@ -75,7 +75,7 @@ export default async function Work({
                 />
             </a>
             <Price {...{ workId, price, locale, title, subtitle }} />
-            <section class="read-purchase_buttons">
+            <section class="read-purchase_buttons flexible-buttons">
                 <a href={`/read/${workId}`} class="button read-a-bit">
                     Read a bit
                 </a>
