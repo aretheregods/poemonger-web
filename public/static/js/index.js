@@ -23,10 +23,11 @@ function makeWorks(entries, observer) {
                     document.getElementById('works-loading')
                 )
                 var child = document.createDocumentFragment()
-                var works = d.data.map((work) =>
-                    child.append(work.title, document.createElement('p'))
+                var works = d.data.forEach((work) =>
+                    entry.target.appendChild(
+                        document.createElement('p').textContent(work.title)
+                    )
                 )
-                works.forEach((w) => entry.target.appendChild(w))
                 entry.target.dataset.worksFetched = 1
             })
         }
