@@ -148,13 +148,16 @@ export async function requestCountry(
     await next()
 }
 
-export const paramRedirect = createMiddleware(async function (c, next) {
+export async function paramRedirect(
+    c: Context<{ Bindings: Bindings; Variables: Variables }>,
+    next: Next
+) {
     const redirect = c.req.param('redirect')
     if (redirect) {
         await next()
         c.redirect(redirect)
     } else await next()
-})
+}
 
 app.get('/signup', (c) => {
     if (c.var.currentSession || c.var.currentSessionError) {
