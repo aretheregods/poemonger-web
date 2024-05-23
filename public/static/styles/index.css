@@ -222,6 +222,7 @@ button.button {
     justify-self: end;
     white-space: nowrap;
     text-decoration: none;
+    text-align: center;
 
     &.add-to-cart {
         background-color: hsl(45, 97%, 75%);
