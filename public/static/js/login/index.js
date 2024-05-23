@@ -22,7 +22,12 @@ f.addEventListener('submit', async (e) => {
             reducer: hashPassword(salt),
         })
         .then((body) => request.post({ path: '/login', body }))
-        .then(() => (location.href = '/'))
+        .then(() => {
+            var params = new URLSearchParams(document.location.search)
+            var redirect = params.get('redirect')
+            var path = redirect ?? '/'
+            location.href = path
+        })
         .catch((e) => console.log({ e }))
 })
 

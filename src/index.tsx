@@ -59,7 +59,6 @@ app.use(csrf())
 app.use(secureHeaders())
 app.use(userCookieAuth)
 app.use(requestCountry)
-app.use(paramRedirect)
 
 app.route('/account', account)
 app.route('/admin', admin)
@@ -149,17 +148,6 @@ export async function requestCountry(
         : 'US'
     c.set('country' as never, country as never)
     await next()
-}
-
-export async function paramRedirect(
-    c: Context<{ Bindings: Bindings; Variables: Variables }>,
-    next: Next
-) {
-    const redirect = c.req.query('redirect')
-    if (redirect) {
-        await next()
-        c.redirect(redirect)
-    } else await next()
 }
 
 app.get('/signup', (c) => {
