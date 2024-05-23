@@ -1,6 +1,7 @@
 import { Context, Hono, Next } from 'hono'
 import { getCookie, setCookie } from 'hono/cookie'
 import { csrf } from 'hono/csrf'
+import { createMiddleware } from 'hono/factory'
 import { secureHeaders } from 'hono/secure-headers'
 
 // routes
@@ -58,6 +59,7 @@ app.use(csrf())
 app.use(secureHeaders())
 app.use(userCookieAuth)
 app.use(requestCountry)
+app.use(paramRedirect)
 
 app.route('/account', account)
 app.route('/admin', admin)
@@ -95,7 +97,10 @@ export async function loggedOutRedirect(
     next: Next
 ): Promise<Response | void> {
     if (!c.var.currentSession || c.var.currentSessionError) {
-        return c.redirect('/login')
+        const url = new URL('/login')
+        const params = url.searchParams
+        params.set('redirect', url.pathname)
+        return c.redirect(url.toString())
     } else await next()
 }
 
@@ -142,6 +147,14 @@ export async function requestCountry(
     c.set('country' as never, country as never)
     await next()
 }
+
+export const paramRedirect = createMiddleware(async function (c, next) {
+    const redirect = c.req.param('redirect')
+    if (redirect) {
+        await next()
+        c.redirect(redirect)
+    } else await next()
+})
 
 app.get('/signup', (c) => {
     if (c.var.currentSession || c.var.currentSessionError) {
