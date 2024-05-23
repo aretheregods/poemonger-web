@@ -99,9 +99,9 @@ export async function loggedOutRedirect(
     if (!c.var.currentSession || c.var.currentSessionError) {
         return c.redirect(
             `/login?${
-                !['/login', '/signup'].includes(c.req.path)
+                ['/login', '/signup'].includes(c.req.path)
                     ? ''
-                    : `redirect=${c.req.path}`
+                    : `redirect=${c.req.}`
             }`
         )
     } else await next()
