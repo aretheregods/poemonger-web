@@ -299,7 +299,7 @@ button.button:hover {
 .poemonger-scrolling-works {
     display: flex;
     justify-content: center;
-    gap: 2rem;
+    gap: 3rem;
     overflow-x: scroll;
     padding-inline: 3rem;
 }

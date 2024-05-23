@@ -28,7 +28,7 @@ export default function Price({
         </h4>
     )
     return (
-        <section class="work-info">
+        <section class="work-info flexible-buttons">
             {workId ? (
                 <a class="work_info-link" href={`/read/${workId}`}>
                     <T {...{ title, subtitle }} />
