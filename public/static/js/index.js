@@ -8,6 +8,6 @@ i.observe(plw)
 
 function makeWorks(entries, observer) {
     entries.forEach((entry) => {
-        entry.isIntersecting && console.log('entered')
+        console.log(entry.intersectionRation)
     })
 }
