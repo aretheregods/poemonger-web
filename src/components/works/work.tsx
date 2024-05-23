@@ -85,7 +85,7 @@ export default async function Work({
                     <>
                         <button
                             id={`work-description_trigger-${workId}`}
-                            popovertarget="work-description_container"
+                            popovertarget={`work-description_container-${workId}`}
                             class="button work-description"
                         >
                             Description
