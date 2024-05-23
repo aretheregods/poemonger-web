@@ -90,7 +90,7 @@ export default async function Work({
                         >
                             Description
                         </button>
-                        <section id="work-description_container">
+                        <section id="work-description_container" popover>
                             {description.map((desc) => (
                                 <>
                                     <p>{desc}</p>
