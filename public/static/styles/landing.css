@@ -67,7 +67,11 @@
     }
 
     & .button.work-description {
-        background-color: hsl(45, 97%, 50%);
+        background-color: hsl(45, 97%, 75%);
+
+        &:hover {
+            background-color: hsl(45, 97%, 50%);
+        }
     }
 }
 
