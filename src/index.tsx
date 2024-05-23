@@ -592,7 +592,9 @@ app.get('/', readerSessions, async (c) => {
             imgId: '07681682-d46b-48b2-ca89-fb8de1739600',
             videoId: 'f169164d8d5a3e08ca8ce3302cae9f90',
             audioId: '',
-            price: 1999,
+            price: { US: 19.99, CA: 27.99, GB: 16.99, AU: 29.99 }[
+                c.var.country
+            ],
             workId: 1,
         },
         {
@@ -623,7 +625,9 @@ app.get('/', readerSessions, async (c) => {
             imgId: '11df3118-7fe3-4b53-1b64-d157924caf00',
             videoId: 'https://youtube.com/embed/8w9xnwA0pIQ',
             audioId: '',
-            price: 2499,
+            price: { US: 24.99, CA: 33.99, GB: 19.99, AU: 35.99 }[
+                c.var.country
+            ],
             workId: 2,
         },
         {
@@ -665,7 +669,9 @@ app.get('/', readerSessions, async (c) => {
             imgId: '9af92141-923b-4eaf-181d-4f6019fc7800',
             videoId: '',
             audioId: '',
-            price: 2799,
+            price: { US: 27.99, CA: 38.99, GB: 22.99, AU: 39.99 }[
+                c.var.country
+            ],
             workId: 3,
         },
     ]
