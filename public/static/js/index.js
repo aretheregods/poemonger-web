@@ -11,9 +11,7 @@ works.forEach((work) => {
             )
         } else {
             plw.removeAttribute('style')
-            w.forEach((container) =>
-                container.setAttribute('style', 'pointer-events: none;')
-            )
+            w.forEach((container) => container.removeAttribute('style'))
         }
     })
 })
