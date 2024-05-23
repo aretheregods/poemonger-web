@@ -295,3 +295,17 @@ button.button:hover {
 .read-more-link {
     text-align: center;
 }
+
+.poemonger-scrolling-works {
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    overflow-x: scroll;
+}
+
+@media (width >= 320px) and (width <= 768px) {
+    .poemonger-scrolling-works {
+        display: grid;
+        overflow-x: auto;
+    }
+}

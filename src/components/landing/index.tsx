@@ -179,11 +179,17 @@ export default async function Landing({
                                     data-works-fetched="0"
                                 >
                                     <h2>Warren's Real Poetic Works</h2>
-                                    {works.map((w) => (
-                                        <Work
-                                            {...{ ...w, locale, landing: true }}
-                                        />
-                                    ))}
+                                    <section class="poemonger-scrolling-works">
+                                        {works.map((w) => (
+                                            <Work
+                                                {...{
+                                                    ...w,
+                                                    locale,
+                                                    landing: true,
+                                                }}
+                                            />
+                                        ))}
+                                    </section>
                                 </section>
                             </>
                         )
