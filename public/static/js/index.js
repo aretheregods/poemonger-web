@@ -13,20 +13,24 @@ function makeWorks(entries, observer) {
     entries.forEach((entry) => {
         if (entry.isIntersecting && entry.target.dataset.worksFetched == 0) {
             entry.target.dataset.worksFetched = 1
+
             var p = document.createElement('p')
             p.setAttribute('id', 'works-loading')
             p.textContent = 'Loading'
             entry.target.appendChild(p)
+
             request.get('/landing/poems').then((d) => {
                 entry.target.removeChild(
                     document.getElementById('works-loading')
                 )
+
                 var child = document.createDocumentFragment()
                 var works = d.data.forEach((work) => {
                     var workP = document.createElement('p')
                     workP.textContent = work.title
                     child.appendChild(workP)
                 })
+
                 entry.target.appendChild(child)
             })
         }

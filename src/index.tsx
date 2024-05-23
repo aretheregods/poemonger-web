@@ -49,6 +49,7 @@ export type Variables = {
         }
     }
     currentSessionError?: { error: boolean; message: string }
+    country: countries
 }
 
 const app = new Hono<{ Bindings: Bindings; Variables: Variables }>()
@@ -563,7 +564,11 @@ app.get('/audio/:audioId', async (c) => {
     })
 })
 
-app.get('/landing/poems', (c) => {
+app.get('/', readerSessions, async (c) => {
+    if (c.var.currentSession && !c.var.currentSessionError) {
+        return c.redirect('/read')
+    }
+
     const data = [
         {
             title: 'Cancel & Tear',
@@ -583,11 +588,11 @@ app.get('/landing/poems', (c) => {
                     "Read Warren Christopher Taylor's Cancel & Tear to join the new wave.",
                 ],
             ],
-            image: '07681682-d46b-48b2-ca89-fb8de1739600',
-            video: 'f169164d8d5a3e08ca8ce3302cae9f90',
-            audio: '',
+            imgId: '07681682-d46b-48b2-ca89-fb8de1739600',
+            videoId: 'f169164d8d5a3e08ca8ce3302cae9f90',
+            audioId: '',
             price: 1999,
-            id: 1,
+            workId: 1,
         },
         {
             title: 'Days Beside Ourselves',
@@ -614,11 +619,11 @@ app.get('/landing/poems', (c) => {
                 ],
                 ['Read Days Beside Ourselves: Year One now.'],
             ],
-            image: '11df3118-7fe3-4b53-1b64-d157924caf00',
-            video: 'https://youtube.com/embed/8w9xnwA0pIQ',
-            audio: '',
+            imgId: '11df3118-7fe3-4b53-1b64-d157924caf00',
+            videoId: 'https://youtube.com/embed/8w9xnwA0pIQ',
+            audioId: '',
             price: 2499,
-            id: 2,
+            workId: 2,
         },
         {
             title: 'Katja4u',
@@ -656,26 +661,18 @@ app.get('/landing/poems', (c) => {
                     'Read me now so you can find out the whole story and who wants to kill me.',
                 ],
             ],
-            image: '9af92141-923b-4eaf-181d-4f6019fc7800',
-            video: '',
-            audio: '',
+            imgId: '9af92141-923b-4eaf-181d-4f6019fc7800',
+            videoId: '',
+            audioId: '',
             price: 2799,
-            id: 3,
+            workId: 3,
         },
     ]
-    return c.json({ data })
-})
-
-app.get('/', readerSessions, async (c) => {
-    if (c.var.currentSession && !c.var.currentSessionError) {
-        return c.redirect('/read')
-    }
 
     const props = {
         title: 'Poemonger | Real Poetry',
         assets: [
             <link rel="stylesheet" href="/static/styles/landing.css" />,
-            <script type="module" src="/static/js/index.js" defer></script>,
             <script
                 src="/static/js/specRules/specRulesLogin.js"
                 defer
@@ -685,6 +682,8 @@ app.get('/', readerSessions, async (c) => {
             <Landing
                 req={c.req.raw}
                 r={c.var.READER_SESSIONS}
+                works={data}
+                locale={c.var.country}
                 query={`
                     select id, title, sample_section, sample_length, lines, video, json_extract(author, "$.id") as author_id, json_extract(author, "$.name") as author
                     from poetry 

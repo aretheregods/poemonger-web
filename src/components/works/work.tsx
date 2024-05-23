@@ -11,7 +11,8 @@ export default async function Work({
     audioId,
     title,
     subtitle,
-    workInCart,
+    workInCart = false,
+    landing = false,
 }: {
     workId: number
     imgId: string
@@ -20,7 +21,8 @@ export default async function Work({
     audioId: string
     title: string
     subtitle: string
-    workInCart: boolean
+    workInCart?: boolean
+    landing?: boolean
 }) {
     return (
         <section class="work-container">
@@ -62,7 +64,7 @@ export default async function Work({
                     width="400"
                     alt="A book cover"
                     class="book-cover"
-                    fetchPriority="high"
+                    fetchPriority={landing ? 'low' : 'high'}
                     loading="lazy"
                     decoding="async"
                     srcset={`${getImg(imgId, 'small')} 320w,${getImg(
@@ -77,7 +79,11 @@ export default async function Work({
                 <a href={`/read/${workId}`} class="button read-a-bit">
                     Read a bit
                 </a>
-                <AddToCart {...{ workId, workInCart }} />
+                {landing ? (
+                    <button class="button">Description</button>
+                ) : (
+                    <AddToCart {...{ workId, workInCart }} />
+                )}
             </section>
         </section>
     )

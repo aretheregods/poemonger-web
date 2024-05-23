@@ -1,13 +1,31 @@
 import { Poem, PoemVideo } from '../poetry'
 import { Variables } from '../../'
 
+// components
+import { Work } from '../works'
+
+// utils
+import { countries } from '../../utils'
+
 export default async function Landing({
     req,
     r,
+    works,
+    locale,
     query,
 }: {
     req: Request
     r: Variables['READER_SESSIONS']
+    works: Array<{
+        workId: number
+        title: string
+        subtitle: string
+        imgId: string
+        audioId: string
+        videoId: string
+        price: number
+    }>
+    locale: countries
     query: string
 }) {
     try {
@@ -161,6 +179,9 @@ export default async function Landing({
                                     data-works-fetched="0"
                                 >
                                     <h2>Warren's Real Poetic Works</h2>
+                                    {works.map((w) => (
+                                        <Work {...{ ...w, locale }} />
+                                    ))}
                                 </section>
                             </>
                         )
