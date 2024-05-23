@@ -14,7 +14,10 @@ function makeWorks(entries, observer) {
         entry.isIntersecting &&
             entry.target.dataset.worksFetched == 0 &&
             request.get('/landing/poems').then((d) => {
-                console.log({ d: d.data })
+                var works = d.data
+                    .map((work) => `<p>${work.title}</p>`)
+                    .join('')
+                entry.target.innerHTML = works
                 entry.target.dataset.worksFetched = 1
             })
     })
