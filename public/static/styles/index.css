@@ -301,11 +301,13 @@ button.button:hover {
     justify-content: center;
     gap: 2rem;
     overflow-x: scroll;
+    padding-inline: 3rem;
 }
 
 @media (width >= 320px) and (width <= 768px) {
     .poemonger-scrolling-works {
         display: grid;
         overflow-x: auto;
+        padding-inline: auto;
     }
 }

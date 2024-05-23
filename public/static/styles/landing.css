@@ -57,6 +57,10 @@
     display: grid;
     justify-content: center;
     gap: 2rem;
+
+    h2 {
+        text-align: center;
+    }
 }
 
 @media (width >= 320px) and (width <= 768px) {
