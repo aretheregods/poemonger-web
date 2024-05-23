@@ -12,12 +12,21 @@ i.observe(plw)
 function makeWorks(entries, observer) {
     entries.forEach((entry) => {
         if (entry.isIntersecting && entry.target.dataset.worksFetched == 0) {
-            entry.target.innerHTML = '<p>Loading...</p>'
+            entry.target.appendChild(
+                document
+                    .createElement('p')
+                    .setAttribute('id', 'works-loading')
+                    .textContent('Loading...')
+            )
             request.get('/landing/poems').then((d) => {
-                var works = d.data
-                    .map((work) => `<p>${work.title}</p>`)
-                    .join('')
-                entry.target.innerHTML = works
+                entry.target.removeChild(
+                    document.getElementById('works-loading')
+                )
+                var child = document.createDocumentFragment()
+                var works = d.data.map((work) =>
+                    child.appendChild('p').textContent(work.title)
+                )
+                works.forEach((w) => entry.target.appendChild(w))
                 entry.target.dataset.worksFetched = 1
             })
         }

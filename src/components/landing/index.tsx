@@ -159,7 +159,9 @@ export default async function Landing({
                                 <section
                                     id="poemonger-landing-works"
                                     data-works-fetched="0"
-                                ></section>
+                                >
+                                    <h2>Warren's Real Poetic Works</h2>
+                                </section>
                             </>
                         )
                     }
