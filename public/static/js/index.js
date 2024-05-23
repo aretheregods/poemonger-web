@@ -11,8 +11,8 @@ i.observe(plw)
 
 function makeWorks(entries, observer) {
     entries.forEach((entry) => {
-        entry.isIntersecting &&
-            entry.target.dataset.worksFetched == 0 &&
+        if (entry.isIntersecting && entry.target.dataset.worksFetched == 0) {
+            entry.target.innerHTML = '<p>Loading...</p>'
             request.get('/landing/poems').then((d) => {
                 var works = d.data
                     .map((work) => `<p>${work.title}</p>`)
@@ -20,5 +20,6 @@ function makeWorks(entries, observer) {
                 entry.target.innerHTML = works
                 entry.target.dataset.worksFetched = 1
             })
+        }
     })
 }
