@@ -18,7 +18,7 @@ export default class HTTP {
     delete() {}
 
     get(path = '') {
-        return fetch(path).then((r) => r.json)
+        return fetch(path).then((r) => r.json())
     }
 
     post({ path = '/', body = '', headers = {} }) {
