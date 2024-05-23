@@ -661,6 +661,7 @@ app.get('/', readerSessions, async (c) => {
         title: 'Poemonger | Real Poetry',
         assets: [
             <link rel="stylesheet" href="/static/styles/landing.css" />,
+            <script type="module" src="/static/js/index.js" defer></script>,
             <script
                 src="/static/js/specRules/specRulesLogin.js"
                 defer
