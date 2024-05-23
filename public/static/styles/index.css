@@ -308,6 +308,6 @@ button.button:hover {
     .poemonger-scrolling-works {
         display: grid;
         overflow-x: auto;
-        padding-inline: auto;
+        padding-inline: unset;
     }
 }
