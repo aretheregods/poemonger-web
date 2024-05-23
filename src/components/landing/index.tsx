@@ -24,6 +24,7 @@ export default async function Landing({
         audioId: string
         videoId: string
         price: number
+        description: Array<string>
     }>
     locale: countries
     query: string

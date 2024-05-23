@@ -11,6 +11,7 @@ export default async function Work({
     audioId,
     title,
     subtitle,
+    description = [],
     workInCart = false,
     landing = false,
 }: {
@@ -21,6 +22,7 @@ export default async function Work({
     audioId: string
     title: string
     subtitle: string
+    description?: Array<string>
     workInCart?: boolean
     landing?: boolean
 }) {
@@ -80,7 +82,23 @@ export default async function Work({
                     Read a bit
                 </a>
                 {landing ? (
-                    <button class="button work-description">Description</button>
+                    <>
+                        <button
+                            id="work-description_trigger"
+                            popovertarget="work-description_container"
+                            class="button work-description"
+                        >
+                            Description
+                        </button>
+                        <section id="work-description_container">
+                            {description.map((desc) => (
+                                <>
+                                    <p>{desc}</p>
+                                    <br />
+                                </>
+                            ))}
+                        </section>
+                    </>
                 ) : (
                     <AddToCart {...{ workId, workInCart }} />
                 )}

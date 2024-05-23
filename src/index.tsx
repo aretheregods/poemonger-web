@@ -575,19 +575,15 @@ app.get('/', readerSessions, async (c) => {
             title: 'Cancel & Tear',
             subtitle: 'Love Story',
             description: [
-                [
-                    "Since he came back from the war, he's been disappearing. Sometimes, just a hand vanishes. Sometimes more. He tries to hide it from Julia. But he knows she'll find out sooner or later. And his love for her is too great for him to risk losing her. How can he hide his disappearing body?",
-                ],
-                [
-                    "When you read this poem, you'll find traditional rhythmic poetry meeting free-verse poetry in one of the most original and innovative styles of any poet writing today. There's nothing else like this story out there.",
-                ],
-                ['Be one of the first to read a new era in poetry.'],
-                [
-                    "Poetry's structured beauty is ready to give a new voice to fiction.",
-                ],
-                [
-                    "Read Warren Christopher Taylor's Cancel & Tear to join the new wave.",
-                ],
+                "Since he came back from the war, he's been disappearing. Sometimes, just a hand vanishes. Sometimes more. He tries to hide it from Julia. But he knows she'll find out sooner or later. And his love for her is too great for him to risk losing her. How can he hide his disappearing body?",
+
+                "When you read this poem, you'll find traditional rhythmic poetry meeting free-verse poetry in one of the most original and innovative styles of any poet writing today. There's nothing else like this story out there.",
+
+                'Be one of the first to read a new era in poetry.',
+
+                "Poetry's structured beauty is ready to give a new voice to fiction.",
+
+                "Read Warren Christopher Taylor's Cancel & Tear to join the new wave.",
             ],
             imgId: '07681682-d46b-48b2-ca89-fb8de1739600',
             videoId: 'f169164d8d5a3e08ca8ce3302cae9f90',
@@ -601,26 +597,21 @@ app.get('/', readerSessions, async (c) => {
             title: 'Days Beside Ourselves',
             subtitle: 'Year One',
             description: [
-                ['See how fun and friendly traditional poetry can be.'],
-                [
-                    'Using rhythm, rhyme and fun bite-sized love stories in sonnets, Days Beside Ourselves tells stories you can relate to.',
-                ],
-                [
-                    'Our couple meets, falls in love, and goes through the paths of life together, getting into all sorts of fun along the way.',
-                ],
-                [
-                    "Whether they're on vacation at the beach, having a living room picnic on a rainy day, or being followed by a black cat, they have each other. And that's really all that matters.",
-                ],
-                [
-                    'And with the smooth, musical, traditional sonnets telling each story, all that matters to you and me is the awesome poetry.',
-                ],
-                [
-                    'You can read the book straight through. Or you can take it one sonnet at a time.',
-                ],
-                [
-                    'No matter what, though, meet your newest poetry best friends.',
-                ],
-                ['Read Days Beside Ourselves: Year One now.'],
+                'See how fun and friendly traditional poetry can be.',
+
+                'Using rhythm, rhyme and fun bite-sized love stories in sonnets, Days Beside Ourselves tells stories you can relate to.',
+
+                'Our couple meets, falls in love, and goes through the paths of life together, getting into all sorts of fun along the way.',
+
+                "Whether they're on vacation at the beach, having a living room picnic on a rainy day, or being followed by a black cat, they have each other. And that's really all that matters.",
+
+                'And with the smooth, musical, traditional sonnets telling each story, all that matters to you and me is the awesome poetry.',
+
+                'You can read the book straight through. Or you can take it one sonnet at a time.',
+
+                'No matter what, though, meet your newest poetry best friends.',
+
+                'Read Days Beside Ourselves: Year One now.',
             ],
             imgId: '11df3118-7fe3-4b53-1b64-d157924caf00',
             videoId: 'https://youtube.com/embed/8w9xnwA0pIQ',
@@ -634,37 +625,27 @@ app.get('/', readerSessions, async (c) => {
             title: 'Katja4u',
             subtitle: 'A Murder Mystery Romance',
             description: [
-                [
-                    "Warning: I'm meant for reading hard and fast. And afterwards you'll feel all hot and wet.",
-                ],
-                [
-                    "I'm a story in old-school poetry - a novel in traditional sonnets. Yes, with rhythm, rhyme and everything. You know those other novels are wasting your time. They're 5 times longer and take forever to read. But I'm so sexy, you'll wish we could go forever.",
-                ],
-                [
-                    "Read my sample now. Then come right back here. I'll be waiting.",
-                ],
-                [
-                    "But don't stop there. Just get my book and pound right through me. Then, you'll see how much better I'll make you feel. Yes, I promise.",
-                ],
-                [
-                    "Read me now and find out just how much. You'll only need to spend a couple of hours with me to get just what you need. It'll be our little secret.",
-                ],
-                [
-                    'And after we finish, leave a review to let everyone know how much fun we had.',
-                ],
-                [
-                    "I'm a camgirl who sells sex online to put myself through school. Sounds exciting, right? And everything was fun and fine until something crazy started going on. My best friend might have been murdered. Is one of our fans the killer?",
-                ],
-                [
-                    'My online sex work paid the bills until this psycho wanted to film me as he serial killed me, like I think he did my friend. Is the killer someone I know, a fan. Or is my friend even really dead? Is she just being an a**hole and pranking me?',
-                ],
-                [
-                    'This is what happens when you sell your sexy body online. A psycho fan might get it in his mind to murder you and your other cam girl friend.',
-                ],
-                ['Sex work sells. But it can also get you killed'],
-                [
-                    'Read me now so you can find out the whole story and who wants to kill me.',
-                ],
+                "Warning: I'm meant for reading hard and fast. And afterwards you'll feel all hot and wet.",
+
+                "I'm a story in old-school poetry - a novel in traditional sonnets. Yes, with rhythm, rhyme and everything. You know those other novels are wasting your time. They're 5 times longer and take forever to read. But I'm so sexy, you'll wish we could go forever.",
+
+                "Read my sample now. Then come right back here. I'll be waiting.",
+
+                "But don't stop there. Just get my book and pound right through me. Then, you'll see how much better I'll make you feel. Yes, I promise.",
+
+                "Read me now and find out just how much. You'll only need to spend a couple of hours with me to get just what you need. It'll be our little secret.",
+
+                'And after we finish, leave a review to let everyone know how much fun we had.',
+
+                "I'm a camgirl who sells sex online to put myself through school. Sounds exciting, right? And everything was fun and fine until something crazy started going on. My best friend might have been murdered. Is one of our fans the killer?",
+
+                'My online sex work paid the bills until this psycho wanted to film me as he serial killed me, like I think he did my friend. Is the killer someone I know, a fan. Or is my friend even really dead? Is she just being an a**hole and pranking me?',
+
+                'This is what happens when you sell your sexy body online. A psycho fan might get it in his mind to murder you and your other cam girl friend.',
+
+                'Sex work sells. But it can also get you killed',
+
+                'Read me now so you can find out the whole story and who wants to kill me.',
             ],
             imgId: '9af92141-923b-4eaf-181d-4f6019fc7800',
             videoId: '',
