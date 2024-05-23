@@ -156,7 +156,10 @@ export default async function Landing({
                                         </ul>
                                     </figure>
                                 </section>
-                                <section id="poemonger-landing-works"></section>
+                                <section
+                                    id="poemonger-landing-works"
+                                    data-works-fetched="0"
+                                ></section>
                             </>
                         )
                     }
