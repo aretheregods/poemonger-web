@@ -1,7 +1,5 @@
 var plw = document.getElementById('poemonger-landing-works')
 var options = {
-    root: plw,
-    rootMargin: '0px',
     threshold: 1,
 }
 
