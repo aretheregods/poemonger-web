@@ -14,7 +14,7 @@ function makeWorks(entries, observer) {
         entry.isIntersecting &&
             entry.target.dataset.worksFetched == 0 &&
             request.get('/landing/poems').then((d) => {
-                console.log({ d })
+                console.log({ d: d.json() })
                 entry.target.dataset.worksFetched = 1
             })
     })
