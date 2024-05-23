@@ -179,7 +179,7 @@ export default async function Landing({
                                     id="poemonger-landing-works"
                                     data-works-fetched="0"
                                 >
-                                    <h2>Warren's Real Poetic Works</h2>
+                                    <h2>My Visions for Poetry's Future</h2>
                                     <section class="poemonger-scrolling-works">
                                         {works.map((w) => (
                                             <Work
