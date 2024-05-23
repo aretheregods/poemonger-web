@@ -180,7 +180,9 @@ export default async function Landing({
                                 >
                                     <h2>Warren's Real Poetic Works</h2>
                                     {works.map((w) => (
-                                        <Work {...{ ...w, locale }} />
+                                        <Work
+                                            {...{ ...w, locale, landing: true }}
+                                        />
                                     ))}
                                 </section>
                             </>
