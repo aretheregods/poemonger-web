@@ -84,13 +84,17 @@ export default async function Work({
                 {landing ? (
                     <>
                         <button
-                            id="work-description_trigger"
+                            id={`work-description_trigger-${workId}`}
                             popovertarget="work-description_container"
                             class="button work-description"
                         >
                             Description
                         </button>
-                        <section id="work-description_container" popover="auto">
+                        <section
+                            id={`work-description_container-${workId}`}
+                            class="work-description_container"
+                            popover="auto"
+                        >
                             {description.map((desc) => (
                                 <>
                                     <p>{desc}</p>
