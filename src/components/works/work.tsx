@@ -95,7 +95,7 @@ export default async function Work({
                             class="work-description_container"
                             popover="auto"
                         >
-                            {description.map((desc) => (
+                            {description.map(desc => (
                                 <>
                                     <p>{desc}</p>
                                     <br />
