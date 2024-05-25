@@ -635,16 +635,6 @@ app.get('/', readerSessions, async (c) => {
             description: [
                 "Warning: I'm meant for reading hard and fast. And afterwards you'll feel all hot and wet.",
 
-                "I'm a story in old-school poetry - a novel in traditional sonnets. Yes, with rhythm, rhyme and everything. You know those other novels are wasting your time. They're 5 times longer and take forever to read. But I'm so sexy, you'll wish we could go forever.",
-
-                "Read my sample now. Then come right back here. I'll be waiting.",
-
-                "But don't stop there. Just get my book and pound right through me. Then, you'll see how much better I'll make you feel. Yes, I promise.",
-
-                "Read me now and find out just how much. You'll only need to spend a couple of hours with me to get just what you need. It'll be our little secret.",
-
-                'And after we finish, leave a review to let everyone know how much fun we had.',
-
                 "I'm a camgirl who sells sex online to put myself through school. Sounds exciting, right? And everything was fun and fine until something crazy started going on. My best friend might have been murdered. Is one of our fans the killer?",
 
                 'My online sex work paid the bills until this psycho wanted to film me as he serial killed me, like I think he did my friend. Is the killer someone I know, a fan. Or is my friend even really dead? Is she just being an a**hole and pranking me?',
