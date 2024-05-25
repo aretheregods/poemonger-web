@@ -27,6 +27,8 @@ pb.addEventListener('click', (e) => {
             }),
             headers: { 'Content-Type': 'application/json' },
         })
-        .then((r) => console.log(r))
+        .then((r) => {
+            !r?.error && appendHelcimPayIframe(r.checkoutToken)
+        })
         .catch((e) => console.error(e))
 })
