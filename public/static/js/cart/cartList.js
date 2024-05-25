@@ -19,7 +19,7 @@ pb.addEventListener('click', (e) => {
     var amount = e.target.dataset.price
     query
         .post({
-            path: '/purchase',
+            path: '/cart/purchase',
             body: JSON.stringify({
                 amount,
                 paymentType: 'purchase',
