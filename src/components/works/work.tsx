@@ -96,10 +96,7 @@ export default async function Work({
                             popover="auto"
                         >
                             {description.map((desc) => (
-                                <>
-                                    <p>{desc}</p>
-                                    <br />
-                                </>
+                                <p>{desc}</p>
                             ))}
                         </dialog>
                     </>
