@@ -96,7 +96,7 @@ cart.get('/', async (c) => {
                     <button
                         id="purchase-cart_button"
                         data-href="/cart/purchase"
-                        data-price={Math.ceil(price * 100)}
+                        data-price={price}
                         class="button purchase-cart"
                     >
                         Checkout
