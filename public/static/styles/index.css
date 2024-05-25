@@ -182,6 +182,11 @@ so this starting-style rule cannot be nested */
     }
 }
 
+.work-description_container {
+    max-width: 80vw;
+    min-width: auto;
+}
+
 #logged-in-popover_container {
     top: 6rem;
     right: 1rem;
