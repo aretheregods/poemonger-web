@@ -7,7 +7,7 @@ if (
     const specRules = {
         prerender: [
             {
-                where: { href_matches: "/login", "/signup" },
+                where: { href_matches: ['/login', '/signup'] },
             },
         ],
     }
