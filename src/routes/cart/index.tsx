@@ -62,6 +62,10 @@ cart.get('/', async (c) => {
                     src="/static/js/cart/cartList.js"
                     defer
                 ></script>,
+                <script
+                    type="text/javascript"
+                    src="https://secure.helcim.app/helcim-pay/services/start.js"
+                ></script>,
             ]}
             loggedIn={!!c.var.currentSession}
             shoppingCartCount={c.var.cartSessions?.size as number}
