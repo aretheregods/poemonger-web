@@ -22,6 +22,7 @@ type Variables = {
         deleteFromCart(workId: string): Promise<Response>
         itemInCart(workId: string): Promise<Response>
     }
+    HELCIM_API_KEY: string
     cartSessions?: { size: number; data: Array<string> }
     currentSession?: {
         cookie: string
@@ -38,7 +39,7 @@ cart.use(loggedOutRedirect)
 cart.use(readerSessions)
 cart.use(cartSessions)
 
-cart.get('/', async c => {
+cart.get('/', async (c) => {
     const r = await c.var.READER_CARTS.getCart(c.req.raw)
     const data: {
         data: Array<{
@@ -49,6 +50,7 @@ cart.get('/', async c => {
             price: number
         }>
     } = await r.json()
+    const price = data.data.reduce((amt, { price }) => (amt += price), 0)
 
     return c.html(
         <Base
@@ -87,16 +89,21 @@ cart.get('/', async c => {
                             }}
                         />
                     ))}
-                    <a href="/cart/purchase" class="button purchase-cart">
+                    <button
+                        id="purchase-cart_button"
+                        data-href="/cart/purchase"
+                        data-price={price}
+                        class="button purchase-cart"
+                    >
                         Checkout
-                    </a>
+                    </button>
                 </section>
             </>
         </Base>
     )
 })
 
-cart.get('/purchase/:workId', c => {
+cart.get('/purchase/:workId', (c) => {
     const workId = c.req.param('workId')
     return c.html(
         <Base
@@ -115,7 +122,7 @@ cart.get('/purchase/:workId', c => {
     )
 })
 
-cart.get('/purchase', c => {
+cart.get('/purchase', (c) => {
     return c.html(
         <Base
             title="Poemonger | Purchase Cart"
@@ -133,7 +140,30 @@ cart.get('/purchase', c => {
     )
 })
 
-cart.post('/remove/:workId', async c => {
+cart.post('/purchase', async (c) => {
+    const b = await c.req.json()
+    const o = {
+        method: 'POST',
+        headers: {
+            accept: 'application/json',
+            'api-token': c.var.HELCIM_API_KEY,
+            'content-type': 'application/json',
+        },
+        body: JSON.stringify(b),
+    }
+    try {
+        const d = await fetch(
+            'https://api.helcim.com/v2/helcim-pay/initialize',
+            o
+        )
+        const r = d.json()
+        return c.json(r)
+    } catch (error) {
+        c.json({ currentToken: '', secretToken: '', error })
+    }
+})
+
+cart.post('/remove/:workId', async (c) => {
     const workId = c.req.param('workId')
     let response = { count: 0, error: '' }
     try {
@@ -145,7 +175,7 @@ cart.post('/remove/:workId', async c => {
     return c.json(response)
 })
 
-cart.post('/:workId', async c => {
+cart.post('/:workId', async (c) => {
     const workId = c.req.param('workId')
     let response = { message: 'There was an error:' }
 

@@ -8,9 +8,9 @@ if (p) p.addEventListener('click', chapterButtons)
 if (p) p.addEventListener('mouseup', chapterButtons)
 if (r) r.addEventListener('change', chapterRange)
 
-window.addEventListener('pageshow', async e => {
-    const transitionClass = determineTransitionClass(navigation.currentEntry);
-    document.documentElement.dataset.transition = transitionClass;
+window.addEventListener('pageshow', async (e) => {
+    const transitionClass = determineTransitionClass(navigation.currentEntry)
+    document.documentElement.dataset.transition = transitionClass
     setTimeout(() => {
         delete document.documentElement.dataset.transition
     }, 250)
@@ -19,12 +19,15 @@ window.addEventListener('pageshow', async e => {
 // Determine the View Transition class to use based on the old and new navigation entries
 // Also take the navigateEvent into account to detect UA back/forward navigation
 const determineTransitionClass = (newNavigationEntry) => {
-	const destinationURL = new URL(newNavigationEntry.url);
+    const destinationURL = new URL(newNavigationEntry.url)
 
-	const currentPathname = destinationURL.searchParams.get('previous') || 0
-	const destinationPathname = destinationURL.searchParams.get('chapter') || 0
+    const currentPathname = destinationURL.searchParams.get('previous') || 0
+    const destinationPathname = destinationURL.searchParams.get('chapter') || 0
 
-    if (destinationURL.pathname.startsWith('/read') && (currentPathname || destinationPathname)) {
+    if (
+        destinationURL.pathname.startsWith('/read') &&
+        (currentPathname || destinationPathname)
+    ) {
         if (currentPathname === destinationPathname) {
             return 'reload'
         } else if (parseInt(currentPathname) < parseInt(destinationPathname)) {
@@ -40,17 +43,17 @@ const determineTransitionClass = (newNavigationEntry) => {
             return 'none'
         }
     } else return
-};
+}
 
 // Determine if the UA back button was used to navigate
 const isUABackButton = (oldNavigationEntry, newNavigationEntry) => {
-	return (newNavigationEntry.index < oldNavigationEntry.index);
-};
+    return newNavigationEntry.index < oldNavigationEntry.index
+}
 
 // Determine if the UA forward button was used to navigate
 const isUAForwardButton = (oldNavigationEntry, newNavigationEntry) => {
-	return (newNavigationEntry.index > oldNavigationEntry.index);
-};
+    return newNavigationEntry.index > oldNavigationEntry.index
+}
 
 function chapterButtons(e) {
     var c = e.target.dataset.chapter
@@ -64,7 +67,7 @@ function chapterButtons(e) {
     } else {
         var u = new URLSearchParams()
         u.set('chapter', c)
-        u.set("previous", p)
+        u.set('previous', p)
         window.location.search = u
     }
 }
