@@ -30,6 +30,7 @@ export type Bindings = {
     USERS_SESSIONS: KVNamespace
     STORAGE_MAIN: R2Bucket
     DKIM_PRIVATE_KEY: string
+    HELCIM_API_KEY: string
 }
 
 export type Variables = {

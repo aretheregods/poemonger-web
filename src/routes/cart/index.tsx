@@ -141,25 +141,25 @@ cart.get('/purchase', (c) => {
 })
 
 cart.post('/purchase', async (c) => {
-    const b = await c.req.json()
-    const o = {
-        method: 'POST',
-        headers: {
-            accept: 'application/json',
-            'api-token': c.env.HELCIM_API_KEY,
-            'content-type': 'application/json',
-        },
-        body: JSON.stringify(b),
-    }
     try {
+        const b = await c.req.json()
+        const o = {
+            method: 'POST',
+            headers: {
+                accept: 'application/json',
+                'api-token': c.env.HELCIM_API_KEY,
+                'content-type': 'application/json',
+            },
+            body: JSON.stringify(b),
+        }
         const d = await fetch(
             'https://api.helcim.com/v2/helcim-pay/initialize',
             o
         )
-        const r = d.json()
+        const r = await d.json()
         return c.json(r)
     } catch (error) {
-        c.json({ currentToken: '', secretToken: '', error })
+        return c.json({ currentToken: '', secretToken: '', error })
     }
 })
 
