@@ -25,6 +25,7 @@ pb.addEventListener('click', (e) => {
                 paymentType: 'purchase',
                 currency: 'USD',
             }),
+            headers: { 'Content-Type': 'application/json' },
         })
         .then((r) => console.log(r))
         .catch((e) => console.error(e))
