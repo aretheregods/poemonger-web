@@ -85,12 +85,12 @@ export default async function Work({
                     <>
                         <button
                             id={`work-description_trigger-${workId}`}
-                            popovertarget={`work-description_container-${workId}`}
+                            data-target={`work-description_container-${workId}`}
                             class="button work-description"
                         >
                             Description
                         </button>
-                        <section
+                        <dialog
                             id={`work-description_container-${workId}`}
                             class="work-description_container"
                             popover="auto"
@@ -101,7 +101,7 @@ export default async function Work({
                                     <br />
                                 </>
                             ))}
-                        </section>
+                        </dialog>
                     </>
                 ) : (
                     <AddToCart {...{ workId, workInCart }} />
