@@ -131,14 +131,12 @@ img.book-cover {
     margin: 0;
 }
 
-[popover]:popover-open,
-[dialog]:open {
+[popover]:popover-open {
     opacity: 1;
     transform: scale(1);
 }
 
-[popover],
-dialog {
+[popover] {
     font-size: 1.2rem;
     padding: 10px;
 
@@ -155,8 +153,7 @@ dialog {
 /* Needs to be after the previous [popover]:popover-open rule
 to take effect, as the specificity is the same */
 @starting-style {
-    [popover]:popover-open,
-    dialog[open] {
+    [popover]:popover-open {
         opacity: 0;
         transform: scale(0);
     }
@@ -164,8 +161,7 @@ to take effect, as the specificity is the same */
 
 /* Transition for the popover's backdrop */
 
-[popover]::backdrop,
-dialog::backdrop {
+[popover]::backdrop {
     background-color: rgb(0 0 0 / 0%);
     transition: display 0.3s allow-discrete, overlay 0.3s allow-discrete,
         background-color 0.3s;
@@ -173,8 +169,7 @@ dialog::backdrop {
   transition: all 0.3s allow-discrete; */
 }
 
-[popover]:popover-open::backdrop,
-dialog[open]::backdrop {
+[popover]:popover-open::backdrop {
     background-color: rgb(0 0 0 / 15%);
 }
 
@@ -182,8 +177,7 @@ dialog[open]::backdrop {
 so this starting-style rule cannot be nested */
 
 @starting-style {
-    [popover]:popover-open::backdrop,
-    dialog[open]::backdrop {
+    [popover]:popover-open::backdrop {
         background-color: rgb(0 0 0 / 0%);
     }
 }
