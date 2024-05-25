@@ -16,10 +16,10 @@ cid.forEach((d) => {
 })
 
 pb.addEventListener('click', (e) => {
-    var amount = e.target.dataset.price
+    var amount = parseFloat(e.target.dataset.price)
     query
         .post({
-            path: '/cart/purchase',
+            path: e.target.dataset.href,
             body: JSON.stringify({
                 amount,
                 paymentType: 'purchase',
