@@ -8,8 +8,10 @@ if (
         prerender: [
             {
                 where: { href_matches: ['/cart'] },
+                eagerness: 'immediate',
             },
         ],
+        prefetch: [{ urls: ['/read/*'] }],
     }
     specScript.textContent = JSON.stringify(specRules)
     console.log('added speculation rules to: cart')
