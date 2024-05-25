@@ -12,6 +12,7 @@ import { countries } from '../../utils'
 
 type Bindings = {
     POEMONGER_READER_CARTS: DurableObjectNamespace
+    HELCIM_API_KEY: string
 }
 
 type Variables = {
@@ -22,7 +23,6 @@ type Variables = {
         deleteFromCart(workId: string): Promise<Response>
         itemInCart(workId: string): Promise<Response>
     }
-    HELCIM_API_KEY: string
     cartSessions?: { size: number; data: Array<string> }
     currentSession?: {
         cookie: string
@@ -146,7 +146,7 @@ cart.post('/purchase', async (c) => {
         method: 'POST',
         headers: {
             accept: 'application/json',
-            'api-token': c.var.HELCIM_API_KEY,
+            'api-token': c.env.HELCIM_API_KEY,
             'content-type': 'application/json',
         },
         body: JSON.stringify(b),
