@@ -16,19 +16,24 @@ cid.forEach((d) => {
 })
 
 pb.addEventListener('click', (e) => {
-    var amount = parseFloat(e.target.dataset.price)
-    query
-        .post({
-            path: e.target.dataset.href,
-            body: JSON.stringify({
-                amount,
-                paymentType: 'purchase',
-                currency: 'USD',
-            }),
-            headers: { 'Content-Type': 'application/json' },
-        })
-        .then((r) => {
-            !r?.error && appendHelcimPayIframe(r.checkoutToken)
-        })
-        .catch((e) => console.error(e))
+    if(!e.target.dataset.checkoutToken) {
+        var amount = parseFloat(e.target.dataset.price)
+        query
+            .post({
+                path: e.target.dataset.href,
+                body: JSON.stringify({
+                    amount,
+                    paymentType: 'purchase',
+                    currency: 'USD',
+                }),
+                headers: { 'Content-Type': 'application/json' },
+            })
+            .then((r) => {
+                if (!r?.error) {
+                    e.target.dataset.checkoutToken = r.checkoutToken
+                    appendHelcimPayIframe(r.checkoutToken)
+                }
+            })
+            .catch((e) => console.error(e))
+    } else appendHelcimPayIframe(e.target.dataset.checkoutToken)
 })
