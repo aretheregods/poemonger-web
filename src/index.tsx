@@ -627,7 +627,7 @@ app.get('/', readerSessions, async (c) => {
             price: { US: 24.99, CA: 33.99, GB: 19.99, AU: 35.99 }[
                 c.var.country
             ],
-            workId: 2,
+            workId: 3,
         },
         {
             title: 'Katja4u',
@@ -651,7 +651,7 @@ app.get('/', readerSessions, async (c) => {
             price: { US: 27.99, CA: 38.99, GB: 22.99, AU: 39.99 }[
                 c.var.country
             ],
-            workId: 3,
+            workId: 4,
         },
     ]
 
