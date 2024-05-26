@@ -22,6 +22,7 @@ type Variables = {
         getCart(r: Request): Promise<Response>
         deleteFromCart(workId: string): Promise<Response>
         itemInCart(workId: string): Promise<Response>
+        purchaseCart(works: Array<string>): Promise<Response>
     }
     cartSessions?: { size: number; data: Array<string> }
     currentSession?: {
@@ -168,7 +169,20 @@ cart.post('/purchase/init', async c => {
     }
 })
 
-cart.post('/purchase/complete', c => {})
+cart.post('/purchase/complete', async c => {
+    try {
+        const works: { works: Array<string> } = await c.req.json()
+        const response = await c.var.READER_CARTS.purchaseCart(works.works)
+        const purchased: {
+            error: boolean
+            message: string
+        } = await response.json()
+        if (!purchased.error)
+            return Response.json({ purchased: true, error: '' })
+    } catch (error) {
+        return Response.json({ purchased: false, error })
+    }
+})
 
 cart.post('/remove/:workId', async c => {
     const workId = c.req.param('workId')

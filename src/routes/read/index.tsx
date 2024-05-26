@@ -29,7 +29,6 @@ type Variables = {
     READER_CARTS: DurableObjectNamespace & {
         addToCart(workId: string): Promise<Response>
         getCartMetadata(): Promise<Response>
-        purchaseCart(works: Array<string>): Promise<Response>
     }
     cartSessions?: { size: number; data: Array<string> }
     currentSession?: {
