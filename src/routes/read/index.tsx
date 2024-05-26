@@ -54,7 +54,7 @@ read.get('/', async (c) => {
     let response = { message: 'There was an error:', data: [] }
 
     try {
-        const query = `select id, title, subtitle, json_extract(prices, "$.${c.var.country}") as price, cover, audio from works where id = 1;`
+        const query = `select id, title, subtitle, json_extract(prices, "$.${c.var.country}") as price, cover, audio from works where id != 2;`
         const r = await c.var.READER_SESSIONS.query(c.req.raw, query)
         response = await r.json()
     } catch (e) {
