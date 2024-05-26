@@ -10,7 +10,7 @@ import {
     requestCountry,
 } from '../../'
 
-import { countries, locales } from '../../utils'
+import { countries } from '../../utils'
 
 type Bindings = {
     POEMONGER_READER_SESSIONS: DurableObjectNamespace
@@ -29,6 +29,7 @@ type Variables = {
     READER_CARTS: DurableObjectNamespace & {
         addToCart(workId: string): Promise<Response>
         getCartMetadata(): Promise<Response>
+        purchaseCart(works: Array<string>): Promise<Response>
     }
     cartSessions?: { size: number; data: Array<string> }
     currentSession?: {
@@ -50,7 +51,7 @@ read.use(loggedOutRedirect)
 read.use(readerSessions)
 read.use(cartSessions)
 
-read.get('/', async (c) => {
+read.get('/', async c => {
     let response = { message: 'There was an error:', data: [] }
 
     try {
@@ -106,11 +107,11 @@ read.get('/', async (c) => {
     )
 })
 
-read.get('/cartdata', (c) => {
+read.get('/cartdata', c => {
     return c.json(c.var.cartSessions)
 })
 
-read.get('/:workId', async (c) => {
+read.get('/:workId', async c => {
     const workId = c.req.param('workId')
     const chapter = c.req.query('chapter')
     let response: {

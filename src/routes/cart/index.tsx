@@ -39,7 +39,7 @@ cart.use(loggedOutRedirect)
 cart.use(readerSessions)
 cart.use(cartSessions)
 
-cart.get('/', async (c) => {
+cart.get('/', async c => {
     const r = await c.var.READER_CARTS.getCart(c.req.raw)
     const data: {
         data: Array<{
@@ -95,8 +95,9 @@ cart.get('/', async (c) => {
                     ))}
                     <button
                         id="purchase-cart_button"
-                        data-href="/cart/purchase"
+                        data-href="/cart/purchase/init"
                         data-price={price}
+                        data-works={data.data.map(({ id }) => id)}
                         class="button purchase-cart"
                     >
                         Checkout
@@ -107,7 +108,7 @@ cart.get('/', async (c) => {
     )
 })
 
-cart.get('/purchase/:workId', (c) => {
+cart.get('/purchase/:workId', c => {
     const workId = c.req.param('workId')
     return c.html(
         <Base
@@ -126,7 +127,7 @@ cart.get('/purchase/:workId', (c) => {
     )
 })
 
-cart.get('/purchase', (c) => {
+cart.get('/purchase', c => {
     return c.html(
         <Base
             title="Poemonger | Purchase Cart"
@@ -144,7 +145,7 @@ cart.get('/purchase', (c) => {
     )
 })
 
-cart.post('/purchase', async (c) => {
+cart.post('/purchase/init', async c => {
     try {
         const b = await c.req.json()
         const o = {
@@ -167,7 +168,9 @@ cart.post('/purchase', async (c) => {
     }
 })
 
-cart.post('/remove/:workId', async (c) => {
+cart.post('/purchase/complete', c => {})
+
+cart.post('/remove/:workId', async c => {
     const workId = c.req.param('workId')
     let response = { count: 0, error: '' }
     try {
@@ -179,7 +182,7 @@ cart.post('/remove/:workId', async (c) => {
     return c.json(response)
 })
 
-cart.post('/:workId', async (c) => {
+cart.post('/:workId', async c => {
     const workId = c.req.param('workId')
     let response = { message: 'There was an error:' }
 

@@ -49,7 +49,7 @@ account.use(loggedOutRedirect)
 account.use(readerSessions)
 account.use(cartSessions)
 
-account.get('/', (c) => {
+account.get('/', c => {
     const { first_name, last_name, created_at, purchases } = c.var
         .currentSession?.currentSession || {
         first_name: '',
@@ -83,7 +83,7 @@ account.get('/', (c) => {
                 <figure>
                     <legend>Purchase Receipts</legend>
                     <ul id="account-purchases_list">
-                        {purchases.map((p) => {
+                        {purchases.map(p => {
                             return <li>{p}</li>
                         })}
                     </ul>
