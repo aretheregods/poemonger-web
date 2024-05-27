@@ -551,6 +551,14 @@ app.get('/delete', loggedOutRedirect, c =>
     )
 )
 
+app.get('/about', c =>
+    c.html(
+        <Base title="Poemonger | About" loggedIn={!!c.var.currentSession}>
+            <h2>About Poemonger and Warren Christopher Taylor</h2>
+        </Base>
+    )
+)
+
 app.get('/audio/:audioId', async c => {
     const { audioId } = c.req.param()
     if (
