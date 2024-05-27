@@ -88,6 +88,10 @@
 }
 
 @media (width >= 320px) and (width <= 480px) {
+    #poemonger-works_available {
+        display: grid;
+    }
+
     .work-container {
         & audio {
             width: 50vw;
