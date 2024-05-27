@@ -24,7 +24,10 @@ type Variables = {
         getCart(r: Request): Promise<Response>
         deleteFromCart(workId: string): Promise<Response>
         itemInCart(workId: string): Promise<Response>
-        purchaseCart(works: Array<string>): Promise<Response>
+        purchaseCart(
+            works: Array<string>,
+            session_id: string | undefined
+        ): Promise<Response>
     }
     cartSessions?: { size: number; data: Array<string> }
     currentSession?: {
@@ -187,12 +190,16 @@ cart.post('/purchase/init', async c => {
 })
 
 cart.post('/purchase/complete', async c => {
+    const session_id = c.var.currentSession?.currentSession.session_id
     try {
         const works: {
             works: Array<string>
             invoice: { data: { data: { dateCreated: string } } }
         } = await c.req.json()
-        const response = await c.var.READER_CARTS.purchaseCart(works.works)
+        const response = await c.var.READER_CARTS.purchaseCart(
+            works.works,
+            session_id
+        )
         const purchased: {
             error: boolean
             message: string
@@ -204,8 +211,10 @@ cart.post('/purchase/complete', async c => {
                     type: 'json',
                 })
                 const session = c.env.USERS_SESSIONS.get(
-                    `session=${c.var.currentSession?.currentSession.session_id}`,
-                    { type: 'json' }
+                    `session=${session_id}`,
+                    {
+                        type: 'json',
+                    }
                 )
                 await Promise.all([
                     c.env.USERS_KV.put(
@@ -219,7 +228,7 @@ cart.post('/purchase/complete', async c => {
                         })
                     ),
                     c.env.USERS_SESSIONS.put(
-                        `session=${c.var.currentSession?.currentSession.session_id}`,
+                        `session=${session_id}`,
                         JSON.stringify({
                             ...session,
                             purchases: {
