@@ -74,6 +74,10 @@
     button.video-poem_trigger {
         border: solid 1px hsl(33, 99%, 33%);
         background-color: unset;
+
+        &:hover {
+            background-color: hsl(var(--button-color), var(--button-color-l));
+        }
     }
 
     & .button.work-description {
