@@ -101,7 +101,7 @@ cart.get('/', async c => {
                             }}
                         />
                     ))}
-                    <section>
+                    <section id="price-checkout_container">
                         <fieldset>
                             <legend>Total</legend>
                             <h3>{price}</h3>
