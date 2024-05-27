@@ -9,6 +9,7 @@ import { account, admin, cart, read } from './routes'
 
 // components
 import { Base } from './Base'
+import About from './components/landing/about'
 import Email, { Activate } from './components/emails'
 import ActivatePage from './components/signup/ActivatePage'
 import SignUp from './components/signup'
@@ -553,8 +554,14 @@ app.get('/delete', loggedOutRedirect, c =>
 
 app.get('/about', c =>
     c.html(
-        <Base title="Poemonger | About" loggedIn={!!c.var.currentSession}>
-            <h2>About Poemonger and Warren Christopher Taylor</h2>
+        <Base
+            title="Poemonger | About"
+            assets={[
+                <link rel="stylesheet" href="/static/styles/landing.css" />,
+            ]}
+            loggedIn={!!c.var.currentSession}
+        >
+            <About />
         </Base>
     )
 )
