@@ -51,6 +51,7 @@ window.addEventListener('message', e => {
                 path: '/cart/purchase/complete',
                 body: JSON.stringify({
                     works: JSON.parse(checkout.dataset.works),
+                    invoice: JSON.parse(e.data.eventMessage).data,
                 }),
                 headers: { 'Content-Type': 'application/json' },
             })

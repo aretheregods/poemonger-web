@@ -12,6 +12,7 @@ import { countries } from '../../utils'
 
 type Bindings = {
     POEMONGER_READER_CARTS: DurableObjectNamespace
+    USERS_KV: KVNamespace
     HELCIM_API_KEY: string
 }
 
@@ -27,7 +28,7 @@ type Variables = {
     cartSessions?: { size: number; data: Array<string> }
     currentSession?: {
         cookie: string
-        currentSession: { created_at: string; cart_id: string }
+        currentSession: { created_at: string; cart_id: string; email: string }
     }
     currentSessionError?: { error: boolean; message: string }
     country: countries
@@ -171,16 +172,37 @@ cart.post('/purchase/init', async c => {
 
 cart.post('/purchase/complete', async c => {
     try {
-        const works: { works: Array<string> } = await c.req.json()
+        const works: {
+            works: Array<string>
+            invoice: { data: { data: { dateCreated: string } } }
+        } = await c.req.json()
         const response = await c.var.READER_CARTS.purchaseCart(works.works)
         const purchased: {
             error: boolean
             message: string
         } = await response.json()
         if (!purchased.error)
-            return Response.json({ purchased: true, error: '' })
+            try {
+                const email = c.var.currentSession?.currentSession.email
+                const user = c.env.USERS_KV.get(`user=${email}`, {
+                    type: 'json',
+                })
+                await c.env.USERS_KV.put(
+                    `user=${email}`,
+                    JSON.stringify({
+                        ...user,
+                        purchases: {
+                            [works.invoice.data.data.dateCreated]:
+                                works.invoice.data,
+                        },
+                    })
+                )
+                return c.json({ purchased: true, error: '' })
+            } catch (error) {
+                return c.json({ error })
+            }
     } catch (error) {
-        return Response.json({ purchased: false, error })
+        return c.json({ purchased: false, error })
     }
 })
 
