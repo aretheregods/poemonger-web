@@ -63,10 +63,10 @@
     display: grid;
     gap: 1rem;
     grid-template-columns: 1fr 1fr;
+}
 
-    & > .button.purchase-cart {
-        height: fit-content;
-    }
+#cart-item_list {
+    display: grid;
 }
 
 #price-checkout_container {

@@ -89,18 +89,22 @@ cart.get('/', async c => {
                         : 'You have no items in your cart'}
                 </h2>
                 <section id="cart-main_container">
-                    {data.data.map(({ id, title, subtitle, cover, price }) => (
-                        <CartItem
-                            {...{
-                                id,
-                                title,
-                                subtitle,
-                                cover,
-                                price,
-                                locale: c.var.country,
-                            }}
-                        />
-                    ))}
+                    <section id="cart-item_list">
+                        {data.data.map(
+                            ({ id, title, subtitle, cover, price }) => (
+                                <CartItem
+                                    {...{
+                                        id,
+                                        title,
+                                        subtitle,
+                                        cover,
+                                        price,
+                                        locale: c.var.country,
+                                    }}
+                                />
+                            )
+                        )}
+                    </section>
                     <section id="price-checkout_container">
                         <fieldset>
                             <legend>Total</legend>
