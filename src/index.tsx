@@ -552,11 +552,18 @@ app.get('/delete', loggedOutRedirect, c =>
 )
 
 app.get('/audio/:audioId', async c => {
-    if (!c.var.currentSession || c.var.currentSessionError) {
+    const { audioId } = c.req.param()
+    if (
+        ![
+            'Cancel&Tear-Chapter-1_attempt-2.m4a',
+            'FirstSight.m4a',
+            'Katja4u-Chapter-1_full.m4a',
+        ].includes(audioId) &&
+        (!c.var.currentSession || c.var.currentSessionError)
+    ) {
         return c.notFound()
     }
 
-    const { audioId } = c.req.param()
     const object = await c.env.STORAGE_MAIN.get(audioId)
 
     if (object === null) {
