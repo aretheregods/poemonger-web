@@ -1,3 +1,8 @@
+#poemonger-works_available {
+    display: flex;
+    gap: 2rem;
+}
+
 .work-container {
     display: grid;
     justify-content: center;
