@@ -75,7 +75,8 @@ body {
 nav {
     display: flex;
     justify-content: space-between;
-    background-color: hsl(44, 96%, 96%);
+    background-color: white;
+    border-bottom: lightgrey 1px solid;
 
     & a {
         height: min-content;
