@@ -89,6 +89,12 @@
     }
 }
 
+footer {
+    margin-block: 1rem;
+    padding: 2rem 1rem;
+    background-color: lightgrey;
+}
+
 @media (width >= 320px) and (width <= 768px) {
     .poem-section-container {
         grid-template-columns: none;
