@@ -181,7 +181,7 @@ export default async function Landing({
                                 >
                                     <h2>My Visions for Poetry's Future</h2>
                                     <section class="poemonger-scrolling-works">
-                                        {works.map((w) => (
+                                        {works.map(w => (
                                             <Work
                                                 {...{
                                                     ...w,

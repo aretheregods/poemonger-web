@@ -8,7 +8,7 @@ import {
     readerSessions,
     requestCountry,
 } from '../../'
-import { countries } from '../../utils'
+import { countries, locales } from '../../utils'
 
 type Bindings = {
     POEMONGER_READER_CARTS: DurableObjectNamespace
@@ -62,6 +62,12 @@ cart.get('/', async c => {
         }>
     } = await r.json()
     const price = data.data.reduce((amt, { price }) => (amt += price), 0)
+    var i = locales[c.var.country]
+    var fp = new Intl.NumberFormat(i.locale, {
+        style: 'currency',
+        currency: i.currency,
+        currencyDisplay: 'narrowSymbol',
+    }).format(price)
 
     return c.html(
         <Base
@@ -111,7 +117,7 @@ cart.get('/', async c => {
                     <section id="price-checkout_container">
                         <fieldset>
                             <legend>Total</legend>
-                            <h3>{price}</h3>
+                            <h3>{fp}</h3>
                         </fieldset>
                         <button
                             id="purchase-cart_button"
