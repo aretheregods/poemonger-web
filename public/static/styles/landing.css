@@ -40,6 +40,10 @@
         padding-inline: 1rem;
     }
 
+    & h2 {
+        text-align: center;
+    }
+
     & h3 {
         margin-inline: 2rem;
     }
