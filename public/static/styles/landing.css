@@ -94,7 +94,7 @@ footer {
     width: 75vw;
     margin: 1rem auto;
     padding: 2rem 1rem;
-    background-color: hsl(44, 83%, 94%);
+    background-color: hsl(44, 96%, 96%);
 }
 
 @media (width >= 320px) and (width <= 768px) {
