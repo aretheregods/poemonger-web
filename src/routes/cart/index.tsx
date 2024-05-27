@@ -101,15 +101,21 @@ cart.get('/', async c => {
                             }}
                         />
                     ))}
-                    <button
-                        id="purchase-cart_button"
-                        data-href="/cart/purchase/init"
-                        data-price={price}
-                        data-works={data.data.map(({ id }) => id)}
-                        class="button purchase-cart"
-                    >
-                        Checkout
-                    </button>
+                    <section>
+                        <fieldset>
+                            <legend>Total</legend>
+                            <h3>{price}</h3>
+                        </fieldset>
+                        <button
+                            id="purchase-cart_button"
+                            data-href="/cart/purchase/init"
+                            data-price={price}
+                            data-works={data.data.map(({ id }) => id)}
+                            class="button purchase-cart"
+                        >
+                            Checkout
+                        </button>
+                    </section>
                 </section>
             </>
         </Base>
