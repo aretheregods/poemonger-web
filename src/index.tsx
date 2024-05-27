@@ -10,6 +10,7 @@ import { account, admin, cart, read } from './routes'
 // components
 import { Base } from './Base'
 import About from './components/landing/about'
+import Footer from './components/landing/footer'
 import Email, { Activate } from './components/emails'
 import ActivatePage from './components/signup/ActivatePage'
 import SignUp from './components/signup'
@@ -560,6 +561,7 @@ app.get('/about', c =>
                 <link rel="stylesheet" href="/static/styles/landing.css" />,
             ]}
             loggedIn={!!c.var.currentSession}
+            footer={<Footer />}
         >
             <About />
         </Base>
@@ -700,21 +702,7 @@ app.get('/', readerSessions, async c => {
                     `}
             />
         ),
-        footer: (
-            <footer>
-                <img
-                    src="/static/logos/logo_small-512.png"
-                    alt="Poemonger Logo"
-                    loading="lazy"
-                    fetchpriority="low"
-                    height="64"
-                    width="64"
-                />
-                <section id="landing-page_footer">
-                    <a href="/about">About</a>
-                </section>
-            </footer>
-        ),
+        footer: <Footer />,
     }
     return c.html(<Base {...props} />)
 })
