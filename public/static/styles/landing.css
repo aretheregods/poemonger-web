@@ -70,6 +70,12 @@
         text-align: end;
     }
 
+    & button.audio-poem_trigger,
+    button.video-poem_trigger {
+        border: solid 1px hsl(33, 99%, 33%);
+        background-color: unset;
+    }
+
     & .button.work-description {
         background-color: hsl(45, 97%, 75%);
 
