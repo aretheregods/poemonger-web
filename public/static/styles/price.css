@@ -73,6 +73,7 @@
 #price-checkout_container {
     display: flex;
     flex-wrap: wrap;
+    gap: 1rem;
 
     & > * {
         flex: 1;
