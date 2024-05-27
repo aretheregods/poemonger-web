@@ -92,7 +92,7 @@
 footer {
     margin-block: 1rem;
     padding: 2rem 1rem;
-    background-color: lightgrey;
+    background-color: hsl(44, 83%, 94%);
 }
 
 @media (width >= 320px) and (width <= 768px) {
