@@ -67,6 +67,7 @@
 
 #cart-item_list {
     display: grid;
+    gap: 1rem;
 }
 
 #price-checkout_container {
