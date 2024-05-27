@@ -90,12 +90,17 @@
 }
 
 footer {
-    margin-block: 1rem;
+    width: 75vw;
+    margin: 1rem auto;
     padding: 2rem 1rem;
     background-color: hsl(44, 83%, 94%);
 }
 
 @media (width >= 320px) and (width <= 768px) {
+    footer {
+        width: auto;
+    }
+
     .poem-section-container {
         grid-template-columns: none;
         grid-template-rows: auto 3rem 3rem auto;
