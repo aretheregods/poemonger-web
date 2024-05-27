@@ -701,9 +701,11 @@ app.get('/', readerSessions, async c => {
             />
         ),
         footer: (
-            <section id="landing-page_footer">
-                <a href="/about">About</a>
-            </section>
+            <footer>
+                <section id="landing-page_footer">
+                    <a href="/about">About</a>
+                </section>
+            </footer>
         ),
     }
     return c.html(<Base {...props} />)
