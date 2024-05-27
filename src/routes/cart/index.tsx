@@ -13,6 +13,7 @@ import { countries } from '../../utils'
 type Bindings = {
     POEMONGER_READER_CARTS: DurableObjectNamespace
     USERS_KV: KVNamespace
+    USERS_SESSIONS: KVNamespace
     HELCIM_API_KEY: string
 }
 
@@ -28,7 +29,12 @@ type Variables = {
     cartSessions?: { size: number; data: Array<string> }
     currentSession?: {
         cookie: string
-        currentSession: { created_at: string; cart_id: string; email: string }
+        currentSession: {
+            created_at: string
+            cart_id: string
+            email: string
+            session_id: string
+        }
     }
     currentSessionError?: { error: boolean; message: string }
     country: countries
@@ -187,16 +193,32 @@ cart.post('/purchase/complete', async c => {
                 const user = c.env.USERS_KV.get(`user=${email}`, {
                     type: 'json',
                 })
-                await c.env.USERS_KV.put(
-                    `user=${email}`,
-                    JSON.stringify({
-                        ...user,
-                        purchases: {
-                            [works.invoice.data.data.dateCreated]:
-                                works.invoice.data,
-                        },
-                    })
+                const session = c.env.USERS_SESSIONS.get(
+                    `session=${c.var.currentSession?.currentSession.session_id}`,
+                    { type: 'json' }
                 )
+                await Promise.all([
+                    c.env.USERS_KV.put(
+                        `user=${email}`,
+                        JSON.stringify({
+                            ...user,
+                            purchases: {
+                                [works.invoice.data.data.dateCreated]:
+                                    works.invoice.data,
+                            },
+                        })
+                    ),
+                    c.env.USERS_SESSIONS.put(
+                        `session=${c.var.currentSession?.currentSession.session_id}`,
+                        JSON.stringify({
+                            ...session,
+                            purchases: {
+                                [works.invoice.data.data.dateCreated]:
+                                    works.invoice.data,
+                            },
+                        })
+                    ),
+                ])
                 return c.json({ purchased: true, error: '' })
             } catch (error) {
                 return c.json({ error })
