@@ -306,6 +306,11 @@ button.button:hover {
     }
 }
 
+.work_info-link {
+    text-decoration: none;
+    color: unset;
+}
+
 .read-more-link {
     text-align: center;
 }
