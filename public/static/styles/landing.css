@@ -91,6 +91,7 @@
 
 footer {
     display: flex;
+    gap: 2rem;
     width: 75vw;
     margin: 1rem auto;
     padding: 2rem 1rem;
