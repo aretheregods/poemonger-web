@@ -11,13 +11,13 @@ export default function WorkPurchase({
         work: { title: string; chapter: number; chapters: number }
         title: string
         author: string
-        audioId: string
+        audio: string
         lines?: Array<Array<string>>
     }>
 }) {
     return (
         <>
-            {poetry?.map(({ work, title, author, audioId, lines }) => {
+            {poetry?.map(({ work, title, author, audio, lines }) => {
                 const { chapter, chapters } = JSON.parse(
                     (work as unknown) as string
                 )
@@ -25,7 +25,9 @@ export default function WorkPurchase({
                     <>
                         <section class="poem-section-container">
                             <>
-                                <AudioVideoButtons {...{ audioId, workId }} />
+                                <AudioVideoButtons
+                                    {...{ audioId: audio, workId }}
+                                />
                                 <Poem
                                     {...{
                                         id: workId,

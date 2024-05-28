@@ -126,6 +126,9 @@ read.get('/:workId', async c => {
             title: string
             author: string
             single: boolean
+            audio: string | null
+            video: string | null
+            image: string | null
             sample?: Array<Array<string>>
             lines?: Array<Array<string>>
         }>
@@ -170,7 +173,7 @@ read.get('/:workId', async c => {
                 <>
                     {response.purchase && !response.error && (
                         <WorkPurchase
-                            workId={workId}
+                            workId={~~workId}
                             poetry={response.poetry}
                         />
                     )}
