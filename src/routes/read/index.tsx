@@ -73,6 +73,11 @@ read.get('/', async c => {
                     defer
                 ></script>,
                 <script
+                    type="module"
+                    src="/static/js/events/audioVideoEvents.js"
+                    defer
+                ></script>,
+                <script
                     src="/static/js/specRules/specRulesRead.js"
                     defer
                 ></script>,
