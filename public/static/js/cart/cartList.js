@@ -40,6 +40,7 @@ pb.addEventListener('click', e => {
 
 window.addEventListener('message', e => {
     var checkout = document.getElementById('purchase-cart_button')
+    console.log({ works: checkout.dataset.works })
     var key = `helcim-pay-js-${checkout.dataset.checkoutToken}`
     if (e.data.eventName === key) {
         if (e.data.eventStatus === 'ABORTED') {
