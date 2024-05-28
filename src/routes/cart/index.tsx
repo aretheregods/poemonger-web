@@ -114,21 +114,23 @@ cart.get('/', async c => {
                             )
                         )}
                     </section>
-                    <section id="price-checkout_container">
-                        <fieldset>
-                            <legend>Total</legend>
-                            <h3>{fp}</h3>
-                        </fieldset>
-                        <button
-                            id="purchase-cart_button"
-                            data-href="/cart/purchase/init"
-                            data-price={price}
-                            data-works={data.data.map(({ id }) => id)}
-                            class="button purchase-cart"
-                        >
-                            Checkout
-                        </button>
-                    </section>
+                    {c.var.cartSessions?.size && (
+                        <section id="price-checkout_container">
+                            <fieldset>
+                                <legend>Total</legend>
+                                <h3>{fp}</h3>
+                            </fieldset>
+                            <button
+                                id="purchase-cart_button"
+                                data-href="/cart/purchase/init"
+                                data-price={price}
+                                data-works={data.data.map(({ id }) => id)}
+                                class="button purchase-cart"
+                            >
+                                Checkout
+                            </button>
+                        </section>
+                    )}
                 </section>
             </>
         </Base>
