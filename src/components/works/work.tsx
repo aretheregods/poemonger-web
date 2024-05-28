@@ -1,4 +1,5 @@
 import { AddToCart } from '../cart'
+import AudioVideoButtons from './audioVideoButtons'
 import Price from './price'
 import { getImg } from '../../utils'
 import { countries } from '../../utils'
@@ -28,37 +29,7 @@ export default async function Work({
 }) {
     return (
         <section class="work-container">
-            <section class="audio-video_tools flexible-buttons">
-                <button
-                    data-work-id={workId}
-                    class="button audio-poem_trigger"
-                    data-on="0"
-                >
-                    &#127911; Audio poem
-                </button>
-                <button
-                    data-work-id={workId}
-                    class="button video-poem_trigger"
-                    data-on="0"
-                >
-                    &#9658; Video poem
-                </button>
-            </section>
-            <figure
-                id={`audio-poem_player-${workId}`}
-                class="work-audio audio-poem_player"
-                style="height: 0px; opacity: 0%; z-index: -1;"
-                data-on="0"
-            >
-                <figcaption>Listen to the first chapter</figcaption>
-                <audio
-                    id={`audio-poem_player-element-${workId}`}
-                    src={`/audio/${audioId}`}
-                    preload="none"
-                    controlslist="nodownload"
-                    controls
-                ></audio>
-            </figure>
+            <AudioVideoButtons {...{ workId, audioId }} />
             <a href={`/read/${workId}`}>
                 <img
                     src={getImg(imgId, 'medium')}
@@ -95,7 +66,7 @@ export default async function Work({
                             class="work-description_container"
                             popover="auto"
                         >
-                            {description.map((desc) => (
+                            {description.map(desc => (
                                 <p>{desc}</p>
                             ))}
                         </dialog>

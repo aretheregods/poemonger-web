@@ -22,7 +22,7 @@ export default function WorkSample({
         <>
             {poetry?.map(({ work, title, author, single, sample }) => {
                 const { chapter, chapters } = JSON.parse(
-                    work as unknown as string
+                    (work as unknown) as string
                 )
                 return (
                     <>
