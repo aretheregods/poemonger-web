@@ -114,7 +114,7 @@ cart.get('/', async c => {
                             )
                         )}
                     </section>
-                    {c.var.cartSessions?.size && (
+                    {c.var.cartSessions?.size ? (
                         <section id="price-checkout_container">
                             <fieldset>
                                 <legend>Total</legend>
@@ -130,6 +130,8 @@ cart.get('/', async c => {
                                 Checkout
                             </button>
                         </section>
+                    ) : (
+                        ''
                     )}
                 </section>
             </>
