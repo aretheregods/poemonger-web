@@ -104,7 +104,7 @@ export const Base = ({
                                             title="sign up for better poetry"
                                             class="button signup-link"
                                         >
-                                            Sign up
+                                            Sign up free
                                         </a>
                                     </>
                                 )}
