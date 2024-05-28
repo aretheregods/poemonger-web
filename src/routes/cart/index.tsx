@@ -222,10 +222,13 @@ cart.post('/purchase/complete', async c => {
                 const deleted: { message: string } = await responded.json()
                 if (deleted.message) {
                     const email = c.var.currentSession?.currentSession.email
-                    const user = c.env.USERS_KV.get(`user=${email}`, {
-                        type: 'json',
-                    })
-                    const session = c.env.USERS_SESSIONS.get(
+                    const user: {} | null = await c.env.USERS_KV.get(
+                        `user=${email}`,
+                        {
+                            type: 'json',
+                        }
+                    )
+                    const session: {} | null = await c.env.USERS_SESSIONS.get(
                         `session=${session_id}`,
                         {
                             type: 'json',
