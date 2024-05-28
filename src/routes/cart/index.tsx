@@ -208,7 +208,7 @@ cart.post('/purchase/complete', async c => {
     try {
         const works: {
             works: Array<string>
-            invoice: { data: { data: { dateCreated: string } } }
+            invoice: { data: { dateCreated: string } }
         } = await c.req.json()
         const response = await c.var.READER_SESSIONS.purchase(works.works)
         const purchased: {
@@ -237,7 +237,7 @@ cart.post('/purchase/complete', async c => {
                             JSON.stringify({
                                 ...user,
                                 purchases: {
-                                    [works.invoice.data.data.dateCreated]:
+                                    [works.invoice.data.dateCreated]:
                                         works.invoice.data,
                                 },
                             })
@@ -247,7 +247,7 @@ cart.post('/purchase/complete', async c => {
                             JSON.stringify({
                                 ...session,
                                 purchases: {
-                                    [works.invoice.data.data.dateCreated]:
+                                    [works.invoice.data.dateCreated]:
                                         works.invoice.data,
                                 },
                             })
