@@ -18,8 +18,12 @@ type Bindings = {
 }
 
 type Variables = {
+    READER_SESSIONS: DurableObjectNamespace & {
+        purchase(works: Array<string>): Promise<Response>
+    }
     READER_CARTS: DurableObjectNamespace & {
         addToCart(workId: string): Promise<Response>
+        clearCart(): Promise<Response>
         getCartCount(): Promise<Response>
         getCart(r: Request): Promise<Response>
         deleteFromCart(workId: string): Promise<Response>
@@ -206,49 +210,51 @@ cart.post('/purchase/complete', async c => {
             works: Array<string>
             invoice: { data: { data: { dateCreated: string } } }
         } = await c.req.json()
-        const response = await c.var.READER_CARTS.purchaseCart(
-            works.works,
-            session_id
-        )
+        const response = await c.var.READER_SESSIONS.purchase(works.works)
         const purchased: {
             error: boolean
-            message: string
+            errorMessage: string
+            purchased: boolean
         } = await response.json()
-        if (!purchased.error)
+        if (!purchased.error && purchased.purchased)
             try {
-                const email = c.var.currentSession?.currentSession.email
-                const user = c.env.USERS_KV.get(`user=${email}`, {
-                    type: 'json',
-                })
-                const session = c.env.USERS_SESSIONS.get(
-                    `session=${session_id}`,
-                    {
+                const responded = await c.var.READER_CARTS.clearCart()
+                const deleted: { message: string } = await responded.json()
+                if (deleted.message) {
+                    const email = c.var.currentSession?.currentSession.email
+                    const user = c.env.USERS_KV.get(`user=${email}`, {
                         type: 'json',
-                    }
-                )
-                await Promise.all([
-                    c.env.USERS_KV.put(
-                        `user=${email}`,
-                        JSON.stringify({
-                            ...user,
-                            purchases: {
-                                [works.invoice.data.data.dateCreated]:
-                                    works.invoice.data,
-                            },
-                        })
-                    ),
-                    c.env.USERS_SESSIONS.put(
+                    })
+                    const session = c.env.USERS_SESSIONS.get(
                         `session=${session_id}`,
-                        JSON.stringify({
-                            ...session,
-                            purchases: {
-                                [works.invoice.data.data.dateCreated]:
-                                    works.invoice.data,
-                            },
-                        })
-                    ),
-                ])
-                return c.json({ purchased: true, error: '' })
+                        {
+                            type: 'json',
+                        }
+                    )
+                    await Promise.all([
+                        c.env.USERS_KV.put(
+                            `user=${email}`,
+                            JSON.stringify({
+                                ...user,
+                                purchases: {
+                                    [works.invoice.data.data.dateCreated]:
+                                        works.invoice.data,
+                                },
+                            })
+                        ),
+                        c.env.USERS_SESSIONS.put(
+                            `session=${session_id}`,
+                            JSON.stringify({
+                                ...session,
+                                purchases: {
+                                    [works.invoice.data.data.dateCreated]:
+                                        works.invoice.data,
+                                },
+                            })
+                        ),
+                    ])
+                    return c.json({ purchased: true, error: '' })
+                }
             } catch (error) {
                 return c.json({ error })
             }
