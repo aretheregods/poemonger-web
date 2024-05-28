@@ -47,14 +47,16 @@ window.addEventListener('message', e => {
         }
 
         if (e.data.eventStatus === 'SUCCESS') {
-            query.post({
-                path: '/cart/purchase/complete',
-                body: JSON.stringify({
-                    works: JSON.parse(checkout.dataset.works),
-                    invoice: JSON.parse(e.data.eventMessage).data,
-                }),
-                headers: { 'Content-Type': 'application/json' },
-            })
+            query
+                .post({
+                    path: '/cart/purchase/complete',
+                    body: JSON.stringify({
+                        works: JSON.parse(checkout.dataset.works),
+                        invoice: JSON.parse(e.data.eventMessage).data,
+                    }),
+                    headers: { 'Content-Type': 'application/json' },
+                })
+                .then(_ => (location.href = '/read'))
         }
     }
 })
