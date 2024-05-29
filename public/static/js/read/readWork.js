@@ -8,7 +8,7 @@ if (p) p.addEventListener('click', chapterButtons)
 if (p) p.addEventListener('mouseup', chapterButtons)
 if (r) r.addEventListener('change', chapterRange)
 
-window.addEventListener('pageshow', async (e) => {
+window.addEventListener('pageshow', async e => {
     const transitionClass = determineTransitionClass(navigation.currentEntry)
     document.documentElement.dataset.transition = transitionClass
     setTimeout(() => {
@@ -18,7 +18,7 @@ window.addEventListener('pageshow', async (e) => {
 
 // Determine the View Transition class to use based on the old and new navigation entries
 // Also take the navigateEvent into account to detect UA back/forward navigation
-const determineTransitionClass = (newNavigationEntry) => {
+const determineTransitionClass = newNavigationEntry => {
     const destinationURL = new URL(newNavigationEntry.url)
 
     const currentPathname = destinationURL.searchParams.get('previous') || 0

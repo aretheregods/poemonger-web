@@ -29,7 +29,7 @@ apt.forEach(a => {
                 audio.setAttribute('preload', 'metadata')
                 e.target.setAttribute(
                     'style',
-                    'background-color: hsl( 244, 84%, 79% ); color: white;'
+                    'background-color: hsl( 244, 84%, 59% ); color: white;'
                 )
             }
         }
