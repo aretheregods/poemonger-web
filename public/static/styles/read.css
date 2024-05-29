@@ -13,7 +13,6 @@
     overflow-x: scroll;
     width: fit-content;
     justify-self: center;
-    scrollbar-width: none;
 
     & .audio-video_tools {
         width: fit-content;
