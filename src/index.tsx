@@ -541,7 +541,16 @@ app.post('/logout', async (c) => {
 
 app.get('/reset', (c) =>
     c.html(
-        <Base title="Poemonger | Reset" loggedIn={!!c.var.currentSession}>
+        <Base
+            title="Poemonger | Reset"
+            assets={[
+                <link
+                    rel="stylesheet"
+                    href="/static/styles/credentialsForm.css"
+                />,
+            ]}
+            loggedIn={!!c.var.currentSession}
+        >
             <Reset />
         </Base>
     )
@@ -657,7 +666,16 @@ app.post('/reset/token', async (c) => {
 
 app.get('/reset/password', async (c) =>
     c.html(
-        <Base title="Poemonger | Reset" loggedIn={!!c.var.currentSession}>
+        <Base
+            title="Poemonger | Reset"
+            assets={[
+                <link
+                    rel="stylesheet"
+                    href="/static/styles/credentialsForm.css"
+                />,
+            ]}
+            loggedIn={!!c.var.currentSession}
+        >
             <ResetPassword />
         </Base>
     )
