@@ -49,7 +49,11 @@ export default async function Work({
                     sizes="(min-width: 768px) 33vw,(min-width: 480px) 50vw,80vw"
                 />
             </a>
-            <Price {...{ workId, price, locale, title, subtitle }} />
+            {purchased ? (
+                <h4>&#x2661;</h4>
+            ) : (
+                <Price {...{ workId, price, locale, title, subtitle }} />
+            )}{' '}
             <section class="read-purchase_buttons flexible-buttons">
                 <a href={`/read/${workId}`} class="button read-a-bit">
                     {purchased ? 'Read it now' : 'Read a bit'}
@@ -68,7 +72,7 @@ export default async function Work({
                             class="work-description_container"
                             popover="auto"
                         >
-                            {description.map((desc) => (
+                            {description.map(desc => (
                                 <p>{desc}</p>
                             ))}
                         </dialog>

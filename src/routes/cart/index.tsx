@@ -222,12 +222,11 @@ cart.post('/purchase/complete', async c => {
                 const deleted: { message: string } = await responded.json()
                 if (deleted.message) {
                     const email = c.var.currentSession?.currentSession.email
-                    const user: { purchases: {} } | null = await c.env.USERS_KV.get(
-                        `user=${email}`,
-                        {
-                            type: 'json',
-                        }
-                    )
+                    const user: {
+                        purchases: {}
+                    } | null = await c.env.USERS_KV.get(`user=${email}`, {
+                        type: 'json',
+                    })
                     const session: {} | null = await c.env.USERS_SESSIONS.get(
                         `session=${session_id}`,
                         {
@@ -239,18 +238,38 @@ cart.post('/purchase/complete', async c => {
                             `user=${email}`,
                             JSON.stringify({
                                 ...user,
-                                purchases: { ...user?.purchases, ...works.works.reduce((worksObject,work) => {
-                                    return { ...worksObject, [`purchases.${work}`]: works.invoice.data }
-                                }, {})},
+                                purchases: {
+                                    ...user?.purchases,
+                                    ...works.works.reduce(
+                                        (worksObject, work) => {
+                                            return {
+                                                ...worksObject,
+                                                [`purchases.${work}`]: works
+                                                    .invoice.data,
+                                            }
+                                        },
+                                        {}
+                                    ),
+                                },
                             })
                         ),
                         c.env.USERS_SESSIONS.put(
                             `session=${session_id}`,
                             JSON.stringify({
                                 ...session,
-                                purchases: { ...user?.purchases, ...works.works.reduce((worksObject, work) => {
-                                    return { ...worksObject, [`purchases.${work}`]: works.invoice.data }
-                                }, {})},
+                                purchases: {
+                                    ...user?.purchases,
+                                    ...works.works.reduce(
+                                        (worksObject, work) => {
+                                            return {
+                                                ...worksObject,
+                                                [`purchases.${work}`]: works
+                                                    .invoice.data,
+                                            }
+                                        },
+                                        {}
+                                    ),
+                                },
                             })
                         ),
                     ])

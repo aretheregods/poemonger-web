@@ -52,11 +52,24 @@ read.use(cartSessions)
 
 read.get('/', async c => {
     let response = { message: 'There was an error:', data: [] }
+    let renderData = { purchased: [], available: [] }
 
     try {
         const query = `select id, title, subtitle, json_extract(prices, "$.${c.var.country}") as price, cover, audio from works where id != 2;`
         const r = await c.var.READER_SESSIONS.query(c.req.raw, query)
         response = await r.json()
+        renderData = response.data?.reduce(
+            (data, { id, title, subtitle, cover, audio, price }) => {
+                const purchased = c.var.currentSession?.currentSession.purchases.hasOwnProperty(
+                    `purchases.${id}`
+                )
+                const d = { id, title, subtitle, cover, audio, price } as never
+                if (purchased) data.purchased.push(d)
+                else data.available.push(d)
+                return data
+            },
+            { purchased: [], available: [] }
+        )
     } catch (e) {
         response.message += ` ${e}`
     }
@@ -85,29 +98,56 @@ read.get('/', async c => {
             loggedIn={!!c.var.currentSession}
             shoppingCartCount={c.var.cartSessions?.size as number}
         >
-            <section id="poemonger-works_available">
-                {response.data?.map(
-                    async ({ id, title, subtitle, cover, audio, price }) => {
-                        return (
-                            <Work
-                                workId={id}
-                                imgId={cover}
-                                price={price}
-                                locale={c.var.country}
-                                audioId={audio}
-                                title={title}
-                                subtitle={subtitle}
-                                purchased={c.var.currentSession?.currentSession.purchases.hasOwnProperty(`purchases.${id}`)}
-                                workInCart={
-                                    c.var.cartSessions?.data.includes(
-                                        `items.${id}` as never
-                                    ) || false
-                                }
-                            />
-                        )
-                    }
-                ) || ''}
-            </section>
+            <>
+                {renderData.purchased.length ? (
+                    <section id="poemonger-works_purchased">
+                        {renderData.purchased.map(
+                            ({ id, title, subtitle, cover, audio, price }) => {
+                                return (
+                                    <Work
+                                        workId={id}
+                                        imgId={cover}
+                                        price={price}
+                                        locale={c.var.country}
+                                        audioId={audio}
+                                        title={title}
+                                        subtitle={subtitle}
+                                        purchased={true}
+                                    />
+                                )
+                            }
+                        )}
+                    </section>
+                ) : (
+                    ''
+                )}
+                {renderData.available.length ? (
+                    <section id="poemonger-works_available">
+                        {renderData.available.map(
+                            ({ id, title, subtitle, cover, audio, price }) => {
+                                return (
+                                    <Work
+                                        workId={id}
+                                        imgId={cover}
+                                        price={price}
+                                        locale={c.var.country}
+                                        audioId={audio}
+                                        title={title}
+                                        subtitle={subtitle}
+                                        workInCart={
+                                            c.var.cartSessions?.data.includes(
+                                                `items.${id}` as never
+                                            ) || false
+                                        }
+                                    />
+                                )
+                            }
+                        )}
+                    </section>
+                ) : (
+                    ''
+                )}
+            </>
         </Base>
     )
 })
