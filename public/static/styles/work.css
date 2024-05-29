@@ -1,6 +1,12 @@
+#poemonger-works_purchased,
 #poemonger-works_available {
-    display: flex;
+    display: grid;
     gap: 2rem;
+
+    & .works-container {
+        display: flex;
+        gap: 2rem;
+    }
 }
 
 .work-container {
