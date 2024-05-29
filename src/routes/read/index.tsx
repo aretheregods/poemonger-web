@@ -55,7 +55,7 @@ read.get('/', async c => {
     let renderData = { purchased: [], available: [] }
 
     try {
-        const query = `select id, title, subtitle, json_extract(prices, "$.${c.var.country}") as price, cover, audio from works where id != 2;`
+        const query = `select id, title, subtitle, json_extract(prices, "$.${c.var.country}") as price, cover, audio, description from works where id != 2;`
         const r = await c.var.READER_SESSIONS.query(c.req.raw, query)
         response = await r.json()
         renderData = response.data?.reduce(
@@ -111,6 +111,7 @@ read.get('/', async c => {
                                     cover,
                                     audio,
                                     price,
+                                    description,
                                 }) => {
                                     return (
                                         <Work
@@ -122,6 +123,7 @@ read.get('/', async c => {
                                             title={title}
                                             subtitle={subtitle}
                                             purchased={true}
+                                            description={description}
                                         />
                                     )
                                 }
