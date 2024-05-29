@@ -36,7 +36,7 @@ type Variables = {
         currentSession: {
             created_at: string
             session_id: string
-            purchases: Array<string>
+            purchases: {}
         }
     }
     currentSessionError?: { error: boolean; message: string }
@@ -97,6 +97,7 @@ read.get('/', async c => {
                                 audioId={audio}
                                 title={title}
                                 subtitle={subtitle}
+                                purchased={c.var.currentSession?.currentSession.purchases.hasOwnProperty(`purchases.${id}`)}
                                 workInCart={
                                     c.var.cartSessions?.data.includes(
                                         `items.${id}` as never

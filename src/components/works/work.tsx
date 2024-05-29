@@ -13,6 +13,7 @@ export default async function Work({
     title,
     subtitle,
     description = [],
+    purchased = false,
     workInCart = false,
     landing = false,
 }: {
@@ -24,6 +25,7 @@ export default async function Work({
     title: string
     subtitle: string
     description?: Array<string>
+    purchased?: boolean
     workInCart?: boolean
     landing?: boolean
 }) {
@@ -52,7 +54,7 @@ export default async function Work({
                 <a href={`/read/${workId}`} class="button read-a-bit">
                     Read a bit
                 </a>
-                {landing ? (
+                {landing || purchased ? (
                     <>
                         <button
                             id={`work-description_trigger-${workId}`}
