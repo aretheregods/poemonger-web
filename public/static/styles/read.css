@@ -18,6 +18,16 @@
         width: fit-content;
         margin: 1rem auto;
     }
+
+    & .audio-poem_player {
+        width: fit-content;
+        margin: 1rem auto;
+        text-align: center;
+
+        & figcaption {
+            display: none;
+        }
+    }
 }
 
 .poem-content-container {
