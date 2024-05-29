@@ -56,7 +56,7 @@ read.get('/', async c => {
 
     try {
         const query = `select id, title, subtitle, json_extract(prices, "$.${c.var.country}") as price, cover, audio, description from works where id != 2;`
-        const r = await c.var.READER_SESSIONS.query(c.req.raw, query, true)
+        const r = await c.var.READER_SESSIONS.query(c.req.raw, query)
         response = await r.json()
         renderData = response.data?.reduce(
             (
