@@ -59,11 +59,22 @@ read.get('/', async c => {
         const r = await c.var.READER_SESSIONS.query(c.req.raw, query)
         response = await r.json()
         renderData = response.data?.reduce(
-            (data, { id, title, subtitle, cover, audio, price }) => {
+            (
+                data,
+                { id, title, subtitle, cover, audio, price, description }
+            ) => {
                 const purchased = c.var.currentSession?.currentSession.purchases.hasOwnProperty(
                     `purchases.${id}`
                 )
-                const d = { id, title, subtitle, cover, audio, price } as never
+                const d = {
+                    id,
+                    title,
+                    subtitle,
+                    cover,
+                    audio,
+                    price,
+                    description,
+                } as never
                 if (purchased) data.purchased.push(d)
                 else data.available.push(d)
                 return data
