@@ -126,9 +126,9 @@ read.get('/:workId', async c => {
             title: string
             author: string
             single: boolean
-            audio: string | null
-            video: string | null
-            image: string | null
+            audio: string
+            video: string
+            image: string
             sample?: Array<Array<string>>
             lines?: Array<Array<string>>
         }>
