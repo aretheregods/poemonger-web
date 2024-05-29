@@ -134,7 +134,9 @@ read.get('/', async c => {
                                             title={title}
                                             subtitle={subtitle}
                                             purchased={true}
-                                            description={description}
+                                            description={JSON.parse(
+                                                description
+                                            )}
                                         />
                                     )
                                 }
