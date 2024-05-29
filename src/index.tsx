@@ -11,14 +11,15 @@ import { account, admin, cart, read } from './routes'
 import { Base } from './Base'
 import About from './components/landing/about'
 import Footer from './components/landing/footer'
-import Email, { Activate } from './components/emails'
+import Email, { Activate, Reset as ResetEmail } from './components/emails'
 import ActivatePage from './components/signup/ActivatePage'
 import SignUp from './components/signup'
-import Hashes from './utils/hash'
+import { Hashes, numberGenerator } from './utils'
 import Landing from './components/landing'
 import Login from './components/login'
 import Logout from './components/logout'
 import Reset from './components/reset'
+import ResetPassword from './components/reset/ResetPassword'
 import Delete from './components/reset'
 
 // utils
@@ -47,6 +48,7 @@ export type Variables = {
     currentSession?: {
         cookie: string
         currentSession: {
+            email: string
             created_at: string
             session_id: string
             cart_id: string
@@ -153,7 +155,7 @@ export async function requestCountry(
     await next()
 }
 
-app.get('/signup', c => {
+app.get('/signup', (c) => {
     if (c.var.currentSession || c.var.currentSessionError) {
         return c.redirect('/read')
     }
@@ -178,7 +180,7 @@ app.get('/signup', c => {
     )
 })
 
-app.post('/signup', async c => {
+app.post('/signup', async (c) => {
     var n = Date.now()
     var ct = c.req.header('Content-Type')
     var f = /multipart\/form-data/g.test(ct || '')
@@ -298,7 +300,7 @@ app.post('/signup', async c => {
     return c.json({ message })
 })
 
-app.get('/activate', async c => {
+app.get('/activate', async (c) => {
     if (c.var.currentSession || c.var.currentSessionError) {
         return c.redirect('/read')
     }
@@ -337,7 +339,7 @@ app.get('/activate', async c => {
     )
 })
 
-app.get('/login', async c => {
+app.get('/login', async (c) => {
     if (c.var.currentSession || c.var.currentSessionError) {
         return c.redirect('/read')
     }
@@ -362,7 +364,7 @@ app.get('/login', async c => {
     )
 })
 
-app.post('/login/check-email', async c => {
+app.post('/login/check-email', async (c) => {
     var ct = c.req.header('Content-Type')
     var f = /multipart\/form-data/g.test(ct || '')
     var salt
@@ -402,7 +404,7 @@ app.post('/login/check-email', async c => {
     return c.json({ salt, error }, { status })
 })
 
-app.post('/login', async c => {
+app.post('/login', async (c) => {
     var ct = c.req.header('Content-Type')
     var f = /multipart\/form-data/g.test(ct || '')
     var user = {}
@@ -500,7 +502,7 @@ app.post('/login', async c => {
     return c.json({ error, message, user })
 })
 
-app.get('/logout', loggedOutRedirect, c =>
+app.get('/logout', loggedOutRedirect, (c) =>
     c.html(
         <Base
             title="Poemonger | Logout"
@@ -517,7 +519,7 @@ app.get('/logout', loggedOutRedirect, c =>
     )
 )
 
-app.post('/logout', async c => {
+app.post('/logout', async (c) => {
     const hasCookie = getCookie(c, 'poemonger_session', 'secure')
     if (hasCookie) {
         setCookie(c, 'poemonger_session', hasCookie, {
@@ -537,7 +539,7 @@ app.post('/logout', async c => {
     }
 })
 
-app.get('/reset', loggedOutRedirect, c =>
+app.get('/reset', loggedOutRedirect, (c) =>
     c.html(
         <Base title="Poemonger | Reset" loggedIn={!!c.var.currentSession}>
             <Reset />
@@ -545,7 +547,166 @@ app.get('/reset', loggedOutRedirect, c =>
     )
 )
 
-app.get('/delete', loggedOutRedirect, c =>
+app.post('/reset/token', async (c) => {
+    var ct = c.req.header('Content-Type')
+    var f = /multipart\/form-data/g.test(ct || '')
+    var user = {}
+    var error = true
+    var messages = {
+        success: `Successfully processed your login request.`,
+        failure: `Could not process your request. You did something weird.`,
+        error: 'There was a problem saving your information. Please try again.',
+        exists: 'There is not an account with this email address or password.',
+    }
+
+    c.status(201)
+
+    var message = messages.success
+    if (!f) {
+        message = messages.failure
+        c.status(406)
+    }
+
+    var d = await c.req.formData()
+
+    var email = d.get('email')
+    if (!email) {
+        message = messages.exists
+        c.notFound()
+    }
+
+    var u = await c.env.USERS_KV.get<{
+        created_at: number
+        email: string
+        first_name: string
+        last_name: string
+        hash: string
+        password: string
+    }>(`user=${email}`, { type: 'json' })
+    if (!u) {
+        message = messages.exists
+        c.notFound()
+    } else {
+        try {
+            const resetToken = numberGenerator()
+            await c.env.USERS_KV.put(
+                `user=${email}`,
+                JSON.stringify({ ...u, resetToken })
+            )
+            const req = new Request('https://api.mailchannels.net/tx/v1/send', {
+                method: 'POST',
+                headers: {
+                    'content-type': 'application/json',
+                },
+                body: JSON.stringify({
+                    personalizations: [
+                        {
+                            to: [
+                                {
+                                    name: `${u.first_name} ${u.last_name}`,
+                                    email: email,
+                                },
+                            ],
+                            dkim_domain: 'poemonger.com',
+                            dkim_selector: 'mailchannels',
+                            dkim_private_key: c.env.DKIM_PRIVATE_KEY,
+                        },
+                    ],
+                    from: {
+                        name: 'Poemonger | Password Reset',
+                        email: 'welcome@poemonger.com',
+                    },
+                    subject:
+                        'Poetry is waiting. Finish resetting your password.',
+                    content: [
+                        {
+                            type: 'text/html',
+                            value: Email({
+                                children: ResetEmail({
+                                    email: u.email,
+                                    url: c.req.url,
+                                    resetToken,
+                                }),
+                            }),
+                        },
+                    ],
+                }),
+            })
+            const res = await fetch(req)
+            var m = {}
+            if (res.status === 202 || /accepted/i.test(res.statusText)) {
+                m = { success: true }
+            } else {
+                try {
+                    const { errors } = (await res.clone().json()) as {
+                        errors: Array<object>
+                    }
+                    m = { success: false, errors }
+                } catch {
+                    m = { success: false, errors: [res.statusText] }
+                }
+            }
+        } catch (e) {
+            message = `${messages.error} ${e}`
+            c.status(500)
+        }
+    }
+
+    return c.json({ message })
+})
+
+app.get('/reset/password', async (c) =>
+    c.html(
+        <Base title="Poemonger | Reset" loggedIn={!!c.var.currentSession}>
+            <Reset />
+        </Base>
+    )
+)
+
+app.post('/reset/password', async (c) => {
+    var ct = c.req.header('Content-Type')
+    var f = /multipart\/form-data/g.test(ct || '')
+    var user = {}
+    var error = true
+    var messages = {
+        success: `Successfully processed your login request.`,
+        failure: `Could not process your request. You did something weird.`,
+        error: 'There was a problem saving your information. Please try again.',
+        exists: 'There is not an account with this email address or password.',
+    }
+
+    c.status(201)
+
+    var message = messages.success
+    if (!f) {
+        message = messages.failure
+        c.status(406)
+    }
+
+    var d = await c.req.formData()
+
+    var newPassword = d.get('new-password')
+    var confirmNewPassword = d.get('confirm-new-password')
+
+    var u = await c.env.USERS_KV.get<{
+        created_at: number
+        email: string
+        hash: string
+        password: string
+    }>(`user=${c.var.currentSession?.currentSession.email}`, { type: 'json' })
+    if (!u || newPassword !== confirmNewPassword) {
+        message = messages.exists
+        c.status(409)
+    } else {
+        try {
+            const H = new Hashes()
+        } catch {}
+    }
+
+    return c.json({ error, message, user })
+})
+
+app.get('/delete', loggedOutRedirect, (c) =>
     c.html(
         <Base title="Poemonger | Delete" loggedIn={!!c.var.currentSession}>
             <Delete />
@@ -553,7 +714,7 @@ app.get('/delete', loggedOutRedirect, c =>
     )
 )
 
-app.get('/about', c =>
+app.get('/about', (c) =>
     c.html(
         <Base
             title="Poemonger | About"
@@ -568,7 +729,7 @@ app.get('/about', c =>
     )
 )
 
-app.get('/audio/:audioId', async c => {
+app.get('/audio/:audioId', async (c) => {
     const { audioId } = c.req.param()
     if (
         ![
@@ -597,7 +758,7 @@ app.get('/audio/:audioId', async c => {
     })
 })
 
-app.get('/', readerSessions, async c => {
+app.get('/', readerSessions, async (c) => {
     if (c.var.currentSession && !c.var.currentSessionError) {
         return c.redirect('/read')
     }

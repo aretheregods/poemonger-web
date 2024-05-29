@@ -18,11 +18,11 @@ export default class HTTP {
     delete() {}
 
     get(path = '') {
-        return fetch(path).then(r => r.json())
+        return fetch(path).then((r) => r.json())
     }
 
     post({ path = '/', body = '', headers = {} }) {
-        return fetch(path, { body, headers, method: 'POST' }).then(r =>
+        return fetch(path, { body, headers, method: 'POST' }).then((r) =>
             r.json()
         )
     }
@@ -31,10 +31,10 @@ export default class HTTP {
 
     logout({ path = '/logout', redirect = '/' }) {
         this.post({ path })
-            .then(res => {
+            .then((res) => {
                 if (res.success) location.href = redirect
             })
-            .catch(e => console.error('Something went wrong', { e }))
+            .catch((e) => console.error('Something went wrong', { e }))
     }
 
     parseForm({

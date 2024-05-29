@@ -4,18 +4,18 @@ var cid = document.querySelectorAll('.cart_item-delete')
 var pb = document.getElementById('purchase-cart_button')
 var query = new HTTP()
 
-cid.forEach(d => {
-    d.addEventListener('click', e => {
+cid.forEach((d) => {
+    d.addEventListener('click', (e) => {
         query
             .post({ path: `/cart/remove/${e.target.dataset.workId}` })
-            .then(r => {
+            .then((r) => {
                 window.location.reload()
             })
-            .catch(e => console.error({ e }))
+            .catch((e) => console.error({ e }))
     })
 })
 
-pb.addEventListener('click', e => {
+pb.addEventListener('click', (e) => {
     if (!e.target.dataset.checkoutToken) {
         var amount = parseFloat(e.target.dataset.price)
         query
@@ -28,17 +28,17 @@ pb.addEventListener('click', e => {
                 }),
                 headers: { 'Content-Type': 'application/json' },
             })
-            .then(r => {
+            .then((r) => {
                 if (!r?.error) {
                     e.target.dataset.checkoutToken = r.checkoutToken
                     appendHelcimPayIframe(r.checkoutToken)
                 }
             })
-            .catch(e => console.error(e))
+            .catch((e) => console.error(e))
     } else appendHelcimPayIframe(e.target.dataset.checkoutToken)
 })
 
-window.addEventListener('message', e => {
+window.addEventListener('message', (e) => {
     var checkout = document.getElementById('purchase-cart_button')
     var key = `helcim-pay-js-${checkout.dataset.checkoutToken}`
     if (e.data.eventName === key) {
@@ -53,12 +53,12 @@ window.addEventListener('message', e => {
                     body: JSON.stringify({
                         works: checkout.dataset.works
                             .split(',')
-                            .map(work => parseInt(work)),
+                            .map((work) => parseInt(work)),
                         invoice: JSON.parse(e.data.eventMessage).data,
                     }),
                     headers: { 'Content-Type': 'application/json' },
                 })
-                .then(_ => (location.href = '/read'))
+                .then((_) => (location.href = '/read'))
         }
     }
 })

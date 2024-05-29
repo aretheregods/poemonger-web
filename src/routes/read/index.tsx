@@ -50,7 +50,7 @@ read.use(loggedOutRedirect)
 read.use(readerSessions)
 read.use(cartSessions)
 
-read.get('/', async c => {
+read.get('/', async (c) => {
     let response = { message: 'There was an error:', data: [] }
     let renderData = { purchased: [], available: [] }
 
@@ -63,9 +63,10 @@ read.get('/', async c => {
                 data,
                 { id, title, subtitle, cover, audio, price, description }
             ) => {
-                const purchased = c.var.currentSession?.currentSession.purchases.hasOwnProperty(
-                    `purchases.${id}`
-                )
+                const purchased =
+                    c.var.currentSession?.currentSession.purchases.hasOwnProperty(
+                        `purchases.${id}`
+                    )
                 const d = {
                     id,
                     title,
@@ -187,11 +188,11 @@ read.get('/', async c => {
     )
 })
 
-read.get('/cartdata', c => {
+read.get('/cartdata', (c) => {
     return c.json(c.var.cartSessions)
 })
 
-read.get('/:workId', async c => {
+read.get('/:workId', async (c) => {
     const workId = c.req.param('workId')
     const chapter = c.req.query('chapter')
     let response: {
