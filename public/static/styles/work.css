@@ -39,6 +39,7 @@
             }
         }
 
+        & .work-like,
         & .work-price {
             font-size: larger;
             font-weight: 800;

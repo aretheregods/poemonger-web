@@ -6,12 +6,14 @@ export default function Price({
     locale,
     title,
     subtitle,
+    purchased = false,
 }: {
     workId?: number
     price: number
     locale: countries
     title: string
     subtitle: string
+    purchased?: boolean
 }) {
     var i = locales[locale]
     var fp = new Intl.NumberFormat(i.locale, {
@@ -36,7 +38,11 @@ export default function Price({
             ) : (
                 <T {...{ title, subtitle }} />
             )}
-            <p class="work-price">{fp}</p>
+            {purchased ? (
+                <h4 class="work-like">&#x2661;</h4>
+            ) : (
+                <p class="work-price">{fp}</p>
+            )}
         </section>
     )
 }
