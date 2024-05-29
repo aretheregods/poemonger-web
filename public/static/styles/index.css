@@ -266,13 +266,13 @@ button.button:hover {
     flex-wrap: wrap;
     gap: 1rem;
 
-    & > * {
+    & > *:not(dialog) {
         flex: 1;
         min-width: fit-content;
     }
 
-    dialog {
-        max-width: 80vw;
+    dialog.work-description_container {
+        max-width: 50vw;
         min-width: auto;
     }
 }
@@ -328,5 +328,10 @@ button.button:hover {
         display: grid;
         overflow-x: auto;
         padding-inline: unset;
+    }
+
+    dialog.work-description_container {
+        max-width: 80vw;
+        min-width: auto;
     }
 }
