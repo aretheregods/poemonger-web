@@ -52,7 +52,7 @@ export default async function Work({
             <Price {...{ workId, price, locale, title, subtitle }} />
             <section class="read-purchase_buttons flexible-buttons">
                 <a href={`/read/${workId}`} class="button read-a-bit">
-                    Read a bit
+                    {purchased ? 'Read it now' : 'Read a bit'}
                 </a>
                 {landing || purchased ? (
                     <>
@@ -68,7 +68,7 @@ export default async function Work({
                             class="work-description_container"
                             popover="auto"
                         >
-                            {description.map(desc => (
+                            {description.map((desc) => (
                                 <p>{desc}</p>
                             ))}
                         </dialog>
