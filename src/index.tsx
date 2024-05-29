@@ -539,7 +539,7 @@ app.post('/logout', async (c) => {
     }
 })
 
-app.get('/reset', loggedOutRedirect, (c) =>
+app.get('/reset', (c) =>
     c.html(
         <Base title="Poemonger | Reset" loggedIn={!!c.var.currentSession}>
             <Reset />
@@ -658,7 +658,7 @@ app.post('/reset/token', async (c) => {
 app.get('/reset/password', async (c) =>
     c.html(
         <Base title="Poemonger | Reset" loggedIn={!!c.var.currentSession}>
-            <Reset />
+            <ResetPassword />
         </Base>
     )
 )

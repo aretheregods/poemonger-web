@@ -8,7 +8,7 @@ type inputProps = {
     autocomplete?: 'email'
 }
 
-export default function Login({
+export default function Reset({
     userType = 'user',
 }: {
     userType?: 'admin' | 'user'
@@ -31,11 +31,11 @@ export default function Login({
 
     return (
         <>
-            <h2 id="form-title">Log in</h2>
+            <h2 id="form-title">Reset Password</h2>
             <form
-                id="login"
+                id="reset"
                 class="credentials-form"
-                data-static-form-name="login"
+                data-static-form-name="reset"
             >
                 <ul>
                     <li>
