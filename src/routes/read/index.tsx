@@ -101,6 +101,7 @@ read.get('/', async c => {
             <>
                 {renderData.purchased.length ? (
                     <section id="poemonger-works_purchased">
+                        <h2>Purchased</h2>
                         {renderData.purchased.map(
                             ({ id, title, subtitle, cover, audio, price }) => {
                                 return (
@@ -123,6 +124,7 @@ read.get('/', async c => {
                 )}
                 {renderData.available.length ? (
                     <section id="poemonger-works_available">
+                        <h2>Available</h2>
                         {renderData.available.map(
                             ({ id, title, subtitle, cover, audio, price }) => {
                                 return (
