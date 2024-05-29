@@ -68,6 +68,9 @@ export default async function Work({
                             class="work-description_container"
                             popover="auto"
                         >
+                            <h2>
+                                {title} | <em>{subtitle}</em>
+                            </h2>
                             {description.map(desc => (
                                 <p>{desc}</p>
                             ))}
