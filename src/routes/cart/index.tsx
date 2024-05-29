@@ -239,20 +239,18 @@ cart.post('/purchase/complete', async c => {
                             `user=${email}`,
                             JSON.stringify({
                                 ...user,
-                                purchases: {
-                                    [works.invoice.data.dateCreated]:
-                                        works.invoice.data,
-                                },
+                                purchases: works.works.reduce((worksObject,work) => {
+                                    return { ...worksObject, [`purchases.${work}`]: works.invoice.data }
+                                }, {}),
                             })
                         ),
                         c.env.USERS_SESSIONS.put(
                             `session=${session_id}`,
                             JSON.stringify({
                                 ...session,
-                                purchases: {
-                                    [works.invoice.data.dateCreated]:
-                                        works.invoice.data,
-                                },
+                                purchases: works.works.reduce((worksObject, work) => {
+                                    return { ...worksObject, [`purchases.${work}`]: works.invoice.data }
+                                }, {}),
                             })
                         ),
                     ])
