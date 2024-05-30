@@ -39,6 +39,7 @@ apt.forEach(a => {
                     'background-color: hsl( 244, 84%, 59% ); color: white;'
                 )
                 if (videoPlayer.dataset.on === 1) {
+                    console.log({ closingVideo: true })
                     videoTrigger.dataset.on = 0
                     videoTrigger.setAttribute(
                         'style',
@@ -91,6 +92,7 @@ vpt.forEach(v => {
                     'background-color: hsl( 244, 84%, 59% ); color: white;'
                 )
                 if (audioPlayer.dataset.on === 1) {
+                    console.log({ closingAudio: true })
                     audioTrigger.dataset.on = 0
                     audioTrigger.setAttribute(
                         'style',
