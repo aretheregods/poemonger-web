@@ -10,8 +10,12 @@ export default function Footer() {
                 width="64"
             />
             <section id="landing-page_footer">
-                <a href="/about">About</a>
-                <a href="/contact">Contact Us</a>
+                <a href="/about">
+                    <p>About</p>
+                </a>
+                <a href="/contact">
+                    <p>Contact</p> Us
+                </a>
             </section>
         </footer>
     )
