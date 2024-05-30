@@ -1,3 +1,7 @@
+main > section:not(:last-child) {
+    border-bottom: lightgray 1px solid;
+}
+
 .poem-section-container {
     display: grid;
     grid-template-columns: 1fr 1fr;
