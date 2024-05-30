@@ -14,7 +14,7 @@ export default function Footer() {
                     <p>About</p>
                 </a>
                 <a href="/contact">
-                    <p>Contact</p> Us
+                    <p>Contact Us</p>
                 </a>
             </section>
         </footer>
