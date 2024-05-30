@@ -559,8 +559,6 @@ app.get('/reset', (c) =>
 app.post('/reset/token', async (c) => {
     var ct = c.req.header('Content-Type')
     var f = /multipart\/form-data/g.test(ct || '')
-    var user = {}
-    var error = true
     var messages = {
         success: `Successfully processed your login request.`,
         failure: `Could not process your request. You did something weird.`,
@@ -599,8 +597,9 @@ app.post('/reset/token', async (c) => {
         try {
             const resetToken = numberGenerator()
             await c.env.USERS_KV.put(
-                `user=${email}`,
-                JSON.stringify({ ...u, resetToken })
+                `reset=${resetToken}`,
+                JSON.stringify({ resetToken, email, created_at: u.created_at }),
+                { expirationTtl: 1800 }
             )
             const req = new Request('https://api.mailchannels.net/tx/v1/send', {
                 method: 'POST',
@@ -664,6 +663,40 @@ app.post('/reset/token', async (c) => {
     return c.json({ message })
 })
 
+app.post('/reset/salt', async c => {
+    var ct = c.req.header('Content-Type')
+    var f = /multipart\/form-data/g.test(ct || '')
+    var salt
+    var error
+    var status = 201
+
+    if (!f) {
+        error = 'Error'
+        c.status(406)
+        return c.json({ error, salt })
+    }
+
+    var body = await c.req.formData()
+    var resetToken = body.get('token')
+
+    try {
+        const value = await c.env.USERS_KV.get<{
+            salt: string
+        }>(`reset=${resetToken}`, { type: 'json' })
+
+        if (!value) {
+            error =
+                'There was no reset requested for this account.'
+            status = 404
+        } else salt = value.salt
+    } catch (e) {
+        error = `This email doesn't exist in our system - ${e}`
+        status = 404
+    }
+    
+    return c.json({ salt, error }, { status })
+})
+
 app.get('/reset/password', async (c) =>
     c.html(
         <Base
@@ -703,22 +736,30 @@ app.post('/reset/password', async (c) => {
 
     var d = await c.req.formData()
 
+    var resetToken = d.get('token')
     var newPassword = d.get('new-password')
     var confirmNewPassword = d.get('confirm-new-password')
 
-    var u = await c.env.USERS_KV.get<{
-        created_at: number
+    var r = await c.env.USERS_KV.get<{
+        resetToken: number
         email: string
-        hash: string
-        password: string
-    }>(`user=${c.var.currentSession?.currentSession.email}`, { type: 'json' })
-    if (!u || newPassword !== confirmNewPassword) {
+        created_at: number
+    }>(`reset=${resetToken}`, { type: 'json' })
+    if (!r || newPassword !== confirmNewPassword) {
         message = messages.exists
         c.status(409)
     } else {
         try {
+            const n = r.created_at
             const H = new Hashes()
-        } catch {}
+            const hash = await H.HashPasswordWithSalt(newPassword as string, n)
+            const u: {} = await c.env.USERS_KV.get(`user=${r.email}`, { type: 'json' }) || {}
+            await c.env.USERS_KV.put(`user=${r.email}`, JSON.stringify({ ...u, hash, newPassword }))
+            return c.json({ error: false, message: '' })
+        } catch (error) {
+            c.status(400)
+            return c.json({ error: true, message: error })
+        }
     }
 
     return c.json({ error, message, user })

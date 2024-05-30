@@ -31,7 +31,7 @@ export default function Reset({
 
     return (
         <>
-            <h2 id="form-title">Reset Password</h2>
+            <h2 id="form-title">Request Password Reset Token</h2>
             <form
                 id="reset"
                 class="credentials-form"
