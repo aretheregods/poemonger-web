@@ -71,7 +71,7 @@ export default async function Work({
                             <h2>
                                 {title} | <em>{subtitle}</em>
                             </h2>
-                            {description.map((desc) => (
+                            {description.map(desc => (
                                 <p>{desc}</p>
                             ))}
                         </dialog>

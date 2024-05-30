@@ -2,10 +2,12 @@ export default function AudioVideoButtons({
     workId,
     audioId,
     audioCaption = 'Listen to the first chapter',
+    videoCaption = 'Video Coming Soon',
 }: {
     workId: number
     audioId: string
     audioCaption?: string
+    videoCaption?: string
 }) {
     return (
         <>
@@ -39,6 +41,14 @@ export default function AudioVideoButtons({
                     controlslist="nodownload"
                     controls
                 ></audio>
+            </figure>
+            <figure
+                id={`video-poem_player-${workId}`}
+                class="work-video video-poem_player"
+                style="height: 0px; opacity: 0%; z-index: -1;"
+                data-on="0"
+            >
+                <figcaption>{videoCaption}</figcaption>
             </figure>
         </>
     )
