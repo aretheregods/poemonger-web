@@ -548,6 +548,11 @@ app.get('/reset', (c) =>
                     rel="stylesheet"
                     href="/static/styles/credentialsForm.css"
                 />,
+                <script
+                    type="module"
+                    src="/static/js/reset/index.js"
+                    defer
+                ></script>,
             ]}
             loggedIn={!!c.var.currentSession}
         >
@@ -706,6 +711,11 @@ app.get('/reset/password', async (c) =>
                     rel="stylesheet"
                     href="/static/styles/credentialsForm.css"
                 />,
+                <script
+                    type="module"
+                    src="/static/js/reset/resetPassword.js"
+                    defer
+                ></script>,
             ]}
             loggedIn={!!c.var.currentSession}
         >
