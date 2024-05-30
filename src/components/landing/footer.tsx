@@ -11,6 +11,7 @@ export default function Footer() {
             />
             <section id="landing-page_footer">
                 <a href="/about">About</a>
+                <a href="/contact">Contact Us</a>
             </section>
         </footer>
     )
