@@ -7,14 +7,8 @@ apt.forEach(a => {
             var app = document.getElementById(
                 `audio-poem_player-${e.target.dataset.workId}`
             )
-            var videoPlayer = document.getElementById(
-                `video-poem_player-${e.target.dataset.workId}`
-            )
             var audio = document.getElementById(
                 `audio-poem_player-element-${e.target.dataset.workId}`
-            )
-            var videoTrigger = document.getElementById(
-                `video-poem_trigger-${e.target.dataset.workId}`
             )
 
             if (app.dataset.on == 1) {
@@ -38,16 +32,6 @@ apt.forEach(a => {
                     'style',
                     'background-color: hsl( 244, 84%, 59% ); color: white;'
                 )
-                videoTrigger.dataset.on = 0
-                videoTrigger.setAttribute(
-                    'style',
-                    'background-color: auto; color: auto;'
-                )
-                videoPlayer.dataset.on = 0
-                videoPlayer.setAttribute(
-                    'style',
-                    'height: 0px; opacity: 0%; z-index: -1;'
-                )
             }
         }
 
@@ -61,12 +45,6 @@ vpt.forEach(v => {
         function videoTransition() {
             var vpp = document.getElementById(
                 `video-poem_player-${e.target.dataset.workId}`
-            )
-            var audioPlayer = document.getElementById(
-                `audio-poem_player-${e.target.dataset.workId}`
-            )
-            var audioTrigger = document.getElementById(
-                `video-poem_trigger-${e.target.dataset.workId}`
             )
 
             if (app.dataset.on == 1) {
@@ -87,16 +65,6 @@ vpt.forEach(v => {
                 e.target.setAttribute(
                     'style',
                     'background-color: hsl( 244, 84%, 59% ); color: white;'
-                )
-                audioTrigger.dataset.on = 0
-                audioTrigger.setAttribute(
-                    'style',
-                    'background-color: auto; color: auto;'
-                )
-                audioPlayer.dataset.on = 0
-                audioPlayer.setAttribute(
-                    'style',
-                    'height: 0px; opacity: 0%; z-index: -1;'
                 )
             }
         }
