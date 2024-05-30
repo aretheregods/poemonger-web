@@ -35,7 +35,7 @@ type Variables = {
             last_name: string
             created_at: string
             session_id: string
-            purchases: { string: { amount: string }}
+            purchases: { string: { amount: string } }
         }
     }
     currentSessionError?: { error: boolean; message: string }
@@ -49,7 +49,7 @@ account.use(loggedOutRedirect)
 account.use(readerSessions)
 account.use(cartSessions)
 
-account.get('/', (c) => {
+account.get('/', c => {
     const { first_name, last_name, created_at, purchases } = c.var
         .currentSession?.currentSession || {
         first_name: '',
@@ -67,7 +67,7 @@ account.get('/', (c) => {
             assets={[
                 <link rel="stylesheet" href="/static/styles/account.css" />,
             ]}
-            loggedIn={!!c.var.currentSession}
+            loggedIn={true}
             shoppingCartCount={c.var.cartSessions?.size as number}
         >
             <>
@@ -89,6 +89,30 @@ account.get('/', (c) => {
                     </ul>
                 </figure>
             </>
+        </Base>
+    )
+})
+
+account.get('/purchases', c => {
+    return c.html(
+        <Base title="Poemonger | Account - Purchases" loggedIn={true}>
+            <h2>Account Purchases</h2>
+        </Base>
+    )
+})
+
+account.get('/delete', c => {
+    return c.html(
+        <Base title="Poemonger | Account - Delete" loggedIn={true}>
+            <h2>Account Delete</h2>
+        </Base>
+    )
+})
+
+account.get('/reset', c => {
+    return c.html(
+        <Base title="Poemonger | Account - Reset Password" loggedIn={true}>
+            <h2>Account Reset Password</h2>
         </Base>
     )
 })

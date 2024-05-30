@@ -155,7 +155,7 @@ export async function requestCountry(
     await next()
 }
 
-app.get('/signup', (c) => {
+app.get('/signup', c => {
     if (c.var.currentSession || c.var.currentSessionError) {
         return c.redirect('/read')
     }
@@ -180,7 +180,7 @@ app.get('/signup', (c) => {
     )
 })
 
-app.post('/signup', async (c) => {
+app.post('/signup', async c => {
     var n = Date.now()
     var ct = c.req.header('Content-Type')
     var f = /multipart\/form-data/g.test(ct || '')
@@ -300,7 +300,7 @@ app.post('/signup', async (c) => {
     return c.json({ message })
 })
 
-app.get('/activate', async (c) => {
+app.get('/activate', async c => {
     if (c.var.currentSession || c.var.currentSessionError) {
         return c.redirect('/read')
     }
@@ -339,7 +339,7 @@ app.get('/activate', async (c) => {
     )
 })
 
-app.get('/login', async (c) => {
+app.get('/login', async c => {
     if (c.var.currentSession || c.var.currentSessionError) {
         return c.redirect('/read')
     }
@@ -364,7 +364,7 @@ app.get('/login', async (c) => {
     )
 })
 
-app.post('/login/check-email', async (c) => {
+app.post('/login/check-email', async c => {
     var ct = c.req.header('Content-Type')
     var f = /multipart\/form-data/g.test(ct || '')
     var salt
@@ -404,7 +404,7 @@ app.post('/login/check-email', async (c) => {
     return c.json({ salt, error }, { status })
 })
 
-app.post('/login', async (c) => {
+app.post('/login', async c => {
     var ct = c.req.header('Content-Type')
     var f = /multipart\/form-data/g.test(ct || '')
     var user = {}
@@ -502,7 +502,7 @@ app.post('/login', async (c) => {
     return c.json({ error, message, user })
 })
 
-app.get('/logout', loggedOutRedirect, (c) =>
+app.get('/logout', loggedOutRedirect, c =>
     c.html(
         <Base
             title="Poemonger | Logout"
@@ -519,7 +519,7 @@ app.get('/logout', loggedOutRedirect, (c) =>
     )
 )
 
-app.post('/logout', async (c) => {
+app.post('/logout', async c => {
     const hasCookie = getCookie(c, 'poemonger_session', 'secure')
     if (hasCookie) {
         setCookie(c, 'poemonger_session', hasCookie, {
@@ -539,7 +539,7 @@ app.post('/logout', async (c) => {
     }
 })
 
-app.get('/reset', (c) =>
+app.get('/reset', c =>
     c.html(
         <Base
             title="Poemonger | Reset"
@@ -561,7 +561,7 @@ app.get('/reset', (c) =>
     )
 )
 
-app.post('/reset/token', async (c) => {
+app.post('/reset/token', async c => {
     var ct = c.req.header('Content-Type')
     var f = /multipart\/form-data/g.test(ct || '')
     var messages = {
@@ -604,7 +604,12 @@ app.post('/reset/token', async (c) => {
             const resetToken = numberGenerator()
             await c.env.USERS_KV.put(
                 `reset=${resetToken}`,
-                JSON.stringify({ resetToken, email, created_at: u.created_at, salt: u.salt }),
+                JSON.stringify({
+                    resetToken,
+                    email,
+                    created_at: u.created_at,
+                    salt: u.salt,
+                }),
                 { expirationTtl: 1800 }
             )
             const req = new Request('https://api.mailchannels.net/tx/v1/send', {
@@ -691,19 +696,18 @@ app.post('/reset/salt', async c => {
         }>(`reset=${resetToken}`, { type: 'json' })
 
         if (!value) {
-            error =
-                'There was no reset requested for this account.'
+            error = 'There was no reset requested for this account.'
             status = 404
         } else salt = value.salt
     } catch (e) {
         error = `This email doesn't exist in our system - ${e}`
         status = 404
     }
-    
+
     return c.json({ salt, error }, { status })
 })
 
-app.get('/reset/password', async (c) =>
+app.get('/reset/password', async c =>
     c.html(
         <Base
             title="Poemonger | Reset"
@@ -725,7 +729,7 @@ app.get('/reset/password', async (c) =>
     )
 )
 
-app.post('/reset/password', async (c) => {
+app.post('/reset/password', async c => {
     var ct = c.req.header('Content-Type')
     var f = /multipart\/form-data/g.test(ct || '')
     var user = {}
@@ -764,8 +768,14 @@ app.post('/reset/password', async (c) => {
             const n = r.created_at
             const H = new Hashes()
             const hash = await H.HashPasswordWithSalt(newPassword as string, n)
-            const u: {} = await c.env.USERS_KV.get(`user=${r.email}`, { type: 'json' }) || {}
-            await c.env.USERS_KV.put(`user=${r.email}`, JSON.stringify({ ...u, hash, password: newPassword }))
+            const u: {} =
+                (await c.env.USERS_KV.get(`user=${r.email}`, {
+                    type: 'json',
+                })) || {}
+            await c.env.USERS_KV.put(
+                `user=${r.email}`,
+                JSON.stringify({ ...u, hash, password: newPassword })
+            )
             return c.json({ error: false, message: '' })
         } catch (error) {
             c.status(400)
@@ -776,7 +786,7 @@ app.post('/reset/password', async (c) => {
     return c.json({ error, message, user })
 })
 
-app.get('/delete', loggedOutRedirect, (c) =>
+app.get('/delete', loggedOutRedirect, c =>
     c.html(
         <Base title="Poemonger | Delete" loggedIn={!!c.var.currentSession}>
             <Delete />
@@ -784,7 +794,7 @@ app.get('/delete', loggedOutRedirect, (c) =>
     )
 )
 
-app.get('/about', (c) =>
+app.get('/about', c =>
     c.html(
         <Base
             title="Poemonger | About"
@@ -799,7 +809,15 @@ app.get('/about', (c) =>
     )
 )
 
-app.get('/audio/:audioId', async (c) => {
+app.get('/contact', c =>
+    c.html(
+        <Base title="Poemonger | Contact" loggedIn={!!c.var.currentSession}>
+            <h2>Contact Us</h2>
+        </Base>
+    )
+)
+
+app.get('/audio/:audioId', async c => {
     const { audioId } = c.req.param()
     if (
         ![
@@ -828,7 +846,7 @@ app.get('/audio/:audioId', async (c) => {
     })
 })
 
-app.get('/', readerSessions, async (c) => {
+app.get('/', readerSessions, async c => {
     if (c.var.currentSession && !c.var.currentSessionError) {
         return c.redirect('/read')
     }
