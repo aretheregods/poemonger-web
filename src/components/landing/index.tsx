@@ -180,8 +180,9 @@ export default async function Landing({
                                     data-works-fetched="0"
                                 >
                                     <h2>My Visions for Poetry's Future</h2>
+                                    <h3>* No subscriptions ever *</h3>
                                     <section class="poemonger-scrolling-works">
-                                        {works.map((w) => (
+                                        {works.map(w => (
                                             <Work
                                                 {...{
                                                     ...w,
