@@ -179,7 +179,16 @@ export default async function Landing({
                                     id="poemonger-landing-works"
                                     data-works-fetched="0"
                                 >
-                                    <h2>My Visions for Poetry's Future</h2>
+                                    <h2>
+                                        My Visions for Poetry's Future{' '}
+                                        <span>
+                                            <em>
+                                                {' '}
+                                                - With Audio and Video Poems
+                                                Included
+                                            </em>
+                                        </span>
+                                    </h2>
                                     <h3>* No subscriptions ever *</h3>
                                     <section class="poemonger-scrolling-works">
                                         {works.map(w => (
