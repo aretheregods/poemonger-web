@@ -7,13 +7,13 @@ apt.forEach(a => {
             var app = document.getElementById(
                 `audio-poem_player-${e.target.dataset.workId}`
             )
-            var vpp = document.getElementById(
+            var videoPlayer = document.getElementById(
                 `video-poem_player-${e.target.dataset.workId}`
             )
             var audio = document.getElementById(
                 `audio-poem_player-element-${e.target.dataset.workId}`
             )
-            var vpt = document.getElementById(
+            var videoTrigger = document.getElementById(
                 `video-poem_trigger-${e.target.dataset.workId}`
             )
 
@@ -30,14 +30,14 @@ apt.forEach(a => {
                     'background-color: auto; color: auto;'
                 )
             } else {
-                if (vpp.dataset.on === 1) {
-                    vpt.dataset.on = 0
-                    vpt.setAttribute(
+                if (videoPlayer.dataset.on === 1) {
+                    videoTrigger.dataset.on = 0
+                    videoTrigger.setAttribute(
                         'style',
                         'background-color: auto; color: auto;'
                     )
-                    vpp.dataset.on = 0
-                    vpp.setAttribute(
+                    videoPlayer.dataset.on = 0
+                    videoPlayer.setAttribute(
                         'style',
                         'height: 0px; opacity: 0%; z-index: -1;'
                     )
@@ -64,10 +64,10 @@ vpt.forEach(v => {
             var vpp = document.getElementById(
                 `video-poem_player-${e.target.dataset.workId}`
             )
-            var app = document.getElementById(
+            var audioPlayer = document.getElementById(
                 `audio-poem_player-${e.target.dataset.workId}`
             )
-            var apt = document.getElementById(
+            var audioTrigger = document.getElementById(
                 `video-poem_trigger-${e.target.dataset.workId}`
             )
 
@@ -83,14 +83,14 @@ vpt.forEach(v => {
                     'background-color: auto; color: auto;'
                 )
             } else {
-                if (app.dataset.on === 1) {
-                    apt.dataset.on = 0
-                    apt.setAttribute(
+                if (audioPlayer.dataset.on === 1) {
+                    audioTrigger.dataset.on = 0
+                    audioTrigger.setAttribute(
                         'style',
                         'background-color: auto; color: auto;'
                     )
-                    app.dataset.on = 0
-                    app.setAttribute(
+                    audioPlayer.dataset.on = 0
+                    audioPlayer.setAttribute(
                         'style',
                         'height: 0px; opacity: 0%; z-index: -1;'
                     )
