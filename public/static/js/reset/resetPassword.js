@@ -18,7 +18,7 @@ f.addEventListener('submit', async (e) => {
         .parseForm({
             formElement: e.target,
             submitter: e.submitter,
-            reducer: hashPassword(salt, { p: 'new-password', c: 'confirm-new-password' }),
+            reducer: hashPassword({ salt, p: 'new-password', c: 'confirm-new-password' }),
         })
         .then((body) => request.post({ path: '/reset/password', body }))
         .then(() => {

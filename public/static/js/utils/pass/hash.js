@@ -1,4 +1,4 @@
-export default function hashPasswordWithSalt(salt, { p = 'password', c = 'confirm_password' }) {
+export default function hashPasswordWithSalt({ salt, p = 'password', c = 'confirm_password' }) {
     var s = salt
         ? stringToUint8(salt)
         : window.crypto.getRandomValues(new Uint8Array(64))

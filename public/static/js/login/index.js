@@ -19,7 +19,7 @@ f.addEventListener('submit', async (e) => {
         .parseForm({
             formElement: e.target,
             submitter: e.submitter,
-            reducer: hashPassword(salt),
+            reducer: hashPassword({ salt }),
         })
         .then((body) => request.post({ path: '/login', body }))
         .then(() => {
