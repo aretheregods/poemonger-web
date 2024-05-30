@@ -39,7 +39,16 @@ apt.forEach(a => {
                     'background-color: hsl( 244, 84%, 59% ); color: white;'
                 )
                 if (videoPlayer.dataset.on == 1) {
-                    hideElements(videoTrigger, videoPlayer)
+                    videoTrigger.dataset.on = 0
+                    videoTrigger.setAttribute(
+                        'style',
+                        'background-color: auto; color: auto;'
+                    )
+                    videoPlayer.dataset.on = 0
+                    videoPlayer.setAttribute(
+                        'style',
+                        'height: 0px; opacity: 0%; z-index: -1;'
+                    )
                 }
             }
         }
@@ -63,11 +72,35 @@ vpt.forEach(v => {
             )
 
             if (vpp.dataset.on == 1) {
-                hideElements(e.target, vpp)
+                e.target.dataset.on = 0
+                vpp.dataset.on = 0
+                vpp.setAttribute(
+                    'style',
+                    'height: 0px; opacity: 0%; z-index: -1;'
+                )
+                e.target.setAttribute(
+                    'style',
+                    'background-color: auto; color: auto;'
+                )
             } else {
-                showElements(e.target, vpp)
+                e.target.dataset.on = 1
+                vpp.dataset.on = 1
+                vpp.removeAttribute('style')
+                e.target.setAttribute(
+                    'style',
+                    'background-color: hsl( 244, 84%, 59% ); color: white;'
+                )
                 if (audioPlayer.dataset.on == 1) {
-                    hideElements(audioTrigger, audioPlayer)
+                    audioTrigger.dataset.on = 0
+                    audioTrigger.setAttribute(
+                        'style',
+                        'background-color: auto; color: auto;'
+                    )
+                    audioPlayer.dataset.on = 0
+                    audioPlayer.setAttribute(
+                        'style',
+                        'height: 0px; opacity: 0%; z-index: -1;'
+                    )
                 }
             }
         }
@@ -76,20 +109,3 @@ vpt.forEach(v => {
         else document.startViewTransition(videoTransition)
     })
 })
-
-function hideElements(trigger, player) {
-    trigger.dataset.on = 0
-    player.dataset.on = 0
-    player.setAttribute('style', 'height: 0px; opacity: 0%; z-index: -1;')
-    trigger.setAttribute('style', 'background-color: auto; color: auto;')
-}
-
-function showElements(trigger, player) {
-    trigger.dataset.on = 1
-    player.dataset.on = 1
-    player.removeAttribute('style')
-    trigger.setAtribute(
-        'style',
-        'background-color: hsl( 244, 84%, 59% ); color: white;'
-    )
-}
