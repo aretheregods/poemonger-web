@@ -92,6 +92,11 @@ main > section:not(:last-child) {
             background-color: hsl(45, 97%, 50%);
         }
     }
+
+    & .work-audio,
+    & .work-video {
+        text-align: center;
+    }
 }
 
 footer {
