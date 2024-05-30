@@ -817,7 +817,9 @@ app.get('/contact', c =>
                 <h3>
                     <em>Email Warren or any of us at Poemonger</em>
                 </h3>
-                <p>communications@poemonger.com</p>
+                <a href="mailto:communications@poemonger.com">
+                    communications@poemonger.com
+                </a>
             </>
         </Base>
     )
