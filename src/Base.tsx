@@ -87,6 +87,7 @@ export const Base = ({
                                             popover="auto"
                                         >
                                             <a href="/account">Account</a>
+                                            <a href="/contact">Contact Us</a>
                                             <a href="/logout">Log out</a>
                                         </section>
                                     </>
