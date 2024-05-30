@@ -1,9 +1,9 @@
-export default function hashPasswordWithSalt(salt) {
+export default function hashPasswordWithSalt(salt, { p = 'password', c = 'confirm_password' }) {
     var s = salt
         ? stringToUint8(salt)
         : window.crypto.getRandomValues(new Uint8Array(64))
     return (formMap, [key, value]) => {
-        if (key === 'password' || key === 'confirm_password') {
+        if (key === p || key === c) {
             return hash(value, s, 6e5).then((h) => {
                 formMap.set(key, `${bitsToHex(new Uint8Array(h))}`)
                 if (!salt && !formMap.get('salt')) formMap.set('salt', s)
