@@ -30,6 +30,14 @@ apt.forEach(a => {
                     'background-color: auto; color: auto;'
                 )
             } else {
+                e.target.dataset.on = 1
+                app.dataset.on = 1
+                app.removeAttribute('style')
+                audio.setAttribute('preload', 'metadata')
+                e.target.setAttribute(
+                    'style',
+                    'background-color: hsl( 244, 84%, 59% ); color: white;'
+                )
                 if (videoPlayer.dataset.on === 1) {
                     videoTrigger.dataset.on = 0
                     videoTrigger.setAttribute(
@@ -42,14 +50,6 @@ apt.forEach(a => {
                         'height: 0px; opacity: 0%; z-index: -1;'
                     )
                 }
-                e.target.dataset.on = 1
-                app.dataset.on = 1
-                app.removeAttribute('style')
-                audio.setAttribute('preload', 'metadata')
-                e.target.setAttribute(
-                    'style',
-                    'background-color: hsl( 244, 84%, 59% ); color: white;'
-                )
             }
         }
 
@@ -83,6 +83,13 @@ vpt.forEach(v => {
                     'background-color: auto; color: auto;'
                 )
             } else {
+                e.target.dataset.on = 1
+                vpp.dataset.on = 1
+                vpp.removeAttribute('style')
+                e.target.setAttribute(
+                    'style',
+                    'background-color: hsl( 244, 84%, 59% ); color: white;'
+                )
                 if (audioPlayer.dataset.on === 1) {
                     audioTrigger.dataset.on = 0
                     audioTrigger.setAttribute(
@@ -95,13 +102,6 @@ vpt.forEach(v => {
                         'height: 0px; opacity: 0%; z-index: -1;'
                     )
                 }
-                e.target.dataset.on = 1
-                vpp.dataset.on = 1
-                vpp.removeAttribute('style')
-                e.target.setAttribute(
-                    'style',
-                    'background-color: hsl( 244, 84%, 59% ); color: white;'
-                )
             }
         }
 
