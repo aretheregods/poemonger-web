@@ -30,6 +30,7 @@ apt.forEach(a => {
                     'background-color: auto; color: auto;'
                 )
             } else {
+                console.log({ video: videoTrigger })
                 e.target.dataset.on = 1
                 app.dataset.on = 1
                 app.removeAttribute('style')
@@ -84,6 +85,7 @@ vpt.forEach(v => {
                     'background-color: auto; color: auto;'
                 )
             } else {
+                console.log({ audio: audioTrigger })
                 e.target.dataset.on = 1
                 vpp.dataset.on = 1
                 vpp.removeAttribute('style')
