@@ -70,7 +70,7 @@ vpt.forEach(v => {
                 `audio-poem_player-${e.target.dataset.workId}`
             )
             var audioTrigger = document.getElementById(
-                `video-poem_trigger-${e.target.dataset.workId}`
+                `audio-poem_trigger-${e.target.dataset.workId}`
             )
 
             if (vpp.dataset.on == 1) {
