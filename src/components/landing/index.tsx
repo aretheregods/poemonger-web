@@ -64,7 +64,7 @@ export default async function Landing({
                                                     title="Sign up to read more awesome poetry"
                                                     class="button"
                                                 >
-                                                    Read better poetry &#128366;
+                                                    Read better poetry &#128214;
                                                 </a>
                                             </p>
                                         </>
@@ -79,7 +79,7 @@ export default async function Landing({
                                             title="Sign up to read more awesome poetry"
                                             class="button"
                                         >
-                                            Read better poetry &#128366;
+                                            Read better poetry &#128214;
                                         </a>
                                     </p>
                                     <br />
