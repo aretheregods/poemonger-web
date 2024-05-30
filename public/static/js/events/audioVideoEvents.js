@@ -38,18 +38,16 @@ apt.forEach(a => {
                     'style',
                     'background-color: hsl( 244, 84%, 59% ); color: white;'
                 )
-                if (videoPlayer.dataset.on === 1) {
-                    videoTrigger.dataset.on = 0
-                    videoTrigger.setAttribute(
-                        'style',
-                        'background-color: auto; color: auto;'
-                    )
-                    videoPlayer.dataset.on = 0
-                    videoPlayer.setAttribute(
-                        'style',
-                        'height: 0px; opacity: 0%; z-index: -1;'
-                    )
-                }
+                videoTrigger.dataset.on = 0
+                videoTrigger.setAttribute(
+                    'style',
+                    'background-color: auto; color: auto;'
+                )
+                videoPlayer.dataset.on = 0
+                videoPlayer.setAttribute(
+                    'style',
+                    'height: 0px; opacity: 0%; z-index: -1;'
+                )
             }
         }
 
@@ -90,18 +88,16 @@ vpt.forEach(v => {
                     'style',
                     'background-color: hsl( 244, 84%, 59% ); color: white;'
                 )
-                if (audioPlayer.dataset.on === 1) {
-                    audioTrigger.dataset.on = 0
-                    audioTrigger.setAttribute(
-                        'style',
-                        'background-color: auto; color: auto;'
-                    )
-                    audioPlayer.dataset.on = 0
-                    audioPlayer.setAttribute(
-                        'style',
-                        'height: 0px; opacity: 0%; z-index: -1;'
-                    )
-                }
+                audioTrigger.dataset.on = 0
+                audioTrigger.setAttribute(
+                    'style',
+                    'background-color: auto; color: auto;'
+                )
+                audioPlayer.dataset.on = 0
+                audioPlayer.setAttribute(
+                    'style',
+                    'height: 0px; opacity: 0%; z-index: -1;'
+                )
             }
         }
 
