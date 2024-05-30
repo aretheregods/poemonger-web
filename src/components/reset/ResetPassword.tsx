@@ -21,6 +21,7 @@ export default function ResetPassword() {
                     </li>
                     <li>
                         <Input
+                            id="password-input"
                             name="new-password"
                             label="New Password"
                             type="password"
@@ -31,6 +32,7 @@ export default function ResetPassword() {
                     </li>
                     <li>
                         <Input
+                            id="password-confirm-input"
                             name="confirm-new-password"
                             label="Confirm New Password"
                             type="password"

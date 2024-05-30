@@ -764,7 +764,7 @@ app.post('/reset/password', async (c) => {
             const H = new Hashes()
             const hash = await H.HashPasswordWithSalt(newPassword as string, n)
             const u: {} = await c.env.USERS_KV.get(`user=${r.email}`, { type: 'json' }) || {}
-            await c.env.USERS_KV.put(`user=${r.email}`, JSON.stringify({ ...u, hash, newPassword }))
+            await c.env.USERS_KV.put(`user=${r.email}`, JSON.stringify({ ...u, hash, password: newPassword }))
             return c.json({ error: false, message: '' })
         } catch (error) {
             c.status(400)
