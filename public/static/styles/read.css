@@ -27,8 +27,11 @@
 
         & figcaption {
             display: none;
-            text-align: center;
         }
+    }
+
+    & .video-poem_player {
+        text-align: center;
     }
 }
 
