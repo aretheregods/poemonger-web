@@ -8,17 +8,11 @@ var request = new HTTP()
 
 f.addEventListener('submit', async (e) => {
     e.preventDefault()
-    var formData = new FormData(f)
-    var { salt, error } = await request.post({
-        path: '/reset/salt',
-        body: formData,
-    })
-    
     request
         .parseForm({
             formElement: e.target,
             submitter: e.submitter,
-            reducer: hashPassword(salt),
+            reducer: hashPassword(),
         })
         .then((body) => request.post({ path: '/reset/password', body }))
         .then(() => {
