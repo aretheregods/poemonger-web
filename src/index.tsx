@@ -812,7 +812,13 @@ app.get('/about', c =>
 app.get('/contact', c =>
     c.html(
         <Base title="Poemonger | Contact" loggedIn={!!c.var.currentSession}>
-            <h2>Contact Us</h2>
+            <>
+                <h2>Contact Us</h2>
+                <h3>
+                    <em>Email Warren or any of us at Poemonger</em>
+                </h3>
+                <p>communications@poemonger.com</p>
+            </>
         </Base>
     )
 )
