@@ -1,6 +1,6 @@
 import { hashPassword, HTTP } from '../utils/index.js'
 
-var f = document.getElementById('login')
+var f = document.getElementById('reset-password')
 var r = document.getElementById('reveal-password-container')
 var request = new HTTP()
 
