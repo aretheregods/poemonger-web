@@ -593,6 +593,7 @@ app.post('/reset/token', async (c) => {
         first_name: string
         last_name: string
         hash: string
+        salt: string
         password: string
     }>(`user=${email}`, { type: 'json' })
     if (!u) {
@@ -603,7 +604,7 @@ app.post('/reset/token', async (c) => {
             const resetToken = numberGenerator()
             await c.env.USERS_KV.put(
                 `reset=${resetToken}`,
-                JSON.stringify({ resetToken, email, created_at: u.created_at }),
+                JSON.stringify({ resetToken, email, created_at: u.created_at, salt: u.salt }),
                 { expirationTtl: 1800 }
             )
             const req = new Request('https://api.mailchannels.net/tx/v1/send', {
