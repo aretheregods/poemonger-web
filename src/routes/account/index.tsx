@@ -35,7 +35,7 @@ type Variables = {
             last_name: string
             created_at: string
             session_id: string
-            purchases: Array<string>
+            purchases: { string: { amount: string }}
         }
     }
     currentSessionError?: { error: boolean; message: string }
@@ -55,7 +55,7 @@ account.get('/', (c) => {
         first_name: '',
         last_name: '',
         created_at: '',
-        purchases: [''],
+        purchases: {},
     }
     const userLocale = locales.hasOwnProperty(c.var.country)
         ? c.var.country
@@ -83,8 +83,8 @@ account.get('/', (c) => {
                 <figure>
                     <legend>Purchase Receipts</legend>
                     <ul id="account-purchases_list">
-                        {purchases.map((p) => {
-                            return <li>{p}</li>
+                        {Object.values(purchases).map(({ amount }) => {
+                            return <li>{amount}</li>
                         })}
                     </ul>
                 </figure>
