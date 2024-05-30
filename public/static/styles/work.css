@@ -83,7 +83,8 @@ main > section:not(:last-child) {
         }
     }
 
-    & .work-audio {
+    & .work-audio,
+    & .work-video {
         display: grid;
         justify-content: center;
         width: fit-content;
