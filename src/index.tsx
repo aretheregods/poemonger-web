@@ -811,7 +811,13 @@ app.get('/about', c =>
 
 app.get('/contact', c =>
     c.html(
-        <Base title="Poemonger | Contact" loggedIn={!!c.var.currentSession}>
+        <Base
+            title="Poemonger | Contact"
+            assets={[
+                <link rel="stylesheet" href="/static/styles/contact.css" />,
+            ]}
+            loggedIn={!!c.var.currentSession}
+        >
             <>
                 <h2>Contact Us</h2>
                 <h3>
