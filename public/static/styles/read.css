@@ -27,6 +27,7 @@
 
         & figcaption {
             display: none;
+            text-align: center;
         }
     }
 }
