@@ -13,6 +13,7 @@ export default function AudioVideoButtons({
         <>
             <section class="audio-video_tools flexible-buttons">
                 <button
+                    id={`audio-poem_trigger-${workId}`}
                     data-work-id={workId}
                     class="button audio-poem_trigger"
                     data-on="0"
@@ -20,6 +21,7 @@ export default function AudioVideoButtons({
                     &#127911; Audio poem
                 </button>
                 <button
+                    id={`video-poem_trigger-${workId}`}
                     data-work-id={workId}
                     class="button video-poem_trigger"
                     data-on="0"
