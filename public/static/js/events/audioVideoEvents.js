@@ -7,8 +7,14 @@ apt.forEach(a => {
             var app = document.getElementById(
                 `audio-poem_player-${e.target.dataset.workId}`
             )
+            var videoPlayer = document.getElementById(
+                `video-poem_player-${e.target.dataset.workId}`
+            )
             var audio = document.getElementById(
                 `audio-poem_player-element-${e.target.dataset.workId}`
+            )
+            var videoTrigger = document.getElementById(
+                `video-poem_trigger-${e.target.dataset.workId}`
             )
 
             if (app.dataset.on == 1) {
@@ -32,6 +38,18 @@ apt.forEach(a => {
                     'style',
                     'background-color: hsl( 244, 84%, 59% ); color: white;'
                 )
+                if (videoPlayer.dataset.on === 1) {
+                    videoTrigger.dataset.on = 0
+                    videoTrigger.setAttribute(
+                        'style',
+                        'background-color: auto; color: auto;'
+                    )
+                    videoPlayer.dataset.on = 0
+                    videoPlayer.setAttribute(
+                        'style',
+                        'height: 0px; opacity: 0%; z-index: -1;'
+                    )
+                }
             }
         }
 
@@ -46,8 +64,14 @@ vpt.forEach(v => {
             var vpp = document.getElementById(
                 `video-poem_player-${e.target.dataset.workId}`
             )
+            var audioPlayer = document.getElementById(
+                `audio-poem_player-${e.target.dataset.workId}`
+            )
+            var audioTrigger = document.getElementById(
+                `video-poem_trigger-${e.target.dataset.workId}`
+            )
 
-            if (app.dataset.on == 1) {
+            if (vpp.dataset.on == 1) {
                 e.target.dataset.on = 0
                 vpp.dataset.on = 0
                 vpp.setAttribute(
@@ -66,6 +90,18 @@ vpt.forEach(v => {
                     'style',
                     'background-color: hsl( 244, 84%, 59% ); color: white;'
                 )
+                if (audioPlayer.dataset.on === 1) {
+                    audioTrigger.dataset.on = 0
+                    audioTrigger.setAttribute(
+                        'style',
+                        'background-color: auto; color: auto;'
+                    )
+                    audioPlayer.dataset.on = 0
+                    audioPlayer.setAttribute(
+                        'style',
+                        'height: 0px; opacity: 0%; z-index: -1;'
+                    )
+                }
             }
         }
 
