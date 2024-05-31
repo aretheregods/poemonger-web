@@ -87,10 +87,10 @@ account.get('/', c => {
                             <a href="/account/purchases">Purchases</a>
                         </li>
                         <li>
-                            <a href="/account/reset">Purchases</a>
+                            <a href="/account/reset">Reset Password</a>
                         </li>
                         <li>
-                            <a href="/account/delete">Purchases</a>
+                            <a href="/account/delete">Delete Account</a>
                         </li>
                     </ul>
                 </figure>
