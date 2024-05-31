@@ -117,7 +117,21 @@ account.get('/purchases', c => {
 
 account.get('/delete', c => {
     return c.html(
-        <Base title="Poemonger | Account - Delete" loggedIn={true}>
+        <Base
+            title="Poemonger | Account - Delete"
+            assets={[
+                <link
+                    rel="stylesheet"
+                    href="/static/styles/accountDelete.css"
+                />,
+                <script
+                    type="module"
+                    src="/static/js/account/deleteAccount.js"
+                    defer
+                ></script>,
+            ]}
+            loggedIn={true}
+        >
             <>
                 <h2>Delete Account</h2>
                 <section>

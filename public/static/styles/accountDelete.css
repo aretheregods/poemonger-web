@@ -1,0 +1,11 @@
+h2 {
+    text-align: center;
+}
+
+main > section {
+    display: grid;
+}
+
+#delete-account_trigger {
+    justify-self: center;
+}
