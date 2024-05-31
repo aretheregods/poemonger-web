@@ -12,8 +12,10 @@ import { AccountResetPassword } from '../../components/account'
 import { countries, Hashes, locales } from '../../utils'
 
 type Bindings = {
+    POEMONGER_READER_CARTS: DurableObjectNamespace
     POEMONGER_READER_SESSIONS: DurableObjectNamespace
     USERS_KV: KVNamespace
+    USERS_SESSIONS: KVNamespace
 }
 
 type Variables = {
@@ -25,10 +27,12 @@ type Variables = {
             arg1?: number,
             arg2?: boolean
         ): Promise<Response>
+        deleteAll(): Promise<Response>
     }
     READER_CARTS: DurableObjectNamespace & {
         addToCart(workId: string): Promise<Response>
         getCartMetadata(): Promise<Response>
+        clearCart(): Promise<Response>
     }
     cartSessions?: { size: number; data: Array<string> }
     currentSession?: {
@@ -117,6 +121,22 @@ account.get('/delete', c => {
             <h2>Delete Account</h2>
         </Base>
     )
+})
+
+account.post('/delete', async c => {
+    try {
+        await c.var.READER_SESSIONS.deleteAll()
+        await c.var.READER_CARTS.clearCart()
+        await c.env.USERS_KV.delete(
+            `user=${c.var.currentSession?.currentSession.email}`
+        )
+        await c.env.USERS_SESSIONS.delete(
+            'session=${c.var.currentSession?.currentSession.session_id}'
+        )
+        return c.json({ error: false, deleted: true })
+    } catch {
+        return c.json({ error: true, deleted: false })
+    }
 })
 
 account.get('/reset', c => {
