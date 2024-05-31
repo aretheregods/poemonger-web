@@ -111,7 +111,7 @@ account.get('/purchases', c => {
 account.get('/delete', c => {
     return c.html(
         <Base title="Poemonger | Account - Delete" loggedIn={true}>
-            <AccountResetPassword />
+            <h2>Delete Account</h2>
         </Base>
     )
 })
@@ -119,7 +119,7 @@ account.get('/delete', c => {
 account.get('/reset', c => {
     return c.html(
         <Base title="Poemonger | Account - Reset Password" loggedIn={true}>
-            <h2>Account Reset Password</h2>
+            <AccountResetPassword />
         </Base>
     )
 })
