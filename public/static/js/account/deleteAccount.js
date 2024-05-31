@@ -14,7 +14,7 @@ closeButton.addEventListener('click', e => {
 })
 
 dialog.addEventListener('click', e => {
-    if (e.target === 'dialog') dialog.close()
+    if (dialog.open && e.target === 'dialog') dialog.close()
 })
 
 deleteButton.addEventListener('click', e => {
