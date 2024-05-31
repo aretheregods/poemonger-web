@@ -70,7 +70,7 @@ main > section:not(:last-child) {
 
         & .read-a-bit {
             align-self: center;
-            padding: 1.3rem;
+            padding: 1.2rem 1.3rem;
         }
     }
 
