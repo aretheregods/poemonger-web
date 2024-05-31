@@ -12,7 +12,7 @@ f.addEventListener('submit', e => {
         .parseForm({
             formElement: e.target,
             submitter: e.submitter,
-            reducer: hashPassword(),
+            reducer: hashPassword({}),
         })
         .then(body =>
             request.post({
