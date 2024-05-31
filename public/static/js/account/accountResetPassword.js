@@ -26,8 +26,9 @@ f.addEventListener('submit', async e => {
             }),
         })
         .then(body => request.post({ path: '/account/reset/password', body }))
-        .then(() => {
-            location.href = '/login'
+        .then(r => {
+            if (!r.error) location.href = '/login'
+            else console.log({ r })
         })
         .catch(e => console.log({ e }))
 })
