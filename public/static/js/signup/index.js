@@ -6,7 +6,7 @@ var pc = document.getElementById('password-confirm-input')
 var r = document.getElementById('reveal-password-container')
 var request = new HTTP()
 
-f.addEventListener('submit', (e) => {
+f.addEventListener('submit', e => {
     e.preventDefault()
     request
         .parseForm({
@@ -14,18 +14,18 @@ f.addEventListener('submit', (e) => {
             submitter: e.submitter,
             reducer: hashPassword(),
         })
-        .then((body) =>
+        .then(body =>
             request.post({
                 path: '/signup',
                 headers: { 'X-Poemonger-Form': 'signup ' },
                 body,
             })
         )
-        .then((response) => console.log({ response }))
-        .catch((e) => console.log({ e }))
+        .then(response => console.log({ response }))
+        .catch(e => console.log({ e }))
 })
 
-p.addEventListener('change', (e) => {
+p.addEventListener('change', e => {
     var c = document.getElementById('password-confirm-input')
 
     if (c.value && e.target.value && c.value !== e.target.value) {
@@ -39,7 +39,7 @@ p.addEventListener('change', (e) => {
     c.reportValidity()
 })
 
-pc.addEventListener('input', (e) => {
+pc.addEventListener('input', e => {
     var w = document.getElementById('password-input')
 
     if (w.value && e.target.value && w.value !== e.target.value) {
@@ -53,7 +53,7 @@ pc.addEventListener('input', (e) => {
     e.target.reportValidity()
 })
 
-r.addEventListener('click', (e) => {
+r.addEventListener('click', e => {
     var p = document.getElementById('password-input')
     var pc = document.getElementById('password-confirm-input')
 

@@ -1,5 +1,5 @@
 export default function hashPasswordWithSalt({
-    salt,
+    salt = '',
     p = 'password',
     c = 'confirm_password',
     o = '_',
