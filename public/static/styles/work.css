@@ -133,6 +133,10 @@ main > section:not(:last-child) {
             grid-auto-flow: row dense;
             gap: 0.25rem;
 
+            & .read-a-bit {
+                padding-block: 1.1rem;
+            }
+
             & .button {
                 width: 100%;
             }
