@@ -7,6 +7,7 @@ import {
     readerSessions,
     requestCountry,
 } from '../../'
+import { AccountResetPassword } from '../../components/account'
 import { countries, locales } from '../../utils'
 
 type Bindings = {
@@ -110,7 +111,7 @@ account.get('/purchases', c => {
 account.get('/delete', c => {
     return c.html(
         <Base title="Poemonger | Account - Delete" loggedIn={true}>
-            <h2>Account Delete</h2>
+            <AccountResetPassword />
         </Base>
     )
 })
