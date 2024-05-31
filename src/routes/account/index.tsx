@@ -118,7 +118,16 @@ account.get('/delete', c => {
 
 account.get('/reset', c => {
     return c.html(
-        <Base title="Poemonger | Account - Reset Password" loggedIn={true}>
+        <Base
+            title="Poemonger | Account - Reset Password"
+            assets={[
+                <link
+                    rel="stylesheet"
+                    href="/static/styles/credentialsForm.css"
+                />,
+            ]}
+            loggedIn={true}
+        >
             <AccountResetPassword />
         </Base>
     )
