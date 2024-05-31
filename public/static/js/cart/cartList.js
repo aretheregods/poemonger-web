@@ -41,6 +41,7 @@ pb.addEventListener('click', e => {
 window.addEventListener('message', e => {
     var checkout = document.getElementById('purchase-cart_button')
     var key = `helcim-pay-js-${checkout.dataset.checkoutToken}`
+    console.log({ e })
     if (e.data.eventName === key) {
         if (e.data.eventStatus === 'ABORTED') {
             console.log({ error: e.data.eventMessage })
