@@ -197,7 +197,7 @@ cart.post('/purchase/init', async c => {
             o
         )
         const r = await d.json()
-        return c.json(r)
+        return c.json(r || {})
     } catch (error) {
         return c.json({ currentToken: '', secretToken: '', error })
     }
