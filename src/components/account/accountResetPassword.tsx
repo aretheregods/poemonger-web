@@ -2,11 +2,7 @@ import Input from '../input'
 
 export default function AccountResetPassword() {
     return (
-        <form
-            id="signup"
-            class="credentials-form"
-            data-static-form-name="signup"
-        >
+        <form id="reset" class="credentials-form" data-static-form-name="reset">
             <h2 id="form-title">Reset Password</h2>
             <br />
             <ul>

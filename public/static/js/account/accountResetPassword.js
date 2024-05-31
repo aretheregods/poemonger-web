@@ -1,8 +1,9 @@
 import { hashPassword, HTTP } from '../utils/index.js'
 
-var f = document.getElementById('reset-password')
+var f = document.getElementById('reset')
+var o = document.getElementById('old_password-input')
 var p = document.getElementById('password-input')
-var pc = document.getElementById('password-confirm-input')
+var pc = document.getElementById('confirm_password-input')
 var r = document.getElementById('reveal-password-container')
 var request = new HTTP()
 
@@ -10,8 +11,7 @@ f.addEventListener('submit', async e => {
     e.preventDefault()
     var formData = new FormData(f)
     var { salt, error } = await request.post({
-        path: '/reset/salt',
-        body: formData,
+        path: '/account/reset/salt',
     })
 
     request
@@ -20,11 +20,12 @@ f.addEventListener('submit', async e => {
             submitter: e.submitter,
             reducer: hashPassword({
                 salt,
-                p: 'new-password',
-                c: 'confirm-new-password',
+                p: 'password',
+                c: 'confirm_password',
+                o: 'old_password',
             }),
         })
-        .then(body => request.post({ path: '/reset/password', body }))
+        .then(body => request.post({ path: '/account/reset/password', body }))
         .then(() => {
             location.href = '/login'
         })
@@ -32,7 +33,7 @@ f.addEventListener('submit', async e => {
 })
 
 p.addEventListener('change', e => {
-    var c = document.getElementById('password-confirm-input')
+    var c = document.getElementById('confirm_password-input')
 
     if (c.value && e.target.value && c.value !== e.target.value) {
         c.setCustomValidity("Passwords don't match")
@@ -61,7 +62,7 @@ pc.addEventListener('input', e => {
 
 r.addEventListener('click', e => {
     var p = document.getElementById('password-input')
-    var pc = document.getElementById('password-confirm-input')
+    var pc = document.getElementById('confirm_password-input')
 
     if (e.target.checked) {
         p.setAttribute('type', 'text')

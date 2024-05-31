@@ -8,10 +8,11 @@ import {
     requestCountry,
 } from '../../'
 import { AccountResetPassword } from '../../components/account'
-import { countries, locales } from '../../utils'
+import { countries, Hashes, locales } from '../../utils'
 
 type Bindings = {
     POEMONGER_READER_SESSIONS: DurableObjectNamespace
+    USERS_KV: KVNamespace
 }
 
 type Variables = {
@@ -32,6 +33,7 @@ type Variables = {
     currentSession?: {
         cookie: string
         currentSession: {
+            email: string
             first_name: string
             last_name: string
             created_at: string
@@ -125,12 +127,100 @@ account.get('/reset', c => {
                     rel="stylesheet"
                     href="/static/styles/credentialsForm.css"
                 />,
+                <script
+                    type="module"
+                    src="/static/js/account/AccountResetPassword.js"
+                    defer
+                ></script>,
             ]}
             loggedIn={true}
         >
             <AccountResetPassword />
         </Base>
     )
+})
+
+account.post('/reset/salt', async c => {
+    var ct = c.req.header('Content-Type')
+    var f = /multipart\/form-data/g.test(ct || '')
+    var salt
+    var error
+    var status = 201
+
+    if (!f) {
+        error = 'Error'
+        c.status(406)
+        return c.json({ error, salt })
+    }
+
+    try {
+        const user = await c.env.USERS_KV.get<{
+            password: string
+            salt: string
+        }>(`user=${c.var.currentSession?.currentSession.email}`, {
+            type: 'json',
+        })
+
+        salt = user?.salt
+    } catch (e) {
+        error = `There was an error - ${e}`
+        status = 404
+    }
+
+    return c.json({ salt, error }, { status })
+})
+
+account.post('/reset/password', async c => {
+    var ct = c.req.header('Content-Type')
+    var f = /multipart\/form-data/g.test(ct || '')
+    var user = {}
+    var error = true
+    var messages = {
+        success: `Successfully processed your login request.`,
+        failure: `Could not process your request. You did something weird.`,
+        error: 'There was a problem saving your information. Please try again.',
+        exists: 'There is not an account with this email address or password.',
+    }
+
+    c.status(201)
+
+    var message = messages.success
+    if (!f) {
+        message = messages.failure
+        c.status(406)
+    }
+
+    var d = await c.req.formData()
+
+    var oldPassword = d.get('old_password')
+    var newPassword = d.get('password')
+    var confirmNewPassword = d.get('confirm_password')
+
+    var u = await c.env.USERS_KV.get<{
+        resetToken: number
+        email: string
+        created_at: number
+    }>(`user=${c.var.currentSession?.currentSession.email}`, { type: 'json' })
+    if (!u || newPassword !== confirmNewPassword) {
+        message = messages.exists
+        c.status(409)
+    } else {
+        try {
+            const n = u.created_at
+            const H = new Hashes()
+            const hash = await H.HashPasswordWithSalt(newPassword as string, n)
+            await c.env.USERS_KV.put(
+                `user=${u.email}`,
+                JSON.stringify({ ...u, hash, password: newPassword })
+            )
+            return c.json({ error: false, message: '' })
+        } catch (error) {
+            c.status(400)
+            return c.json({ error: true, message: error })
+        }
+    }
+
+    return c.json({ error, message, user })
 })
 
 export default account

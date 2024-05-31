@@ -1,10 +1,15 @@
-export default function hashPasswordWithSalt({ salt, p = 'password', c = 'confirm_password' }) {
+export default function hashPasswordWithSalt({
+    salt,
+    p = 'password',
+    c = 'confirm_password',
+    o = '_',
+}) {
     var s = salt
         ? stringToUint8(salt)
         : window.crypto.getRandomValues(new Uint8Array(64))
     return (formMap, [key, value]) => {
-        if (key === p || key === c) {
-            return hash(value, s, 6e5).then((h) => {
+        if (key === p || key === c || key === o) {
+            return hash(value, s, 6e5).then(h => {
                 formMap.set(key, `${bitsToHex(new Uint8Array(h))}`)
                 if (!salt && !formMap.get('salt')) formMap.set('salt', s)
 
@@ -20,7 +25,7 @@ export function stringToUint8(s = '', type = 'int') {
     var response
     if (type === 'int') {
         var a = s.split(',')
-        var b = a.map((v) => parseInt(v))
+        var b = a.map(v => parseInt(v))
         response = Uint8Array.from(b)
     } else {
         var t = new TextEncoder()
@@ -42,7 +47,7 @@ function getPasswordKey(pw) {
 
 function hash(pw, salt, iterations) {
     return getPasswordKey(pw)
-        .then((k) => {
+        .then(k => {
             return window.crypto.subtle.deriveBits(
                 {
                     name: 'PBKDF2',
@@ -54,7 +59,7 @@ function hash(pw, salt, iterations) {
                 512
             )
         })
-        .catch((e) => console.error(e))
+        .catch(e => console.error(e))
 }
 
 function bitsToHex(uint8Array) {
