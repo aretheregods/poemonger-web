@@ -99,7 +99,8 @@ main > section:not(:last-child) {
 }
 
 @media (width >= 320px) and (width <= 480px) {
-    #poemonger-works_available {
+    #poemonger-works_available,
+    #poemonger-works_purchased {
         display: grid;
 
         & .works-container {
