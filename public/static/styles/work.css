@@ -104,7 +104,7 @@ main > section:not(:last-child) {
         display: grid;
 
         & .works-container {
-            dispplay: grid;
+            display: grid;
         }
     }
 
