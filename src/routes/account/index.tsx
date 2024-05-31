@@ -83,9 +83,15 @@ account.get('/', c => {
                 <figure>
                     <legend>Purchase Receipts</legend>
                     <ul id="account-purchases_list">
-                        {Object.values(purchases).map(({ amount }) => {
-                            return <li>{amount}</li>
-                        })}
+                        <li>
+                            <a href="/account/purchases">Purchases</a>
+                        </li>
+                        <li>
+                            <a href="/account/reset">Purchases</a>
+                        </li>
+                        <li>
+                            <a href="/account/delete">Purchases</a>
+                        </li>
                     </ul>
                 </figure>
             </>
