@@ -81,7 +81,7 @@ account.get('/', c => {
                     )}
                 </p>
                 <figure>
-                    <legend>Purchase Receipts</legend>
+                    <legend>Account Links</legend>
                     <ul id="account-purchases_list">
                         <li>
                             <a href="/account/purchases">Purchases</a>
