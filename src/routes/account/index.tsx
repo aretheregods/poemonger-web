@@ -129,7 +129,7 @@ account.get('/reset', c => {
                 />,
                 <script
                     type="module"
-                    src="/static/js/account/AccountResetPassword.js"
+                    src="/static/js/account/accountResetPassword.js"
                     defer
                 ></script>,
             ]}
