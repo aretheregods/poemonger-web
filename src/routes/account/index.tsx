@@ -133,7 +133,27 @@ account.post('/delete', async c => {
         await c.env.USERS_SESSIONS.delete(
             'session=${c.var.currentSession?.currentSession.session_id}'
         )
-        return c.json({ error: false, deleted: true })
+        const hasCookie = getCookie(c, 'poemonger_session', 'secure')
+        if (hasCookie) {
+            setCookie(c, 'poemonger_session', hasCookie, {
+                path: '/',
+                prefix: 'secure',
+                secure: true,
+                httpOnly: true,
+                maxAge: 86400 * -1,
+                expires: new Date(Date.now() + 1000 * 60 * 60 * 24 * -1),
+                sameSite: 'Lax',
+            })
+            c.status(200)
+            return c.json({ error: false, deleted: true })
+        } else {
+            c.status(404)
+            return c.json({
+                error: true,
+                deleted: false,
+                message: 'You were not logged in',
+            })
+        }
     } catch {
         return c.json({ error: true, deleted: false })
     }
@@ -253,7 +273,6 @@ account.post('/reset/password', async c => {
                         message: 'You were not logged in',
                     })
                 }
-                return c.json({ error: false, message: '' })
             } catch (error) {
                 c.status(400)
                 return c.json({ error: true, message: error })
