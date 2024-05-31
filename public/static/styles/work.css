@@ -129,7 +129,13 @@ main > section:not(:last-child) {
         }
 
         & .read-purchase_buttons {
+            display: grid;
+            grid-auto-flow: row dense;
             gap: 0.25rem;
+
+            & .button {
+                width: 100%;
+            }
         }
 
         & .work-info {
