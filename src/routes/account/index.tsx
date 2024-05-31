@@ -200,23 +200,32 @@ account.post('/reset/password', async c => {
         resetToken: number
         email: string
         created_at: number
+        password: string
     }>(`user=${c.var.currentSession?.currentSession.email}`, { type: 'json' })
     if (!u || newPassword !== confirmNewPassword) {
         message = messages.exists
         c.status(409)
     } else {
-        try {
-            const n = u.created_at
-            const H = new Hashes()
-            const hash = await H.HashPasswordWithSalt(newPassword as string, n)
-            await c.env.USERS_KV.put(
-                `user=${u.email}`,
-                JSON.stringify({ ...u, hash, password: newPassword })
-            )
-            return c.json({ error: false, message: '' })
-        } catch (error) {
-            c.status(400)
-            return c.json({ error: true, message: error })
+        if (oldPassword === u.password) {
+            try {
+                const n = u.created_at
+                const H = new Hashes()
+                const hash = await H.HashPasswordWithSalt(
+                    newPassword as string,
+                    n
+                )
+                await c.env.USERS_KV.put(
+                    `user=${u.email}`,
+                    JSON.stringify({ ...u, hash, password: newPassword })
+                )
+                return c.json({ error: false, message: '' })
+            } catch (error) {
+                c.status(400)
+                return c.json({ error: true, message: error })
+            }
+        } else {
+            message = messages.error
+            c.status(409)
         }
     }
 
