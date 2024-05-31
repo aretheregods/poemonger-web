@@ -1,4 +1,5 @@
 import { Hono } from 'hono'
+import { getCookie, setCookie } from 'hono/cookie'
 import { Base } from '../../Base'
 
 import {
@@ -210,6 +211,28 @@ account.post('/reset/password', async c => {
                     `user=${u.email}`,
                     JSON.stringify({ ...u, hash, password: newPassword })
                 )
+                const hasCookie = getCookie(c, 'poemonger_session', 'secure')
+                if (hasCookie) {
+                    setCookie(c, 'poemonger_session', hasCookie, {
+                        path: '/',
+                        prefix: 'secure',
+                        secure: true,
+                        httpOnly: true,
+                        maxAge: 86400 * -1,
+                        expires: new Date(
+                            Date.now() + 1000 * 60 * 60 * 24 * -1
+                        ),
+                        sameSite: 'Lax',
+                    })
+                    c.status(200)
+                    return c.json({ error: false, message: '' })
+                } else {
+                    c.status(404)
+                    return c.json({
+                        error: true,
+                        message: 'You were not logged in',
+                    })
+                }
                 return c.json({ error: false, message: '' })
             } catch (error) {
                 c.status(400)
