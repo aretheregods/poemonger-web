@@ -141,17 +141,9 @@ account.get('/reset', c => {
 })
 
 account.post('/reset/salt', async c => {
-    var ct = c.req.header('Content-Type')
-    var f = /multipart\/form-data/g.test(ct || '')
     var salt
     var error
     var status = 201
-
-    if (!f) {
-        error = 'Error'
-        c.status(406)
-        return c.json({ error, salt })
-    }
 
     try {
         const user = await c.env.USERS_KV.get<{
