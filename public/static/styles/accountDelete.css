@@ -10,6 +10,12 @@ main > section {
     justify-self: center;
 }
 
+#delete-account_modal > section {
+    display: flex;
+    justify-content: end;
+    gap: 1rem;
+}
+
 ::backdrop {
     background-image: linear-gradient(
         45deg,
