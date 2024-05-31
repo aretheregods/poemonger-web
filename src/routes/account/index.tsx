@@ -172,7 +172,7 @@ account.post('/delete', async c => {
             `user=${c.var.currentSession?.currentSession.email}`
         )
         await c.env.USERS_SESSIONS.delete(
-            'session=${c.var.currentSession?.currentSession.session_id}'
+            `session=${c.var.currentSession?.currentSession.session_id}`
         )
         const hasCookie = getCookie(c, 'poemonger_session', 'secure')
         if (hasCookie) {
