@@ -34,7 +34,6 @@ export default function AccountResetPassword() {
                     <Input
                         {...{
                             name: 'confirm_password',
-                            id: 'password-confirm-input',
                             label: 'Confirm Password',
                             type: 'password',
                             placeholder: 'Confirm your password',
