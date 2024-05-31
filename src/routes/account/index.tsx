@@ -118,7 +118,34 @@ account.get('/purchases', c => {
 account.get('/delete', c => {
     return c.html(
         <Base title="Poemonger | Account - Delete" loggedIn={true}>
-            <h2>Delete Account</h2>
+            <>
+                <h2>Delete Account</h2>
+                <section>
+                    <h3>
+                        <em>
+                            If you delete your account, you will no longer have
+                            access to any poetry you have purchased.
+                        </em>
+                    </h3>
+                    <button
+                        id="delete-account_trigger"
+                        class="button delete-account"
+                    >
+                        Delete
+                    </button>
+                    <dialog id="delete-account_modal">
+                        <h4>Are you sure you want to delete your account</h4>
+                        <section>
+                            <button id="no-delete" class="button">
+                                No
+                            </button>
+                            <button id="yes-delete" class="button">
+                                Yes
+                            </button>
+                        </section>
+                    </dialog>
+                </section>
+            </>
         </Base>
     )
 })
