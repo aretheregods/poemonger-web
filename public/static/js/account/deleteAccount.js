@@ -1,4 +1,4 @@
-import { HTTP } from '../utils'
+import { HTTP } from '../utils/index.js'
 
 var dialog = document.getElementById('delete-account_modal')
 var showButton = document.getElementById('delete-account_trigger')
