@@ -117,7 +117,7 @@ poetry.get('/new', async c => {
                         </option>
                         {workList.results.map(({ id, title }) => (
                             <option
-                                id={`${title}`}
+                                id={`${id}`}
                                 value={`${title}=${id}`}
                                 title={`${title}`}
                             >
@@ -322,26 +322,53 @@ poetry.post('/new', async c => {
     var sample = body.get('sample')
     var section = body.get('section')
 
+    function makeSQLObj(obj: any) {
+        return `json(${Object.entries(JSON.parse(obj))
+            .map(entry => entry.join(', '))
+            .join(', ')})`
+    }
+
+    function makeSQLArray(arr: any) {
+        return `json_array(${JSON.parse(arr)
+            .map((entry: Array<string>) => `json_array(${entry.join(', ')})`)
+            .join(', ')})`
+    }
+
     try {
-        
-        await c.env.POEMS_KV.put(`work=${work}&poem=${chapter}`, JSON.stringify({
+        const workObj = makeSQLObj(work)
+        const sectionObj = makeSQLObj(section)
+        const linesArr = makeSQLArray(lines)
+        const sampleArr = makeSQLArray(sample)
+        const poetryQuery = c.env.POEMONGER_POEMS.prepare(
+            `
+            insert into poetry(title, category, subcategory, release_date, single, sample_section, sample_length, work, section, audio, image, video, lines, sample) values(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);`
+        ).bind(
             title,
-            work: { id: work, title: workTitle, chapter, chapters, chapterTitle },
-            author: { id: 1, name: 'Warren Christopher Taylor' },
             category,
             subcategory,
             releaseDate,
             single,
             sampleSection,
             sampleLength,
-            lines,
+            workObj,
+            sectionObj,
             audio,
             image,
             video,
-            sample,
-            section
-        }))
-        return c.json({ success: true, error }, { status })
+            linesArr,
+            sampleArr
+        )
+        const { success } = await poetryQuery.all()
+        if (success) return c.json({ success: true, error }, { status })
+        else {
+            return c.json(
+                {
+                    success: false,
+                    error: `Something went wrong while trying to save your new poem`,
+                },
+                { status: 404 }
+            )
+        }
     } catch (e) {
         return c.json(
             {
