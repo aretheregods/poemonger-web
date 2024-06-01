@@ -110,6 +110,13 @@ cart.get('/', async c => {
                           } in your cart`
                         : 'You have no items in your cart'}
                 </h2>
+                {convertedPrice ? (
+                    <aside>
+                        <p>* Final charge converted to USD</p>
+                    </aside>
+                ) : (
+                    ''
+                )}
                 <section id="cart-main_container">
                     <section id="cart-item_list">
                         {data.data.map(
@@ -131,18 +138,28 @@ cart.get('/', async c => {
                         <section id="price-checkout_container">
                             <fieldset>
                                 <legend>Total</legend>
-                                <h3>{ convertedPrice ? '~' : ''}{fp}</h3>
-                                {convertedPrice ? <h4>Charge in USD: {convertedPrice}</h4> : ''}
+                                <h3>
+                                    {convertedPrice ? '~' : ''}
+                                    {fp}
+                                </h3>
+                                {convertedPrice ? (
+                                    <h4>Charge in USD: {convertedPrice}</h4>
+                                ) : (
+                                    ''
+                                )}
                             </fieldset>
                             <button
                                 id="purchase-cart_button"
                                 data-href="/cart/purchase/init"
-                                data-price={convertedPrice ? price * c.var.conversionRate : price}
+                                data-price={
+                                    convertedPrice
+                                        ? price * c.var.conversionRate
+                                        : price
+                                }
                                 data-conversion-rate={c.var.conversionRate}
                                 data-country={c.var.country}
                                 data-works={data.data.map(({ id }) => id)}
                                 class="button purchase-cart"
-
                             >
                                 Checkout
                             </button>
