@@ -7,11 +7,19 @@ import { adminRedirect } from '../'
 
 type Bindings = {
     POEMONGER_POEMS: D1Database
+    POEMS_KV: KVNamespace
+    CATEGORIES_KV: KVNamespace
+    WORKS_KV: KVNamespace
 }
 
 type PoemPost = {
     title: string
-    work: { id: number; title: string }
+    work: {
+        id: number
+        title: string
+        chapter: number
+        chapters: number
+    }
     category: string
     subcategory: string
     release_date: string
@@ -117,6 +125,26 @@ poetry.get('/new', async c => {
                             </option>
                         ))}
                     </select>
+                </label>
+                <label for="chapter">
+                    <p>Chapter</p>
+                    <input
+                        id="chapter"
+                        class="standard-input"
+                        name="chapter"
+                        type="number"
+                        required
+                    />
+                </label>
+                <label for="chapters">
+                    <p>Total Work Chapters</p>
+                    <input
+                        id="chapters"
+                        class="standard-input"
+                        name="chapters"
+                        type="number"
+                        required
+                    />
                 </label>
                 <label for="category">
                     <p>Category</p>
@@ -253,35 +281,59 @@ poetry.post('/new', async c => {
         return c.json({ error })
     }
 
-    var body: PoemPost = await c.req.parseBody()
-    var {
-        title,
-        work,
-        category,
-        subcategory,
-        release_date,
-        single,
-        sample_section,
-        sample_length,
-        poem,
-    } = body
+    var body: FormData = await c.req.formData()
+    var title = body.get('title')
+    var work = body.get('work') || ''
+    var category = body.get('category')
+    var subcategory = body.get('subcategory')
+    var releaseDate = body.get('release_date')
+    var single = body.get('single')
+    var sampleSection = body.get('sample_section')
+    var sampleLength = body.get('sample_length')
+    var lines = body.get('lines')
+    var audio = body.get('audio')
+    var image = body.get('image')
+    var video = body.get('video')
+    var sample = body.get('sample')
+    var section = body.get('section')
+
+    function makeSQLObj(obj: any) {
+        return `json(${Object.entries(JSON.parse(obj))
+            .map(entry => entry.join(', '))
+            .join(', ')})`
+    }
+
+    function makeSQLArray(arr: any) {
+        return `json_array(${JSON.parse(arr)
+            .map((entry: Array<string>) => `json_array(${entry.join(', ')})`)
+            .join(', ')})`
+    }
 
     try {
-        const { success } = await c.env.POEMONGER_POEMS.prepare(
-            'insert into poetry(title, work, category, subcategory, release_date, single, sample_section, sample_length, lines) values(?, json_value(?), ?, ?, ?, ?, ?, ?, ?);'
+        const workObj = makeSQLObj(work)
+        const sectionObj = makeSQLObj(section)
+        const linesArr = makeSQLArray(lines)
+        const sampleArr = makeSQLArray(sample)
+        const poetryQuery = c.env.POEMONGER_POEMS.prepare(
+            `
+            insert into poetry(title, category, subcategory, release_date, single, sample_section, sample_length, work, section, audio, image, video, lines, sample) values(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);`
+        ).bind(
+            title,
+            category,
+            subcategory,
+            releaseDate,
+            single,
+            sampleSection,
+            sampleLength,
+            workObj,
+            sectionObj,
+            audio,
+            image,
+            video,
+            linesArr,
+            sampleArr
         )
-            .bind(
-                title,
-                work,
-                category,
-                subcategory,
-                release_date,
-                single,
-                sample_section,
-                sample_length,
-                poem
-            )
-            .all()
+        const { success } = await poetryQuery.all()
         if (success) return c.json({ success: true, error }, { status })
         else {
             return c.json(

@@ -7,6 +7,9 @@ import { adminRedirect } from '../'
 
 type Bindings = {
     POEMONGER_POEMS: D1Database
+    POEMS_KV: KVNamespace
+    CATEGORIES_KV: KVNamespace
+    WORKS_KV: KVNamespace
 }
 
 const categories = new Hono<{ Bindings: Bindings }>()
