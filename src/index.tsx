@@ -105,10 +105,10 @@ export async function loggedOutRedirect(
 ): Promise<Response | void> {
     if (!c.var.currentSession || c.var.currentSessionError) {
         return c.redirect(
-            `/login?${
+            `/login${
                 ['/login', '/signup'].includes(c.req.path)
                     ? ''
-                    : `redirect=${c.req.path}`
+                    : `?redirect=${c.req.path}`
             }`
         )
     } else await next()

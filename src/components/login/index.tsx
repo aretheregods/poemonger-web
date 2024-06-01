@@ -60,11 +60,15 @@ export default function Login({
                             }}
                         />
                     </li>
-                    <li>
-                        <a id="forgot-password" href="/reset">
-                            Forgot Password
-                        </a>
-                    </li>
+                    {userType === 'admin' ? (
+                        ''
+                    ) : (
+                        <li>
+                            <a id="forgot-password" href="/reset">
+                                Forgot Password
+                            </a>
+                        </li>
+                    )}
                     <li id="reveal-password-container">
                         <input type="checkbox" id="reveal-password" />
                         <label for="reveal-password">Show password</label>
