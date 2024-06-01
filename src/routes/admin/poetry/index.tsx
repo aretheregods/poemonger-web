@@ -231,6 +231,17 @@ poetry.get('/new', async c => {
                         placeholder="Whose woods these are I think I know"
                     ></textarea>
                 </label>
+                <label for="sample">
+                    <p>Sample</p>
+                    <textarea
+                        id="sample"
+                        name="sample"
+                        cols={60}
+                        rows={10}
+                        required
+                        placeholder="Whose woods these are I think I know"
+                    ></textarea>
+                </label>
                 <label for="image">
                     <p>Image File Name/ID</p>
                     <input
