@@ -132,7 +132,7 @@ cart.get('/', async c => {
                             <fieldset>
                                 <legend>Total</legend>
                                 <h3>{fp}</h3>
-                                {convertedPrice ? <h4>*~Charge in USD: {convertedPrice} *</h4> : ''}
+                                {convertedPrice ? <h4>~Charge in USD: {convertedPrice}</h4> : ''}
                             </fieldset>
                             <button
                                 id="purchase-cart_button"
