@@ -156,7 +156,7 @@ export async function requestCountry(
     c.set('country' as never, country as never)
     if (country !== 'US') {
         try {
-            const rates = await c.env.CURRENCY_CONVERTER.get(country, { type: 'text' })
+            const rates = await c.env.CURRENCY_CONVERTER.get(locales[country].currency, { type: 'text' })
             c.set('conversionRate' as never, parseFloat(rates || '0') as never || 1 as never)
         } catch {
             c.set('conversionRate' as never, 1 as never)
