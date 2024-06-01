@@ -146,6 +146,16 @@ poetry.get('/new', async c => {
                         required
                     />
                 </label>
+                <label for="chapter-title">
+                    <p>Chapter Title</p>
+                    <input
+                        id="chapter-title"
+                        class="standard-input"
+                        name="chapter_title"
+                        type="text"
+                        required
+                    />
+                </label>
                 <label for="category">
                     <p>Category</p>
                     <select name="category" id="category" required>
