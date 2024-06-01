@@ -8,6 +8,7 @@ export default function CartItem({
     cover,
     price,
     locale,
+    convertedPrice = '',
 }: {
     id: number
     title: string
@@ -15,6 +16,7 @@ export default function CartItem({
     cover: string
     price: number
     locale: countries
+    convertedPrice?: string
 }) {
     return (
         <section class="cart_item">

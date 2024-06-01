@@ -45,6 +45,7 @@ type Variables = {
     }
     currentSessionError?: { error: boolean; message: string }
     country: countries
+    conversionRate: number
 }
 
 const cart = new Hono<{ Bindings: Bindings; Variables: Variables }>()
@@ -72,6 +73,14 @@ cart.get('/', async c => {
         currency: i.currency,
         currencyDisplay: 'narrowSymbol',
     }).format(price)
+    var convertedPrice = ''
+    if (c.var.country !== 'US') {
+        convertedPrice = new Intl.NumberFormat(locales.US.locale, {
+            style: 'currency',
+            currency: locales.US.currency,
+            currencyDisplay: 'symbol',
+        }).format(price * c.var.conversionRate)
+    }
 
     return c.html(
         <Base
@@ -123,13 +132,15 @@ cart.get('/', async c => {
                             <fieldset>
                                 <legend>Total</legend>
                                 <h3>{fp}</h3>
+                                {convertedPrice ? <h4>*~Charge in USD: {convertedPrice} *</h4> : ''}
                             </fieldset>
                             <button
                                 id="purchase-cart_button"
                                 data-href="/cart/purchase/init"
-                                data-price={price}
+                                data-price={convertedPrice || price}
                                 data-works={data.data.map(({ id }) => id)}
                                 class="button purchase-cart"
+                                
                             >
                                 Checkout
                             </button>

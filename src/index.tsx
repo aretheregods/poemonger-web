@@ -31,6 +31,7 @@ export type Bindings = {
     POEMONGER_READER_SESSIONS: DurableObjectNamespace
     USERS_KV: KVNamespace
     USERS_SESSIONS: KVNamespace
+    CURRENCY_CONVERTER: KVNamespace
     STORAGE_MAIN: R2Bucket
     DKIM_PRIVATE_KEY: string
     HELCIM_API_KEY: string
@@ -56,6 +57,7 @@ export type Variables = {
     }
     currentSessionError?: { error: boolean; message: string }
     country: countries
+    conversionRate: number
 }
 
 const app = new Hono<{ Bindings: Bindings; Variables: Variables }>()
@@ -152,6 +154,14 @@ export async function requestCountry(
         ? (c.req.raw.cf?.country as countries)
         : 'US'
     c.set('country' as never, country as never)
+    if (country !== 'US') {
+        try {
+            const rates = await c.env.CURRENCY_CONVERTER.get(country, { type: 'text' })
+            c.set('conversionRate' as never, parseFloat(rates || '0') as never || 1 as never)
+        } catch {
+            c.set('conversionRate' as never, 1 as never)
+        }
+    } else c.set('conversionRate' as never, 1 as never)
     await next()
 }
 
