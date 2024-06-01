@@ -1,1 +1,7 @@
 @import '../form.css';
+
+select {
+    padding: 0.875rem;
+    border-radius: 5px;
+    background-color: white;
+}
