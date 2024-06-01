@@ -93,7 +93,13 @@ poetry.get('/new', async c => {
             <form id="add-poem" action="/poetry" method="post">
                 <label for="title">
                     <p>Title</p>
-                    <input id="title" name="title" type="text" required />
+                    <input
+                        id="title"
+                        class="standard-input"
+                        name="title"
+                        type="text"
+                        required
+                    />
                 </label>
                 <label for="work">
                     <p>Parent Work</p>
@@ -158,7 +164,13 @@ poetry.get('/new', async c => {
                 </label>
                 <label for="single">
                     <p>Single</p>
-                    <input id="single" name="single" type="number" required />
+                    <input
+                        id="single"
+                        class="standard-input"
+                        name="single"
+                        type="number"
+                        required
+                    />
                 </label>
                 <label for="sampleSection">
                     <p>Sample Section</p>
