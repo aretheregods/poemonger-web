@@ -139,6 +139,7 @@ cart.get('/', async c => {
                                 data-href="/cart/purchase/init"
                                 data-price={convertedPrice || price}
                                 data-conversion-rate={c.var.conversionRate}
+                                data-country={c.var.country}
                                 data-works={data.data.map(({ id }) => id)}
                                 class="button purchase-cart"
 
