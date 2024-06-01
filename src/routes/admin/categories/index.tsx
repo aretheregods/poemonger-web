@@ -3,13 +3,16 @@ import { Hono } from 'hono'
 import { Base } from '../../../Base'
 import Input from '../../../components/input'
 
+import { adminRedirect } from '../'
+
 type Bindings = {
     POEMONGER_POEMS: D1Database
 }
 
 const categories = new Hono<{ Bindings: Bindings }>()
+categories.use(adminRedirect)
 
-categories.get('/', async (c) => {
+categories.get('/', async c => {
     try {
         const categoriesList = await c.env.POEMONGER_POEMS.prepare(
             'select name, description, path from categories;'
@@ -40,7 +43,7 @@ categories.get('/', async (c) => {
     }
 })
 
-categories.get('/new', async (c) => {
+categories.get('/new', async c => {
     try {
         const { results, error, success } = await c.env.POEMONGER_POEMS.prepare(
             'select type as t from entities;'
@@ -137,7 +140,7 @@ categories.get('/new', async (c) => {
     }
 })
 
-categories.post('/new', async (c) => {
+categories.post('/new', async c => {
     var ct = c.req.header('Content-Type')
     var f = /multipart\/form-data/g.test(ct || '')
     var error
@@ -167,7 +170,10 @@ categories.post('/new', async (c) => {
             .bind(
                 name,
                 description,
-                name.toLowerCase().split(' ').join('_'),
+                name
+                    .toLowerCase()
+                    .split(' ')
+                    .join('_'),
                 entity
             )
             .all()
@@ -181,7 +187,7 @@ categories.post('/new', async (c) => {
                 { status: 404 }
             )
         }
-    } catch (e: any) {
+    } catch (e) {
         return c.json(
             {
                 success: false,
@@ -192,15 +198,16 @@ categories.post('/new', async (c) => {
     }
 })
 
-categories.get('/:category', async (c) => {
+categories.get('/:category', async c => {
     const categoryParam = c.req.param('category')
     try {
-        const category: { name: string } | null =
-            await c.env.POEMONGER_POEMS.prepare(
-                'select name, description from categories where path = ?'
-            )
-                .bind(categoryParam as string)
-                .first()
+        const category: {
+            name: string
+        } | null = await c.env.POEMONGER_POEMS.prepare(
+            'select name, description from categories where path = ?'
+        )
+            .bind(categoryParam as string)
+            .first()
 
         if (category !== null)
             return c.html(

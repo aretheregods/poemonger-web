@@ -246,15 +246,15 @@ admin.get('/logout', adminRedirect, c => {
 })
 
 admin.post('/logout', async c => {
-    if (c.var.currentSession && !c.var.currentSessionError) {
+    if (c.var.currentAdminSession && !c.var.currentAdminSessionError) {
         try {
             await c.env.ADMIN_SESSIONS.delete(
-                `session=${c.var.currentSession.cookie}`
+                `session=${c.var.currentAdminSession.cookie}`
             )
             setCookie(
                 c,
                 'poemonger_admin_session',
-                c.var.currentSession.cookie,
+                c.var.currentAdminSession.cookie,
                 {
                     path: '/',
                     prefix: 'secure',
