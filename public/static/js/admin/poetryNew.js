@@ -40,7 +40,7 @@ f.addEventListener('submit', e => {
                 return formMap
             },
         })
-        then(body => request.post({
+        .then(body => request.post({
             path: '/admin/poetry/new',
             body,
         }))
