@@ -69,7 +69,7 @@ export async function adminRedirect(
     } else await next()
 }
 
-admin.get('/', (c) => {
+admin.get('/', c => {
     if (c.var.currentSession && !c.var.currentSessionError) {
         return c.redirect('/admin/dashboard')
     }
@@ -93,15 +93,12 @@ admin.get('/', (c) => {
                 ></script>,
             ]}
         >
-            <>
-                <h2>Admin Login</h2>
-                <Login userType="admin" />
-            </>
+            <Login userType="admin" />
         </Base>
     )
 })
 
-admin.get('/dashboard', adminRedirect, (c) => {
+admin.get('/dashboard', adminRedirect, c => {
     return c.html(
         <Base
             title="Poemonger | Admin Dashboard"
@@ -117,7 +114,7 @@ admin.get('/dashboard', adminRedirect, (c) => {
     )
 })
 
-admin.post('/check-admin', async (c) => {
+admin.post('/check-admin', async c => {
     var ct = c.req.header('Content-Type')
     var f = /multipart\/form-data/g.test(ct || '')
     var salt
@@ -151,7 +148,7 @@ admin.post('/check-admin', async (c) => {
     return c.json({ salt, error }, { status })
 })
 
-admin.post('/', async (c) => {
+admin.post('/', async c => {
     var ct = c.req.header('Content-Type')
     var f = /multipart\/form-data/g.test(ct || '')
     var admin = {}
@@ -229,7 +226,7 @@ admin.post('/', async (c) => {
     return c.json({ error, message, admin })
 })
 
-admin.get('/logout', adminRedirect, (c) => {
+admin.get('/logout', adminRedirect, c => {
     return c.html(
         <Base
             title="Poemonger | Logout"
@@ -245,7 +242,7 @@ admin.get('/logout', adminRedirect, (c) => {
     )
 })
 
-admin.post('/logout', async (c) => {
+admin.post('/logout', async c => {
     if (c.var.currentSession && !c.var.currentSessionError) {
         try {
             await c.env.ADMIN_SESSIONS.delete(

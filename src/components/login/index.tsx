@@ -31,7 +31,7 @@ export default function Login({
 
     return (
         <>
-            <h2 id="form-title">Log in</h2>
+            <h2 id="form-title">{userType === 'admin' ? 'Admin' : ''}Log in</h2>
             <form
                 id="login"
                 class="credentials-form"
@@ -71,16 +71,22 @@ export default function Login({
                 <button type="submit" class="button">
                     Submit
                 </button>
-                <br />
-                <hr />
-                <section id="other-link-container">
-                    <p>
-                        Don't have an account?{' '}
-                        <span>
-                            <a href="/signup">Sign up</a>
-                        </span>
-                    </p>
-                </section>
+                {userType === 'admin' ? (
+                    ''
+                ) : (
+                    <>
+                        <br />
+                        <hr />
+                        <section id="other-link-container">
+                            <p>
+                                Don't have an account?{' '}
+                                <span>
+                                    <a href="/signup">Sign up</a>
+                                </span>
+                            </p>
+                        </section>
+                    </>
+                )}
             </form>
         </>
     )
