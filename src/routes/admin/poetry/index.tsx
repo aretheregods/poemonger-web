@@ -3,6 +3,8 @@ import { getCookie } from 'hono/cookie'
 
 import { Base } from '../../../Base'
 
+import { adminRedirect } from '../'
+
 type Bindings = {
     POEMONGER_POEMS: D1Database
 }
@@ -23,8 +25,9 @@ type PoemPost = {
 }
 
 const poetry = new Hono<{ Bindings: Bindings }>()
+poetry.use(adminRedirect)
 
-poetry.get('/', async (c) => {
+poetry.get('/', async c => {
     const poemList = await c.env.POEMONGER_POEMS.prepare(
         'select title, sample_section, sample_length, lines from poetry'
     ).all()
@@ -49,7 +52,7 @@ poetry.get('/', async (c) => {
                                         : section
                                     return (
                                         <>
-                                            {sl.map((line) => (
+                                            {sl.map(line => (
                                                 <p>{line}</p>
                                             ))}
                                             <br />
@@ -65,7 +68,7 @@ poetry.get('/', async (c) => {
     )
 })
 
-poetry.get('/new', async (c) => {
+poetry.get('/new', async c => {
     const categoryList = await c.env.POEMONGER_POEMS.prepare(
         'select name, description from categories where entity = "work";'
     ).all()
@@ -220,7 +223,7 @@ poetry.get('/new', async (c) => {
     )
 })
 
-poetry.post('/new', async (c) => {
+poetry.post('/new', async c => {
     var ct = c.req.header('Content-Type')
     var f = /multipart\/form-data/g.test(ct || '')
     var error
@@ -271,7 +274,7 @@ poetry.post('/new', async (c) => {
                 { status: 404 }
             )
         }
-    } catch (e: any) {
+    } catch (e) {
         return c.json(
             {
                 success: false,
