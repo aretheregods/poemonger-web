@@ -117,8 +117,8 @@ poetry.get('/new', async c => {
                         </option>
                         {workList.results.map(({ id, title }) => (
                             <option
-                                id={`${id}`}
-                                value={`${id}`}
+                                id={`${title}`}
+                                value={`${title}=${id}`}
                                 title={`${title}`}
                             >
                                 {title}
@@ -305,6 +305,10 @@ poetry.post('/new', async c => {
     var body: FormData = await c.req.formData()
     var title = body.get('title')
     var work = body.get('work') || ''
+    var workTitle = body.get('work_title') || ''
+    var chapter = body.get('chapter')
+    var chapters = body.get('chapters')
+    var chapterTitle = body.get('chapter_title')
     var category = body.get('category')
     var subcategory = body.get('subcategory')
     var releaseDate = body.get('release_date')
@@ -312,59 +316,32 @@ poetry.post('/new', async c => {
     var sampleSection = body.get('sample_section')
     var sampleLength = body.get('sample_length')
     var lines = body.get('lines')
-    var audio = body.get('audio')
-    var image = body.get('image')
-    var video = body.get('video')
+    var audio = body.get('audio') || ''
+    var image = body.get('image') || ''
+    var video = body.get('video') || ''
     var sample = body.get('sample')
     var section = body.get('section')
 
-    function makeSQLObj(obj: any) {
-        return `json(${Object.entries(JSON.parse(obj))
-            .map(entry => entry.join(', '))
-            .join(', ')})`
-    }
-
-    function makeSQLArray(arr: any) {
-        return `json_array(${JSON.parse(arr)
-            .map((entry: Array<string>) => `json_array(${entry.join(', ')})`)
-            .join(', ')})`
-    }
-
     try {
-        const workObj = makeSQLObj(work)
-        const sectionObj = makeSQLObj(section)
-        const linesArr = makeSQLArray(lines)
-        const sampleArr = makeSQLArray(sample)
-        const poetryQuery = c.env.POEMONGER_POEMS.prepare(
-            `
-            insert into poetry(title, category, subcategory, release_date, single, sample_section, sample_length, work, section, audio, image, video, lines, sample) values(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);`
-        ).bind(
+        
+        await c.env.POEMS_KV.put(`work=${work}&poem=${chapter}`, JSON.stringify({
             title,
+            work: { id: work, title: workTitle, chapter, chapters, chapterTitle },
+            author: { id: 1, name: 'Warren Christopher Taylor' },
             category,
             subcategory,
             releaseDate,
             single,
             sampleSection,
             sampleLength,
-            workObj,
-            sectionObj,
+            lines,
             audio,
             image,
             video,
-            linesArr,
-            sampleArr
-        )
-        const { success } = await poetryQuery.all()
-        if (success) return c.json({ success: true, error }, { status })
-        else {
-            return c.json(
-                {
-                    success: false,
-                    error: `Something went wrong while trying to save your new poem`,
-                },
-                { status: 404 }
-            )
-        }
+            sample,
+            section
+        }))
+        return c.json({ success: true, error }, { status })
     } catch (e) {
         return c.json(
             {
