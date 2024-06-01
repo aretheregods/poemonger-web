@@ -233,7 +233,7 @@ poetry.get('/new', async c => {
                         placeholder="The video file name"
                     />
                 </label>
-                <button id="submit" type="submit">
+                <button id="submit" type="submit" class="button">
                     Submit
                 </button>
             </form>
