@@ -31,7 +31,9 @@ export default function Login({
 
     return (
         <>
-            <h2 id="form-title">{userType === 'admin' ? 'Admin' : ''}Log in</h2>
+            <h2 id="form-title">
+                {userType === 'admin' ? 'Admin ' : ''}Log in
+            </h2>
             <form
                 id="login"
                 class="credentials-form"

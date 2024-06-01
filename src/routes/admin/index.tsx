@@ -19,8 +19,11 @@ type Bindings = {
 }
 
 type variables = {
-    currentSession?: { cookie: string; currentSession: { created_at: string } }
-    currentSessionError?: { error: boolean; message: string }
+    currentAdminSession?: {
+        cookie: string
+        currentSession: { created_at: string }
+    }
+    currentAdminSessionError?: { error: boolean; message: string }
 }
 
 const admin = new Hono<{ Bindings: Bindings; Variables: variables }>()
@@ -46,12 +49,12 @@ export async function adminCookieAuth(
                 { type: 'json' }
             )
             currentSession &&
-                c.set('currentSession' as never, {
+                c.set('currentAdminSession' as never, {
                     cookie: hasCookie,
                     currentSession,
                 })
         } catch {
-            c.set('currentSessionError' as never, {
+            c.set('currentAdminSessionError' as never, {
                 error: true,
                 message: 'Error getting session data',
             })
@@ -64,13 +67,13 @@ export async function adminRedirect(
     c: Context<{ Bindings: Bindings; Variables: variables }>,
     next: Next
 ): Promise<Response | void> {
-    if (!c.var.currentSession || c.var.currentSessionError) {
+    if (!c.var.currentAdminSession || c.var.currentAdminSessionError) {
         return c.redirect('/admin')
     } else await next()
 }
 
 admin.get('/', c => {
-    if (c.var.currentSession && !c.var.currentSessionError) {
+    if (c.var.currentAdminSession && !c.var.currentAdminSessionError) {
         return c.redirect('/admin/dashboard')
     }
     return c.html(
