@@ -150,6 +150,7 @@ poetry.get('/new', async c => {
                     <p>Release Date</p>
                     <input
                         id="releaseDate"
+                        class="standard-input"
                         name="release_date"
                         type="date"
                         required
@@ -163,6 +164,7 @@ poetry.get('/new', async c => {
                     <p>Sample Section</p>
                     <input
                         id="sampleSection"
+                        class="standard-input"
                         name="sample_section"
                         type="number"
                         required
@@ -172,6 +174,7 @@ poetry.get('/new', async c => {
                     <p>Sample Length</p>
                     <input
                         id="sampleLength"
+                        class="standard-input"
                         name="sample_length"
                         type="number"
                         required
@@ -189,27 +192,30 @@ poetry.get('/new', async c => {
                     ></textarea>
                 </label>
                 <label for="image">
-                    <p>Title</p>
+                    <p>Image File Name/ID</p>
                     <input
                         id="image"
+                        class="standard-input"
                         name="image"
                         type="text"
                         placeholder="The image file name"
                     />
                 </label>
                 <label for="audio">
-                    <p>Title</p>
+                    <p>Audio File Name/ID</p>
                     <input
                         id="audio"
+                        class="standard-input"
                         name="audio"
                         type="text"
                         placeholder="The audio file name"
                     />
                 </label>
                 <label for="video">
-                    <p>Title</p>
+                    <p>Video File Name/ID</p>
                     <input
                         id="video"
+                        class="standard-input"
                         name="video"
                         type="text"
                         placeholder="The video file name"
