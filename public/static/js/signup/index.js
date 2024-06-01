@@ -21,7 +21,11 @@ f.addEventListener('submit', e => {
                 body,
             })
         )
-        .then(response => console.log({ response }))
+        .then(response => {
+            if (response.success) {
+                location.href = '/check_email'
+            }
+        })
         .catch(e => console.log({ e }))
 })
 

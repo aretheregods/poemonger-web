@@ -13,6 +13,7 @@ import About from './components/landing/about'
 import Footer from './components/landing/footer'
 import Email, { Activate, Reset as ResetEmail } from './components/emails'
 import ActivatePage from './components/signup/ActivatePage'
+import CheckEmail from './components/signup/CheckEmail'
 import SignUp from './components/signup'
 import { Hashes, numberGenerator } from './utils'
 import Landing from './components/landing'
@@ -310,8 +311,20 @@ app.post('/signup', async c => {
     return c.json({ message })
 })
 
+app.get('/check_email', c => {
+    if (!c.var.currentSession || c.var.currentSessionError) {
+        return c.redirect('/signup')
+    }
+
+    return c.html(
+        <Base title="Poemonger | Check Email">
+            <CheckEmail />
+        </Base>
+    )
+})
+
 app.get('/activate', async c => {
-    if (c.var.currentSession || c.var.currentSessionError) {
+    if (c.var.currentSession && !c.var.currentSessionError) {
         return c.redirect('/read')
     }
 
@@ -350,7 +363,7 @@ app.get('/activate', async c => {
 })
 
 app.get('/login', async c => {
-    if (c.var.currentSession || c.var.currentSessionError) {
+    if (c.var.currentSession && !c.var.currentSessionError) {
         return c.redirect('/read')
     }
 
