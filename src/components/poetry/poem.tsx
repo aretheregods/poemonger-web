@@ -38,7 +38,7 @@ export default function Poem({
                         <>
                             <section class="poem-container">
                                 {sl.map(line => {
-                                    return line === '' ? <br /> : <p>{line}</p>
+                                    return line === '' ? <hr /> : <p>{line}</p>
                                 })}
                             </section>
                             <br />
