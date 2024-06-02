@@ -6,3 +6,9 @@ textarea {
     border-radius: 5px;
     background-color: white;
 }
+
+select {
+    border-width: 0px;
+    border-right: 1rem solid transparent;
+    outline: rgb(118, 118, 118) 1px solid;
+}
