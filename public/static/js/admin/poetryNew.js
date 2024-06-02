@@ -13,21 +13,8 @@ f.addEventListener('submit', e => {
             submitter: e.submitter,
             reducer(formMap, [key, value]) {
                 if (key === 'lines' || key === 'sample') {
-                    var sections = value.split(/\r|\n/)
-                    var lines = sections.reduce(
-                        (stanzas, line, index, original) => {
-                            if (index === original.length - 1) {
-                                return stanzas
-                            }
-                            if (line === '' && index !== original.length - 1) {
-                                stanzas.push([])
-                                return stanzas
-                            }
-                            stanzas[stanzas.length - 1].push(line)
-                            return stanzas
-                        },
-                        [[]]
-                    )
+                    var stanzas = value.split(/\r\r|\n\n/)
+                    var lines = stanzas.map(stanza => stanza.split(/\r|\n/))
                     formMap.set(key, lines)
                 }
 
