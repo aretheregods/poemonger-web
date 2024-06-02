@@ -320,7 +320,6 @@ poetry.post('/new', async c => {
     var image = body.get('image') || ''
     var video = body.get('video') || ''
     var sample = body.get('sample')
-    var section = body.get('section')
 
     function makeSQLObj(obj: any) {
         return `json(${Object.entries(JSON.parse(obj))
@@ -335,10 +334,16 @@ poetry.post('/new', async c => {
     }
 
     try {
-        const workObj = makeSQLObj(work)
-        const sectionObj = makeSQLObj(section)
-        const linesArr = makeSQLArray(lines)
-        const sampleArr = makeSQLArray(sample)
+        const workObj = JSON.stringify({
+            id: work,
+            title: workTitle,
+            chapter,
+            chapters,
+        })
+        const sectionObj = JSON.stringify({
+            chapter,
+            name: chapterTitle
+        })
         const poetryQuery = c.env.POEMONGER_POEMS.prepare(
             `
             insert into poetry(title, category, subcategory, release_date, single, sample_section, sample_length, work, section, audio, image, video, lines, sample) values(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);`
@@ -355,8 +360,8 @@ poetry.post('/new', async c => {
             audio,
             image,
             video,
-            linesArr,
-            sampleArr
+            lines,
+            sample
         )
         const { success } = await poetryQuery.all()
         if (success) return c.json({ success: true, error }, { status })
