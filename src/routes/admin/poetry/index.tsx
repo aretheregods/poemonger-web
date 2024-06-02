@@ -41,16 +41,28 @@ poetry.get('/', async c => {
     ).all()
 
     return c.html(
-        <Base title="Poemonger | Admin - Poetry">
+        <Base
+            title="Poemonger | Admin - Poetry"
+            assets={[
+                <link rel="stylesheet" href="/static/styles/admin/index.css" />,
+            ]}
+        >
             <>
-                <section>
+                <section id="list-page_header">
                     <h2>Admin Poetry</h2>
                     <a href="/admin/poetry/new" class="button">
                         Add New Poem
                     </a>
                 </section>
                 {poemList.results.map(
-                    ({ title, chapter, chapter_title, sample_section, sample_length, lines }) => {
+                    ({
+                        title,
+                        chapter,
+                        chapter_title,
+                        sample_section,
+                        sample_length,
+                        lines,
+                    }) => {
                         var l = JSON.parse(lines as string)
                         var ss = sample_section ? l.slice(0, sample_section) : l
                         return [

@@ -1,0 +1,13 @@
+#list-page_header {
+    position: sticky;
+    top: 5rem;
+    background-color: white;
+    border-bottom: lightgrey 1px solid;
+    display: grid;
+    grid-auto-flow: column;
+    padding: 1rem;
+
+    & > a {
+        height: fit-content;
+    }
+}
