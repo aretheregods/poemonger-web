@@ -233,7 +233,7 @@ poetry.get('/new', async c => {
                 <label for="poem">
                     <p>Poem</p>
                     <textarea
-                        id="poem"
+                        id="lines"
                         name="lines"
                         cols={60}
                         rows={28}

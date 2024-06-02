@@ -2,7 +2,6 @@ import HTTP from '../utils/http/index.js'
 
 var request = new HTTP()
 var f = document.getElementById('add-poem')
-var w = document.getElementById('work')
 
 f.addEventListener('submit', e => {
     e.preventDefault()
@@ -13,7 +12,8 @@ f.addEventListener('submit', e => {
             submitter: e.submitter,
             reducer(formMap, [key, value]) {
                 if (key === 'lines' || key === 'sample') {
-                    var stanzas = value.split(/\r\r|\n\n/)
+                    var field = document.getElementById(key)
+                    var stanzas = field.value.split(/\r\r|\n\n/)
                     var lines = stanzas.map(stanza => stanza.split(/\r|\n/))
                     formMap.set(key, lines)
                 }
