@@ -37,7 +37,7 @@ poetry.use(adminRedirect)
 
 poetry.get('/', async c => {
     const poemList = await c.env.POEMONGER_POEMS.prepare(
-        'select title, sample_section, sample_length, lines from poetry'
+        'select title, json_extract(work, "$.chapter") as chapter, sample_section, sample_length, lines from poetry'
     ).all()
 
     return c.html(
