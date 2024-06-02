@@ -45,7 +45,9 @@ poetry.get('/', async c => {
             <>
                 <section>
                     <h2>Admin Poetry</h2>
-                    <a href="/admin/poetry/new" class="button">Add New Poem</a>
+                    <a href="/admin/poetry/new" class="button">
+                        Add New Poem
+                    </a>
                 </section>
                 {poemList.results.map(
                     ({ title, sample_section, sample_length, lines }) => {
@@ -324,19 +326,11 @@ poetry.post('/new', async c => {
     var video = body.get('video')
     var sample = body.get('sample')
 
-    function makeSQLObj(obj: any) {
-        return `json(${Object.entries(JSON.parse(obj))
-            .map(entry => entry.join(', '))
-            .join(', ')})`
-    }
-
-    function makeSQLArray(arr: any) {
-        return `json_array(${JSON.parse(arr)
-            .map((entry: Array<string>) => `json_array(${entry.join(', ')})`)
-            .join(', ')})`
-    }
-
     try {
+        const authorObj = JSON.stringify({
+            id: 1,
+            name: 'Warren Christopher Taylor',
+        })
         const workObj = JSON.stringify({
             id: parseInt(work),
             title: workTitle,
@@ -345,13 +339,14 @@ poetry.post('/new', async c => {
         })
         const sectionObj = JSON.stringify({
             chapter: parseInt(chapter),
-            name: chapterTitle
+            name: chapterTitle,
         })
         const poetryQuery = c.env.POEMONGER_POEMS.prepare(
             `
-            insert into poetry(title, category, subcategory, release_date, single, sample_section, sample_length, work, section, audio, image, video, lines, sample) values(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);`
+            insert into poetry(title, author, category, subcategory, release_date, single, sample_section, sample_length, work, section, audio, image, video, lines, sample) values(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);`
         ).bind(
             title,
+            authorObj,
             category,
             subcategory,
             releaseDate,
@@ -382,7 +377,7 @@ poetry.post('/new', async c => {
             {
                 success: false,
                 error: 'Something was wrong with your request. Try again.',
-                message: e
+                message: e,
             },
             { status: 404 }
         )
