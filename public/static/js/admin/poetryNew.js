@@ -16,7 +16,7 @@ f.addEventListener('submit', e => {
                     var stanzas = field.value.split(/\r\r|\n\n/)
                     var lines = stanzas.map(stanza => stanza.split(/\r|\n/))
                     console.log({ lines })
-                    formMap.set(key, lines)
+                    formMap.set(key, JSON.stringify(lines))
                 }
 
                 if (key === 'work') {
