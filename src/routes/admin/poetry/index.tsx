@@ -37,7 +37,7 @@ poetry.use(adminRedirect)
 
 poetry.get('/', async c => {
     const poemList = await c.env.POEMONGER_POEMS.prepare(
-        'select title, json_extract(work, "$.chapter") as chapter, sample_section, sample_length, lines from poetry'
+        'select title, json_extract(work, "$.chapter") as chapter, json_extract(section, "$.name") as chapter_title, sample_section, sample_length, lines from poetry'
     ).all()
 
     return c.html(
@@ -50,12 +50,18 @@ poetry.get('/', async c => {
                     </a>
                 </section>
                 {poemList.results.map(
-                    ({ title, sample_section, sample_length, lines }) => {
+                    ({ title, chapter, chapter_title, sample_section, sample_length, lines }) => {
                         var l = JSON.parse(lines as string)
                         var ss = sample_section ? l.slice(0, sample_section) : l
-                        return (
+                        return [
                             <>
                                 <h4>{title}</h4>
+                                <h5>
+                                    Chapter - {chapter}:{' '}
+                                    <span>
+                                        <em>{chapter_title}</em>
+                                    </span>
+                                </h5>
                                 {ss.map((section: Array<string>) => {
                                     var sl = sample_length
                                         ? section.slice(
@@ -72,8 +78,8 @@ poetry.get('/', async c => {
                                         </>
                                     )
                                 })}
-                            </>
-                        )
+                            </>,
+                        ]
                     }
                 )}
             </>
