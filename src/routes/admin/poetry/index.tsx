@@ -361,7 +361,7 @@ poetry.post('/new', async c => {
             image,
             video,
             makeSQLArray(lines),
-            sample
+            makeSQLArray(sample)
         )
         const { success } = await poetryQuery.all()
         if (success) return c.json({ success: true, error }, { status })
