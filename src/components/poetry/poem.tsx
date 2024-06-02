@@ -1,3 +1,5 @@
+import { JSX } from "hono/jsx/jsx-runtime"
+
 export default function Poem({
     id,
     title,
@@ -36,7 +38,7 @@ export default function Poem({
                         <>
                             <section class="poem-container">
                                 {sl.map(line => {
-                                    return <p>{line}</p>
+                                    return line === '' ? <br /> : <p>{line}</p>
                                 })}
                             </section>
                             <br />
