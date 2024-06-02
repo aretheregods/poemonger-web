@@ -196,7 +196,7 @@ poetry.get('/new', async c => {
                         id="releaseDate"
                         class="standard-input"
                         name="release_date"
-                        type="date"
+                        type="datetime-local"
                         required
                     />
                 </label>
