@@ -43,7 +43,10 @@ poetry.get('/', async c => {
     return c.html(
         <Base title="Poemonger | Admin - Poetry">
             <>
-                <h2>Admin Poetry</h2>
+                <section>
+                    <h2>Admin Poetry</h2>
+                    <a href="/admin/poetry/new" class="button">Add New Poem</a>
+                </section>
                 {poemList.results.map(
                     ({ title, sample_section, sample_length, lines }) => {
                         var l = JSON.parse(lines as string)
