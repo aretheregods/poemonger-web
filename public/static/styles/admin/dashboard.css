@@ -4,5 +4,7 @@
 }
 
 .admin-dashboard-list {
+    display: grid;
+    gap: 2rem;
     list-style-type: none;
 }
