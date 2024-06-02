@@ -306,19 +306,19 @@ poetry.post('/new', async c => {
     var title = body.get('title')
     var work = body.get('work') || ''
     var workTitle = body.get('work_title') || ''
-    var chapter = body.get('chapter')
-    var chapters = body.get('chapters')
+    var chapter = body.get('chapter') || ''
+    var chapters = body.get('chapters') || ''
     var chapterTitle = body.get('chapter_title')
     var category = body.get('category')
     var subcategory = body.get('subcategory')
     var releaseDate = body.get('release_date')
-    var single = body.get('single')
-    var sampleSection = body.get('sample_section')
-    var sampleLength = body.get('sample_length')
+    var single = body.get('single') || ''
+    var sampleSection = body.get('sample_section') || ''
+    var sampleLength = body.get('sample_length') || ''
     var lines = body.get('lines')
-    var audio = body.get('audio') || ''
-    var image = body.get('image') || ''
-    var video = body.get('video') || ''
+    var audio = body.get('audio')
+    var image = body.get('image')
+    var video = body.get('video')
     var sample = body.get('sample')
 
     function makeSQLObj(obj: any) {
@@ -335,13 +335,13 @@ poetry.post('/new', async c => {
 
     try {
         const workObj = JSON.stringify({
-            id: work,
+            id: parseInt(work),
             title: workTitle,
-            chapter,
-            chapters,
+            chapter: parseInt(chapter),
+            chapters: parseInt(chapters),
         })
         const sectionObj = JSON.stringify({
-            chapter,
+            chapter: parseInt(chapter),
             name: chapterTitle
         })
         const poetryQuery = c.env.POEMONGER_POEMS.prepare(
@@ -352,15 +352,15 @@ poetry.post('/new', async c => {
             category,
             subcategory,
             releaseDate,
-            single,
-            sampleSection,
+            parseInt(single),
+            parseInt(sampleSection),
             sampleLength,
             workObj,
             sectionObj,
             audio,
             image,
             video,
-            lines,
+            makeSQLArray(lines),
             sample
         )
         const { success } = await poetryQuery.all()
