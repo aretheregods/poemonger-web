@@ -374,6 +374,7 @@ poetry.post('/new', async c => {
             {
                 success: false,
                 error: 'Something was wrong with your request. Try again.',
+                message: e
             },
             { status: 404 }
         )
