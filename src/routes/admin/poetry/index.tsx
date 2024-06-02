@@ -44,7 +44,6 @@ poetry.get('/', async c => {
         <Base
             title="Poemonger | Admin - Poetry"
             assets={[
-                <link rel="stylesheet" href="/static/styles/form.css" />,
                 <link rel="stylesheet" href="/static/styles/admin/index.css" />,
             ]}
         >
@@ -111,6 +110,7 @@ poetry.get('/new', async c => {
         <Base
             title="Poemonger | Admin - Poetry"
             assets={[
+                <link rel="stylesheet" href="/static/styles/form.css" />,
                 <link
                     rel="stylesheet"
                     href="/static/styles/admin/poetryForm.css"
