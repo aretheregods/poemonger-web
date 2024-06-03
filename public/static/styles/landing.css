@@ -27,7 +27,6 @@ main > section:not(:last-child) {
 
     & > p.read-more-link {
         display: none;
-        padding-block: 1rem;
     }
 
     & .poetry-video_iframe {
@@ -142,6 +141,7 @@ footer {
 
         & > p.read-more-link {
             display: block;
+            padding-block: 1rem;
         }
 
         & hr.video-poem-split {
