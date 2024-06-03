@@ -139,7 +139,7 @@ footer {
             }
         }
 
-        & > p.read-more-link {
+        & p.read-more-link {
             display: block;
             padding-block: 1rem;
         }
