@@ -46,15 +46,6 @@ export default async function Landing({
                         return (
                             <>
                                 <section class="poem-section-container">
-                                    <img
-                                        src={getImg(
-                                            '95ef2f1d-c7eb-4b33-b0ea-4a23606d1500',
-                                            'public'
-                                        )}
-                                        alt="Woman smiling while reading"
-                                        loading="lazy"
-                                        fetchPriority="low"
-                                    />
                                     <Poem
                                         {...{
                                             title,
