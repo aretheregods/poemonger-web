@@ -7,9 +7,6 @@ export default function PoemVideo({
 }) {
     return (
         <section class="poem-video-section">
-            <h3>
-                {title} <em>(Official Poetry Video)</em>
-            </h3>
             <div
                 class="poem-video-container"
                 style="position: relative; padding-top: 177.77777777777777%;"
@@ -23,6 +20,9 @@ export default function PoemVideo({
                     allowfullscreen={true}
                 ></iframe>
             </div>
+            <h3>
+                {title} <em>(Official Poetry Video)</em>
+            </h3>
         </section>
     )
 }
