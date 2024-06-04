@@ -252,6 +252,10 @@ button.button {
             pointer-events: none;
         }
     }
+
+    & .video-poem_trigger {
+        display: none !important;
+    }
 }
 
 a.button:hover,
