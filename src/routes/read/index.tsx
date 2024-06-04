@@ -91,6 +91,8 @@ read.get('/', async (c) => {
             assets={[
                 <link rel="stylesheet" href="/static/styles/work.css" />,
                 <link rel="prefetch" href="/read/1" />,
+                <link rel="prefetch" href="/read/3" />,
+                <link rel="prefetch" href="/read/4" />,
                 <link rel="prefetch" href="/cart" />,
                 <script
                     type="module"
