@@ -56,7 +56,8 @@ read.get('/', async (c) => {
 
     try {
         const query = `
-        select id, title, subtitle, json_extract(prices, "$.${c.var.country}") as price, cover, audio, description from works
+        select id, title, subtitle, json_extract(prices, "$.${c.var.country}") as price, cover, audio, description
+        from works
         where id != 2
         and publicationdate < STRFTIME('%Y-%m-%dT%H:%M:%f', 'NOW');
         `
