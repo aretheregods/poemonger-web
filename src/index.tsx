@@ -318,10 +318,6 @@ app.post('/signup', async (c) => {
 })
 
 app.get('/check_email', (c) => {
-    if (!c.var.currentSession || c.var.currentSessionError) {
-        return c.redirect('/signup')
-    }
-
     return c.html(
         <Base title="Poemonger | Check Email">
             <CheckEmail />
