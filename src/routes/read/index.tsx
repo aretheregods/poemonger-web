@@ -95,8 +95,6 @@ read.get('/', async (c) => {
             title="Poemonger | Read"
             assets={[
                 <link rel="stylesheet" href="/static/styles/work.css" />,
-                <link rel="prefetch" href="/read/1" />,
-                <link rel="prefetch" href="/read/3" />,
                 <link rel="prefetch" href="/cart" />,
                 <script
                     type="module"
@@ -128,13 +126,14 @@ read.get('/', async (c) => {
                                     subtitle,
                                     cover,
                                     audio,
+                                    price,
                                     description,
                                 }) => {
                                     return (
                                         <Work
                                             workId={id}
                                             imgId={cover}
-                                            price={0}
+                                            price={price}
                                             locale={c.var.country}
                                             audioId={audio}
                                             title={title}
