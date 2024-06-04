@@ -322,11 +322,11 @@ cart.post('/purchase/complete', async (c) => {
                                     },
                                 ],
                                 from: {
-                                    name: 'Poemonger | Password Reset',
+                                    name: 'Poemonger | Purchase',
                                     email: 'welcome@poemonger.com',
                                 },
                                 subject:
-                                    'Poetry is waiting. Finish resetting your password.',
+                                    'Poetry is waiting. Experience new poetry.',
                                 content: [
                                     {
                                         type: 'text/html',
