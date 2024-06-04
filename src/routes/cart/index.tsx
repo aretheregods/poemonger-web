@@ -267,46 +267,38 @@ cart.post('/purchase/complete', async (c) => {
                             type: 'json',
                         }
                     )
-                    await Promise.all([
-                        c.env.USERS_KV.put(
-                            `user=${email}`,
-                            JSON.stringify({
-                                ...user,
-                                purchases: {
-                                    ...user?.purchases,
-                                    ...works.works.reduce(
-                                        (worksObject, work) => {
-                                            return {
-                                                ...worksObject,
-                                                [`purchases.${work}`]:
-                                                    works.invoice.data,
-                                            }
-                                        },
-                                        {}
-                                    ),
-                                },
-                            })
-                        ),
-                        c.env.USERS_SESSIONS.put(
-                            `session=${session_id}`,
-                            JSON.stringify({
-                                ...session,
-                                purchases: {
-                                    ...user?.purchases,
-                                    ...works.works.reduce(
-                                        (worksObject, work) => {
-                                            return {
-                                                ...worksObject,
-                                                [`purchases.${work}`]:
-                                                    works.invoice.data,
-                                            }
-                                        },
-                                        {}
-                                    ),
-                                },
-                            })
-                        ),
-                    ])
+                    await c.env.USERS_KV.put(
+                        `user=${email}`,
+                        JSON.stringify({
+                            ...user,
+                            purchases: {
+                                ...user?.purchases,
+                                ...works.works.reduce((worksObject, work) => {
+                                    return {
+                                        ...worksObject,
+                                        [`purchases.${work}`]:
+                                            works.invoice.data,
+                                    }
+                                }, {}),
+                            },
+                        })
+                    )
+                    await c.env.USERS_SESSIONS.put(
+                        `session=${session_id}`,
+                        JSON.stringify({
+                            ...session,
+                            purchases: {
+                                ...user?.purchases,
+                                ...works.works.reduce((worksObject, work) => {
+                                    return {
+                                        ...worksObject,
+                                        [`purchases.${work}`]:
+                                            works.invoice.data,
+                                    }
+                                }, {}),
+                            },
+                        })
+                    )
                     const req = new Request(
                         'https://api.mailchannels.net/tx/v1/send',
                         {
