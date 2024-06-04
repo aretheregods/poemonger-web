@@ -39,7 +39,8 @@ export default function Price({
                 <T {...{ title, subtitle }} />
             )}
             {purchased ? (
-                <h4 class="work-like">&#x2661;</h4>
+                // <h4 class="work-like">&#x2661;</h4>
+                ''
             ) : (
                 <p class="work-price">{fp}</p>
             )}
