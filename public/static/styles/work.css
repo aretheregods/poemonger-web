@@ -11,10 +11,11 @@ main > section:not(:last-child) {
         display: flex;
         gap: 2rem;
     }
+}
 
-    & button.work-description {
-        padding: 1.175rem !important;
-    }
+button.work-description {
+    height: fit-content;
+    padding: 1.2rem !important;
 }
 
 .work-container {
@@ -64,6 +65,7 @@ main > section:not(:last-child) {
     & .read-purchase_buttons {
         display: flex;
         flex-wrap: wrap;
+        height: fit-content;
         gap: 1rem;
 
         & > * {
