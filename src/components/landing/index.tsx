@@ -184,7 +184,7 @@ export default async function Landing({
                                         <span>
                                             <em>
                                                 {' '}
-                                                - With Audio and Video Poems
+                                                - With Audio Poems
                                                 Included
                                             </em>
                                         </span>
