@@ -21,6 +21,8 @@ export default function Reset({
         <tbody>
             <tr>
                 <td>Reset Code: <code>${resetToken}</code></td>
+            </tr>
+            <tr>
                 <td>
                     <a
                         href="${`https://${host}/reset/password?user=${email}`}"
