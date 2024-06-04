@@ -121,8 +121,7 @@ read.get('/', async (c) => {
                     <section id="poemonger-works_purchased">
                         <h2>Purchased</h2>
                         <section class="works-container">
-                            {JSON.stringify(renderData.purchased)}
-                            {/* {renderData.purchased.map(
+                            {renderData.purchased.map(
                                 ({
                                     id,
                                     title,
@@ -148,7 +147,7 @@ read.get('/', async (c) => {
                                         />
                                     )
                                 }
-                            )} */}
+                            )}
                         </section>
                     </section>
                 ) : (
