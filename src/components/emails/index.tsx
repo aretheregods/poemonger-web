@@ -20,3 +20,4 @@ export default function Email({ children }: { children?: string }) {
 
 export { default as Activate } from './Activate'
 export { default as Reset } from './Reset'
+export { default as Sale } from './Sale'

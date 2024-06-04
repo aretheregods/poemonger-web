@@ -2,6 +2,7 @@ import { Hono } from 'hono'
 
 import { Base } from '../../Base'
 import { CartItem } from '../../components/cart'
+import Email, { Sale } from '../../components/emails'
 import {
     cartSessions,
     loggedOutRedirect,
@@ -14,6 +15,7 @@ type Bindings = {
     POEMONGER_READER_CARTS: DurableObjectNamespace
     USERS_KV: KVNamespace
     USERS_SESSIONS: KVNamespace
+    DKIM_PRIVATE_KEY: string
     HELCIM_API_KEY: string
 }
 
@@ -40,6 +42,8 @@ type Variables = {
             created_at: string
             cart_id: string
             email: string
+            first_name: string
+            last_name: string
             session_id: string
         }
     }
@@ -303,7 +307,71 @@ cart.post('/purchase/complete', async c => {
                             })
                         ),
                     ])
-                    return c.json({ purchased: true, error: '' })
+                    const req = new Request(
+                        'https://api.mailchannels.net/tx/v1/send',
+                        {
+                            method: 'POST',
+                            headers: {
+                                'content-type': 'application/json',
+                            },
+                            body: JSON.stringify({
+                                personalizations: [
+                                    {
+                                        to: [
+                                            {
+                                                name: `${c.var.currentSession?.currentSession.first_name} ${c.var.currentSession?.currentSession.last_name}`,
+                                                email: email,
+                                            },
+                                        ],
+                                        dkim_domain: 'poemonger.com',
+                                        dkim_selector: 'mailchannels',
+                                        dkim_private_key:
+                                            c.env.DKIM_PRIVATE_KEY,
+                                    },
+                                ],
+                                from: {
+                                    name: 'Poemonger | Password Reset',
+                                    email: 'welcome@poemonger.com',
+                                },
+                                subject:
+                                    'Poetry is waiting. Finish resetting your password.',
+                                content: [
+                                    {
+                                        type: 'text/html',
+                                        value: Email({
+                                            children: Sale({
+                                                url: c.req.url,
+                                            }),
+                                        }),
+                                    },
+                                ],
+                            }),
+                        }
+                    )
+                    const res = await fetch(req)
+                    if (
+                        res.status === 202 ||
+                        /accepted/i.test(res.statusText)
+                    ) {
+                        return c.json({ purchased: true, error: '' })
+                    } else {
+                        try {
+                            const { errors } = (await res.clone().json()) as {
+                                errors: Array<object>
+                            }
+                            return c.json({
+                                success: false,
+                                error: true,
+                                errors,
+                            })
+                        } catch {
+                            return c.json({
+                                success: false,
+                                error: true,
+                                errors: [res.statusText],
+                            })
+                        }
+                    }
                 }
             } catch (error) {
                 return c.json({ error })

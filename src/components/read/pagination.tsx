@@ -26,7 +26,8 @@ export default function Pagination({
                     title={
                         chapter === 1
                             ? ''
-                            : `/read/${chapter}?chapter=${chapter - 1}&prev=${chapter}`
+                            : `/read/${chapter}?chapter=${chapter -
+                                  1}&prev=${chapter}`
                     }
                     disabled={chapter === 1}
                     style={`${chapter === 1 ? disabledStyle : ''}`}
@@ -45,7 +46,8 @@ export default function Pagination({
                     title={
                         chapter === chapters
                             ? ''
-                            : `/read/${chapter}?chapter=${chapter + 1}&prev=${chapter}`
+                            : `/read/${chapter}?chapter=${chapter +
+                                  1}&prev=${chapter}`
                     }
                     disabled={chapter === chapters}
                     style={`${chapter === chapters ? disabledStyle : ''}`}

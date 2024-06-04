@@ -1,12 +1,4 @@
-export default function Sale({
-    workId,
-    workTitle,
-    url,
-}: {
-    workId: string
-    workTitle: string
-    url: string
-}) {
+export default function Sale({ url }: { url: string }) {
     const location = new URL(url)
     const host = location.hostname
 
@@ -14,7 +6,7 @@ export default function Sale({
         <thead>
             <tr>
                 <td>
-                    <h1>Thank you or your purchase of: ${workTitle}</h1>
+                    <h1>Thank you or your purchase of</h1>
                 </td>
             </tr>
         </thead>
@@ -22,9 +14,19 @@ export default function Sale({
             <tr>
                 <td>
                     <h2>
-                        Read it now,{' '}
+                        You can read your new favourite poetry
                         <span>
-                        <a href="${`https://${host}/read/${workId}`}">here</a>
+                        <a href="${`https://${host}/read`}"> here</a>
+                        </span>
+                    </h2>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <h2>
+                        You can read your receipts
+                        <span>
+                        <a href="${`https://${host}/account/purchases`}"> here</a>
                         </span>
                     </h2>
                 </td>
