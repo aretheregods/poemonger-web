@@ -252,10 +252,6 @@ button.button {
             pointer-events: none;
         }
     }
-
-    & .video-poem_trigger {
-        display: none !important;
-    }
 }
 
 a.button:hover,
@@ -332,6 +328,10 @@ button.button:hover {
     gap: 3rem;
     overflow-x: scroll;
     padding-inline: 3rem;
+}
+
+.video-poem_trigger {
+    display: none !important;
 }
 
 @media (width >= 320px) and (width <= 768px) {
