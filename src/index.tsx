@@ -172,7 +172,7 @@ export async function requestCountry(
     await next()
 }
 
-app.get('/signup', c => {
+app.get('/signup', (c) => {
     if (c.var.currentSession || c.var.currentSessionError) {
         return c.redirect('/read')
     }
@@ -197,7 +197,7 @@ app.get('/signup', c => {
     )
 })
 
-app.post('/signup', async c => {
+app.post('/signup', async (c) => {
     var n = Date.now()
     var ct = c.req.header('Content-Type')
     var f = /multipart\/form-data/g.test(ct || '')
@@ -317,7 +317,7 @@ app.post('/signup', async c => {
     return c.json({ message })
 })
 
-app.get('/check_email', c => {
+app.get('/check_email', (c) => {
     if (!c.var.currentSession || c.var.currentSessionError) {
         return c.redirect('/signup')
     }
@@ -329,7 +329,7 @@ app.get('/check_email', c => {
     )
 })
 
-app.get('/activate', async c => {
+app.get('/activate', async (c) => {
     if (c.var.currentSession && !c.var.currentSessionError) {
         return c.redirect('/read')
     }
@@ -368,7 +368,7 @@ app.get('/activate', async c => {
     )
 })
 
-app.get('/login', async c => {
+app.get('/login', async (c) => {
     if (c.var.currentSession && !c.var.currentSessionError) {
         return c.redirect('/read')
     }
@@ -393,7 +393,7 @@ app.get('/login', async c => {
     )
 })
 
-app.post('/login/check-email', async c => {
+app.post('/login/check-email', async (c) => {
     var ct = c.req.header('Content-Type')
     var f = /multipart\/form-data/g.test(ct || '')
     var salt
@@ -433,7 +433,7 @@ app.post('/login/check-email', async c => {
     return c.json({ salt, error }, { status })
 })
 
-app.post('/login', async c => {
+app.post('/login', async (c) => {
     var ct = c.req.header('Content-Type')
     var f = /multipart\/form-data/g.test(ct || '')
     var user = {}
@@ -531,7 +531,7 @@ app.post('/login', async c => {
     return c.json({ error, message, user })
 })
 
-app.get('/logout', loggedOutRedirect, c =>
+app.get('/logout', loggedOutRedirect, (c) =>
     c.html(
         <Base
             title="Poemonger | Logout"
@@ -548,7 +548,7 @@ app.get('/logout', loggedOutRedirect, c =>
     )
 )
 
-app.post('/logout', async c => {
+app.post('/logout', async (c) => {
     const hasCookie = getCookie(c, 'poemonger_session', 'secure')
     if (hasCookie) {
         setCookie(c, 'poemonger_session', hasCookie, {
@@ -568,7 +568,7 @@ app.post('/logout', async c => {
     }
 })
 
-app.get('/reset', c =>
+app.get('/reset', (c) =>
     c.html(
         <Base
             title="Poemonger | Reset"
@@ -590,7 +590,7 @@ app.get('/reset', c =>
     )
 )
 
-app.post('/reset/token', async c => {
+app.post('/reset/token', async (c) => {
     var ct = c.req.header('Content-Type')
     var f = /multipart\/form-data/g.test(ct || '')
     var messages = {
@@ -703,7 +703,7 @@ app.post('/reset/token', async c => {
     return c.json({ message })
 })
 
-app.post('/reset/salt', async c => {
+app.post('/reset/salt', async (c) => {
     var ct = c.req.header('Content-Type')
     var f = /multipart\/form-data/g.test(ct || '')
     var salt
@@ -736,7 +736,7 @@ app.post('/reset/salt', async c => {
     return c.json({ salt, error }, { status })
 })
 
-app.get('/reset/password', async c =>
+app.get('/reset/password', async (c) =>
     c.html(
         <Base
             title="Poemonger | Reset"
@@ -758,7 +758,7 @@ app.get('/reset/password', async c =>
     )
 )
 
-app.post('/reset/password', async c => {
+app.post('/reset/password', async (c) => {
     var ct = c.req.header('Content-Type')
     var f = /multipart\/form-data/g.test(ct || '')
     var user = {}
@@ -815,7 +815,7 @@ app.post('/reset/password', async c => {
     return c.json({ error, message, user })
 })
 
-app.get('/delete', loggedOutRedirect, c =>
+app.get('/delete', loggedOutRedirect, (c) =>
     c.html(
         <Base title="Poemonger | Delete" loggedIn={!!c.var.currentSession}>
             <Delete />
@@ -823,7 +823,7 @@ app.get('/delete', loggedOutRedirect, c =>
     )
 )
 
-app.get('/about', c =>
+app.get('/about', (c) =>
     c.html(
         <Base
             title="Poemonger | About"
@@ -838,7 +838,7 @@ app.get('/about', c =>
     )
 )
 
-app.get('/contact', c =>
+app.get('/contact', (c) =>
     c.html(
         <Base
             title="Poemonger | Contact"
@@ -860,7 +860,7 @@ app.get('/contact', c =>
     )
 )
 
-app.get('/audio/:audioId', async c => {
+app.get('/audio/:audioId', async (c) => {
     const { audioId } = c.req.param()
     if (
         ![
@@ -889,7 +889,7 @@ app.get('/audio/:audioId', async c => {
     })
 })
 
-app.get('/', readerSessions, async c => {
+app.get('/', readerSessions, async (c) => {
     if (c.var.currentSession && !c.var.currentSessionError) {
         return c.redirect('/read')
     }

@@ -1,8 +1,8 @@
 var apt = document.querySelectorAll('.audio-poem_trigger')
 var vpt = document.querySelectorAll('.video-poem_trigger')
 
-apt.forEach(a => {
-    a.addEventListener('click', e => {
+apt.forEach((a) => {
+    a.addEventListener('click', (e) => {
         function audioTransition() {
             var app = document.getElementById(
                 `audio-poem_player-${e.target.dataset.workId}`
@@ -22,7 +22,7 @@ apt.forEach(a => {
                 app.dataset.on = 0
                 app.setAttribute(
                     'style',
-                    'height: 0px; opacity: 0%; z-index: -1;'
+                    'display: none; height: 0px; opacity: 0%; z-index: -1;'
                 )
                 audio.setAttribute('preload', 'none')
                 e.target.setAttribute(
@@ -58,8 +58,8 @@ apt.forEach(a => {
     })
 })
 
-vpt.forEach(v => {
-    v.addEventListener('click', e => {
+vpt.forEach((v) => {
+    v.addEventListener('click', (e) => {
         function videoTransition() {
             var vpp = document.getElementById(
                 `video-poem_player-${e.target.dataset.workId}`

@@ -57,7 +57,7 @@ account.use(loggedOutRedirect)
 account.use(readerSessions)
 account.use(cartSessions)
 
-account.get('/', c => {
+account.get('/', (c) => {
     const { first_name, last_name, created_at, purchases } = c.var
         .currentSession?.currentSession || {
         first_name: '',
@@ -107,7 +107,7 @@ account.get('/', c => {
     )
 })
 
-account.get('/purchases', c => {
+account.get('/purchases', (c) => {
     return c.html(
         <Base title="Poemonger | Account - Purchases" loggedIn={true}>
             <h2>Account Purchases</h2>
@@ -115,7 +115,7 @@ account.get('/purchases', c => {
     )
 })
 
-account.get('/delete', c => {
+account.get('/delete', (c) => {
     return c.html(
         <Base
             title="Poemonger | Account - Delete"
@@ -164,7 +164,7 @@ account.get('/delete', c => {
     )
 })
 
-account.post('/delete', async c => {
+account.post('/delete', async (c) => {
     try {
         await c.var.READER_SESSIONS.deleteAll()
         await c.var.READER_CARTS.clearCart()
@@ -200,7 +200,7 @@ account.post('/delete', async c => {
     }
 })
 
-account.get('/reset', c => {
+account.get('/reset', (c) => {
     return c.html(
         <Base
             title="Poemonger | Account - Reset Password"
@@ -222,7 +222,7 @@ account.get('/reset', c => {
     )
 })
 
-account.post('/reset/salt', async c => {
+account.post('/reset/salt', async (c) => {
     var salt
     var error
     var status = 201
@@ -244,7 +244,7 @@ account.post('/reset/salt', async c => {
     return c.json({ salt, error }, { status })
 })
 
-account.post('/reset/password', async c => {
+account.post('/reset/password', async (c) => {
     var ct = c.req.header('Content-Type')
     var f = /multipart\/form-data/g.test(ct || '')
     var user = {}

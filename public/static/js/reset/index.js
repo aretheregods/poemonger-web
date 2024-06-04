@@ -7,7 +7,8 @@ f.addEventListener('submit', (e) => {
     e.preventDefault()
     var body = new FormData(f)
 
-    request.post({ path: '/reset/token', body })
+    request
+        .post({ path: '/reset/token', body })
         .then(() => {
             location.href = '/reset/password'
         })
