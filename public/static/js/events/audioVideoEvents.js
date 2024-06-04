@@ -22,7 +22,7 @@ apt.forEach((a) => {
                 app.dataset.on = 0
                 app.setAttribute(
                     'style',
-                    'display: none; height: 0px; opacity: 0%; z-index: -1;'
+                    'height: 0px; opacity: 0%; z-index: -1;'
                 )
                 audio.setAttribute('preload', 'none')
                 e.target.setAttribute(

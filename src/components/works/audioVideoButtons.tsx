@@ -32,7 +32,7 @@ export default function AudioVideoButtons({
             <figure
                 id={`audio-poem_player-${workId}`}
                 class="work-audio audio-poem_player"
-                style="display: none; height: 0px; opacity: 0%; z-index: -1;"
+                style="height: 0px; opacity: 0%; z-index: -1;"
                 data-on="0"
             >
                 <figcaption>{audioCaption}</figcaption>
