@@ -6,7 +6,7 @@ export default function Sale({ url }: { url: string }) {
         <thead>
             <tr>
                 <td>
-                    <h1>Thank you or your purchase of</h1>
+                    <h1>Thank you or your purchase</h1>
                 </td>
             </tr>
         </thead>

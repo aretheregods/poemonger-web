@@ -322,11 +322,11 @@ cart.post('/purchase/complete', async (c) => {
                                     },
                                 ],
                                 from: {
-                                    name: 'Poemonger | Purchase',
+                                    name: 'Poemonger | Your Purchase',
                                     email: 'welcome@poemonger.com',
                                 },
                                 subject:
-                                    'Poetry is waiting. Experience new poetry.',
+                                    'Poetry is waiting. Experience poetry now.',
                                 content: [
                                     {
                                         type: 'text/html',

@@ -48,6 +48,20 @@ export const Base = ({
                 </script>
                 <title>${title}</title>
                 ${assets}
+                <!-- Google tag (gtag.js) -->
+                <script
+                    async
+                    src="https://www.googletagmanager.com/gtag/js?id=AW-16485655737"
+                ></script>
+                <script>
+                    window.dataLayer = window.dataLayer || []
+                    function gtag() {
+                        dataLayer.push(arguments)
+                    }
+                    gtag('js', new Date())
+
+                    gtag('config', 'AW-16485655737')
+                </script>
             </head>
             <body>
                 <header id="poemonger-nav-header">
