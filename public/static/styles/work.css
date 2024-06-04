@@ -1,0 +1,161 @@
+main > section:not(:last-child) {
+    border-bottom: lightgray 1px solid;
+}
+
+#poemonger-works_purchased,
+#poemonger-works_available {
+    display: grid;
+    gap: 2rem;
+
+    & .works-container {
+        display: flex;
+        gap: 2rem;
+    }
+}
+
+button.work-description {
+    height: fit-content;
+    padding: 1.2rem !important;
+}
+
+.work-container {
+    display: grid;
+    justify-content: center;
+    justify-self: center;
+    width: min-content;
+
+    & .button {
+        justify-self: center;
+        margin-block: 1rem;
+        padding-block: 1rem;
+    }
+
+    & .book-cover {
+        justify-self: center;
+    }
+
+    & .work-info {
+        display: grid;
+        justify-content: space-around;
+        justify-self: center;
+        grid-template-columns: 1fr 1fr;
+        width: 100%;
+
+        & .work_info-link {
+            color: unset;
+            text-decoration: none;
+        }
+
+        & .work-title {
+            & em {
+                font-weight: 400;
+                color: unset;
+                text-decoration: none;
+            }
+        }
+
+        & .work-like,
+        & .work-price {
+            font-size: larger;
+            font-weight: 800;
+            justify-self: end;
+        }
+    }
+
+    & .read-purchase_buttons {
+        display: flex;
+        flex-wrap: wrap;
+        height: fit-content;
+        gap: 1rem;
+
+        & > * {
+            min-width: fit-content;
+            flex: 1;
+            text-align: center;
+        }
+
+        & .read-a-bit {
+            align-self: center;
+            padding: 1.2rem 1.3rem;
+        }
+    }
+
+    & .audio-video_tools > * {
+        border: solid 1px hsl(33, 99%, 33%);
+        background-color: unset;
+        height: fit-content;
+
+        &:hover {
+            background-color: hsl(244, 84%, 79%);
+            color: white;
+        }
+    }
+
+    & .work-audio,
+    & .work-video {
+        display: grid;
+        justify-content: center;
+        width: fit-content;
+        margin-inline: 0px;
+        justify-self: center;
+
+        & figcaption {
+            text-align: center;
+            padding-block: 0.5rem;
+        }
+    }
+}
+
+@media (width >= 320px) and (width <= 480px) {
+    #poemonger-works_purchased,
+    #poemonger-works_available {
+        display: grid;
+
+        & .works-container {
+            display: grid;
+        }
+    }
+
+    .work-container {
+        & audio {
+            width: 50vw;
+        }
+
+        & .audio-video_tools {
+            gap: 0px;
+
+            & > button.button.audio-poem_trigger,
+            & > button.button.video-poem_trigger {
+                margin-block: 0.5rem;
+                padding-block: 0.5rem;
+            }
+        }
+
+        & .button {
+            margin-block: 0.5rem;
+        }
+
+        & .read-purchase_buttons {
+            display: grid;
+            grid-auto-flow: row dense;
+            gap: 0.25rem;
+
+            & .read-a-bit {
+                padding-block: 1.1rem;
+            }
+
+            & .button {
+                width: 100%;
+            }
+        }
+
+        & .work-info {
+            grid-template-rows: 1fr 1fr;
+            grid-template-columns: auto;
+
+            & .work_info-link {
+                width: max-content;
+            }
+        }
+    }
+}

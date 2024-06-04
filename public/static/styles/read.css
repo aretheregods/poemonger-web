@@ -1,0 +1,118 @@
+:root[data-transition='reload'] {
+    &::view-transition-old(page) {
+        display: none;
+    }
+    &::view-transition-new(page) {
+        animation-name: fade-in, scale-up;
+    }
+}
+
+.poem-section-container {
+    min-height: calc(100vh - 11.5rem);
+    max-height: calc(100vh - 11.5rem);
+    overflow-x: scroll;
+    width: fit-content;
+    justify-self: center;
+    scrollbar-width: none;
+
+    & .audio-video_tools {
+        width: fit-content;
+        margin: 1rem auto;
+    }
+
+    & .audio-poem_player {
+        width: fit-content;
+        margin: 1rem auto;
+        text-align: center;
+
+        & figcaption {
+            display: none;
+        }
+    }
+
+    & .video-poem_player {
+        text-align: center;
+    }
+}
+
+.poem-content-container {
+    width: calc(100vw - 2rem);
+    display: grid;
+    justify-content: center;
+}
+
+#page-turners {
+    display: flex;
+    justify-content: space-between;
+    width: calc(100vw - 2rem);
+    padding-inline: 2rem;
+    padding-top: 1rem;
+    gap: 2rem;
+    position: sticky;
+    bottom: 0.5rem;
+    background-color: white;
+}
+
+#page-range {
+    flex-grow: 1;
+}
+
+#page-buttons {
+    display: flex;
+    gap: 2rem;
+
+    & > button {
+        padding-inline: 1.5rem;
+    }
+}
+
+#sample-info {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 2rem;
+    position: sticky;
+    top: 0px;
+    background-color: white;
+    padding-block: 1rem;
+
+    & > * {
+        flex: 1;
+        max-width: fit-content;
+    }
+}
+
+#poem-sample_buy-it-now {
+    display: grid;
+
+    & .buy-it-now {
+        margin-block: 1rem;
+        padding: 1rem 1.5rem;
+        justify-self: center;
+        background-color: hsl(25, 99%, 75%);
+
+        &:hover {
+            background-color: hsl(25, 99%, 50%);
+            color: inherit;
+        }
+    }
+}
+
+#poem-sample_separator {
+    border: none;
+    border-top: 3px double #333;
+    color: #333;
+    overflow: visible;
+    text-align: center;
+    height: 5px;
+    width: 100%;
+}
+
+#poem-sample_separator::after {
+    font-weight: 800;
+    background: #fff;
+    content: 'Sample: Not the full work';
+    padding: 0 4px;
+    position: relative;
+    top: -13px;
+}

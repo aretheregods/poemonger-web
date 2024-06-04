@@ -1,7 +1,6 @@
 input.standard-input {
-    font-family: inherit;
     width: 80vw;
-    padding: 0.25em 0.5em;
+    padding: 1.5rem 1rem;
     background-color: #fff;
     border: 1px solid var(--input-border);
     border-radius: 0.5rem;
@@ -28,4 +27,3 @@ input.standard-input:user-invalid {
         height: 2.25rem;
     }
 }
-

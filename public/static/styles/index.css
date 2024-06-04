@@ -1,16 +1,27 @@
-* {
-    font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
-        Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue",
-        sans-serif;
-}
-
 *,
 *::before,
 *::after {
     box-sizing: border-box;
 }
 
+@view-transition {
+    navigation: auto;
+}
+
+@keyframes slide-in {
+    from {
+        translate: 100vw 0;
+    }
+}
+@keyframes slide-out {
+    to {
+        translate: 100vw 0;
+    }
+}
+
 :root {
+    view-transition-name: none;
+
     --input-border: #8b8a8b;
     --input-focus: 245, 100%, 42%;
     --input-invalid: 348, 100%, 48%;
@@ -19,10 +30,326 @@
     --button-text-color: 267, 100%, 15%;
 }
 
-button.button {
-    font-size: medium;
-    padding: 0.5rem 1rem;
-    border: none;
-    border-radius: 0.5rem;
+:root[data-transition='push'] {
+    &::view-transition-old(page) {
+        &::view-transition-old(page) {
+            animation-name: shrink;
+            transform-origin: 100% 50%;
+        }
+    }
+    &::view-transition-new(page) {
+        animation-name: slide-in;
+    }
 }
 
+:root[data-transition='pop'] {
+    &::view-transition-old(page) {
+        animation-name: slide-out;
+        z-index: 1;
+    }
+    &::view-transition-new(page) {
+        animation-name: grow;
+        transform-origin: 100% 50%;
+    }
+}
+
+body {
+    view-transition-name: page;
+
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI',
+        Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue',
+        sans-serif;
+}
+
+::view-transition-group(page) {
+    animation-duration: 0.7s;
+}
+
+#poemonger-nav-header {
+    position: sticky;
+    top: 0px;
+    z-index: 5;
+    background-color: white;
+}
+
+nav {
+    display: flex;
+    justify-content: space-between;
+    background-color: white;
+    border-bottom: lightgrey 1px solid;
+
+    & a {
+        height: min-content;
+        margin: auto 0;
+        text-decoration: none;
+        display: grid;
+        align-items: center;
+    }
+
+    & .login-signup_links {
+        display: flex;
+        align-items: center;
+        padding: 0.5rem;
+
+        & > * {
+            height: min-content;
+            margin: 0;
+            padding: 1.125rem 1rem;
+            border-radius: 10px;
+        }
+
+        & .login-link {
+            margin-right: 1rem;
+        }
+    }
+}
+
+img.book-cover {
+    /* Override height and width set on img elements */
+    height: auto;
+    width: 100%;
+    aspect-ratio: 10 / 16;
+}
+
+#shopping-cart_button {
+    display: flex;
+    background: none;
+    color: inherit;
+    border: none;
+    margin-inline: 1rem;
+    padding: 0;
+    font: inherit;
+    cursor: pointer;
+    outline: inherit;
+}
+
+#shopping-cart_container {
+    width: 200px;
+    height: 100px;
+    position: absolute;
+    inset: unset;
+    top: 5rem;
+    right: 6rem;
+    margin: 0;
+}
+
+[popover]:popover-open {
+    opacity: 1;
+    transform: scale(1);
+}
+
+[popover] {
+    font-size: 1.2rem;
+    padding: 10px;
+
+    /* Final state of the exit animation */
+    opacity: 0;
+    transform: scale(0);
+
+    transition: opacity 0.3s, transform 0.3s, overlay 0.3s allow-discrete,
+        display 0.3s allow-discrete;
+    /* Equivalent to
+  transition: all 0.3s allow-discrete; */
+}
+
+/* Needs to be after the previous [popover]:popover-open rule
+to take effect, as the specificity is the same */
+@starting-style {
+    [popover]:popover-open {
+        opacity: 0;
+        transform: scale(0);
+    }
+}
+
+/* Transition for the popover's backdrop */
+
+[popover]::backdrop {
+    background-image: linear-gradient(
+        45deg,
+        magenta,
+        rebeccapurple,
+        dodgerblue,
+        green
+    );
+    opacity: 0.75;
+    transition: display 0.3s allow-discrete, overlay 0.3s allow-discrete,
+        background-image 0.3s;
+    /* Equivalent to
+  transition: all 0.3s allow-discrete; */
+}
+
+[popover]:popover-open::backdrop {
+    background-color: rgb(0 0 0 / 15%);
+}
+
+/* The nesting selector (&) cannot represent pseudo-elements
+so this starting-style rule cannot be nested */
+
+@starting-style {
+    [popover]:popover-open::backdrop {
+        background-color: rgb(0 0 0 / 0%);
+    }
+}
+
+dialog {
+    max-width: 80vw;
+    min-width: auto;
+    border-radius: 10px;
+    border: darkgrey 1px solid;
+}
+
+#logged-in-popover_container {
+    top: 6rem;
+    right: 1rem;
+    left: auto;
+    border-width: 1px;
+
+    & a {
+        padding: 0.5rem 1.5rem;
+    }
+
+    & > *:not(:last-child) {
+        border-bottom: black 1px solid;
+    }
+}
+
+main {
+    display: grid;
+    justify-content: center;
+}
+
+button,
+input,
+select,
+textarea {
+    font: inherit;
+}
+
+a.button,
+button.button {
+    font-size: medium;
+    padding: 1.125rem 1rem;
+    border: none;
+    border-radius: 0.5rem;
+    background-color: hsl(var(--button-color), var(--button-color-l));
+    color: hsl(var(--button-text-color));
+    border: none;
+    width: min-content;
+    justify-self: end;
+    white-space: nowrap;
+    text-decoration: none;
+    text-align: center;
+
+    &.add-to-cart {
+        background-color: hsl(45, 97%, 75%);
+
+        &.added {
+            background-color: hsl(45, 97%, 50%);
+            color: hsl(var(--button-text-color));
+        }
+
+        & > * {
+            pointer-events: none;
+        }
+    }
+}
+
+a.button:hover,
+button.button:hover {
+    background-color: hsl(
+        var(--button-color),
+        calc(var(--button-color-l) - 20%)
+    );
+    color: white;
+    transition: all 180ms ease-in-out;
+
+    &.add-to-cart {
+        background-color: hsl(45, 97%, 50%);
+        color: hsl(var(--button-text-color));
+    }
+}
+
+button.add-to-cart[data-added="1"]:hover {
+    background-color: hsl(45, 97%, 75%);
+}
+
+.flexible-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+
+    & > *:not(dialog) {
+        flex: 1;
+        min-width: fit-content;
+    }
+
+    dialog.work-description_container {
+        max-width: 50vw;
+        min-width: auto;
+    }
+}
+
+.book-cover {
+    aspect-ratio: 10 / 16;
+}
+
+.poem-container {
+    width: fit-content;
+
+    & p:not(.read-more-link) {
+        text-align: left;
+    }
+
+    & hr.ready-to-go_message {
+        border: none;
+        border-top: 3px double #333;
+        color: #333;
+        overflow: visible;
+        text-align: center;
+        height: 5px;
+        width: 100%;
+    }
+    & hr.ready-to-go_message::after {
+        background: #fff;
+        content: 'Ready to go?';
+        padding: 0 4px;
+        position: relative;
+        top: -13px;
+    }
+}
+
+.work_info-link {
+    text-decoration: none;
+    color: unset;
+}
+
+.read-more-link {
+    text-align: center;
+}
+
+.poemonger-scrolling-works {
+    display: flex;
+    justify-content: center;
+    gap: 3rem;
+    overflow-x: scroll;
+    padding-inline: 3rem;
+}
+
+.video-poem_trigger {
+    display: none !important;
+}
+
+@media (width >= 320px) and (width <= 768px) {
+    .poemonger-scrolling-works {
+        display: grid;
+        overflow-x: auto;
+        padding-inline: unset;
+    }
+
+    .flexible-buttons {
+        & dialog.work-description_container {
+            max-width: 80vw;
+            min-width: auto;
+        }
+    }
+}

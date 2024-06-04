@@ -1,0 +1,166 @@
+main > section:not(:last-child) {
+    border-bottom: lightgray 1px solid;
+}
+
+.poem-section-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    padding-top: 2rem;
+}
+
+.poem-section-container {
+    & h2,
+    & h3,
+    & h4 {
+        text-align: center;
+    }
+}
+
+.poem-section-container {
+    max-width: fit-content;
+    margin: 0 auto;
+
+    & hr.video-poem-split {
+        display: none;
+    }
+
+    & > p.read-more-link {
+        display: none;
+    }
+
+    & .poetry-video_iframe {
+        width: 100%;
+    }
+}
+
+#poetry-twelve-steps {
+    display: grid;
+    text-wrap: wrap;
+    max-width: 75ch;
+    justify-self: center;
+
+    & > figure {
+        padding-inline: 1rem;
+    }
+
+    & h2 {
+        text-align: center;
+    }
+
+    & h3 {
+        margin-inline: 2rem;
+    }
+
+    & ul {
+        list-style: number;
+
+        & li {
+            margin-block: 1rem;
+        }
+    }
+}
+
+#poemonger-landing-works {
+    display: grid;
+    justify-content: center;
+    gap: 2rem;
+
+    & h2,
+    & h3 {
+        text-align: center;
+    }
+
+    & .work-price {
+        text-align: end;
+    }
+
+    & button.audio-poem_trigger,
+    & button.video-poem_trigger {
+        border: solid 1px hsl(33, 99%, 33%);
+        background-color: unset;
+
+        &:hover {
+            background-color: hsl(var(--button-color), var(--button-color-l));
+        }
+    }
+
+    & .button.work-description {
+        background-color: hsl(45, 97%, 75%);
+
+        &:hover {
+            background-color: hsl(45, 97%, 50%);
+        }
+    }
+
+    & .work-audio,
+    & .work-video {
+        text-align: center;
+    }
+}
+
+footer {
+    display: flex;
+    gap: 2rem;
+    width: 75vw;
+    margin: 1rem auto;
+    padding: 2rem 1rem;
+    background-color: white;
+    border-top: lightgrey 1px solid;
+}
+
+@media (width >= 320px) and (width <= 768px) {
+    footer {
+        width: auto;
+    }
+
+    .poem-section-container {
+        grid-template-columns: none;
+        grid-template-rows: auto 3rem 3rem auto;
+        padding-top: 0px;
+        gap: 0.5rem;
+
+        & .poem-content-container {
+            order: 2;
+            justify-self: center;
+        }
+
+        & .poem-video-section {
+            display: grid;
+
+            & h3 {
+                align-self: center;
+                margin: 0;
+                padding: 1rem;
+            }
+
+            & .poetry-video_iframe {
+                width: 101%;
+            }
+        }
+
+        & p.read-more-link {
+            display: block;
+            padding-block: 1rem;
+        }
+
+        & hr.video-poem-split {
+            display: inline;
+            border: none;
+            border-top: 3px double #333;
+            color: #333;
+            overflow: visible;
+            text-align: center;
+            height: 5px;
+            width: 100%;
+        }
+
+        & hr.video-poem-split::after {
+            background: #fff;
+            content: 'Read the poem';
+            padding: 0 4px;
+            position: relative;
+            top: -13px;
+        }
+    }
+}

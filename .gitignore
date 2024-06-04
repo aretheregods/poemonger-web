@@ -9,9 +9,13 @@ yarn.lock
 pnpm-lock.yaml
 bun.lockb
 node_modules
-tags
+tags*
 .dev*
 .wrangler
 .undodir
 Session.vim
 settings.json
+
+# vim
+.vim
+*.swp
