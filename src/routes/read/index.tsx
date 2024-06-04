@@ -117,7 +117,7 @@ read.get('/', async (c) => {
             shoppingCartCount={c.var.cartSessions?.size as number}
         >
             <>
-                {/* {renderData.purchased.length ? (
+                {renderData.purchased.length ? (
                     <section id="poemonger-works_purchased">
                         <h2>Purchased</h2>
                         <section class="works-container">
@@ -128,14 +128,13 @@ read.get('/', async (c) => {
                                     subtitle,
                                     cover,
                                     audio,
-                                    price,
                                     description,
                                 }) => {
                                     return (
                                         <Work
                                             workId={id}
                                             imgId={cover}
-                                            price={price}
+                                            price={0}
                                             locale={c.var.country}
                                             audioId={audio}
                                             title={title}
@@ -188,7 +187,7 @@ read.get('/', async (c) => {
                     </section>
                 ) : (
                     ''
-                )} */}
+                )}
             </>
         </Base>
     )
