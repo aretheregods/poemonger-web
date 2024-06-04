@@ -11,6 +11,10 @@ main > section:not(:last-child) {
         display: flex;
         gap: 2rem;
     }
+
+    & button.work-description {
+        padding: 1.175rem !important;
+    }
 }
 
 .work-container {
