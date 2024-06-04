@@ -95,6 +95,8 @@ read.get('/', async (c) => {
             title="Poemonger | Read"
             assets={[
                 <link rel="stylesheet" href="/static/styles/work.css" />,
+                <link rel="prefetch" href="/read/1" />,
+                <link rel="prefetch" href="/read/3" />,
                 <link rel="prefetch" href="/cart" />,
                 <script
                     type="module"
@@ -119,7 +121,8 @@ read.get('/', async (c) => {
                     <section id="poemonger-works_purchased">
                         <h2>Purchased</h2>
                         <section class="works-container">
-                            {renderData.purchased.map(
+                            {JSON.stringify(renderData.purchased)}
+                            {/* {renderData.purchased.map(
                                 ({
                                     id,
                                     title,
@@ -145,7 +148,7 @@ read.get('/', async (c) => {
                                         />
                                     )
                                 }
-                            )}
+                            )} */}
                         </section>
                     </section>
                 ) : (
