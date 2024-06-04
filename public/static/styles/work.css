@@ -83,6 +83,7 @@ button.work-description {
     & .audio-video_tools > * {
         border: solid 1px hsl(33, 99%, 33%);
         background-color: unset;
+        height: fit-content;
 
         &:hover {
             background-color: hsl(244, 84%, 79%);
