@@ -25,8 +25,8 @@
     --input-border: #8b8a8b;
     --input-focus: 245, 100%, 42%;
     --input-invalid: 348, 100%, 48%;
-    --button-color: 244, 84%;
-    --button-color-l: 79%;
+    --button-color: 0, 96%;
+    --button-color-l: 64%;
     --button-text-color: 267, 100%, 15%;
 }
 
@@ -269,7 +269,7 @@ button.button:hover {
     }
 }
 
-button.add-to-cart[data-added="1"]:hover {
+button.add-to-cart[data-added='1']:hover {
     background-color: hsl(45, 97%, 75%);
 }
 
