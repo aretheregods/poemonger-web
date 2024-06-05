@@ -58,7 +58,7 @@ read.get('/', async (c) => {
         const query = `
         select id, title, subtitle, json_extract(prices, "$.${c.var.country}") as price, cover, audio, description
         from works
-        where json_extract(work, "$.id") != 2
+        where id not in (2, 93)
         and publicationdate < STRFTIME('%Y-%m-%dT%H:%M:%f', 'NOW');
         `
         const r = await c.var.READER_SESSIONS.query(c.req.raw, query, true)
