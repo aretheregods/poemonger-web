@@ -59,7 +59,7 @@ cart.use(loggedOutRedirect)
 cart.use(readerSessions)
 cart.use(cartSessions)
 
-cart.get('/', async (c) => {
+cart.get('/', async c => {
     const r = await c.var.READER_CARTS.getCart(c.req.raw)
     const data: {
         data: Array<{
@@ -177,7 +177,7 @@ cart.get('/', async (c) => {
     )
 })
 
-cart.get('/purchase/:workId', (c) => {
+cart.get('/purchase/:workId', c => {
     const workId = c.req.param('workId')
     return c.html(
         <Base
@@ -196,7 +196,7 @@ cart.get('/purchase/:workId', (c) => {
     )
 })
 
-cart.get('/purchase', (c) => {
+cart.get('/purchase', c => {
     return c.html(
         <Base
             title="Poemonger | Purchase Cart"
@@ -214,7 +214,7 @@ cart.get('/purchase', (c) => {
     )
 })
 
-cart.post('/purchase/init', async (c) => {
+cart.post('/purchase/init', async c => {
     try {
         const b = await c.req.json()
         const o = {
@@ -237,7 +237,7 @@ cart.post('/purchase/init', async (c) => {
     }
 })
 
-cart.post('/purchase/complete', async (c) => {
+cart.post('/purchase/complete', async c => {
     const session_id = c.var.currentSession?.currentSession.session_id
     try {
         const works: {
@@ -276,8 +276,8 @@ cart.post('/purchase/complete', async (c) => {
                                 ...works.works.reduce((worksObject, work) => {
                                     return {
                                         ...worksObject,
-                                        [`purchases.${work}`]:
-                                            works.invoice.data,
+                                        [`purchases.${work}`]: works.invoice
+                                            .data,
                                     }
                                 }, {}),
                             },
@@ -292,8 +292,8 @@ cart.post('/purchase/complete', async (c) => {
                                 ...works.works.reduce((worksObject, work) => {
                                     return {
                                         ...worksObject,
-                                        [`purchases.${work}`]:
-                                            works.invoice.data,
+                                        [`purchases.${work}`]: works.invoice
+                                            .data,
                                     }
                                 }, {}),
                             },
@@ -373,7 +373,7 @@ cart.post('/purchase/complete', async (c) => {
     }
 })
 
-cart.post('/remove/:workId', async (c) => {
+cart.post('/remove/:workId', async c => {
     const workId = c.req.param('workId')
     let response = { count: 0, error: '' }
     try {
@@ -385,7 +385,7 @@ cart.post('/remove/:workId', async (c) => {
     return c.json(response)
 })
 
-cart.post('/:workId', async (c) => {
+cart.post('/:workId', async c => {
     const workId = c.req.param('workId')
     let response = { message: 'There was an error:' }
 
