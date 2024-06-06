@@ -47,6 +47,7 @@ blog.get('/', async c => {
     return c.html(
         <Base
             title="Poemonger | Blog"
+            assets={[<link rel="stylesheet" href="/static/styles/blog.css" />]}
             loggedIn={!!c.var.currentSession}
             footer={<Footer />}
         >
