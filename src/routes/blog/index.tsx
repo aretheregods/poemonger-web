@@ -43,7 +43,7 @@ blog.use(secureHeaders())
 blog.use(userCookieAuth)
 blog.use(requestCountry)
 
-blog.get('/blog', async c => {
+blog.get('/', async c => {
     return c.html(
         <Base
             title="Poemonger | Blog"
