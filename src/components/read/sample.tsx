@@ -11,7 +11,7 @@ export default function WorkSample({
     workInCart: boolean
     poetry: Array<{
         work: { title: string; chapter: number; chapters: number }
-        title: string
+        poem: string
         author: string
         single: boolean
         sample?: Array<Array<string>>
@@ -20,7 +20,7 @@ export default function WorkSample({
 }) {
     return (
         <>
-            {poetry?.map(({ work, title, author, single, sample }) => {
+            {poetry?.map(({ work, poem: title, author, single, sample }) => {
                 const { chapter, chapters } = JSON.parse(
                     (work as unknown) as string
                 )
