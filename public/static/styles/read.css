@@ -127,5 +127,16 @@ button.button.chapter-list_trigger {
 }
 
 #chapters-list_list {
-    padding-inline: 3rem;
+    padding: 2rem 3rem;
+    max-height: 75vh;
+
+    & h2 {
+        position: sticky;
+        top: 0px;
+        margin-top: 0px;
+        padding-block: 1rem;
+        background-color: white;
+        border-bottom: lightgrey 1px solid;
+        height: 100%;
+    }
 }

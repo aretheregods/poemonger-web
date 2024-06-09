@@ -51,16 +51,20 @@ export default function WorkSample({
                                             popover="auto"
                                         >
                                             <h2>Chapters</h2>
-                                            {s.chapters.map(
-                                                ({ title }, index) => (
-                                                    <a
-                                                        href={`/read/${workId}?chapter=${index +
-                                                            1}&prev=${chapter}`}
-                                                    >
-                                                        <p>{title}</p>
-                                                    </a>
-                                                )
-                                            )}
+                                            <ol>
+                                                {s.chapters.map(
+                                                    ({ title }, index) => (
+                                                        <li>
+                                                            <a
+                                                                href={`/read/${workId}?chapter=${index +
+                                                                    1}&prev=${chapter}`}
+                                                            >
+                                                                <p>{title}</p>
+                                                            </a>
+                                                        </li>
+                                                    )
+                                                )}
+                                            </ol>
                                         </dialog>
                                     </section>
                                     <Poem

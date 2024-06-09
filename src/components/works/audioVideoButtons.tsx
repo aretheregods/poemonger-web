@@ -47,14 +47,18 @@ export default function AudioVideoButtons({
                         </button>
                         <dialog id="chapters-list_list" popover="auto">
                             <h2>Chapters</h2>
-                            {chapters.map(({ title }, index) => (
-                                <a
-                                    href={`/read/${workId}?chapter=${index +
-                                        1}&prev=${chapter}`}
-                                >
-                                    <p>{title}</p>
-                                </a>
-                            ))}
+                            <ol>
+                                {chapters.map(({ title }, index) => (
+                                    <li>
+                                        <a
+                                            href={`/read/${workId}?chapter=${index +
+                                                1}&prev=${chapter}`}
+                                        >
+                                            <p>{title}</p>
+                                        </a>
+                                    </li>
+                                ))}
+                            </ol>
                         </dialog>
                     </>
                 )}
