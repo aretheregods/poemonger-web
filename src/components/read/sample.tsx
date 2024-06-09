@@ -40,7 +40,10 @@ export default function WorkSample({
                                     >
                                         &equiv;
                                     </button>
-                                    <dialog id="chapters-list_list" popover>
+                                    <dialog
+                                        id="chapters-list_list"
+                                        popover="auto"
+                                    >
                                         Chapters
                                     </dialog>
                                 </section>
