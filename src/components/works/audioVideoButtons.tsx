@@ -3,6 +3,7 @@ export default function AudioVideoButtons({
     audioId,
     audioCaption = 'Listen to the first chapter',
     videoCaption = 'Video Coming Soon',
+    chapter,
     chapters = [],
     ctx = 'work',
 }: {
@@ -10,6 +11,7 @@ export default function AudioVideoButtons({
     audioId: string
     audioCaption?: string
     videoCaption?: string
+    chapter: number
     chapters: Array<{ title: string }>
     ctx?: 'work' | 'reader'
 }) {
@@ -46,7 +48,10 @@ export default function AudioVideoButtons({
                         <dialog id="chapters-list_list" popover="auto">
                             <h2>Chapters</h2>
                             {chapters.map(({ title }, index) => (
-                                <a href={`/read/${index + 1}`}>
+                                <a
+                                    href={`/read/${workId}?chapter=${index +
+                                        1}&prev=${chapter}`}
+                                >
                                     <p>{title}</p>
                                 </a>
                             ))}

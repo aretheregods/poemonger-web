@@ -54,8 +54,8 @@ export default function WorkSample({
                                             {s.chapters.map(
                                                 ({ title }, index) => (
                                                     <a
-                                                        href={`/read/${index +
-                                                            1}`}
+                                                        href={`/read/${workId}?chapter=${index +
+                                                            1}&prev=${chapter}`}
                                                     >
                                                         <p>{title}</p>
                                                     </a>

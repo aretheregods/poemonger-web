@@ -32,6 +32,7 @@ export default function WorkPurchase({
                                         {...{
                                             audioId: audio,
                                             workId,
+                                            chapter,
                                             ctx: 'reader',
                                             chapters: s.chapters,
                                         }}
