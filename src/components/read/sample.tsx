@@ -33,6 +33,9 @@ export default function WorkSample({
                                     <AddToCart
                                         {...{ workId: ~~workId, workInCart }}
                                     />
+                                    <button class="button chapter-list_trigger">
+                                        &equiv;
+                                    </button>
                                 </section>
                                 <Poem
                                     {...{

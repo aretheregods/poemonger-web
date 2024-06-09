@@ -116,3 +116,11 @@
     position: relative;
     top: -13px;
 }
+
+button.button.chapter-list_trigger {
+    position: fixed;
+    right: 2rem;
+    padding: 1rem;
+    background-color: inherit;
+    border: lightgrey 1px solid;
+}

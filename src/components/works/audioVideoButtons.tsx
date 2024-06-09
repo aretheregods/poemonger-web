@@ -28,6 +28,7 @@ export default function AudioVideoButtons({
                 >
                     &#9658; Video poem
                 </button>
+                <button class="button chapter-list_trigger">&equiv;</button>
             </section>
             <figure
                 id={`audio-poem_player-${workId}`}
