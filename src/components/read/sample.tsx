@@ -51,9 +51,16 @@ export default function WorkSample({
                                             popover="auto"
                                         >
                                             <h2>Chapters</h2>
-                                            {s.chapters.map(({ title }) => (
-                                                <p>{title}</p>
-                                            ))}
+                                            {s.chapters.map(
+                                                ({ title }, index) => (
+                                                    <a
+                                                        href={`/read/${index +
+                                                            1}`}
+                                                    >
+                                                        <p>{title}</p>
+                                                    </a>
+                                                )
+                                            )}
                                         </dialog>
                                     </section>
                                     <Poem

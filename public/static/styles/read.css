@@ -125,3 +125,7 @@ button.button.chapter-list_trigger {
     border: lightgrey 1px solid;
     font-size: xx-large;
 }
+
+section.chapters-list_list {
+    padding-inline: 3rem;
+}
