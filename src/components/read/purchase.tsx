@@ -9,7 +9,7 @@ export default function WorkPurchase({
     workId: number
     poetry: Array<{
         work: { title: string; chapter: number; chapters: number }
-        title: string
+        poem: string
         author: string
         audio: string
         lines?: Array<Array<string>>
@@ -17,7 +17,7 @@ export default function WorkPurchase({
 }) {
     return (
         <>
-            {poetry?.map(({ work, title, author, audio, lines }) => {
+            {poetry?.map(({ work, poem: title, author, audio, lines }) => {
                 const { chapter, chapters } = JSON.parse(
                     (work as unknown) as string
                 )

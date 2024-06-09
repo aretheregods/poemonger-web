@@ -205,8 +205,9 @@ read.get('/:workId', async c => {
         error: string
         poetry: Array<{
             work: { title: string; chapter: number; chapters: number }
-            title: string
+            poem: string
             author: string
+            sections: Array<{ title: string }>
             single: boolean
             audio: string
             video: string

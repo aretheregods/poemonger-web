@@ -886,6 +886,10 @@ app.get('/audio/:audioId', async c => {
     })
 })
 
+app.get('/sample/:workId', c => {
+    const { workId } = c.req.param()
+})
+
 app.get('/', readerSessions, async c => {
     if (c.var.currentSession && !c.var.currentSessionError) {
         return c.redirect('/read')
@@ -942,30 +946,30 @@ app.get('/', readerSessions, async c => {
             ],
             workId: 3,
         },
-        // {
-        //     title: 'Katja4u',
-        //     subtitle: 'A Murder Mystery Romance',
-        //     description: [
-        //         "Warning: I'm meant for reading hard and fast. And afterwards you'll feel all hot and wet.",
+        {
+            title: 'Katja4u',
+            subtitle: 'A Murder Mystery Romance',
+            description: [
+                "Warning: I'm meant for reading hard and fast. And afterwards you'll feel all hot and wet.",
 
-        //         "I'm a camgirl who sells sex online to put myself through school. Sounds exciting, right? And everything was fun and fine until something crazy started going on. My best friend might have been murdered. Is one of our fans the killer?",
+                "I'm a camgirl who sells sex online to put myself through school. Sounds exciting, right? And everything was fun and fine until something crazy started going on. My best friend might have been murdered. Is one of our fans the killer?",
 
-        //         'My online sex work paid the bills until this psycho wanted to film me as he serial killed me, like I think he did my friend. Is the killer someone I know, a fan. Or is my friend even really dead? Is she just being an a**hole and pranking me?',
+                'My online sex work paid the bills until this psycho wanted to film me as he serial killed me, like I think he did my friend. Is the killer someone I know, a fan. Or is my friend even really dead? Is she just being an a**hole and pranking me?',
 
-        //         'This is what happens when you sell your sexy body online. A psycho fan might get it in his mind to murder you and your other cam girl friend.',
+                'This is what happens when you sell your sexy body online. A psycho fan might get it in his mind to murder you and your other cam girl friend.',
 
-        //         'Sex work sells. But it can also get you killed',
+                'Sex work sells. But it can also get you killed',
 
-        //         'Read me now so you can find out the whole story and who wants to kill me.',
-        //     ],
-        //     imgId: '9af92141-923b-4eaf-181d-4f6019fc7800',
-        //     videoId: '',
-        //     audioId: 'Katja4u-Chapter-1_full.m4a',
-        //     price: { US: 27.99, CA: 38.99, GB: 22.99, AU: 39.99 }[
-        //         c.var.country
-        //     ],
-        //     workId: 4,
-        // },
+                'Read me now so you can find out the whole story and who wants to kill me.',
+            ],
+            imgId: '9af92141-923b-4eaf-181d-4f6019fc7800',
+            videoId: '',
+            audioId: 'Katja4u-Chapter-1_full.m4a',
+            price: { US: 27.99, CA: 38.99, GB: 22.99, AU: 39.99 }[
+                c.var.country
+            ],
+            workId: 4,
+        },
     ]
 
     const props = {
