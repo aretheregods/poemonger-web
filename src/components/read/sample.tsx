@@ -26,6 +26,7 @@ export default function WorkSample({
                     const { chapter, chapters } = JSON.parse(
                         (work as unknown) as string
                     )
+                    const s = JSON.parse(sections)
                     return (
                         <>
                             <section class="poem-section-container">
@@ -50,11 +51,9 @@ export default function WorkSample({
                                             popover="auto"
                                         >
                                             <h2>Chapters</h2>
-                                            {sections.chapters.map(
-                                                ({ title }) => (
-                                                    <p>{title}</p>
-                                                )
-                                            )}
+                                            {s.chapters.map(({ title }) => (
+                                                <p>{title}</p>
+                                            ))}
                                         </dialog>
                                     </section>
                                     <Poem

@@ -23,6 +23,7 @@ export default function WorkPurchase({
                     const { chapter, chapters } = JSON.parse(
                         (work as unknown) as string
                     )
+                    const s = JSON.parse(sections)
                     return (
                         <>
                             <section class="poem-section-container">
@@ -32,7 +33,7 @@ export default function WorkPurchase({
                                             audioId: audio,
                                             workId,
                                             ctx: 'reader',
-                                            chapters: sections.chapters,
+                                            chapters: s.chapters,
                                         }}
                                     />
                                     <Poem
