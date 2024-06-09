@@ -33,7 +33,18 @@ export default function AudioVideoButtons({
                 {ctx === 'work' ? (
                     ''
                 ) : (
-                    <button class="button chapter-list_trigger">&equiv;</button>
+                    <>
+                        <button
+                            id="chapter-list_trigger"
+                            class="button chapter-list_trigger"
+                            popovertarget="chapters-list_list"
+                        >
+                            &equiv;
+                        </button>
+                        <dialog id="chapters-list_list" popover>
+                            Chapters
+                        </dialog>
+                    </>
                 )}
             </section>
             <figure
