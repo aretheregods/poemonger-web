@@ -207,7 +207,7 @@ read.get('/:workId', async c => {
             work: { title: string; chapter: number; chapters: number }
             poem: string
             author: string
-            sections: Array<{ title: string }>
+            sections: { chapters: Array<{ title: string }> }
             single: boolean
             audio: string
             video: string
