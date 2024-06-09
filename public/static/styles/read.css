@@ -126,6 +126,6 @@ button.button.chapter-list_trigger {
     font-size: xx-large;
 }
 
-section.chapters-list_list {
+#chapters-list_list {
     padding-inline: 3rem;
 }
