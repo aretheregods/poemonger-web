@@ -30,7 +30,7 @@ export default function AudioVideoButtons({
                 >
                     &#9658; Video poem
                 </button>
-                {ctx === 'reader' ? (
+                {ctx === 'work' ? (
                     ''
                 ) : (
                     <button class="button chapter-list_trigger">&equiv;</button>
