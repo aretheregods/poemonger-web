@@ -26,7 +26,11 @@ export default function WorkPurchase({
                         <section class="poem-section-container">
                             <>
                                 <AudioVideoButtons
-                                    {...{ audioId: audio, workId }}
+                                    {...{
+                                        audioId: audio,
+                                        workId,
+                                        ctx: 'reader',
+                                    }}
                                 />
                                 <Poem
                                     {...{

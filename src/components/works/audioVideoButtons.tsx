@@ -3,11 +3,13 @@ export default function AudioVideoButtons({
     audioId,
     audioCaption = 'Listen to the first chapter',
     videoCaption = 'Video Coming Soon',
+    ctx = 'work',
 }: {
     workId: number
     audioId: string
     audioCaption?: string
     videoCaption?: string
+    ctx?: 'work' | 'reader'
 }) {
     return (
         <>
@@ -28,7 +30,11 @@ export default function AudioVideoButtons({
                 >
                     &#9658; Video poem
                 </button>
-                <button class="button chapter-list_trigger">&equiv;</button>
+                {ctx === 'reader' ? (
+                    ''
+                ) : (
+                    <button class="button chapter-list_trigger">&equiv;</button>
+                )}
             </section>
             <figure
                 id={`audio-poem_player-${workId}`}
