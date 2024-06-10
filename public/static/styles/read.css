@@ -124,6 +124,10 @@ button.button.chapter-list_trigger {
     background-color: inherit;
     border: lightgrey 1px solid;
     font-size: xx-large;
+
+    &:hover {
+        color: inherit;
+    }
 }
 
 #chapters-list_list {
