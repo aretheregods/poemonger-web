@@ -34,13 +34,6 @@ export default function WorkPurchase({
                                             workId,
                                             chapter,
                                             ctx: 'reader',
-                                            position: sticky;
-                                                top: 0px;
-                                                    margin-top: 0px;
-                                                        padding-block: 1rem;
-                                                            background-color: white;
-                                                                border-bottom: lightgrey 1px solid;
-                                                                    height: 100%;
                                             chapters: s.chapters,
                                         }}
                                     />
