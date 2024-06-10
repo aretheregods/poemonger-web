@@ -116,3 +116,31 @@
     position: relative;
     top: -13px;
 }
+
+button.button.chapter-list_trigger {
+    position: fixed;
+    right: 2rem;
+    padding: 1rem;
+    background-color: inherit;
+    border: lightgrey 1px solid;
+    font-size: xx-large;
+
+    &:hover {
+        color: inherit;
+    }
+}
+
+#chapters-list_list {
+    padding: 2rem 3rem;
+    max-height: 75vh;
+
+    & h2 {
+        position: sticky;
+        top: 0px;
+        margin-top: 0px;
+        padding-block: 1rem;
+        background-color: white;
+        border-bottom: lightgrey 1px solid;
+        height: 100%;
+    }
+}

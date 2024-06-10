@@ -9,7 +9,8 @@ export default function WorkPurchase({
     workId: number
     poetry: Array<{
         work: { title: string; chapter: number; chapters: number }
-        title: string
+        sections: { chapters: Array<{ title: string }> }
+        poem: string
         author: string
         audio: string
         lines?: Array<Array<string>>
@@ -17,31 +18,40 @@ export default function WorkPurchase({
 }) {
     return (
         <>
-            {poetry?.map(({ work, title, author, audio, lines }) => {
-                const { chapter, chapters } = JSON.parse(
-                    (work as unknown) as string
-                )
-                return (
-                    <>
-                        <section class="poem-section-container">
-                            <>
-                                <AudioVideoButtons
-                                    {...{ audioId: audio, workId }}
-                                />
-                                <Poem
-                                    {...{
-                                        id: workId,
-                                        title,
-                                        author,
-                                        lines,
-                                    }}
-                                />
-                            </>
-                        </section>
-                        <Pagination {...{ chapter, chapters }} />
-                    </>
-                )
-            })}
+            {poetry?.map(
+                ({ work, poem: title, sections, author, audio, lines }) => {
+                    const { chapter, chapters } = JSON.parse(
+                        (work as unknown) as string
+                    )
+                    const s = JSON.parse(sections)
+                    return (
+                        <>
+                            <section class="poem-section-container">
+                                <>
+                                    <AudioVideoButtons
+                                        {...{
+                                            audioId: audio,
+                                            workId,
+                                            chapter,
+                                            ctx: 'reader',
+                                            chapters: s.chapters,
+                                        }}
+                                    />
+                                    <Poem
+                                        {...{
+                                            id: workId,
+                                            title,
+                                            author,
+                                            lines,
+                                        }}
+                                    />
+                                </>
+                            </section>
+                            <Pagination {...{ chapter, chapters }} />
+                        </>
+                    )
+                }
+            )}
         </>
     )
 }

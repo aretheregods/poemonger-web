@@ -3,11 +3,17 @@ export default function AudioVideoButtons({
     audioId,
     audioCaption = 'Listen to the first chapter',
     videoCaption = 'Video Coming Soon',
+    chapter,
+    chapters = [],
+    ctx = 'work',
 }: {
     workId: number
-    audioId: string
+    audioId?: string
     audioCaption?: string
     videoCaption?: string
+    chapter: number
+    chapters: Array<{ title: string }>
+    ctx?: 'work' | 'reader'
 }) {
     return (
         <>
@@ -28,6 +34,34 @@ export default function AudioVideoButtons({
                 >
                     &#9658; Video poem
                 </button>
+                {ctx === 'work' ? (
+                    ''
+                ) : (
+                    <>
+                        <button
+                            id="chapter-list_trigger"
+                            class="button chapter-list_trigger"
+                            popovertarget="chapters-list_list"
+                        >
+                            &equiv;
+                        </button>
+                        <dialog id="chapters-list_list" popover="auto">
+                            <h2>Chapters</h2>
+                            <ol>
+                                {chapters.map(({ title }, index) => (
+                                    <li>
+                                        <a
+                                            href={`/read/${workId}?chapter=${index +
+                                                1}&prev=${chapter}`}
+                                        >
+                                            <p>{title}</p>
+                                        </a>
+                                    </li>
+                                ))}
+                            </ol>
+                        </dialog>
+                    </>
+                )}
             </section>
             <figure
                 id={`audio-poem_player-${workId}`}
@@ -36,13 +70,17 @@ export default function AudioVideoButtons({
                 data-on="0"
             >
                 <figcaption>{audioCaption}</figcaption>
-                <audio
-                    id={`audio-poem_player-element-${workId}`}
-                    src={`/audio/${audioId}`}
-                    preload="none"
-                    controlslist="nodownload"
-                    controls
-                ></audio>
+                {audioId ? (
+                    <audio
+                        id={`audio-poem_player-element-${workId}`}
+                        src={`/audio/${audioId}`}
+                        preload="none"
+                        controlslist="nodownload"
+                        controls
+                    ></audio>
+                ) : (
+                    'Coming Soon'
+                )}
             </figure>
             <figure
                 id={`video-poem_player-${workId}`}
