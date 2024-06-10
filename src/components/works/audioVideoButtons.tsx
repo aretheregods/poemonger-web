@@ -8,7 +8,7 @@ export default function AudioVideoButtons({
     ctx = 'work',
 }: {
     workId: number
-    audioId: string
+    audioId?: string
     audioCaption?: string
     videoCaption?: string
     chapter: number
@@ -70,13 +70,17 @@ export default function AudioVideoButtons({
                 data-on="0"
             >
                 <figcaption>{audioCaption}</figcaption>
-                <audio
-                    id={`audio-poem_player-element-${workId}`}
-                    src={`/audio/${audioId}`}
-                    preload="none"
-                    controlslist="nodownload"
-                    controls
-                ></audio>
+                {audioId ? (
+                    <audio
+                        id={`audio-poem_player-element-${workId}`}
+                        src={`/audio/${audioId}`}
+                        preload="none"
+                        controlslist="nodownload"
+                        controls
+                    ></audio>
+                ) : (
+                    'Coming Soon'
+                )}
             </figure>
             <figure
                 id={`video-poem_player-${workId}`}
