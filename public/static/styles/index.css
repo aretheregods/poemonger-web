@@ -74,6 +74,10 @@ body {
 
 header:has(+ main > #hero) {
     background-color: transparent;
+
+    & nav {
+        background-color: transparent;
+    }
 }
 
 nav {
