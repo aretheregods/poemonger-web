@@ -2,16 +2,21 @@ main>section:not(:last-child) {
     border-bottom: lightgray 1px solid;
 }
 
-#hero > img {
+#hero {
+    position: relative;
+
+    & > #hero-img {
     height: 100vh;
     width: 100vw;
     position: relative;
+    background-image: url('https: //imagedelivery.net/674o8qhbSH_VvvEqhrXjwA/5ac37623-eebf-495c-b09f-8545fa4f8b00/public');
     background-size: cover;
     background-repeat: no-repeat;
     background-position: 50% 50%;
     min-block-size: 80vh;
     object-fit: cover;
     top: -5rem;
+    }
 }
 
 .poem-section-container {
