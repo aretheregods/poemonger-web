@@ -77,6 +77,10 @@ header:has(+ main > #hero) {
 
     & nav {
         background-color: transparent;
+
+        & .login-link {
+            background-color: black;
+        }
     }
 }
 
