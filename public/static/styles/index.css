@@ -72,6 +72,10 @@ body {
     background-color: white;
 }
 
+header:has(+ main > #hero) {
+    background-color: transparent;
+}
+
 nav {
     display: flex;
     justify-content: space-between;

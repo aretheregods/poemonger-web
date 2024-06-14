@@ -1,5 +1,17 @@
-main > section:not(:last-child) {
+main>section:not(:last-child) {
     border-bottom: lightgray 1px solid;
+}
+
+#id>img {
+    height: 100vh;
+    width: 100vw;
+    position: relative;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: 50% 50%;
+    min-block-size: 80vh;
+    object-fit: cover;
+    top: -5rem;
 }
 
 .poem-section-container {
@@ -10,6 +22,7 @@ main > section:not(:last-child) {
 }
 
 .poem-section-container {
+
     & h2,
     & h3,
     & h4 {
@@ -25,7 +38,7 @@ main > section:not(:last-child) {
         display: none;
     }
 
-    & > p.read-more-link {
+    &>p.read-more-link {
         display: none;
     }
 
@@ -40,7 +53,7 @@ main > section:not(:last-child) {
     max-width: 75ch;
     justify-self: center;
 
-    & > figure {
+    &>figure {
         padding-inline: 1rem;
     }
 
@@ -109,7 +122,7 @@ footer {
     border-top: lightgrey 1px solid;
 }
 
-@media (width >= 320px) and (width <= 768px) {
+@media (width >=320px) and (width <=768px) {
     footer {
         width: auto;
     }
