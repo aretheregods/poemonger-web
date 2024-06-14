@@ -35,7 +35,10 @@ export default async function Landing({
         return (
             <>
                 <section id="hero">
-                    <div id="hero-img"></div>
+                    <div id="hero-img">
+                        <h1 id="hero-title">POEMONGER</h1>
+                        <h2 id="hero-slogan">We Can Save Poetry</h2>
+                    </div>
                 </section>
                 {results?.data?.map(
                     ({

@@ -1,4 +1,4 @@
-main>section:not(:last-child) {
+main > section:not(:last-child) {
     border-bottom: lightgray 1px solid;
 }
 
@@ -6,18 +6,29 @@ main>section:not(:last-child) {
     position: relative;
 
     & > #hero-img {
-    height: 100vh;
-    width: 100vw;
-    position: relative;
-    background-image: url('https://imagedelivery.net/674o8qhbSH_VvvEqhrXjwA/5ac37623-eebf-495c-b09f-8545fa4f8b00/public');
-    border-image: linear-gradient(hsl(240 100% 20% / 0.6), hsl(0 100% 20% / 0.6)) fill 1;
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-position: 50% 50%;
-    min-block-size: 80vh;
-    object-fit: cover;
-    top: -5rem;
+        height: 100vh;
+        width: 100vw;
+        position: relative;
+        background-image: url('https://imagedelivery.net/674o8qhbSH_VvvEqhrXjwA/5ac37623-eebf-495c-b09f-8545fa4f8b00/public');
+        border-image: linear-gradient(hsl(240 100% 20% / 0.6), hsl(0 100% 20% / 0.6)) fill 1;
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-position: 50% 50%;
+        min-block-size: 80vh;
+        object-fit: cover;
+        top: -5rem;
+        text-align: center;
+        place-content: center;
+        color: white;
     }
+}
+
+#hero-title {
+    font-size: 5rem;
+}
+
+#hero-slogan {
+    font-size: xx-large;
 }
 
 .poem-section-container {
