@@ -80,7 +80,7 @@ header:has(+ main > #hero) {
         border-bottom: none;
 
         & .login-link {
-            background-color: black;
+            color: black;
         }
     }
 }
