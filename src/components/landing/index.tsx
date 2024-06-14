@@ -34,6 +34,12 @@ export default async function Landing({
         const results: { data: [] } = await res.json()
         return (
             <>
+                <section id="hero">
+                    <img
+                        src="https://imagedelivery.net/674o8qhbSH_VvvEqhrXjwA/5ac37623-eebf-495c-b09f-8545fa4f8b00/public"
+                        alt="black panthers olympics"
+                    />
+                </section>
                 {results?.data?.map(
                     ({
                         title,
