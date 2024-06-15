@@ -206,3 +206,11 @@ footer {
         }
     }
 }
+
+@media only screen and (width <=420px) {
+    #hero-text-container {
+        padding: unset !important;
+        border: none !important;
+        border-radius: none !important;
+    }
+}
