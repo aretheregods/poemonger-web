@@ -954,6 +954,7 @@ app.get('/sample/:workId', readerSessions('landing'), async c => {
                 ]}
             >
                 <WorkSample
+                    ctx="landing"
                     workId={workId}
                     poetry={response.poetry}
                 />
