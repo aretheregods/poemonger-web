@@ -1,8 +1,8 @@
 var apt = document.querySelectorAll('.audio-poem_trigger')
 var vpt = document.querySelectorAll('.video-poem_trigger')
 
-apt.forEach((a) => {
-    a.addEventListener('click', (e) => {
+apt.forEach(a => {
+    a.addEventListener('click', e => {
         function audioTransition() {
             var app = document.getElementById(
                 `audio-poem_player-${e.target.dataset.workId}`
@@ -58,8 +58,8 @@ apt.forEach((a) => {
     })
 })
 
-vpt.forEach((v) => {
-    v.addEventListener('click', (e) => {
+vpt.forEach(v => {
+    v.addEventListener('click', e => {
         function videoTransition() {
             var vpp = document.getElementById(
                 `video-poem_player-${e.target.dataset.workId}`

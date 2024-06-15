@@ -85,6 +85,11 @@ main > section:not(:last-child) {
     }
 }
 
+.hero-img-gone {
+    background-color: white !important;
+    border-bottom: 1px lightgrey solid;
+}
+
 #poetry-twelve-steps {
     display: grid;
     text-wrap: wrap;

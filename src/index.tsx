@@ -979,6 +979,11 @@ app.get('/', readerSessions, async c => {
             <script type="module" src="/static/js/index.js" defer></script>,
             <script
                 type="module"
+                src="/static/js/landing/landingWork.js"
+                defer
+            ></script>,
+            <script
+                type="module"
                 src="/static/js/events/audioVideoEvents.js"
                 defer
             ></script>,
