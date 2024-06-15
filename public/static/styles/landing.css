@@ -206,3 +206,10 @@ footer {
         }
     }
 }
+
+@media only screen and (max-width <=420px) {
+    #hero-text-container {
+        padding: unset !important;
+        border: none !important;
+    }
+}
