@@ -11,8 +11,8 @@ export default function AudioVideoButtons({
     audioId?: string
     audioCaption?: string
     videoCaption?: string
-    chapter: number
-    chapters: Array<{ title: string }>
+    chapter?: number
+    chapters?: Array<{ title: string }>
     ctx?: 'work' | 'reader'
 }) {
     return (

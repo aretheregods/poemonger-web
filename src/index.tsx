@@ -22,10 +22,11 @@ import Logout from './components/logout'
 import Reset from './components/reset'
 import ResetPassword from './components/reset/ResetPassword'
 import Delete from './components/reset'
+import { WorkSample } from './components/read'
+
 
 // utils
 import { countries, locales } from './utils'
-
 export type Bindings = {
     POEMONGER_POEMS: D1Database
     POEMONGER_READER_CARTS: DurableObjectNamespace
@@ -42,6 +43,11 @@ export type Variables = {
     READER_SESSIONS: DurableObjectNamespace & {
         query(arg: Request, arg1?: string, arg2?: boolean): Promise<Response>
         reply(): Promise<Response>
+        getPurchase(
+            arg: string,
+            arg1?: number,
+            arg2?: boolean
+        ): Promise<Response>
     }
     READER_CARTS: DurableObjectNamespace & {
         addToCart(workId: string): Promise<Response>
@@ -886,8 +892,73 @@ app.get('/audio/:audioId', async c => {
     })
 })
 
-app.get('/sample/:workId', c => {
+app.get('/sample/:workId', async c => {
+    if (c.var.currentSession && !c.var.currentSessionError) {
+        return c.redirect(`/read/${c.req.param()}`)
+    }
+    
     const { workId } = c.req.param()
+    const chapter = c.req.query('chapter')
+    let response: {
+        purchase: boolean
+        error: string
+        poetry: Array<{
+            work: { title: string; chapter: number; chapters: number }
+            poem: string
+            author: string
+            sections: { chapters: Array<{ title: string }> }
+            single: boolean
+            audio: string
+            video: string
+            image: string
+            sample?: Array<Array<string>>
+            lines?: Array<Array<string>>
+        }>
+    }
+
+    try {
+        const r = await c.var.READER_SESSIONS.getPurchase(
+            workId,
+            chapter ? parseInt(chapter) : (chapter as undefined)
+        )
+        response = await r.json()
+
+        return c.html(
+            <Base
+                title={`Poemonger | Read - ${workId}`}
+                loggedIn={false}
+                assets={[
+                    <link rel="stylesheet" href="/static/styles/read.css" />,
+                    <script
+                        type="module"
+                        src="/static/js/read/readWork.js"
+                        defer
+                    ></script>,
+                    <script
+                        type="module"
+                        src="/static/js/events/audioVideoEvents.js"
+                        defer
+                    ></script>,
+                    <script
+                        type="module"
+                        src="/static/js/read/readList.js"
+                        defer
+                    ></script>,
+                ]}
+            >
+                <WorkSample
+                    workId={workId}
+                    poetry={response.poetry}
+                />
+            </Base>
+        )
+    } catch (error) {
+        return c.html(
+            <Base title="Poemonger | Error" loggedIn={false}>
+                <h2>There was an error getting poems: {` ${error}`}</h2>
+            </Base>
+        )
+    }
 })
 
 app.get('/', readerSessions, async c => {
