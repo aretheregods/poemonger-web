@@ -47,7 +47,7 @@ const read = new Hono<{ Bindings: Bindings; Variables: Variables }>()
 
 read.use(requestCountry)
 read.use(loggedOutRedirect)
-read.use(readerSessions)
+read.use(readerSessions())
 read.use(cartSessions)
 
 read.get('/', async c => {

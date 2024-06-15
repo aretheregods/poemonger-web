@@ -56,7 +56,7 @@ const cart = new Hono<{ Bindings: Bindings; Variables: Variables }>()
 
 cart.use(requestCountry)
 cart.use(loggedOutRedirect)
-cart.use(readerSessions)
+cart.use(readerSessions())
 cart.use(cartSessions)
 
 cart.get('/', async c => {

@@ -121,25 +121,32 @@ export async function loggedOutRedirect(
     } else await next()
 }
 
-export async function readerSessions(
-    c: Context<{ Bindings: Bindings; Variables: Variables }>,
-    next: Next
-) {
-    const id = c.var.currentSession
-        ? c.env.POEMONGER_READER_SESSIONS.idFromString(
-              c.var.currentSession.currentSession.session_id
-          )
-        : c.env.POEMONGER_READER_SESSIONS.idFromName('LandingPage')
-    const cart = c.var.currentSession
-        ? c.env.POEMONGER_READER_CARTS.idFromString(
-              c.var.currentSession.currentSession.cart_id
-          )
-        : c.env.POEMONGER_READER_CARTS.newUniqueId()
-    const stub = c.env.POEMONGER_READER_SESSIONS.get(id)
-    const cartStub = c.env.POEMONGER_READER_CARTS.get(cart)
-    c.set('READER_SESSIONS' as never, stub as never)
-    c.set('READER_CARTS' as never, cartStub as never)
-    await next()
+export function readerSessions(context = '') {
+    return async (
+        c: Context<{ Bindings: Bindings; Variables: Variables }>,
+        next: Next
+    ) => {
+        const id = c.var.currentSession
+            ? c.env.POEMONGER_READER_SESSIONS.idFromString(
+                  c.var.currentSession.currentSession.session_id
+              )
+            : c.env.POEMONGER_READER_SESSIONS.idFromName('LandingPage')
+        const stub = c.env.POEMONGER_READER_SESSIONS.get(id)
+        c.set('READER_SESSIONS' as never, stub as never)
+
+        if (context !== 'landing') {
+            const cart = c.var.currentSession
+                ? c.env.POEMONGER_READER_CARTS.idFromString(
+                      c.var.currentSession.currentSession.cart_id
+                  )
+                : c.env.POEMONGER_READER_CARTS.newUniqueId()
+
+            const cartStub = c.env.POEMONGER_READER_CARTS.get(cart)
+
+            c.set('READER_CARTS' as never, cartStub as never)
+        }
+        await next()
+    }
 }
 
 export async function cartSessions(
@@ -892,7 +899,7 @@ app.get('/audio/:audioId', async c => {
     })
 })
 
-app.get('/sample/:workId', async c => {
+app.get('/sample/:workId', readerSessions('landing'), async c => {
     if (c.var.currentSession && !c.var.currentSessionError) {
         return c.redirect(`/read/${c.req.param()}`)
     }
@@ -961,7 +968,7 @@ app.get('/sample/:workId', async c => {
     }
 })
 
-app.get('/', readerSessions, async c => {
+app.get('/', readerSessions('landing'), async c => {
     if (c.var.currentSession && !c.var.currentSessionError) {
         return c.redirect('/read')
     }
