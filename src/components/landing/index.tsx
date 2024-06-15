@@ -50,10 +50,10 @@ export default async function Landing({
                         video,
                         sample_length,
                         sample_section,
-                    }) => {
+                    }, index) => {
                         return (
                             <>
-                                <section class="poem-section-container">
+                                <section id={`poem-section-container_${index}`}  class="poem-section-container">
                                     <Poem
                                         {...{
                                             title,
