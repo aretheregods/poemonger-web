@@ -3,12 +3,14 @@ import { Poem } from '../../components/poetry'
 import Pagination from './pagination'
 
 export default function WorkSample({
+    ctx = 'signedUp',
     workId,
     poetry,
-    workInCart,
+    workInCart = false,
 }: {
+    ctx?: 'landing' | 'signedUp'
     workId: string
-    workInCart: boolean
+    workInCart?: boolean
     poetry: Array<{
         work: { title: string; chapter: number; chapters: number }
         poem: string
@@ -26,19 +28,30 @@ export default function WorkSample({
                     const { chapter, chapters } = JSON.parse(
                         (work as unknown) as string
                     )
-                    const s = JSON.parse(sections)
+                    const s = JSON.parse(sections as unknown as string)
                     return (
                         <>
                             <section class="poem-section-container">
                                 <>
                                     <section id="sample-info">
-                                        <h3>This is a sample</h3>
-                                        <AddToCart
-                                            {...{
-                                                workId: ~~workId,
-                                                workInCart,
-                                            }}
-                                        />
+                                        {ctx === 'landing' ? (
+                                            <>
+                                                <h3>Log in to purchase</h3>
+                                                <a href="/login" class="button">
+                                                    Login
+                                                </a>
+                                            </>
+                                        ) : (
+                                            <>
+                                                <h3>This is a sample</h3>
+                                                <AddToCart
+                                                    {...{
+                                                        workId: ~~workId,
+                                                        workInCart,
+                                                    }}
+                                                />
+                                            </>
+                                        )}
                                         <button
                                             id="chapter-list_trigger"
                                             class="button chapter-list_trigger"
@@ -53,7 +66,12 @@ export default function WorkSample({
                                             <h2>Chapters</h2>
                                             <ol>
                                                 {s.chapters.map(
-                                                    ({ title }, index) => (
+                                                    (
+                                                        {
+                                                            title,
+                                                        }: { title: string },
+                                                        index: number
+                                                    ) => (
                                                         <li>
                                                             <a
                                                                 href={`/read/${workId}?chapter=${index +

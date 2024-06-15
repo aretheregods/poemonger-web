@@ -54,7 +54,7 @@ const account = new Hono<{ Bindings: Bindings; Variables: Variables }>()
 
 account.use(requestCountry)
 account.use(loggedOutRedirect)
-account.use(readerSessions)
+account.use(readerSessions())
 account.use(cartSessions)
 
 account.get('/', c => {

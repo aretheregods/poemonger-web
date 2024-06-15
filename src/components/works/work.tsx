@@ -32,7 +32,7 @@ export default async function Work({
     return (
         <section class="work-container">
             <AudioVideoButtons {...{ workId, audioId }} />
-            <a href={`/read/${workId}`}>
+            <a href={landing ? `/sample/${workId}` : `/read/${workId}`}>
                 <img
                     src={getImg(imgId, 'medium')}
                     height="640"
@@ -51,7 +51,10 @@ export default async function Work({
             </a>
             <Price {...{ workId, price, locale, title, subtitle, purchased }} />
             <section class="read-purchase_buttons flexible-buttons">
-                <a href={`/read/${workId}`} class="button read-a-bit">
+                <a
+                    href={landing ? `/sample/${workId}` : `/read/${workId}`}
+                    class="button read-a-bit"
+                >
                     {purchased ? 'Read it now' : 'Read a bit'}
                 </a>
                 {landing || purchased ? (
