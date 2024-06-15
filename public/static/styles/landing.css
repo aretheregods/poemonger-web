@@ -1,3 +1,7 @@
+body {
+    overflow-x: hidden;
+}
+
 main > section:not(:last-child) {
     border-bottom: lightgray 1px solid;
 }
@@ -13,17 +17,21 @@ main > section:not(:last-child) {
     }
 
     & #hero-img {
-        height: 100vh;
+        height: 101vh;
         width: 100vw;
         position: relative;
         background-image: url('https://imagedelivery.net/674o8qhbSH_VvvEqhrXjwA/5ac37623-eebf-495c-b09f-8545fa4f8b00/public');
-        border-image: linear-gradient(hsl(240 100% 20% / 0.6), hsl(0 100% 20% / 0.6)) fill 1;
+        border-image: linear-gradient(
+                hsl(240 100% 20% / 0.6),
+                hsl(0 100% 20% / 0.6)
+            )
+            fill 1;
         background-size: cover;
         background-repeat: no-repeat;
         background-position: 50% 50%;
         min-block-size: 80vh;
         object-fit: cover;
-        top: -5rem;
+        top: -5.05rem;
         display: grid;
         text-align: center;
         place-content: center;
@@ -53,7 +61,6 @@ main > section:not(:last-child) {
 }
 
 .poem-section-container {
-
     & h2,
     & h3,
     & h4 {
@@ -69,7 +76,7 @@ main > section:not(:last-child) {
         display: none;
     }
 
-    &>p.read-more-link {
+    & > p.read-more-link {
         display: none;
     }
 
@@ -84,7 +91,7 @@ main > section:not(:last-child) {
     max-width: 75ch;
     justify-self: center;
 
-    &>figure {
+    & > figure {
         padding-inline: 1rem;
     }
 
@@ -113,6 +120,8 @@ main > section:not(:last-child) {
     & h2,
     & h3 {
         text-align: center;
+        max-width: 80vw;
+        justify-self: center;
     }
 
     & .work-price {
