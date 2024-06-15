@@ -7,7 +7,7 @@ main > section:not(:last-child) {
 
     & #hero-text-container {
         width: fit-content;
-        padding: 0.75rem;
+        padding: 0.75rem 3rem;
         border: 0.5rem white solid;
         border-radius: 20px;
     }
@@ -148,6 +148,10 @@ footer {
 }
 
 @media (width >=320px) and (width <=768px) {
+    #hero-text-container {
+        padding: 0.75rem;
+    }
+    
     footer {
         width: auto;
     }
