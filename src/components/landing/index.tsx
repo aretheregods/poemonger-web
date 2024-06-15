@@ -34,6 +34,14 @@ export default async function Landing({
         const results: { data: [] } = await res.json()
         return (
             <>
+                <section id="hero">
+                    <div id="hero-img">
+                        <section id="hero-text-container">
+                            <h1 id="hero-title">POEMONGER</h1>
+                            <h2 id="hero-slogan">We Can Save Poetry</h2>
+                        </section>
+                    </div>
+                </section>
                 {results?.data?.map(
                     ({
                         title,

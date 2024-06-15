@@ -72,6 +72,19 @@ body {
     background-color: white;
 }
 
+header:has(+ main > #hero) {
+    background-color: transparent;
+
+    & nav {
+        background-color: transparent;
+        border-bottom: none;
+
+        & .login-link {
+            color: black;
+        }
+    }
+}
+
 nav {
     display: flex;
     justify-content: space-between;
