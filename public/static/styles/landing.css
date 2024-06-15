@@ -39,6 +39,12 @@ main > section:not(:last-child) {
     font-size: xx-large;
 }
 
+#hero-navigate-down {
+    color: white;
+    text-decoration: none;
+    font-size: xx-large;
+}
+
 .poem-section-container {
     display: grid;
     grid-template-columns: 1fr 1fr;
