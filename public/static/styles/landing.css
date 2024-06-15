@@ -212,3 +212,11 @@ footer {
         font-size: 3.5rem !important;
     }
 }
+
+@media only screen and (width <= 400px) {
+    #hero-text-container {
+        padding: unset !important;
+        border: none !important;
+        border-radius: unset !important;
+    }
+}
