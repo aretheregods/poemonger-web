@@ -211,5 +211,6 @@ footer {
     #hero-text-container {
         padding: unset !important;
         border: none !important;
+        border-radius: none !important;
     }
 }
