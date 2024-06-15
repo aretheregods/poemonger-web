@@ -354,10 +354,10 @@ button.add-to-cart[data-added='1']:hover {
 
 .poemonger-scrolling-works {
     display: flex;
-    justify-content: center;
     gap: 3rem;
-    overflow-x: scroll;
+    overflow-x: auto;
     padding-inline: 3rem;
+    margin-inline: 3rem;
 }
 
 .video-poem_trigger {
