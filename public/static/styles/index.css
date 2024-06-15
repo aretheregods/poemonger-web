@@ -53,6 +53,10 @@
     }
 }
 
+html {
+    scroll-behavior: smooth;
+}
+
 body {
     view-transition-name: page;
 

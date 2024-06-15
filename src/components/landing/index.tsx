@@ -39,21 +39,28 @@ export default async function Landing({
                         <section id="hero-text-container">
                             <h1 id="hero-title">POEMONGER</h1>
                             <h2 id="hero-slogan">We Can Save Poetry</h2>
+                            <a id="hero-navigate-down" href="#poem-section-container_0">&nabla;</a>
                         </section>
                     </div>
                 </section>
                 {results?.data?.map(
-                    ({
-                        title,
-                        author,
-                        lines,
-                        video,
-                        sample_length,
-                        sample_section,
-                    }) => {
+                    (
+                        {
+                            title,
+                            author,
+                            lines,
+                            video,
+                            sample_length,
+                            sample_section,
+                        },
+                        index
+                    ) => {
                         return (
                             <>
-                                <section class="poem-section-container">
+                                <section
+                                    id={`poem-section-container_${index}`}
+                                    class="poem-section-container"
+                                >
                                     <Poem
                                         {...{
                                             title,
