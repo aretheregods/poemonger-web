@@ -364,11 +364,13 @@ button.add-to-cart[data-added='1']:hover {
     display: none !important;
 }
 
-@media (width >= 320px) and (width <= 768px) {
+@media (width >=320px) and (width <=768px) {
     .poemonger-scrolling-works {
         display: grid;
         overflow-x: auto;
         padding-inline: unset;
+        min-width: fit-content;
+        margin-inline: auto;
     }
 
     .flexible-buttons {
