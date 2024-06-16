@@ -28,7 +28,7 @@ export default function WorkSample({
                     const { chapter, chapters } = JSON.parse(
                         (work as unknown) as string
                     )
-                    const s = JSON.parse(sections as unknown as string)
+                    const s = JSON.parse((sections as unknown) as string)
                     return (
                         <>
                             <section class="poem-section-container">

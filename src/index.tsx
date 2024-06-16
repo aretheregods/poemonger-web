@@ -24,7 +24,6 @@ import ResetPassword from './components/reset/ResetPassword'
 import Delete from './components/reset'
 import { WorkSample } from './components/read'
 
-
 // utils
 import { countries, locales } from './utils'
 export type Bindings = {
@@ -903,7 +902,7 @@ app.get('/sample/:workId', readerSessions('landing'), async c => {
     if (c.var.currentSession && !c.var.currentSessionError) {
         return c.redirect(`/read/${c.req.param()}`)
     }
-    
+
     const { workId } = c.req.param()
     const chapter = c.req.query('chapter')
     let response: {
