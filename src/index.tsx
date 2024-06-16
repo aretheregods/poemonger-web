@@ -951,6 +951,11 @@ app.get('/sample/:workId', readerSessions('landing'), async c => {
                         src="/static/js/read/readList.js"
                         defer
                     ></script>,
+                    <script
+                        type="module"
+                        src="/static/js/events/poemEvents.js"
+                        defer
+                    ></script>,
                 ]}
             >
                 <WorkSample
