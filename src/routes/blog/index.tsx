@@ -11,6 +11,7 @@ import { countries, locales } from '../../utils'
 
 export type Bindings = {
     POEMONGER_POEMS: D1Database
+    POEMONGER_BLOG: D1Database
     POEMONGER_READER_CARTS: DurableObjectNamespace
     POEMONGER_READER_SESSIONS: DurableObjectNamespace
     USERS_KV: KVNamespace
