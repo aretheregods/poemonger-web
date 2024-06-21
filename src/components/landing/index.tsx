@@ -38,8 +38,13 @@ export default async function Landing({
                     <div id="hero-img">
                         <section id="hero-text-container">
                             <h1 id="hero-title">POEMONGER</h1>
-                            <h2 id="hero-slogan">We Can Save Poetry</h2>
-                            <a id="hero-navigate-down" href="#poem-section-container_0">&nabla;</a>
+                            <h2 id="hero-slogan">Your New Favourite Poetry</h2>
+                            <a
+                                id="hero-navigate-down"
+                                href="#poem-section-container_0"
+                            >
+                                &nabla;
+                            </a>
                         </section>
                     </div>
                 </section>
