@@ -24,6 +24,10 @@ export const Base = ({
         <html>
             <head>
                 <meta
+                    name="description"
+                    content="Find solace, inspiration, and beauty in words. Dive into our collection of poems to ignite your imagination."
+                />
+                <meta
                     content="width=device-width, initial-scale=1"
                     name="viewport"
                 />
